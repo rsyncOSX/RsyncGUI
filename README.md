@@ -37,4 +37,4 @@ The [Changelog](https://rsyncosx.github.io/Changelog).
 
 ### Compile
 
-To compile the code, install Xcode and open the RsyncGUI project file. Before compiling, open in Xcode the `RsyncGUI/General` preference page (after opening the RsyncGUI project file) and replace your own credentials in `Signing`, or disable Signing. There is also a makefile utilized for compiling (`make` or `make release`).
+To compile the code, install Xcode and open the RsyncGUI project file. Before compiling, open in Xcode the `RsyncGUI/General` preference page (after opening the RsyncGUI project file) and replace your own credentials in `Signing`, or disable Signing.
