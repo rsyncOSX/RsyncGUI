@@ -1,0 +1,115 @@
+//
+//  userconfiguration.swift
+//  RsyncGUIver30
+//
+//  Created by Thomas Evensen on 24/08/2016.
+//  Copyright © 2016 Thomas Evensen. All rights reserved.
+//
+// swiftlint:disable line_length cyclomatic_complexity function_body_length
+
+import Foundation
+
+protocol SendSecurityScopedURLtemporaryrestorepath: class {
+    func sendSecurityScopedURLtemporaryrestorepath(dict: NSMutableDictionary)
+}
+
+// Reading userconfiguration from file into RsyncGUI
+final class Userconfiguration {
+
+    weak var rsyncchangedDelegate: RsyncIsChanged?
+    // Sandbox
+    let bookmarksManager: BookmarksManager = BookmarksManager.defaultManager
+    let permissionManager: PermissionManager = PermissionManager(bookmarksManager: BookmarksManager.defaultManager)
+
+    private func SecurityScopedURLtemporaryrestorepath() {
+        if let restorepath = ViewControllerReference.shared.restorePath {
+            weak var SendSecurityScopedURLtemporaryrestorepathDelegate: SendSecurityScopedURLtemporaryrestorepath?
+            SendSecurityScopedURLtemporaryrestorepathDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
+            let SecurityScopedURfileURLlocalCatalog = self.permissionManager.loadSecurityScopedURL(path: restorepath)
+            let fileURLoffsiteCatalog = NSURL(fileURLWithPath: restorepath)
+            let dict: NSMutableDictionary = [
+                "localcatalog": fileURLoffsiteCatalog,
+                "SecurityScoped": SecurityScopedURfileURLlocalCatalog
+            ]
+            SendSecurityScopedURLtemporaryrestorepathDelegate?.sendSecurityScopedURLtemporaryrestorepath(dict: dict)
+        }
+    }
+
+    private func readUserconfiguration(dict: NSDictionary) {
+        // Another version of rsync
+        if let version3rsync = dict.value(forKey: "version3Rsync") as? Int {
+            if version3rsync == 1 {
+                ViewControllerReference.shared.rsyncVer3 = true
+            } else {
+                ViewControllerReference.shared.rsyncVer3 = false
+            }
+        }
+        // Detailed logging
+        if let detailedlogging = dict.value(forKey: "detailedlogging") as? Int {
+            if detailedlogging == 1 {
+                ViewControllerReference.shared.detailedlogging = true
+            } else {
+                ViewControllerReference.shared.detailedlogging = false
+            }
+        }
+        // Optional path for rsync
+        if let rsyncPath = dict.value(forKey: "rsyncPath") as? String {
+            ViewControllerReference.shared.rsyncPath = rsyncPath
+        }
+        // Temporary path for restores single files or directory
+        if let restorePath = dict.value(forKey: "restorePath") as? String {
+            if restorePath.count > 0 {
+                ViewControllerReference.shared.restorePath = restorePath
+                self.SecurityScopedURLtemporaryrestorepath()
+            } else {
+                ViewControllerReference.shared.restorePath = nil
+            }
+        }
+        if let executeinmenuapp = dict.value(forKey: "executeinmenuapp") as? Int {
+            if executeinmenuapp == 1 {
+                ViewControllerReference.shared.executescheduledtasksmenuapp = true
+            } else {
+                ViewControllerReference.shared.executescheduledtasksmenuapp = false
+            }
+        }
+        // Mark tasks
+        if let marknumberofdayssince = dict.value(forKey: "marknumberofdayssince") as? String {
+            if Double(marknumberofdayssince)! > 0 {
+                let oldmarknumberofdayssince = ViewControllerReference.shared.marknumberofdayssince
+                ViewControllerReference.shared.marknumberofdayssince = Double(marknumberofdayssince)!
+                if oldmarknumberofdayssince != ViewControllerReference.shared.marknumberofdayssince {
+                    weak var reloadconfigurationsDelegate: Createandreloadconfigurations?
+                    reloadconfigurationsDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
+                    reloadconfigurationsDelegate?.createandreloadconfigurations()
+                }
+            }
+        }
+        // No logging, minimum logging or full logging
+        if let minimumlogging = dict.value(forKey: "minimumlogging") as? Int {
+            if minimumlogging == 1 {
+                ViewControllerReference.shared.minimumlogging = true
+            } else {
+                ViewControllerReference.shared.minimumlogging = false
+            }
+        }
+        if let fulllogging = dict.value(forKey: "fulllogging") as? Int {
+            if fulllogging == 1 {
+                ViewControllerReference.shared.fulllogging = true
+            } else {
+                ViewControllerReference.shared.fulllogging = false
+            }
+        }
+    }
+
+    init (userconfigRsyncGUI: [NSDictionary]) {
+        if userconfigRsyncGUI.count > 0 {
+            self.readUserconfiguration(dict: userconfigRsyncGUI[0])
+        }
+        // If userconfiguration is read from disk update info in main view
+        self.rsyncchangedDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
+        self.rsyncchangedDelegate?.rsyncischanged()
+        // Check for rsync and set rsync version string in main view
+        Verifyrsyncpath().verifyrsyncpath()
+        _ = RsyncVersionString()
+    }
+}
