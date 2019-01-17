@@ -58,14 +58,25 @@ final class Configurations: ReloadTable, SetSchedules {
         }
     }
 
-    private func securityScopedURLpath(path: String) {
+    private func securityScopedURLpath(path: String, offsite: Bool) {
         let fileURLpath = NSURL(fileURLWithPath: path)
-        self.accessFiles(fileURL: fileURLpath) { success in
-            let dict: NSMutableDictionary = [
-                "localcatalog": fileURLpath,
-                "SecurityScoped": success
-            ]
-            self.SequrityScopedURLs!.append(dict)
+        if offsite {
+            self.accessFiles(fileURL: fileURLpath) { success in
+                let dict: NSMutableDictionary = [
+                    "offsiteCatalog": fileURLpath,
+                    "SecurityScoped": success
+                ]
+                self.SequrityScopedURLs!.append(dict)
+            }
+            
+        } else {
+            self.accessFiles(fileURL: fileURLpath) { success in
+                let dict: NSMutableDictionary = [
+                    "localcatalog": fileURLpath,
+                    "SecurityScoped": success
+                ]
+                self.SequrityScopedURLs!.append(dict)
+            }
         }
     }
 
@@ -449,9 +460,9 @@ final class Configurations: ReloadTable, SetSchedules {
                 data.append(row)
             }
             // Sandbox
-            self.securityScopedURLpath(path: self.configurations![i].localCatalog)
+            self.securityScopedURLpath(path: self.configurations![i].localCatalog, offsite: false)
             if self.configurations![i].offsiteServer.isEmpty == true {
-                self.securityScopedURLpath(path: self.configurations![i].offsiteCatalog)
+                self.securityScopedURLpath(path: self.configurations![i].offsiteCatalog, offsite: true)
             }
             // Sandbox
         }
