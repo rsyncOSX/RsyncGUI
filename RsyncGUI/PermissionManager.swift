@@ -15,13 +15,9 @@ public protocol OpenPanelDelegateType: AnyObject, NSOpenSavePanelDelegate {
 public class PermissionManager {
 
 	public let bookmarksManager: BookmarksManager
-	public var persistBookmarks: Bool = true
 	public lazy var openPanelDelegate: OpenPanelDelegateType = OpenPanelDelegate()
 	public lazy var openPanel: NSOpenPanel = OpenPanelBuilder().openPanel()
-
 	public static let defaultManager: PermissionManager = PermissionManager()
-
-	private let lock: NSLock = NSLock()
 
 	public init(bookmarksManager: BookmarksManager = BookmarksManager()) {
 		self.bookmarksManager = bookmarksManager
@@ -34,22 +30,15 @@ public class PermissionManager {
 	}
 
 	public func askUserForSecurityScopeForFileAtURL(fileURL: NSURL, error: NSErrorPointer = nil) -> NSURL? {
-		if !self.needsPermissionForFileAtURL(fileURL: fileURL, error: error) {
-			return fileURL
-		}
-
+		if !self.needsPermissionForFileAtURL(fileURL: fileURL, error: error) { return fileURL }
 		let openPanel = self.openPanel
-
 		if openPanel.directoryURL == nil {
 			openPanel.directoryURL = fileURL.deletingLastPathComponent
 		}
-
 		let openPanelDelegate = self.openPanelDelegate
 		openPanelDelegate.fileURL = fileURL
 		openPanel.delegate = openPanelDelegate
-
 		var securityScopedURL: NSURL?
-
 		let closure: () -> Void = {
 			NSApplication.shared.activate(ignoringOtherApps: true)
 			if openPanel.runModal().rawValue == NSFileHandlingPanelOKButton {
@@ -57,7 +46,6 @@ public class PermissionManager {
 			}
 			openPanel.delegate = nil
 		}
-
 		if Thread.isMainThread {
 			closure()
 		} else {
@@ -67,11 +55,13 @@ public class PermissionManager {
 	}
 
 	public func accessSecurityScopedFileAtURL(fileURL: NSURL, closure: () -> Void ) -> Bool {
-		var accessible = false
-		accessible = fileURL.startAccessingSecurityScopedResource()
-		closure()
-		fileURL.stopAccessingSecurityScopedResource()
-		return accessible
+		let accessible = fileURL.startAccessingSecurityScopedResource()
+        if accessible {
+            return true
+        } else {
+            closure()
+            return false
+        }
 	}
 
 	public func accessAndIfNeededAskUserForSecurityScopeForFileAtURL(fileURL: NSURL, closure: () -> Void ) throws -> Bool {
@@ -79,13 +69,13 @@ public class PermissionManager {
 			closure()
 			return true
 		}
-		// self.lock.lock()
 		let bookmarkedURL = self.bookmarksManager.loadSecurityScopedURLForFileAtURL(fileURL: fileURL)
 		let securityScopedURL = bookmarkedURL ?? self.askUserForSecurityScopeForFileAtURL(fileURL: fileURL)
-		if (securityScopedURL != nil) && self.persistBookmarks {
+        /*
+		if securityScopedURL != nil {
             try self.bookmarksManager.saveSecurityScopedBookmarkForFileAtURL(securityScopedFileURL: securityScopedURL!)
 		}
-		// self.lock.unlock()
+        */
 		if securityScopedURL != nil {
 			return self.accessSecurityScopedFileAtURL(fileURL: securityScopedURL!, closure: closure)
 		}
