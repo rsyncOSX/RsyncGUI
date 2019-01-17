@@ -40,7 +40,7 @@ class Ssh: Files {
     func createLocalKeysRsa() {
         guard self.rsaPubKeyExist == false else { return }
         self.scpArguments = ScpArgumentsSsh(hiddenID: nil)
-        self.arguments = scpArguments!.getArguments(operation: .createKey, key: "rsa", path: self.rootpath)
+        self.arguments = scpArguments!.getArguments(operation: .createKey, key: "rsa", path: self.realrootpath)
         self.command = self.scpArguments!.getCommand()
         self.executeSshCommand()
     }
@@ -49,7 +49,7 @@ class Ssh: Files {
     func createLocalKeysDsa() {
         guard self.dsaPubKeyExist == false else { return }
         self.scpArguments = ScpArgumentsSsh(hiddenID: nil)
-        self.arguments = scpArguments!.getArguments(operation: .createKey, key: "dsa", path: self.rootpath)
+        self.arguments = scpArguments!.getArguments(operation: .createKey, key: "dsa", path: self.realrootpath)
         self.command = self.scpArguments!.getCommand()
         self.executeSshCommand()
     }
@@ -143,7 +143,7 @@ class Ssh: Files {
     }
 
     init(outputprocess: OutputProcess?) {
-        super.init(root: .sshRoot, configpath: ViewControllerReference.shared.configpath)
+        super.init(root: .realRoot, configpath: ViewControllerReference.shared.configpath)
         self.outputprocess = outputprocess
         self.keyFileURLS = self.getFilesURLs()
         self.keyFileStrings = self.getFileStrings()

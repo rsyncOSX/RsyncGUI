@@ -18,10 +18,6 @@ class ViewControllerUserconfiguration: NSViewController, NewRsync, SetDismisser,
     var oldmarknumberofdayssince: Double?
     var reload: Bool = false
 
-    let bookmarksManager: BookmarksManager = BookmarksManager.defaultManager
-    let permissionManager: PermissionManager = PermissionManager(bookmarksManager: BookmarksManager.defaultManager)
-    typealias Callback = (Bool) -> Void
-
     @IBOutlet weak var rsyncPath: NSTextField!
     @IBOutlet weak var version3rsync: NSButton!
     @IBOutlet weak var detailedlogging: NSButton!
@@ -121,26 +117,11 @@ class ViewControllerUserconfiguration: NSViewController, NewRsync, SetDismisser,
             if rsyncPath.stringValue.hasSuffix("/") == false {
                 rsyncPath.stringValue += "/"
                 ViewControllerReference.shared.rsyncPath = rsyncPath.stringValue
-                // _ = self.permissionManager.loadSecurityScopedURL(path: ViewControllerReference.shared.rsyncPath!)
             }
         } else {
             ViewControllerReference.shared.rsyncPath = nil
         }
         self.setdirty()
-    }
-
-    private func accessFileInHostAppWithSecurityScope(fileURL: NSURL, callback: Callback) {
-        _ = try? self.permissionManager.accessAndIfNeededAskUserForSecurityScopeForFileAtURL(fileURL: fileURL) {
-            let success = FileManager.default.isReadableFile(atPath: fileURL.path!)
-            callback(success)
-        }
-    }
-    
-    private func SecurityScopedURLaddpath(path: String) {
-        let fileURLpath = NSURL(fileURLWithPath: path)
-        self.accessFileInHostAppWithSecurityScope(fileURL: fileURLpath) { success in
-            //
-        }
     }
 
     private func setRestorePath() {
@@ -151,8 +132,11 @@ class ViewControllerUserconfiguration: NSViewController, NewRsync, SetDismisser,
             } else {
                 ViewControllerReference.shared.restorePath = self.restorePath.stringValue
             }
+            /*
             // Sandbox
             _ = self.SecurityScopedURLaddpath(path: ViewControllerReference.shared.restorePath ?? "")
+            // Sandbox
+            */
         } else {
             ViewControllerReference.shared.restorePath = nil
         }
