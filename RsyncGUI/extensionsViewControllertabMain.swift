@@ -699,3 +699,9 @@ extension ViewControllertabMain: ViewOutputDetails {
         return self.dynamicappend
     }
 }
+
+extension ViewControllertabMain: SequrityScopedAddpath {
+    func sequrityscopedaddpath(path: String) {
+        self.configurations!.securityScopedURLpath(path: path, offsite: false)
+    }
+}

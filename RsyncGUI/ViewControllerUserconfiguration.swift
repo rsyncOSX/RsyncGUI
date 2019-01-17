@@ -132,11 +132,9 @@ class ViewControllerUserconfiguration: NSViewController, NewRsync, SetDismisser,
             } else {
                 ViewControllerReference.shared.restorePath = self.restorePath.stringValue
             }
-            /*
-            // Sandbox
-            _ = self.SecurityScopedURLaddpath(path: ViewControllerReference.shared.restorePath ?? "")
-            // Sandbox
-            */
+            weak var sequrityscopedaddpathDelegate: SequrityScopedAddpath?
+            sequrityscopedaddpathDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
+            sequrityscopedaddpathDelegate?.sequrityscopedaddpath(path: ViewControllerReference.shared.restorePath!)
         } else {
             ViewControllerReference.shared.restorePath = nil
         }

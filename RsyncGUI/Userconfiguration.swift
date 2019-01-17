@@ -5,9 +5,13 @@
 //  Created by Thomas Evensen on 24/08/2016.
 //  Copyright © 2016 Thomas Evensen. All rights reserved.
 //
-// swiftlint:disable line_length cyclomatic_complexity
+// swiftlint:disable line_length cyclomatic_complexity function_body_length
 
 import Foundation
+
+protocol SequrityScopedAddpath: class {
+    func sequrityscopedaddpath(path: String)
+}
 
 // Reading userconfiguration from file into RsyncGUI
 final class Userconfiguration {
@@ -40,7 +44,9 @@ final class Userconfiguration {
             if restorePath.count > 0 {
                 ViewControllerReference.shared.restorePath = restorePath
                 // Sandbox
-                // self.SecurityScopedURLtemporaryrestorepath()
+                weak var sequrityscopedaddpathDelegate: SequrityScopedAddpath?
+                sequrityscopedaddpathDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
+                sequrityscopedaddpathDelegate?.sequrityscopedaddpath(path: restorePath)
             } else {
                 ViewControllerReference.shared.restorePath = nil
             }
