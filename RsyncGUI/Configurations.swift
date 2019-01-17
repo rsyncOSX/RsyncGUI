@@ -51,7 +51,7 @@ final class Configurations: ReloadTable, SetSchedules {
     let permissionManager: PermissionManager = PermissionManager(bookmarksManager: BookmarksManager.defaultManager)
     typealias Callback = (Bool) -> ()
 
-    private func accessFileInHostAppWithSecurityScope(fileURL: NSURL, callback: Callback) {
+    private func accessFiles(fileURL: NSURL, callback: Callback) {
         _ = try? self.permissionManager.accessAndIfNeededAskUserForSecurityScopeForFileAtURL(fileURL: fileURL) {
             let success = FileManager.default.isReadableFile(atPath: fileURL.path!)
             callback(success)
@@ -60,15 +60,7 @@ final class Configurations: ReloadTable, SetSchedules {
 
     private func securityScopedURLpath(path: String) {
         let fileURLpath = NSURL(fileURLWithPath: path)
-        guard fileURLpath.startAccessingSecurityScopedResource() == false else {
-            let dict: NSMutableDictionary = [
-                "localcatalog": fileURLpath,
-                "SecurityScoped": true
-            ]
-            self.SequrityScopedURLs!.append(dict)
-            return
-        }
-        self.accessFileInHostAppWithSecurityScope(fileURL: fileURLpath) { success in
+        self.accessFiles(fileURL: fileURLpath) { success in
             let dict: NSMutableDictionary = [
                 "localcatalog": fileURLpath,
                 "SecurityScoped": success
@@ -77,19 +69,10 @@ final class Configurations: ReloadTable, SetSchedules {
         }
     }
 
-
     private func securityScopedURLrootcatalog() {
         let rootcatalog = Files(root: .realRoot, configpath: ViewControllerReference.shared.configpath).realrootpath ?? ""
         let fileURLrootcatalog = NSURL(fileURLWithPath: rootcatalog)
-        guard fileURLrootcatalog.startAccessingSecurityScopedResource() == false else {
-            let dict: NSMutableDictionary = [
-                "localcatalog": fileURLrootcatalog,
-                "SecurityScoped": true
-            ]
-            self.SequrityScopedURLs!.append(dict)
-            return
-        }
-        self.accessFileInHostAppWithSecurityScope(fileURL: fileURLrootcatalog) { success in
+        self.accessFiles(fileURL: fileURLrootcatalog) { success in
             let dict: NSMutableDictionary = [
                 "localcatalog": fileURLrootcatalog,
                 "SecurityScoped": success
@@ -100,17 +83,9 @@ final class Configurations: ReloadTable, SetSchedules {
 
     private func securityScopedURLsshrootcatalog() {
         let rootcatalog = Files(root: .realRoot, configpath: ViewControllerReference.shared.configpath).realrootpath ?? ""
-        let sshrootcatalog = rootcatalog + "/.ssh/"
+        let sshrootcatalog = rootcatalog + "/.ssh"
         let fileURLsshrootcatalog = NSURL(fileURLWithPath: sshrootcatalog)
-        guard fileURLsshrootcatalog.startAccessingSecurityScopedResource() == false else {
-            let dict: NSMutableDictionary = [
-                "localcatalog": fileURLsshrootcatalog,
-                "SecurityScoped": true
-            ]
-            self.SequrityScopedURLs!.append(dict)
-            return
-        }
-        self.accessFileInHostAppWithSecurityScope(fileURL: fileURLsshrootcatalog) { success in
+        self.accessFiles(fileURL: fileURLsshrootcatalog) { success in
             let dict: NSMutableDictionary = [
                 "localcatalog": fileURLsshrootcatalog,
                 "SecurityScoped": success
