@@ -51,7 +51,7 @@ final class Configurations: ReloadTable, SetSchedules {
     let bookmarksManager: BookmarksManager = BookmarksManager.defaultManager
     let permissionManager: PermissionManager = PermissionManager(bookmarksManager: BookmarksManager.defaultManager)
     typealias Callback = (Bool) -> ()
-    
+
     private func accessFileInHostAppWithSecurityScope(fileURL: NSURL, callback: Callback) {
         _ = try? self.permissionManager.accessAndIfNeededAskUserForSecurityScopeForFileAtURL(fileURL: fileURL) {
             let success = FileManager.default.isReadableFile(atPath: fileURL.path!)
@@ -59,12 +59,61 @@ final class Configurations: ReloadTable, SetSchedules {
         }
     }
 
-    private func SecurityScopedURLrootcatalog() {
-        let rootcatalog = Files(root: .realRoot, configpath: ViewControllerReference.shared.configpath).realrootpath
-        let fileURLrootcatalog = NSURL(fileURLWithPath: rootcatalog!)
+    private func securityScopedURLpath(path: String) {
+        let fileURLpath = NSURL(fileURLWithPath: path)
+        guard fileURLpath.startAccessingSecurityScopedResource() == false else {
+            let dict: NSMutableDictionary = [
+                "localcatalog": fileURLpath,
+                "SecurityScoped": true
+            ]
+            self.SequrityScopedURLs!.append(dict)
+            return
+        }
+        self.accessFileInHostAppWithSecurityScope(fileURL: fileURLpath) { success in
+            let dict: NSMutableDictionary = [
+                "localcatalog": fileURLpath,
+                "SecurityScoped": success
+            ]
+            self.SequrityScopedURLs!.append(dict)
+        }
+    }
+
+
+    private func securityScopedURLrootcatalog() {
+        let rootcatalog = Files(root: .realRoot, configpath: ViewControllerReference.shared.configpath).realrootpath ?? ""
+        let fileURLrootcatalog = NSURL(fileURLWithPath: rootcatalog)
+        guard fileURLrootcatalog.startAccessingSecurityScopedResource() == false else {
+            let dict: NSMutableDictionary = [
+                "localcatalog": fileURLrootcatalog,
+                "SecurityScoped": true
+            ]
+            self.SequrityScopedURLs!.append(dict)
+            return
+        }
         self.accessFileInHostAppWithSecurityScope(fileURL: fileURLrootcatalog) { success in
             let dict: NSMutableDictionary = [
                 "localcatalog": fileURLrootcatalog,
+                "SecurityScoped": success
+            ]
+            self.SequrityScopedURLs!.append(dict)
+        }
+    }
+
+    private func securityScopedURLsshrootcatalog() {
+        let rootcatalog = Files(root: .realRoot, configpath: ViewControllerReference.shared.configpath).realrootpath ?? ""
+        let sshrootcatalog = rootcatalog + "/.ssh/"
+        let fileURLsshrootcatalog = NSURL(fileURLWithPath: sshrootcatalog)
+        guard fileURLsshrootcatalog.startAccessingSecurityScopedResource() == false else {
+            let dict: NSMutableDictionary = [
+                "localcatalog": fileURLsshrootcatalog,
+                "SecurityScoped": true
+            ]
+            self.SequrityScopedURLs!.append(dict)
+            return
+        }
+        self.accessFileInHostAppWithSecurityScope(fileURL: fileURLsshrootcatalog) { success in
+            let dict: NSMutableDictionary = [
+                "localcatalog": fileURLsshrootcatalog,
                 "SecurityScoped": success
             ]
             self.SequrityScopedURLs!.append(dict)
@@ -386,29 +435,6 @@ final class Configurations: ReloadTable, SetSchedules {
         self.configurations![index].snapshotnum  = num + 1
     }
 
-    private func SecurityScopedURLcatalogs(config: Configuration) {
-        let fileURLlocalCatalog = NSURL(fileURLWithPath: config.localCatalog)
-        if self.permissionManager.needsPermissionForFileAtURL(fileURL: fileURLlocalCatalog) {
-            fileURLlocalCatalog.startAccessingSecurityScopedResource()
-        }
-        let dict: NSMutableDictionary = [
-            "localcatalog": fileURLlocalCatalog,
-            "SecurityScoped": true
-        ]
-        self.SequrityScopedURLs!.append(dict)
-        if config.offsiteServer.isEmpty == true {
-            let fileURLoffsiteCatalog = NSURL(fileURLWithPath: config.offsiteCatalog)
-            if self.permissionManager.needsPermissionForFileAtURL(fileURL: fileURLoffsiteCatalog) {
-                fileURLoffsiteCatalog.startAccessingSecurityScopedResource()
-            }
-            let dict: NSMutableDictionary = [
-                "localcatalog": fileURLlocalCatalog,
-                "SecurityScoped": true
-            ]
-            self.SequrityScopedURLs!.append(dict)
-        }
-    }
-
     /// Function is reading all Configurations into memory from permanent store and
     /// prepare all arguments for rsync. All configurations are stored in the private
     /// variable within object.
@@ -425,7 +451,6 @@ final class Configurations: ReloadTable, SetSchedules {
             self.argumentAllConfigurations!.append(rsyncArgumentsOneConfig)
         }
         // Then prepare the datasource for use in tableviews as Dictionarys
-        //var row =  NSMutableDictionary()
         var data = [NSMutableDictionary]()
         self.configurationsDataSource = nil
         var batch: Int = 0
@@ -450,15 +475,21 @@ final class Configurations: ReloadTable, SetSchedules {
                 data.append(row)
             }
             // Sandbox
-            self.SecurityScopedURLcatalogs(config: self.configurations![i])
+            self.securityScopedURLpath(path: self.configurations![i].localCatalog)
+            if self.configurations![i].offsiteServer.isEmpty == true {
+                self.securityScopedURLpath(path: self.configurations![i].offsiteCatalog)
+            }
             // Sandbox
         }
         self.configurationsDataSource = data
     }
 
     init(profile: String?, viewcontroller: NSViewController) {
+        // Sandbox
         self.SequrityScopedURLs = [NSDictionary]()
-        self.SecurityScopedURLrootcatalog()
+        self.securityScopedURLrootcatalog()
+        self.securityScopedURLsshrootcatalog()
+        // Sandbox
         self.configurations = nil
         self.argumentAllConfigurations = nil
         self.configurationsDataSource = nil
