@@ -71,6 +71,7 @@ class Files: Reportfileerror {
     var root: Root?
     var realrootpath: String?
     var sandboxedroot: String?
+    var sshrealrootpath: String?
     private var configpath: String?
     var userHomeDirectoryPath: String {
         let pw = getpwuid(getuid())
@@ -88,6 +89,7 @@ class Files: Reportfileerror {
             self.realrootpath = profilePath
         case .realRoot:
             self.realrootpath = self.userHomeDirectoryPath
+            self.sshrealrootpath = self.userHomeDirectoryPath + "/.ssh/"
         case .sandboxedRoot:
              self.sandboxedroot = NSHomeDirectory()
         }
@@ -114,9 +116,9 @@ class Files: Reportfileerror {
     }
 
     // Function for returning files in path as array of Strings
-    func getFileStrings() -> [String]? {
+    func getsshcatalogsfilestrings() -> [String]? {
         var array: [String]?
-        if let filePath = self.realrootpath {
+        if let filePath = self.sshrealrootpath {
             let fileManager = FileManager.default
             var isDir: ObjCBool = false
             if fileManager.fileExists(atPath: filePath, isDirectory: &isDir) {
