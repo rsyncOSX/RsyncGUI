@@ -48,7 +48,6 @@ final class Configurations: ReloadTable, SetSchedules {
     var SequrityScopedURLs: [NSDictionary]?
 
     // Sandbox
-    let bookmarksManager: BookmarksManager = BookmarksManager.defaultManager
     let permissionManager: PermissionManager = PermissionManager(bookmarksManager: BookmarksManager.defaultManager)
     typealias Callback = (Bool) -> ()
 
