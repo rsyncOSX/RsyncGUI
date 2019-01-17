@@ -71,11 +71,6 @@ public class PermissionManager {
 		}
 		let bookmarkedURL = self.bookmarksManager.loadSecurityScopedURLForFileAtURL(fileURL: fileURL)
 		let securityScopedURL = bookmarkedURL ?? self.askUserForSecurityScopeForFileAtURL(fileURL: fileURL)
-        /*
-		if securityScopedURL != nil {
-            try self.bookmarksManager.saveSecurityScopedBookmarkForFileAtURL(securityScopedFileURL: securityScopedURL!)
-		}
-        */
 		if securityScopedURL != nil {
 			return self.accessSecurityScopedFileAtURL(fileURL: securityScopedURL!, closure: closure)
 		}

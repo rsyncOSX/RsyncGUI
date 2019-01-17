@@ -108,7 +108,6 @@
 		E97E3BA71F6256DB00411D0E /* Configurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97E3BA61F6256DB00411D0E /* Configurations.swift */; };
 		E982BA2820CEB59F00E71918 /* RestoreTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E982BA2720CEB59F00E71918 /* RestoreTask.swift */; };
 		E98997F321E265F300B5D5A3 /* OpenPanelBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98997EE21E265F200B5D5A3 /* OpenPanelBuilder.swift */; };
-		E98997F421E265F300B5D5A3 /* NSURL+CommonURLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98997EF21E265F200B5D5A3 /* NSURL+CommonURLs.swift */; };
 		E98997F521E265F300B5D5A3 /* PermissionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98997F021E265F300B5D5A3 /* PermissionManager.swift */; };
 		E98997F621E265F300B5D5A3 /* OpenPanelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98997F121E265F300B5D5A3 /* OpenPanelDelegate.swift */; };
 		E98997F721E265F300B5D5A3 /* BookmarksManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98997F221E265F300B5D5A3 /* BookmarksManager.swift */; };
@@ -239,7 +238,6 @@
 		E97E3BA61F6256DB00411D0E /* Configurations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configurations.swift; sourceTree = "<group>"; };
 		E982BA2720CEB59F00E71918 /* RestoreTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreTask.swift; sourceTree = "<group>"; };
 		E98997EE21E265F200B5D5A3 /* OpenPanelBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenPanelBuilder.swift; sourceTree = "<group>"; };
-		E98997EF21E265F200B5D5A3 /* NSURL+CommonURLs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSURL+CommonURLs.swift"; sourceTree = "<group>"; };
 		E98997F021E265F300B5D5A3 /* PermissionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PermissionManager.swift; sourceTree = "<group>"; };
 		E98997F121E265F300B5D5A3 /* OpenPanelDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenPanelDelegate.swift; sourceTree = "<group>"; };
 		E98997F221E265F300B5D5A3 /* BookmarksManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarksManager.swift; sourceTree = "<group>"; };
@@ -574,7 +572,6 @@
 			isa = PBXGroup;
 			children = (
 				E98997F221E265F300B5D5A3 /* BookmarksManager.swift */,
-				E98997EF21E265F200B5D5A3 /* NSURL+CommonURLs.swift */,
 				E98997EE21E265F200B5D5A3 /* OpenPanelBuilder.swift */,
 				E98997F121E265F300B5D5A3 /* OpenPanelDelegate.swift */,
 				E98997F021E265F300B5D5A3 /* PermissionManager.swift */,
@@ -771,7 +768,6 @@
 				E942FF291FED41D0004191B5 /* ViewControllerQuickBackup.swift in Sources */,
 				E9231AFB1F6E3D270055000C /* NewConfigurations.swift in Sources */,
 				E9609EF51F229F5900F5BFAA /* PersistentStorageConfiguration.swift in Sources */,
-				E98997F421E265F300B5D5A3 /* NSURL+CommonURLs.swift in Sources */,
 				A0041EEF1D7D4357002BF081 /* ScheduleSortedAndExpanded.swift in Sources */,
 				E9A8D81C1ED20AEB009648DE /* GetRemoteFileListingsArguments.swift in Sources */,
 				E94D6E3221A5BBA400DDDB61 /* QuickbackupDispatch.swift in Sources */,
