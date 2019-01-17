@@ -40,7 +40,7 @@ class Ssh: Files {
     func createLocalKeysRsa() {
         guard self.rsaPubKeyExist == false else { return }
         self.scpArguments = ScpArgumentsSsh(hiddenID: nil)
-        self.arguments = scpArguments!.getArguments(operation: .createKey, key: "rsa", path: self.realrootpath)
+        self.arguments = scpArguments!.getArguments(operation: .createKey, key: "rsa", path: self.sshrealrootpath)
         self.command = self.scpArguments!.getCommand()
         self.executeSshCommand()
     }
@@ -49,7 +49,7 @@ class Ssh: Files {
     func createLocalKeysDsa() {
         guard self.dsaPubKeyExist == false else { return }
         self.scpArguments = ScpArgumentsSsh(hiddenID: nil)
-        self.arguments = scpArguments!.getArguments(operation: .createKey, key: "dsa", path: self.realrootpath)
+        self.arguments = scpArguments!.getArguments(operation: .createKey, key: "dsa", path: self.sshrealrootpath)
         self.command = self.scpArguments!.getCommand()
         self.executeSshCommand()
     }
