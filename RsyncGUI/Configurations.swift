@@ -49,7 +49,7 @@ final class Configurations: ReloadTable, SetSchedules {
 
     // Sandbox
     let permissionManager: PermissionManager = PermissionManager(bookmarksManager: BookmarksManager.defaultManager)
-    typealias Callback = (Bool) -> ()
+    typealias Callback = (Bool) -> Void
 
     private func accessFiles(fileURL: NSURL, callback: Callback) {
         _ = try? self.permissionManager.accessAndIfNeededAskUserForSecurityScopeForFileAtURL(fileURL: fileURL) {
@@ -58,7 +58,7 @@ final class Configurations: ReloadTable, SetSchedules {
         }
     }
 
-    private func securityScopedURLpath(path: String, offsite: Bool) {
+    func securityScopedURLpath(path: String, offsite: Bool) {
         let fileURLpath = NSURL(fileURLWithPath: path)
         if offsite {
             self.accessFiles(fileURL: fileURLpath) { success in
@@ -68,7 +68,6 @@ final class Configurations: ReloadTable, SetSchedules {
                 ]
                 self.SequrityScopedURLs!.append(dict)
             }
-            
         } else {
             self.accessFiles(fileURL: fileURLpath) { success in
                 let dict: NSMutableDictionary = [
