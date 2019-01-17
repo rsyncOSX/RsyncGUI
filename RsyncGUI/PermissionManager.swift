@@ -79,50 +79,16 @@ public class PermissionManager {
 			closure()
 			return true
 		}
-		self.lock.lock()
+		// self.lock.lock()
 		let bookmarkedURL = self.bookmarksManager.loadSecurityScopedURLForFileAtURL(fileURL: fileURL)
 		let securityScopedURL = bookmarkedURL ?? self.askUserForSecurityScopeForFileAtURL(fileURL: fileURL)
 		if (securityScopedURL != nil) && self.persistBookmarks {
             try self.bookmarksManager.saveSecurityScopedBookmarkForFileAtURL(securityScopedFileURL: securityScopedURL!)
 		}
-		self.lock.unlock()
+		// self.lock.unlock()
 		if securityScopedURL != nil {
 			return self.accessSecurityScopedFileAtURL(fileURL: securityScopedURL!, closure: closure)
 		}
 		return false
 	}
-
-// Sandbox additions
-
-    public func addSecurityScopeForFileAtURL(fileURL: NSURL, closure: () -> Void ) throws -> Bool {
-        if self.needsPermissionForFileAtURL(fileURL: fileURL) == false { return true }
-        self.lock.lock()
-        let bookmarkedURL = self.bookmarksManager.loadSecurityScopedURLForFileAtURL(fileURL: fileURL)
-        let securityScopedURL = bookmarkedURL ?? self.askUserForSecurityScopeForFileAtURL(fileURL: fileURL)
-        if (securityScopedURL != nil) && self.persistBookmarks {
-            try self.bookmarksManager.saveSecurityScopedBookmarkForFileAtURL(securityScopedFileURL: securityScopedURL!)
-        }
-        self.lock.unlock()
-        if securityScopedURL != nil {
-            return self.accessSecurityScopedFileAtURL(fileURL: securityScopedURL!, closure: closure)
-        }
-        return false
-    }
-
-    public func loadSecurityScopedURL(path: String) -> Bool {
-        if FileManager.default.isReadableFile(atPath: path) == false {
-            let fileNSURL = bookmarksManager.loadSecurityScopedURLForFileAtURL(fileURL: NSURL(fileURLWithPath: path))
-            // If not loaded add it
-            guard fileNSURL != nil else {
-                let fileURL = NSURL(fileURLWithPath: path)
-                _ = try? self.addSecurityScopeForFileAtURL(fileURL: fileURL) {
-                    return FileManager.default.isReadableFile(atPath: fileURL.path!)
-                }
-                return false
-            }
-            return fileNSURL!.startAccessingSecurityScopedResource()
-        } else {
-            return true
-        }
-    }
 }

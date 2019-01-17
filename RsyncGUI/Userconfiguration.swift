@@ -20,18 +20,28 @@ final class Userconfiguration {
     // Sandbox
     let bookmarksManager: BookmarksManager = BookmarksManager.defaultManager
     let permissionManager: PermissionManager = PermissionManager(bookmarksManager: BookmarksManager.defaultManager)
+    typealias Callback = (Bool) -> ()
+
+    private func accessFileInHostAppWithSecurityScope(fileURL: NSURL, callback: Callback) {
+        _ = try? self.permissionManager.accessAndIfNeededAskUserForSecurityScopeForFileAtURL(fileURL: fileURL) {
+            let success = FileManager.default.isReadableFile(atPath: fileURL.path!)
+            callback(success)
+        }
+    }
 
     private func SecurityScopedURLtemporaryrestorepath() {
         if let restorepath = ViewControllerReference.shared.restorePath {
             weak var SendSecurityScopedURLtemporaryrestorepathDelegate: SendSecurityScopedURLtemporaryrestorepath?
             SendSecurityScopedURLtemporaryrestorepathDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
-            let SecurityScopedURfileURLlocalCatalog = self.permissionManager.loadSecurityScopedURL(path: restorepath)
-            let fileURLoffsiteCatalog = NSURL(fileURLWithPath: restorepath)
-            let dict: NSMutableDictionary = [
-                "localcatalog": fileURLoffsiteCatalog,
-                "SecurityScoped": SecurityScopedURfileURLlocalCatalog
-            ]
-            SendSecurityScopedURLtemporaryrestorepathDelegate?.sendSecurityScopedURLtemporaryrestorepath(dict: dict)
+            
+            let SecurityScopedURfileURLlocalCatalog = NSURL(fileURLWithPath: restorepath)
+            self.accessFileInHostAppWithSecurityScope(fileURL: SecurityScopedURfileURLlocalCatalog) { success in
+                let dict: NSMutableDictionary = [
+                    "localcatalog": SecurityScopedURfileURLlocalCatalog,
+                    "SecurityScoped": success
+                ]
+                SendSecurityScopedURLtemporaryrestorepathDelegate?.sendSecurityScopedURLtemporaryrestorepath(dict: dict)
+            }
         }
     }
 

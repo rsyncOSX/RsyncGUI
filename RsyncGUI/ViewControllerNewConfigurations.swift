@@ -195,11 +195,25 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, VcSc
         updatecurrent.executeProcess(outputprocess: outputprocess)
     }
 
+    private func accessFileInHostAppWithSecurityScope(fileURL: NSURL, callback: Callback) {
+        _ = try? self.permissionManager.accessAndIfNeededAskUserForSecurityScopeForFileAtURL(fileURL: fileURL) {
+            let success = FileManager.default.isReadableFile(atPath: fileURL.path!)
+            callback(success)
+        }
+    }
+
+    private func SecurityScopedURLaddpath(path: String) {
+        let fileURLpath = NSURL(fileURLWithPath: path)
+        self.accessFileInHostAppWithSecurityScope(fileURL: fileURLpath) { success in
+            //
+        }
+    }
+
     @IBAction func addConfig(_ sender: NSButton) {
         // Sandbox
-        _ = self.permissionManager.loadSecurityScopedURL(path: localCatalog.stringValue)
+        _ = self.SecurityScopedURLaddpath(path: localCatalog.stringValue)
         if self.offsiteServer.stringValue.count == 0 {
-            _ = self.permissionManager.loadSecurityScopedURL(path: offsiteCatalog.stringValue)
+            _ = self.SecurityScopedURLaddpath(path: offsiteCatalog.stringValue)
         }
         // Sandbox
         let dict: NSMutableDictionary = [
