@@ -8,6 +8,8 @@ Rsync is a file-based synchronization and backup tool. There is no custom soluti
 
 This version will be released on Apple´s Mac App Store as version 1.0.0 of `RsyncGUI`.
 
+**Caution**: there are still **some issues** with the sandbox part of RsynGUI - the app is in process of getting accepted by Apple App Store  
+
 ### Apple App Sandboxing technology
 
 Apple has the [App Sandboxing technology](https://developer.apple.com/app-sandboxing/) for protecting the user for malicious software. To release a macOS app on Apple Mac App Store require the app to execute inside a sandbox. This repository is a fork of RsyncOSX to enable RsyncGUI to execute inside a sandbox to be released on the Mac App Store. The name of the app is due to Apple naming conventions for apps released on the Mac App Store.
@@ -18,7 +20,7 @@ Much of the work on sandbox is based upon [Sandbox code](https://github.com/rege
 
 **Caution** about RsyncGUI and the `--delete` parameter. The `--delete` is a [default parameter](https://rsyncosx.github.io/RsyncParameters). The parameter instructs rsync to **delete** all files in the destination which are not present in the source. Every time you add a new task to RsyncGUI, execute an estimation run (`--dry-run` parameter) and inspect the result before executing a real run. If you by accident set an empty catalog as source RsyncGUI will delete all files in the destination. To save deleted and changes files utilize the `--backup` [feature](https://rsyncosx.github.io/Parameters).
 
-The [snapshot](https://rsyncosx.github.io/Snapshots) feature is not available in this version. If you want the snapshot feature please use RsyncOSX. 
+The [snapshot](https://rsyncosx.github.io/Snapshots) feature is not available in this version. If you want the snapshot feature please use RsyncOSX.
 
 ### Main view
 
