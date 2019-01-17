@@ -699,10 +699,3 @@ extension ViewControllertabMain: ViewOutputDetails {
         return self.dynamicappend
     }
 }
-
-extension ViewControllertabMain: SendSecurityScopedURLtemporaryrestorepath {
-    func sendSecurityScopedURLtemporaryrestorepath(dict: NSMutableDictionary) {
-        guard self.configurations != nil else { return }
-        self.configurations!.SequrityScopedURLs?.append(dict)
-    }
-}

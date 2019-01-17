@@ -5,45 +5,14 @@
 //  Created by Thomas Evensen on 24/08/2016.
 //  Copyright © 2016 Thomas Evensen. All rights reserved.
 //
-// swiftlint:disable line_length cyclomatic_complexity function_body_length
+// swiftlint:disable line_length cyclomatic_complexity
 
 import Foundation
-
-protocol SendSecurityScopedURLtemporaryrestorepath: class {
-    func sendSecurityScopedURLtemporaryrestorepath(dict: NSMutableDictionary)
-}
 
 // Reading userconfiguration from file into RsyncGUI
 final class Userconfiguration {
 
     weak var rsyncchangedDelegate: RsyncIsChanged?
-    // Sandbox
-    let bookmarksManager: BookmarksManager = BookmarksManager.defaultManager
-    let permissionManager: PermissionManager = PermissionManager(bookmarksManager: BookmarksManager.defaultManager)
-    typealias Callback = (Bool) -> ()
-
-    private func accessFileInHostAppWithSecurityScope(fileURL: NSURL, callback: Callback) {
-        _ = try? self.permissionManager.accessAndIfNeededAskUserForSecurityScopeForFileAtURL(fileURL: fileURL) {
-            let success = FileManager.default.isReadableFile(atPath: fileURL.path!)
-            callback(success)
-        }
-    }
-
-    private func SecurityScopedURLtemporaryrestorepath() {
-        if let restorepath = ViewControllerReference.shared.restorePath {
-            weak var SendSecurityScopedURLtemporaryrestorepathDelegate: SendSecurityScopedURLtemporaryrestorepath?
-            SendSecurityScopedURLtemporaryrestorepathDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
-            
-            let SecurityScopedURfileURLlocalCatalog = NSURL(fileURLWithPath: restorepath)
-            self.accessFileInHostAppWithSecurityScope(fileURL: SecurityScopedURfileURLlocalCatalog) { success in
-                let dict: NSMutableDictionary = [
-                    "localcatalog": SecurityScopedURfileURLlocalCatalog,
-                    "SecurityScoped": success
-                ]
-                SendSecurityScopedURLtemporaryrestorepathDelegate?.sendSecurityScopedURLtemporaryrestorepath(dict: dict)
-            }
-        }
-    }
 
     private func readUserconfiguration(dict: NSDictionary) {
         // Another version of rsync
@@ -70,7 +39,8 @@ final class Userconfiguration {
         if let restorePath = dict.value(forKey: "restorePath") as? String {
             if restorePath.count > 0 {
                 ViewControllerReference.shared.restorePath = restorePath
-                self.SecurityScopedURLtemporaryrestorepath()
+                // Sandbox
+                // self.SecurityScopedURLtemporaryrestorepath()
             } else {
                 ViewControllerReference.shared.restorePath = nil
             }
