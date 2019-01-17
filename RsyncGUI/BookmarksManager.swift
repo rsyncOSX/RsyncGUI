@@ -12,7 +12,7 @@ import Foundation
 public class BookmarksManager {
 	public let userDefaults: UserDefaults
 	public static let defaultManager: BookmarksManager = BookmarksManager()
-	private static let userDefaultsBookmarksKey = "no.blogspot.RsyncGUI"
+	private static let userDefaultsBookmarksKey = "no.blogspot.rsyncgui"
 	private var securityScopedBookmarksByFilePath: [String: NSData] {
 		get {
             let bookmarksByFilePath = self.userDefaults.dictionary(forKey: BookmarksManager.userDefaultsBookmarksKey) as? [String: NSData]
