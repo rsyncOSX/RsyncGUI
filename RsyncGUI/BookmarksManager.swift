@@ -66,4 +66,24 @@ public class BookmarksManager {
 			return nil
 		}
 	}
+
+    public func securityScopedBookmarkForFileAtURL(fileURL: NSURL) throws -> NSData? {
+        let resolvesFileURL = fileURL.standardizingPath?.resolvingSymlinksInPath()
+        let bookmark = try resolvesFileURL?.bookmarkData(options: NSURL.BookmarkCreationOptions.withSecurityScope, includingResourceValuesForKeys: nil, relativeTo: nil)
+        return bookmark as NSData?
+    }
+
+    public func saveSecurityScopedBookmarkForFileAtURL(securityScopedFileURL: NSURL, error: NSErrorPointer = nil) throws {
+        if let bookmark = try self.securityScopedBookmarkForFileAtURL(fileURL: securityScopedFileURL) {
+            return try self.saveSecurityScopedBookmark(securityScopedBookmark: bookmark)
+        }
+    }
+
+    public func saveSecurityScopedBookmark(securityScopedBookmark: NSData) throws {
+        if let fileURL = try self.fileURLFromSecurityScopedBookmark(bookmark: securityScopedBookmark) {
+            var securityScopedBookmarksByFilePath = self.securityScopedBookmarksByFilePath
+            securityScopedBookmarksByFilePath[fileURL.path!] = securityScopedBookmark
+            self.securityScopedBookmarksByFilePath = securityScopedBookmarksByFilePath
+        }
+    }
 }

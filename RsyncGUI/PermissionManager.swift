@@ -51,6 +51,7 @@ public class PermissionManager {
 		} else {
             DispatchQueue.main.sync(execute: closure)
 		}
+        _ = try? self.bookmarksManager.saveSecurityScopedBookmarkForFileAtURL(securityScopedFileURL: securityScopedURL!)
 		return securityScopedURL
 	}
 
