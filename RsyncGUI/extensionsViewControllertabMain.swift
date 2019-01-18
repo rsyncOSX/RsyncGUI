@@ -705,3 +705,9 @@ extension ViewControllertabMain: SequrityScopedAddpath {
         self.configurations!.securityScopedURLpath(path: path, offsite: false)
     }
 }
+
+extension ViewControllertabMain: ResetSequirityScopedURL {
+    func resetsequirityscopedurl() {
+        self.configurations!.resetsequrityscopedurl()
+    }
+}

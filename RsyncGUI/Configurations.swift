@@ -104,6 +104,10 @@ final class Configurations: ReloadTable, SetSchedules {
         }
     }
 
+    func resetsequrityscopedurl() {
+        self.permissionManager.bookmarksManager.clearSecurityScopedBookmarks()
+    }
+
     /// Function for getting the profile
     func getProfile() -> String? {
         return self.profile
