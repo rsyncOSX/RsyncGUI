@@ -10,6 +10,10 @@
 import Foundation
 import Cocoa
 
+protocol ResetSequirityScopedURL: class {
+    func resetsequirityscopedurl()
+}
+
 class ViewControllerSsh: NSViewController, SetConfigurations {
 
     var sshcmd: Ssh?
@@ -38,6 +42,12 @@ class ViewControllerSsh: NSViewController, SetConfigurations {
         return (self.storyboard!.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "CopyFilesID"))
             as? NSViewController)!
     }()
+
+    @IBAction func resetsequrityscoped(_ sender: NSButton) {
+        weak var resetsequrityscopedDelegate: ResetSequirityScopedURL?
+        resetsequrityscopedDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
+        resetsequrityscopedDelegate?.resetsequirityscopedurl()
+    }
 
     @IBAction func terminalApp(_ sender: NSButton) {
         guard self.sshcmd != nil else {

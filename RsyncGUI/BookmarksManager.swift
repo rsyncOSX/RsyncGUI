@@ -31,6 +31,10 @@ public class BookmarksManager {
 		self.userDefaults = userDefaults
 	}
 
+    public func clearSecurityScopedBookmarks() {
+        self.securityScopedBookmarksByFilePath = [:]
+    }
+
 	public func fileURLFromSecurityScopedBookmark(bookmark: NSData) throws -> NSURL? {
 		let options: NSURL.BookmarkResolutionOptions = [.withSecurityScope, .withoutUI]
 		var stale: ObjCBool = false
