@@ -44,9 +44,12 @@ class ViewControllerSsh: NSViewController, SetConfigurations {
     }()
 
     @IBAction func resetsequrityscoped(_ sender: NSButton) {
-        weak var resetsequrityscopedDelegate: ResetSequirityScopedURL?
-        resetsequrityscopedDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
-        resetsequrityscopedDelegate?.resetsequirityscopedurl()
+        let answer = Alerts.dialogOKCancel("You are about to reset RsynGUI access to your files", text: "Please close and start RsyncGUI again")
+        if answer {
+            weak var resetsequrityscopedDelegate: ResetSequirityScopedURL?
+            resetsequrityscopedDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
+            resetsequrityscopedDelegate?.resetsequirityscopedurl()
+        }
     }
 
     @IBAction func terminalApp(_ sender: NSButton) {
