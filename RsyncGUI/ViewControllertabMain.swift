@@ -459,8 +459,8 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, De
 
     // Function for setting profile
     func displayProfile() {
-        weak var localprofileinfo: SetProfileinfo?
-        weak var localprofileinfo2: SetProfileinfo?
+        weak var localprofileinfomain: SetProfileinfo?
+        weak var localprofileinfoadd: SetProfileinfo?
         guard self.loadProfileMenu == true else {
             self.profilInfo.stringValue = "Profile: please wait..."
             self.profilInfo.textColor = .blue
@@ -473,8 +473,9 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, De
             self.profilInfo.stringValue = "Profile: default"
             self.profilInfo.textColor = .black
         }
-        localprofileinfo2 = ViewControllerReference.shared.getvcref(viewcontroller: .vcnewconfigurations ) as? ViewControllerNewConfigurations
-        localprofileinfo?.setprofile(profile: self.profilInfo.stringValue, color: self.profilInfo.textColor!)
+        localprofileinfoadd = ViewControllerReference.shared.getvcref(viewcontroller: .vcnewconfigurations ) as? ViewControllerNewConfigurations
+        localprofileinfomain?.setprofile(profile: self.profilInfo.stringValue, color: self.profilInfo.textColor!)
+        localprofileinfoadd?.setprofile(profile: self.profilInfo.stringValue, color: self.profilInfo.textColor!)
         self.TCPButton.isEnabled = true
         self.showrsynccommandmainview()
     }
