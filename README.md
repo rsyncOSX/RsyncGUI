@@ -2,11 +2,11 @@
 
 ![](icon/rsyncosx.png)
 
-This repository is the source code for the macOS app RsyncGUI. RsyncGUI is a sandboxed macOS app compiled with support for macOS Sierra version 10.12 - macOS Mojave version 10.14. The application is implemented in Swift 4 by using Xcode 10. RsyncGUI is not depended upon any third party binary distributions. There is, however, one third party source code included to check for TCP connections. The check is for informal use only and can be removed.
+This repository is the source code for the macOS app RsyncGUI. RsyncGUI is a sandboxed macOS app compiled with support for macOS El Capitan version 10.11 - macOS Mojave version 10.14. The application is implemented in Swift 4 by using Xcode 10. RsyncGUI is not depended upon any third party binary distributions. There is, however, one third party source code included to check for TCP connections. The check is for informal use only and can be removed.
 
 Rsync is a file-based synchronization and backup tool. There is no custom solution for the backup archive. You can quit utilizing RsyncGUI (and rsync) at any time and still have access to all synchronized files.
 
-This version will be released on Apple´s Mac App Store as version 1.0.0 of `RsyncGUI`.
+This version will be **released** on Apple Mac App Store as version 1.0.0 of `RsyncGUI`.
 
 **Caution**: there are still **some issues** with the sandbox part of RsynGUI - the app is in process of getting accepted by Apple App Store  
 
