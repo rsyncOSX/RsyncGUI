@@ -15,6 +15,12 @@ public class OpenPanelBuilder {
 	public let title: String
 	public let message: String
 	public let prompt: String
+    var userHomeDirectoryPath: URL {
+        let pw = getpwuid(getuid())
+        let home = pw?.pointee.pw_dir
+        let homePath = FileManager.default.string(withFileSystemRepresentation: home!, length: Int(strlen(home)))
+        return URL(string: homePath)!
+    }
 
 	init(applicationName: String? = nil) {
 		self.title = OpenPanelBuilder.defaultTitle()
@@ -41,6 +47,7 @@ public class OpenPanelBuilder {
 			openPanel.title = self.title
 			openPanel.message = self.message
 			openPanel.prompt = self.prompt
+            openPanel.directoryURL = self.userHomeDirectoryPath
 		}
 		if Thread.isMainThread {
 			closure()
