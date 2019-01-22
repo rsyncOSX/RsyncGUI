@@ -52,8 +52,8 @@ public class PermissionManager {
 		} else {
             DispatchQueue.main.sync(execute: closure)
 		}
-        if let pathforhomecatalog = securityScopedURL {
-            _ = try? self.bookmarksManager.saveSecurityScopedBookmarkForFileAtURL(securityScopedFileURL: pathforhomecatalog)
+        if let pathforcatalog = securityScopedURL {
+            _ = try? self.bookmarksManager.saveSecurityScopedBookmarkForFileAtURL(securityScopedFileURL: pathforcatalog)
         }
 		return securityScopedURL
 	}
