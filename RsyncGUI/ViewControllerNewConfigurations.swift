@@ -192,12 +192,6 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, VcSc
     }
 
     @IBAction func addConfig(_ sender: NSButton) {
-        weak var sequrityscopedaddpathDelegate: SequrityScopedAddpath?
-        sequrityscopedaddpathDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
-        sequrityscopedaddpathDelegate?.sequrityscopedaddpath(path: localCatalog.stringValue)
-        if self.offsiteServer.stringValue.count == 0 {
-            sequrityscopedaddpathDelegate?.sequrityscopedaddpath(path: offsiteCatalog.stringValue)
-        }
         let dict: NSMutableDictionary = [
             "task": ViewControllerReference.shared.backup,
             "backupID": backupID.stringValue,
@@ -223,7 +217,6 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, VcSc
         } else if self.backuptypeselected == .singlefile {
             dict.setValue(1, forKey: "singleFile")
         }
-
         if !self.localCatalog.stringValue.hasSuffix("/") && self.backuptypeselected != .singlefile {
             self.localCatalog.stringValue += "/"
             dict.setValue(self.localCatalog.stringValue, forKey: "localCatalog")
@@ -249,6 +242,7 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, VcSc
             self.localCatalog.stringValue = ""
             return
         }
+
         self.configurations!.addNewConfigurations(dict)
         self.newconfigurations?.appendnewConfigurations(dict: dict)
         self.tabledata = self.newconfigurations!.getnewConfigurations()

@@ -24,26 +24,26 @@ public class PermissionManager {
 		self.bookmarksManager = bookmarksManager
 	}
 
-	public func needsPermissionForFileAtURL(fileURL: NSURL, error: NSErrorPointer = nil) -> Bool {
-		let reachable = fileURL.checkResourceIsReachableAndReturnError(error)
-		let readable = FileManager.default.isReadableFile(atPath: fileURL.path!)
-		return reachable && !readable
+	public func needsPermissionForFileAtURL(fileURL: URL, error: NSErrorPointer = nil) -> Bool {
+		let reachable = try? fileURL.checkResourceIsReachable()
+		let readable = FileManager.default.isReadableFile(atPath: fileURL.absoluteString)
+        return reachable ?? false && !readable
 	}
 
-	public func askUserForSecurityScopeForFileAtURL(fileURL: NSURL, error: NSErrorPointer = nil) -> NSURL? {
+	public func askUserForSecurityScopeForFileAtURL(fileURL: URL, error: NSErrorPointer = nil) -> URL? {
 		if !self.needsPermissionForFileAtURL(fileURL: fileURL, error: error) { return fileURL }
 		let openPanel = self.openPanel
 		if openPanel.directoryURL == nil {
-			openPanel.directoryURL = fileURL.deletingLastPathComponent
+            openPanel.directoryURL = fileURL.deletingLastPathComponent()
 		}
 		let openPanelDelegate = self.openPanelDelegate
-		openPanelDelegate.fileURL = fileURL
+		openPanelDelegate.fileURL = fileURL as NSURL
 		openPanel.delegate = openPanelDelegate
-		var securityScopedURL: NSURL?
+		var securityScopedURL: URL?
 		let closure: () -> Void = {
 			NSApplication.shared.activate(ignoringOtherApps: true)
 			if openPanel.runModal().rawValue == NSFileHandlingPanelOKButton {
-				securityScopedURL = openPanel.url as NSURL?
+				securityScopedURL = openPanel.url as URL?
 			}
 			openPanel.delegate = nil
 		}
@@ -52,31 +52,27 @@ public class PermissionManager {
 		} else {
             DispatchQueue.main.sync(execute: closure)
 		}
-        if let pathforhomecatalog = securityScopedURL {
-            _ = try? self.bookmarksManager.saveSecurityScopedBookmarkForFileAtURL(securityScopedFileURL: pathforhomecatalog)
+        if let pathforcatalog = securityScopedURL {
+            self.bookmarksManager.saveSecurityScopedBookmarkForFileAtURL(securityScopedFileURL: pathforcatalog)
         }
 		return securityScopedURL
 	}
 
-	public func accessSecurityScopedFileAtURL(fileURL: NSURL, closure: () -> Void ) -> Bool {
+	public func accessSecurityScopedFileAtURL(fileURL: URL) -> Bool {
 		let accessible = fileURL.startAccessingSecurityScopedResource()
         if accessible {
             return true
         } else {
-            closure()
             return false
         }
 	}
 
-	public func accessAndIfNeededAskUserForSecurityScopeForFileAtURL(fileURL: NSURL, closure: () -> Void ) throws -> Bool {
-		if self.needsPermissionForFileAtURL(fileURL: fileURL) == false {
-			closure()
-			return true
-		}
+	public func accessAndIfNeededAskUserForSecurityScopeForFileAtURL(fileURL: URL ) -> Bool {
+		if self.needsPermissionForFileAtURL(fileURL: fileURL) == false { return true }
 		let bookmarkedURL = self.bookmarksManager.loadSecurityScopedURLForFileAtURL(fileURL: fileURL)
 		let securityScopedURL = bookmarkedURL ?? self.askUserForSecurityScopeForFileAtURL(fileURL: fileURL)
 		if securityScopedURL != nil {
-			return self.accessSecurityScopedFileAtURL(fileURL: securityScopedURL!, closure: closure)
+			return self.accessSecurityScopedFileAtURL(fileURL: securityScopedURL!)
 		}
 		return false
 	}

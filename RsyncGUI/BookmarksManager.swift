@@ -10,9 +10,11 @@
 import Foundation
 
 public class BookmarksManager {
+
 	public let userDefaults: UserDefaults
 	public static let defaultManager: BookmarksManager = BookmarksManager()
 	private static let userDefaultsBookmarksKey = "no.blogspot.rsyncgui"
+
 	private var securityScopedBookmarksByFilePath: [String: NSData] {
 		get {
             let bookmarksByFilePath = self.userDefaults.dictionary(forKey: BookmarksManager.userDefaultsBookmarksKey) as? [String: NSData]
@@ -27,67 +29,61 @@ public class BookmarksManager {
 		self.userDefaults = UserDefaults.standard
 	}
 
-	public init(userDefaults: UserDefaults) {
-		self.userDefaults = userDefaults
-	}
-
     public func clearSecurityScopedBookmarks() {
         self.securityScopedBookmarksByFilePath = [:]
     }
 
-	public func fileURLFromSecurityScopedBookmark(bookmark: NSData) throws -> NSURL? {
+	public func fileURLFromSecurityScopedBookmark(bookmark: NSData) -> URL? {
 		let options: NSURL.BookmarkResolutionOptions = [.withSecurityScope, .withoutUI]
 		var stale: ObjCBool = false
-		let fileURL = try NSURL(resolvingBookmarkData: bookmark as Data, options: options, relativeTo: nil, bookmarkDataIsStale: &stale)
-		if stale.boolValue {
-			debugPrint("Bookmark is stale.")
-			return nil
-		}
-		return fileURL
+        if let fileURL = try? NSURL(resolvingBookmarkData: bookmark as Data, options: options, relativeTo: nil, bookmarkDataIsStale: &stale) {
+            return fileURL as URL
+        } else {
+            return nil
+        }
 	}
 
-	public func loadSecurityScopedURLForFileAtURL(fileURL: NSURL) -> NSURL? {
+	public func loadSecurityScopedURLForFileAtURL(fileURL: URL) -> URL? {
 		if let bookmark = self.loadSecurityScopedBookmarkForFileAtURL(fileURL: fileURL) {
-			do {
-				return try self.fileURLFromSecurityScopedBookmark(bookmark: bookmark)
-			} catch let error {
-				debugPrint("Error: \(error)")
-			}
+			return self.fileURLFromSecurityScopedBookmark(bookmark: bookmark)
 		}
 		return nil
 	}
 
-	public func loadSecurityScopedBookmarkForFileAtURL(fileURL: NSURL) -> NSData? {
-		if var resolvedFileURL = fileURL.standardizingPath?.resolvingSymlinksInPath() {
-			let bookmarksByFilePath = self.securityScopedBookmarksByFilePath
-			var securityScopedBookmark = bookmarksByFilePath[resolvedFileURL.path]
-			while (securityScopedBookmark == nil) && (resolvedFileURL.pathComponents.count > 1) {
-				resolvedFileURL = resolvedFileURL.deletingLastPathComponent()
-				securityScopedBookmark = bookmarksByFilePath[resolvedFileURL.path]
-			}
-			return securityScopedBookmark
-		} else {
-			return nil
-		}
-	}
-
-    public func securityScopedBookmarkForFileAtURL(fileURL: NSURL) throws -> NSData? {
-        let resolvesFileURL = fileURL.standardizingPath?.resolvingSymlinksInPath()
-        let bookmark = try resolvesFileURL?.bookmarkData(options: NSURL.BookmarkCreationOptions.withSecurityScope, includingResourceValuesForKeys: nil, relativeTo: nil)
-        return bookmark as NSData?
+	public func loadSecurityScopedBookmarkForFileAtURL(fileURL: URL) -> NSData? {
+        var resolvedFileURL: URL?
+        resolvedFileURL = fileURL.standardizedFileURL.resolvingSymlinksInPath()
+        let bookmarksByFilePath = self.securityScopedBookmarksByFilePath
+        var securityScopedBookmark = bookmarksByFilePath[resolvedFileURL!.path]
+        while securityScopedBookmark == nil && resolvedFileURL!.pathComponents.count > 1 {
+            resolvedFileURL = resolvedFileURL?.deletingLastPathComponent()
+            securityScopedBookmark = bookmarksByFilePath[resolvedFileURL!.path]
+        }
+        return securityScopedBookmark
     }
 
-    public func saveSecurityScopedBookmarkForFileAtURL(securityScopedFileURL: NSURL, error: NSErrorPointer = nil) throws {
-        if let bookmark = try self.securityScopedBookmarkForFileAtURL(fileURL: securityScopedFileURL) {
-            return try self.saveSecurityScopedBookmark(securityScopedBookmark: bookmark)
+    public func securityScopedBookmarkForFileAtURL(fileURL: URL) -> NSData? {
+        do {
+            let bookmark = try fileURL.bookmarkData(options: NSURL.BookmarkCreationOptions.withSecurityScope, includingResourceValuesForKeys: nil, relativeTo: nil)
+            return bookmark as NSData?
+        } catch let e {
+            let error = e as NSError
+            print(error)
+            return nil
         }
     }
 
-    public func saveSecurityScopedBookmark(securityScopedBookmark: NSData) throws {
-        if let fileURL = try self.fileURLFromSecurityScopedBookmark(bookmark: securityScopedBookmark) {
-            var securityScopedBookmarksByFilePath = self.securityScopedBookmarksByFilePath
-            securityScopedBookmarksByFilePath[fileURL.path!] = securityScopedBookmark
-            self.securityScopedBookmarksByFilePath = securityScopedBookmarksByFilePath
+    public func saveSecurityScopedBookmarkForFileAtURL(securityScopedFileURL: URL) {
+        if let bookmark =  self.securityScopedBookmarkForFileAtURL(fileURL: securityScopedFileURL) {
+            self.saveSecurityScopedBookmark(securityScopedBookmark: bookmark)
+        }
+    }
+
+    public func saveSecurityScopedBookmark(securityScopedBookmark: NSData) {
+        if let fileURL = self.fileURLFromSecurityScopedBookmark(bookmark: securityScopedBookmark) {
+            var savesecurityScopedBookmarks = self.securityScopedBookmarksByFilePath
+            savesecurityScopedBookmarks[fileURL.path] = securityScopedBookmark
+            self.securityScopedBookmarksByFilePath = savesecurityScopedBookmarks
         }
     }
 }

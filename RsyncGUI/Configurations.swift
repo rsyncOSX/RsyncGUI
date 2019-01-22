@@ -49,63 +49,62 @@ final class Configurations: ReloadTable, SetSchedules {
 
     // Sandbox
     let permissionManager: PermissionManager = PermissionManager(bookmarksManager: BookmarksManager.defaultManager)
-    typealias Callback = (Bool) -> Void
 
-    private func accessFiles(fileURL: NSURL, callback: Callback) {
-        _ = try? self.permissionManager.accessAndIfNeededAskUserForSecurityScopeForFileAtURL(fileURL: fileURL) {
-            let success = FileManager.default.isReadableFile(atPath: fileURL.path!)
-            callback(success)
-        }
+    private func accessFiles(fileURL: URL) -> Bool {
+        let permission = self.permissionManager.accessAndIfNeededAskUserForSecurityScopeForFileAtURL(fileURL: fileURL)
+        let success = FileManager.default.isReadableFile(atPath: fileURL.path)
+        return permission && success
     }
 
     func securityScopedURLpath(path: String, offsite: Bool) {
-        let fileURLpath = NSURL(fileURLWithPath: path)
+        let fileURLpath = URL(fileURLWithPath: path)
         if offsite {
-            self.accessFiles(fileURL: fileURLpath) { success in
-                let dict: NSMutableDictionary = [
-                    "offsiteCatalog": fileURLpath,
-                    "SecurityScoped": success
-                ]
-                self.SequrityScopedURLs!.append(dict)
-            }
+            let success = self.accessFiles(fileURL: fileURLpath)
+            let dict: NSMutableDictionary = [
+                "offsiteCatalog": fileURLpath,
+                "SecurityScoped": success
+            ]
+            self.SequrityScopedURLs!.append(dict)
+            
         } else {
-            self.accessFiles(fileURL: fileURLpath) { success in
-                let dict: NSMutableDictionary = [
-                    "localcatalog": fileURLpath,
-                    "SecurityScoped": success
-                ]
+            let success = self.accessFiles(fileURL: fileURLpath)
+            let dict: NSMutableDictionary = [
+                "localcatalog": fileURLpath,
+                "SecurityScoped": success
+            ]
                 self.SequrityScopedURLs!.append(dict)
             }
-        }
     }
 
     private func securityScopedURLrootcatalog() {
         let rootcatalog = Files(root: .realRoot, configpath: ViewControllerReference.shared.configpath).realrootpath ?? ""
-        let fileURLrootcatalog = NSURL(fileURLWithPath: rootcatalog)
-        self.accessFiles(fileURL: fileURLrootcatalog) { success in
-            let dict: NSMutableDictionary = [
-                "localcatalog": fileURLrootcatalog,
-                "SecurityScoped": success
-            ]
-            self.SequrityScopedURLs!.append(dict)
-        }
+        let fileURLrootcatalog = URL(fileURLWithPath: rootcatalog)
+        let success = self.accessFiles(fileURL: fileURLrootcatalog)
+        let dict: NSMutableDictionary = [
+            "localcatalog": fileURLrootcatalog,
+            "SecurityScoped": success
+        ]
+        self.SequrityScopedURLs!.append(dict)
     }
 
     private func securityScopedURLsshrootcatalog() {
         let rootcatalog = Files(root: .realRoot, configpath: ViewControllerReference.shared.configpath).realrootpath ?? ""
         let sshrootcatalog = rootcatalog + "/.ssh"
-        let fileURLsshrootcatalog = NSURL(fileURLWithPath: sshrootcatalog)
-        self.accessFiles(fileURL: fileURLsshrootcatalog) { success in
-            let dict: NSMutableDictionary = [
-                "localcatalog": fileURLsshrootcatalog,
-                "SecurityScoped": success
-            ]
-            self.SequrityScopedURLs!.append(dict)
-        }
+        let fileURLsshrootcatalog = URL(fileURLWithPath: sshrootcatalog)
+        let success = self.accessFiles(fileURL: fileURLsshrootcatalog)
+        let dict: NSMutableDictionary = [
+            "localcatalog": fileURLsshrootcatalog,
+            "SecurityScoped": success
+        ]
+        self.SequrityScopedURLs!.append(dict)
     }
 
     func resetsequrityscopedurl() {
         self.permissionManager.bookmarksManager.clearSecurityScopedBookmarks()
+    }
+
+    func savesequrityscopedurl(urlpathforcatalog: URL) {
+        self.permissionManager.bookmarksManager.saveSecurityScopedBookmarkForFileAtURL(securityScopedFileURL: urlpathforcatalog)
     }
 
     /// Function for getting the profile

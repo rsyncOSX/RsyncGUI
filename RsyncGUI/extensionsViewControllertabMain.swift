@@ -32,6 +32,7 @@ extension ViewControllertabMain: NSTableViewDelegate, Attributedestring {
 
     // TableView delegates
     func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
+        guard self.configurations != nil else { return nil}
         if row > self.configurations!.configurationsDataSourcecount() - 1 { return nil }
         let object: NSDictionary = self.configurations!.getConfigurationsDataSource()![row]
         let hiddenID: Int = self.configurations!.getConfigurations()[row].hiddenID
@@ -706,8 +707,14 @@ extension ViewControllertabMain: SequrityScopedAddpath {
     }
 }
 
-extension ViewControllertabMain: ResetSequirityScopedURL {
-    func resetsequirityscopedurl() {
+extension ViewControllertabMain: ResetSequrityScopedURL {
+    func resetsequrityscopedurl() {
         self.configurations!.resetsequrityscopedurl()
+    }
+}
+
+extension ViewControllertabMain: SaveSequrityScopedURL {
+    func savesequrityscopedurl(pathcatalog: URL) {
+        self.configurations!.savesequrityscopedurl(urlpathforcatalog: pathcatalog)
     }
 }
