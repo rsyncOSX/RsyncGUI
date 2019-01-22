@@ -60,36 +60,31 @@ final class Configurations: ReloadTable, SetSchedules {
         let fileURLpath = URL(fileURLWithPath: path)
         if offsite {
             let success = self.accessFiles(fileURL: fileURLpath)
-            if success {
-                let dict: NSMutableDictionary = [
-                    "offsiteCatalog": fileURLpath,
-                    "SecurityScoped": success
-                ]
-                self.SequrityScopedURLs!.append(dict)
-            }
+            let dict: NSMutableDictionary = [
+                "offsiteCatalog": fileURLpath,
+                "SecurityScoped": success
+            ]
+            self.SequrityScopedURLs!.append(dict)
+            
         } else {
             let success = self.accessFiles(fileURL: fileURLpath)
-            if success {
-                let dict: NSMutableDictionary = [
-                    "localcatalog": fileURLpath,
-                    "SecurityScoped": success
-                ]
+            let dict: NSMutableDictionary = [
+                "localcatalog": fileURLpath,
+                "SecurityScoped": success
+            ]
                 self.SequrityScopedURLs!.append(dict)
             }
-        }
     }
 
     private func securityScopedURLrootcatalog() {
         let rootcatalog = Files(root: .realRoot, configpath: ViewControllerReference.shared.configpath).realrootpath ?? ""
         let fileURLrootcatalog = URL(fileURLWithPath: rootcatalog)
         let success = self.accessFiles(fileURL: fileURLrootcatalog)
-        if success {
-            let dict: NSMutableDictionary = [
-                "localcatalog": fileURLrootcatalog,
-                "SecurityScoped": success
-            ]
-            self.SequrityScopedURLs!.append(dict)
-        }
+        let dict: NSMutableDictionary = [
+            "localcatalog": fileURLrootcatalog,
+            "SecurityScoped": success
+        ]
+        self.SequrityScopedURLs!.append(dict)
     }
 
     private func securityScopedURLsshrootcatalog() {
@@ -97,13 +92,11 @@ final class Configurations: ReloadTable, SetSchedules {
         let sshrootcatalog = rootcatalog + "/.ssh"
         let fileURLsshrootcatalog = URL(fileURLWithPath: sshrootcatalog)
         let success = self.accessFiles(fileURL: fileURLsshrootcatalog)
-        if success {
-            let dict: NSMutableDictionary = [
-                "localcatalog": fileURLsshrootcatalog,
-                "SecurityScoped": success
-            ]
-            self.SequrityScopedURLs!.append(dict)
-        }
+        let dict: NSMutableDictionary = [
+            "localcatalog": fileURLsshrootcatalog,
+            "SecurityScoped": success
+        ]
+        self.SequrityScopedURLs!.append(dict)
     }
 
     func resetsequrityscopedurl() {
