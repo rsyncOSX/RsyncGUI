@@ -52,6 +52,7 @@ final class Configurations: ReloadTable, SetSchedules {
     typealias Callback = (Bool) -> Void
 
     private func accessFiles(fileURL: URL, callback: Callback) {
+        
         _ = try? self.permissionManager.accessAndIfNeededAskUserForSecurityScopeForFileAtURL(fileURL: fileURL) {
             let success = FileManager.default.isReadableFile(atPath: fileURL.path)
             callback(success)

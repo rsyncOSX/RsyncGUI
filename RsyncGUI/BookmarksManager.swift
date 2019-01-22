@@ -65,7 +65,6 @@ public class BookmarksManager {
     }
 
     public func securityScopedBookmarkForFileAtURL(fileURL: URL) -> NSData? {
-        // let resolvesFileURL = fileURL.standardizingPath?.resolvingSymlinksInPath()
         do {
             let bookmark = try fileURL.bookmarkData(options: NSURL.BookmarkCreationOptions.withSecurityScope, includingResourceValuesForKeys: nil, relativeTo: nil)
             return bookmark as NSData?
