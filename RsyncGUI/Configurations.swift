@@ -51,15 +51,15 @@ final class Configurations: ReloadTable, SetSchedules {
     let permissionManager: PermissionManager = PermissionManager(bookmarksManager: BookmarksManager.defaultManager)
     typealias Callback = (Bool) -> Void
 
-    private func accessFiles(fileURL: NSURL, callback: Callback) {
+    private func accessFiles(fileURL: URL, callback: Callback) {
         _ = try? self.permissionManager.accessAndIfNeededAskUserForSecurityScopeForFileAtURL(fileURL: fileURL) {
-            let success = FileManager.default.isReadableFile(atPath: fileURL.path!)
+            let success = FileManager.default.isReadableFile(atPath: fileURL.path)
             callback(success)
         }
     }
 
     func securityScopedURLpath(path: String, offsite: Bool) {
-        let fileURLpath = NSURL(fileURLWithPath: path)
+        let fileURLpath = URL(fileURLWithPath: path)
         if offsite {
             self.accessFiles(fileURL: fileURLpath) { success in
                 let dict: NSMutableDictionary = [
@@ -81,7 +81,7 @@ final class Configurations: ReloadTable, SetSchedules {
 
     private func securityScopedURLrootcatalog() {
         let rootcatalog = Files(root: .realRoot, configpath: ViewControllerReference.shared.configpath).realrootpath ?? ""
-        let fileURLrootcatalog = NSURL(fileURLWithPath: rootcatalog)
+        let fileURLrootcatalog = URL(fileURLWithPath: rootcatalog)
         self.accessFiles(fileURL: fileURLrootcatalog) { success in
             let dict: NSMutableDictionary = [
                 "localcatalog": fileURLrootcatalog,
@@ -94,7 +94,7 @@ final class Configurations: ReloadTable, SetSchedules {
     private func securityScopedURLsshrootcatalog() {
         let rootcatalog = Files(root: .realRoot, configpath: ViewControllerReference.shared.configpath).realrootpath ?? ""
         let sshrootcatalog = rootcatalog + "/.ssh"
-        let fileURLsshrootcatalog = NSURL(fileURLWithPath: sshrootcatalog)
+        let fileURLsshrootcatalog = URL(fileURLWithPath: sshrootcatalog)
         self.accessFiles(fileURL: fileURLsshrootcatalog) { success in
             let dict: NSMutableDictionary = [
                 "localcatalog": fileURLsshrootcatalog,
@@ -108,8 +108,8 @@ final class Configurations: ReloadTable, SetSchedules {
         self.permissionManager.bookmarksManager.clearSecurityScopedBookmarks()
     }
 
-    func savesequrityscopedurl(urlpathforcatalog: NSURL) {
-          _ = try? self.permissionManager.bookmarksManager.saveSecurityScopedBookmarkForFileAtURL(securityScopedFileURL: urlpathforcatalog)
+    func savesequrityscopedurl(urlpathforcatalog: URL) {
+          self.permissionManager.bookmarksManager.saveSecurityScopedBookmarkForFileAtURL(securityScopedFileURL: urlpathforcatalog)
     }
 
     /// Function for getting the profile

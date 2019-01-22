@@ -714,7 +714,7 @@ extension ViewControllertabMain: ResetSequrityScopedURL {
 
 extension ViewControllertabMain: SaveSequrityScopedURL {
     func savesequrityscopedurl(pathcatalog: String) {
-        let nsurlpathcatalog = NSURL(string: pathcatalog)
-        self.configurations!.savesequrityscopedurl(urlpathforcatalog: nsurlpathcatalog!)
+        let urlpathcatalog = URL(string: pathcatalog)
+        self.configurations!.savesequrityscopedurl(urlpathforcatalog: urlpathcatalog!)
     }
 }
