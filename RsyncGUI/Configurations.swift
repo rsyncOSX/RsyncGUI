@@ -104,7 +104,7 @@ final class Configurations: ReloadTable, SetSchedules {
     }
 
     func savesequrityscopedurl(urlpathforcatalog: URL) {
-          self.permissionManager.bookmarksManager.saveSecurityScopedBookmarkForFileAtURL(securityScopedFileURL: urlpathforcatalog)
+        self.permissionManager.bookmarksManager.saveSecurityScopedBookmarkForFileAtURL(securityScopedFileURL: urlpathforcatalog)
     }
 
     /// Function for getting the profile

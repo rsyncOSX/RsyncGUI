@@ -10,9 +10,11 @@
 import Foundation
 
 public class BookmarksManager {
+
 	public let userDefaults: UserDefaults
 	public static let defaultManager: BookmarksManager = BookmarksManager()
 	private static let userDefaultsBookmarksKey = "no.blogspot.rsyncgui"
+
 	private var securityScopedBookmarksByFilePath: [String: NSData] {
 		get {
             let bookmarksByFilePath = self.userDefaults.dictionary(forKey: BookmarksManager.userDefaultsBookmarksKey) as? [String: NSData]
@@ -25,10 +27,6 @@ public class BookmarksManager {
 
 	public init() {
 		self.userDefaults = UserDefaults.standard
-	}
-
-	public init(userDefaults: UserDefaults) {
-		self.userDefaults = userDefaults
 	}
 
     public func clearSecurityScopedBookmarks() {
@@ -57,7 +55,7 @@ public class BookmarksManager {
         resolvedFileURL = fileURL.standardizedFileURL.resolvingSymlinksInPath()
         let bookmarksByFilePath = self.securityScopedBookmarksByFilePath
         var securityScopedBookmark = bookmarksByFilePath[resolvedFileURL!.path]
-        while (securityScopedBookmark == nil) && (resolvedFileURL!.pathComponents.count > 1) {
+        while securityScopedBookmark == nil && resolvedFileURL!.pathComponents.count > 1 {
             resolvedFileURL = resolvedFileURL?.deletingLastPathComponent()
             securityScopedBookmark = bookmarksByFilePath[resolvedFileURL!.path]
         }
@@ -75,7 +73,7 @@ public class BookmarksManager {
         }
     }
 
-    public func saveSecurityScopedBookmarkForFileAtURL(securityScopedFileURL: URL, error: NSErrorPointer = nil) {
+    public func saveSecurityScopedBookmarkForFileAtURL(securityScopedFileURL: URL) {
         if let bookmark =  self.securityScopedBookmarkForFileAtURL(fileURL: securityScopedFileURL) {
             self.saveSecurityScopedBookmark(securityScopedBookmark: bookmark)
         }
@@ -83,9 +81,9 @@ public class BookmarksManager {
 
     public func saveSecurityScopedBookmark(securityScopedBookmark: NSData) {
         if let fileURL = self.fileURLFromSecurityScopedBookmark(bookmark: securityScopedBookmark) {
-            var securityScopedBookmarksByFilePath = self.securityScopedBookmarksByFilePath
-            securityScopedBookmarksByFilePath[fileURL.path] = securityScopedBookmark
-            self.securityScopedBookmarksByFilePath = securityScopedBookmarksByFilePath
+            var savesecurityScopedBookmarks = self.securityScopedBookmarksByFilePath
+            savesecurityScopedBookmarks[fileURL.path] = securityScopedBookmark
+            self.securityScopedBookmarksByFilePath = savesecurityScopedBookmarks
         }
     }
 }

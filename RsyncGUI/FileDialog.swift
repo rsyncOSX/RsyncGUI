@@ -5,6 +5,7 @@
 //  Created by Thomas Evensen on 21/09/2016.
 //  Copyright © 2016 Thomas Evensen. All rights reserved.
 //
+// swiftlint:disable line_length
 
 import Foundation
 import Cocoa
@@ -30,6 +31,9 @@ final class FileDialog {
             let OK = openPanel.runModal()
             if OK.rawValue == NSApplication.ModalResponse.OK.rawValue {
                 self.urlpath = openPanel.url
+                weak var sequrityscopedaddpathDelegate: SaveSequrityScopedURL?
+                sequrityscopedaddpathDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
+                sequrityscopedaddpathDelegate?.savesequrityscopedurl(pathcatalog: self.urlpath!)
             }
         } else {
             openPanel.begin(completionHandler: { response in
