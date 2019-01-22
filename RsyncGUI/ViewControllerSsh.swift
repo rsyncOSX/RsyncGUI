@@ -10,8 +10,12 @@
 import Foundation
 import Cocoa
 
-protocol ResetSequirityScopedURL: class {
-    func resetsequirityscopedurl()
+protocol ResetSequrityScopedURL: class {
+    func resetsequrityscopedurl()
+}
+
+protocol SaveSequrityScopedURL: class {
+    func savesequrityscopedurl(pathcatalog: String)
 }
 
 class ViewControllerSsh: NSViewController, SetConfigurations {
@@ -46,9 +50,9 @@ class ViewControllerSsh: NSViewController, SetConfigurations {
     @IBAction func resetsequrityscoped(_ sender: NSButton) {
         let answer = Alerts.dialogOKCancel("You are about to reset RsynGUI access to your files", text: "Please close and start RsyncGUI again")
         if answer {
-            weak var resetsequrityscopedDelegate: ResetSequirityScopedURL?
+            weak var resetsequrityscopedDelegate: ResetSequrityScopedURL?
             resetsequrityscopedDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
-            resetsequrityscopedDelegate?.resetsequirityscopedurl()
+            resetsequrityscopedDelegate?.resetsequrityscopedurl()
         }
     }
 

@@ -192,11 +192,11 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, VcSc
     }
 
     @IBAction func addConfig(_ sender: NSButton) {
-        weak var sequrityscopedaddpathDelegate: SequrityScopedAddpath?
+        weak var sequrityscopedaddpathDelegate: SaveSequrityScopedURL?
         sequrityscopedaddpathDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
-        sequrityscopedaddpathDelegate?.sequrityscopedaddpath(path: localCatalog.stringValue)
+        sequrityscopedaddpathDelegate?.savesequrityscopedurl(pathcatalog: localCatalog.stringValue)
         if self.offsiteServer.stringValue.count == 0 {
-            sequrityscopedaddpathDelegate?.sequrityscopedaddpath(path: offsiteCatalog.stringValue)
+            sequrityscopedaddpathDelegate?.savesequrityscopedurl(pathcatalog: offsiteCatalog.stringValue)
         }
         let dict: NSMutableDictionary = [
             "task": ViewControllerReference.shared.backup,

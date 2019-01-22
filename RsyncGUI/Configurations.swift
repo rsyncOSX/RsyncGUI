@@ -108,6 +108,10 @@ final class Configurations: ReloadTable, SetSchedules {
         self.permissionManager.bookmarksManager.clearSecurityScopedBookmarks()
     }
 
+    func savesequrityscopedurl(urlpathforcatalog: NSURL) {
+          _ = try? self.permissionManager.bookmarksManager.saveSecurityScopedBookmarkForFileAtURL(securityScopedFileURL: urlpathforcatalog)
+    }
+
     /// Function for getting the profile
     func getProfile() -> String? {
         return self.profile

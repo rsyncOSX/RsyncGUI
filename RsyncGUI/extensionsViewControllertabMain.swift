@@ -706,8 +706,15 @@ extension ViewControllertabMain: SequrityScopedAddpath {
     }
 }
 
-extension ViewControllertabMain: ResetSequirityScopedURL {
-    func resetsequirityscopedurl() {
+extension ViewControllertabMain: ResetSequrityScopedURL {
+    func resetsequrityscopedurl() {
         self.configurations!.resetsequrityscopedurl()
+    }
+}
+
+extension ViewControllertabMain: SaveSequrityScopedURL {
+    func savesequrityscopedurl(pathcatalog: String) {
+        let nsurlpathcatalog = NSURL(string: pathcatalog)
+        self.configurations!.savesequrityscopedurl(urlpathforcatalog: nsurlpathcatalog!)
     }
 }
