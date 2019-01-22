@@ -58,25 +58,21 @@ public class PermissionManager {
 		return securityScopedURL
 	}
 
-	public func accessSecurityScopedFileAtURL(fileURL: URL, closure: () -> Void ) -> Bool {
+	public func accessSecurityScopedFileAtURL(fileURL: URL) -> Bool {
 		let accessible = fileURL.startAccessingSecurityScopedResource()
         if accessible {
             return true
         } else {
-            closure()
             return false
         }
 	}
 
-	public func accessAndIfNeededAskUserForSecurityScopeForFileAtURL(fileURL: URL, closure: () -> Void ) throws -> Bool {
-		if self.needsPermissionForFileAtURL(fileURL: fileURL) == false {
-			closure()
-			return true
-		}
+	public func accessAndIfNeededAskUserForSecurityScopeForFileAtURL(fileURL: URL ) -> Bool {
+		if self.needsPermissionForFileAtURL(fileURL: fileURL) == false { return true }
 		let bookmarkedURL = self.bookmarksManager.loadSecurityScopedURLForFileAtURL(fileURL: fileURL)
 		let securityScopedURL = bookmarkedURL ?? self.askUserForSecurityScopeForFileAtURL(fileURL: fileURL)
 		if securityScopedURL != nil {
-			return self.accessSecurityScopedFileAtURL(fileURL: securityScopedURL!, closure: closure)
+			return self.accessSecurityScopedFileAtURL(fileURL: securityScopedURL!)
 		}
 		return false
 	}
