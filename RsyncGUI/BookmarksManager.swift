@@ -9,7 +9,7 @@
 
 import Foundation
 
-public class BookmarksManager {
+public class BookmarksManager: Reportfileerror {
 
 	public let userDefaults: UserDefaults
 	public static let defaultManager: BookmarksManager = BookmarksManager()
@@ -23,10 +23,6 @@ public class BookmarksManager {
 		set {
 			self.userDefaults.set(newValue, forKey: BookmarksManager.userDefaultsBookmarksKey)
 		}
-	}
-
-	public init() {
-		self.userDefaults = UserDefaults.standard
 	}
 
     public func clearSecurityScopedBookmarks() {
@@ -68,7 +64,7 @@ public class BookmarksManager {
             return bookmark as NSData?
         } catch let e {
             let error = e as NSError
-            print(error)
+            self.error(error: error.description, errortype: .sequrityscoped)
             return nil
         }
     }
@@ -85,5 +81,9 @@ public class BookmarksManager {
             savesecurityScopedBookmarks[fileURL.path] = securityScopedBookmark
             self.securityScopedBookmarksByFilePath = savesecurityScopedBookmarks
         }
+    }
+
+    public init() {
+        self.userDefaults = UserDefaults.standard
     }
 }

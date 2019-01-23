@@ -44,10 +44,9 @@ final class Configurations: ReloadTable, SetSchedules {
     var localremote: [NSMutableDictionary]?
     // remote info tasks
     var remoteinfotaskworkqueue: RemoteInfoTaskWorkQueue?
-    // Sandbox
-    var SequrityScopedURLs: [NSDictionary]?
 
     // Sandbox
+    var SequrityScopedURLs: [NSDictionary]?
     let permissionManager: PermissionManager = PermissionManager(bookmarksManager: BookmarksManager.defaultManager)
 
     private func accessFiles(fileURL: URL) -> Bool {
@@ -65,7 +64,6 @@ final class Configurations: ReloadTable, SetSchedules {
                 "SecurityScoped": success
             ]
             self.SequrityScopedURLs!.append(dict)
-            
         } else {
             let success = self.accessFiles(fileURL: fileURLpath)
             let dict: NSMutableDictionary = [

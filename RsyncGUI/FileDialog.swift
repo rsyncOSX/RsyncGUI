@@ -14,7 +14,12 @@ final class FileDialog {
 
     var urlpath: URL?
     var modal: Bool = true
-    var securityScopedURL: NSURL?
+
+    private func saveSequrityScopedURL() {
+        weak var sequrityscopedaddpathDelegate: SaveSequrityScopedURL?
+        sequrityscopedaddpathDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
+        sequrityscopedaddpathDelegate?.savesequrityscopedurl(pathcatalog: self.urlpath!)
+    }
 
     private func openfiledlg (title: String, message: String) {
         let openPanel = NSOpenPanel()
@@ -31,15 +36,13 @@ final class FileDialog {
             let OK = openPanel.runModal()
             if OK.rawValue == NSApplication.ModalResponse.OK.rawValue {
                 self.urlpath = openPanel.url
-                weak var sequrityscopedaddpathDelegate: SaveSequrityScopedURL?
-                sequrityscopedaddpathDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
-                sequrityscopedaddpathDelegate?.savesequrityscopedurl(pathcatalog: self.urlpath!)
+                self.saveSequrityScopedURL()
             }
         } else {
             openPanel.begin(completionHandler: { response in
                 if response.rawValue == NSFileHandlingPanelOKButton {
                     self.urlpath = openPanel.url
-                    self.securityScopedURL = openPanel.url as NSURL?
+                    self.saveSequrityScopedURL()
                 }
             })
         }

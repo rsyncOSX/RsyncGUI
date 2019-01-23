@@ -24,14 +24,14 @@ public class PermissionManager {
 		self.bookmarksManager = bookmarksManager
 	}
 
-	public func needsPermissionForFileAtURL(fileURL: URL, error: NSErrorPointer = nil) -> Bool {
+	public func needsPermissionForFileAtURL(fileURL: URL) -> Bool {
 		let reachable = try? fileURL.checkResourceIsReachable()
 		let readable = FileManager.default.isReadableFile(atPath: fileURL.absoluteString)
         return reachable ?? false && !readable
 	}
 
-	public func askUserForSecurityScopeForFileAtURL(fileURL: URL, error: NSErrorPointer = nil) -> URL? {
-		if !self.needsPermissionForFileAtURL(fileURL: fileURL, error: error) { return fileURL }
+	public func askUserForSecurityScopeForFileAtURL(fileURL: URL) -> URL? {
+		if !self.needsPermissionForFileAtURL(fileURL: fileURL) { return fileURL }
 		let openPanel = self.openPanel
 		if openPanel.directoryURL == nil {
             openPanel.directoryURL = fileURL.deletingLastPathComponent()
