@@ -21,6 +21,7 @@ enum Fileerrortype {
     case profilecreatedirectory
     case profiledeletedirectory
     case filesize
+    case sequrityscoped
 }
 
 // Protocol for reporting file errors
@@ -62,6 +63,8 @@ extension Fileerrormessage {
             return "Could not delete profile directory"
         case .filesize:
             return "Filesize of logfile is getting bigger"
+        case .sequrityscoped:
+            return "Could not save SequrityScoped URL"
         }
     }
 }
