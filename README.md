@@ -6,9 +6,7 @@ This repository is the source code for the macOS app RsyncGUI. RsyncGUI is a san
 
 Rsync is a file-based synchronization and backup tool. There is no custom solution for the backup archive. You can quit utilizing RsyncGUI (and rsync) at any time and still have access to all synchronized files.
 
-This version will be **released** on Apple Mac App Store as version 1.0.0 of `RsyncGUI`.
-
-**Caution**: there are still **some issues** with the sandbox part of RsynGUI - the app is in process of getting accepted by Apple App Store  
+The app is released on Apple Mac App Store as version 1.0.0 of `RsyncGUI` 25 January 2019.
 
 ### Apple App Sandboxing technology
 
