@@ -54,20 +54,6 @@ class Schedules: ScheduleWriteLoggData {
         }
     }
 
-    // Test if Schedule record in memory is set to stop er not
-    private func stop(dict: NSDictionary) {
-        for i in 0 ..< self.schedules!.count where
-            dict.value(forKey: "hiddenID") as? Int == self.schedules![i].hiddenID {
-                if dict.value(forKey: "dateStop") as? String == self.schedules![i].dateStop ||
-                    self.schedules![i].dateStop == nil &&
-                    dict.value(forKey: "schedule") as? String == self.schedules![i].schedule &&
-                    dict.value(forKey: "dateStart") as? String == self.schedules![i].dateStart {
-                    self.schedules![i].schedule = "stopped"
-                    break
-                }
-        }
-    }
-
     // Function for reading all jobs for schedule and all history of past executions.
     // Schedules are stored in self.schedules. Schedules are sorted after hiddenID.
     private func readschedules() {

@@ -21,7 +21,6 @@ class ViewControllerAbout: NSViewController, SetDismisser, Delay {
 
     private var resource: Resources?
     var outputprocess: OutputProcess?
-    private var runningVersion: String?
 
     @IBAction func dismiss(_ sender: NSButton) {
         self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
