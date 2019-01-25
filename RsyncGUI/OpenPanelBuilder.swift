@@ -17,9 +17,11 @@ public class OpenPanelBuilder {
 	public let prompt: String
     var userHomeDirectoryPath: URL {
         let pw = getpwuid(getuid())
-        let homeptr = pw?.pointee.pw_dir
-        let homePath = FileManager.default.string(withFileSystemRepresentation: homeptr!, length: Int(strlen(homeptr)))
-        return URL(string: homePath) ?? URL(string: "")!
+        if let homeptr = pw?.pointee.pw_dir {
+            let homePath = FileManager.default.string(withFileSystemRepresentation: homeptr, length: Int(strlen(homeptr)))
+            return URL(string: homePath) ?? URL(string: "")!
+        }
+        return URL(string: "")!
     }
 
 	init(applicationName: String? = nil) {

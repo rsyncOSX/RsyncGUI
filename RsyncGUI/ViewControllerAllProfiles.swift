@@ -189,7 +189,7 @@ extension ViewControllerAllProfiles: NSTableViewDelegate, Attributedestring {
 
 extension ViewControllerAllProfiles: NSSearchFieldDelegate {
 
-    override func controlTextDidBeginEditing(_ obj: Notification) {
+    func controlTextDidBeginEditing(_ obj: Notification) {
         self.delayWithSeconds(0.25) {
             guard self.column != nil else { return }
             let filterstring = self.search.stringValue

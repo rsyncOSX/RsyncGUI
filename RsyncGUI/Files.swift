@@ -78,9 +78,11 @@ class Files: Reportfileerror {
     private var configpath: String?
     var userHomeDirectoryPath: String {
         let pw = getpwuid(getuid())
-        let home = pw?.pointee.pw_dir
-        let homePath = FileManager.default.string(withFileSystemRepresentation: home!, length: Int(strlen(home)))
-        return homePath
+        if let home = pw?.pointee.pw_dir {
+            let homePath = FileManager.default.string(withFileSystemRepresentation: home, length: Int(strlen(home)))
+            return homePath
+        }
+        return ""
     }
 
     private func setrootpath() {
