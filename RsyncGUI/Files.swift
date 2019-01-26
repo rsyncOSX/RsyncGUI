@@ -9,7 +9,7 @@
 
 import Foundation
 
-enum Root {
+enum WhatRoot {
     case profileRoot
     case realRoot
     case sandboxedRoot
@@ -71,9 +71,9 @@ extension Fileerrormessage {
 
 class Files: Reportfileerror {
 
-    var root: Root?
+    var whatroot: WhatRoot?
     var realrootpath: String?
-    var sandboxedroot: String?
+    var sandboxedrootpath: String?
     var sshrealrootpath: String?
     private var configpath: String?
     var userHomeDirectoryPath: String {
@@ -86,7 +86,7 @@ class Files: Reportfileerror {
     }
 
     private func setrootpath() {
-        switch self.root! {
+        switch self.whatroot! {
         case .profileRoot:
             let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as NSArray
             let docuDir = (paths.firstObject as? String)!
@@ -96,7 +96,7 @@ class Files: Reportfileerror {
             self.realrootpath = self.userHomeDirectoryPath
             self.sshrealrootpath = self.userHomeDirectoryPath + "/.ssh/"
         case .sandboxedRoot:
-             self.sandboxedroot = NSHomeDirectory()
+             self.sandboxedrootpath = NSHomeDirectory()
         }
     }
 
@@ -189,9 +189,9 @@ class Files: Reportfileerror {
         }
     }
 
-    init (root: Root, configpath: String) {
+    init (root: WhatRoot, configpath: String) {
         self.configpath = configpath
-        self.root = root
+        self.whatroot = root
         self.setrootpath()
     }
 }
