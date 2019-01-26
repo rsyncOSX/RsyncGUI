@@ -75,7 +75,7 @@ final class Configurations: ReloadTable, SetSchedules {
     }
 
     private func securityScopedURLrootcatalog() {
-        let rootcatalog = Files(root: .realRoot, configpath: ViewControllerReference.shared.configpath).realrootpath ?? ""
+        let rootcatalog = Files(whatroot: .realRoot, configpath: ViewControllerReference.shared.configpath).realrootpath ?? ""
         let fileURLrootcatalog = URL(fileURLWithPath: rootcatalog)
         let success = self.accessFiles(fileURL: fileURLrootcatalog)
         let dict: NSMutableDictionary = [
@@ -86,7 +86,7 @@ final class Configurations: ReloadTable, SetSchedules {
     }
 
     private func securityScopedURLsshrootcatalog() {
-        let rootcatalog = Files(root: .realRoot, configpath: ViewControllerReference.shared.configpath).realrootpath ?? ""
+        let rootcatalog = Files(whatroot: .realRoot, configpath: ViewControllerReference.shared.configpath).realrootpath ?? ""
         let sshrootcatalog = rootcatalog + "/.ssh"
         let fileURLsshrootcatalog = URL(fileURLWithPath: sshrootcatalog)
         let success = self.accessFiles(fileURL: fileURLsshrootcatalog)
