@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="abu-zT-Ht4">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14490.55" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="abu-zT-Ht4">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.55"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -1453,7 +1453,7 @@
                                     <rect key="frame" x="1" y="332" width="470" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
-                                <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="me0-hu-Jmb">
+                                <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="me0-hu-Jmb">
                                     <rect key="frame" x="224" y="17" width="15" height="102"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
@@ -2769,7 +2769,7 @@
                                             </textFieldCell>
                                         </textField>
                                         <comboBox verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kWg-fw-1d2">
-                                            <rect key="frame" x="453" y="35" width="100" height="26"/>
+                                            <rect key="frame" x="455" y="10" width="100" height="26"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="left" drawsBackground="YES" completes="NO" numberOfVisibleItems="5" id="Hsc-x7-zxk">
                                                 <font key="font" metaFont="system"/>
@@ -2799,7 +2799,7 @@
                                             </textFieldCell>
                                         </textField>
                                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mMd-k6-LDc">
-                                            <rect key="frame" x="451" y="16" width="101" height="18"/>
+                                            <rect key="frame" x="482" y="42" width="72" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="Use GUI" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="VNJ-W9-rzl">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -6870,10 +6870,10 @@ DQ
     <resources>
         <image name="abort" width="48" height="48"/>
         <image name="backupnow" width="64" height="64"/>
-        <image name="batch" width="48" height="48"/>
+        <image name="batch" width="64" height="64"/>
         <image name="complete" width="48" height="48"/>
         <image name="config" width="64" height="64"/>
-        <image name="quickbackup" width="48" height="48"/>
+        <image name="quickbackup" width="64" height="64"/>
         <image name="red" width="512" height="512"/>
         <image name="report" width="64" height="64"/>
         <image name="up" width="256" height="256"/>

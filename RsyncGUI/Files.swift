@@ -22,6 +22,7 @@ enum Fileerrortype {
     case profiledeletedirectory
     case filesize
     case sequrityscoped
+    case homerootcatalog
 }
 
 // Protocol for reporting file errors
@@ -65,6 +66,8 @@ extension Fileerrormessage {
             return "Filesize of logfile is getting bigger"
         case .sequrityscoped:
             return "Could not save SequrityScoped URL"
+        case .homerootcatalog:
+            return "Could not get root of homecatalog"
         }
     }
 }
@@ -82,6 +85,7 @@ class Files: Reportfileerror {
             let homePath = FileManager.default.string(withFileSystemRepresentation: home, length: Int(strlen(home)))
             return homePath
         }
+        self.error(error: "Root of homecatalog", errortype: .homerootcatalog)
         return ""
     }
 
