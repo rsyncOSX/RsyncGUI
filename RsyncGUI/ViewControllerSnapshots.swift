@@ -41,7 +41,7 @@ class ViewControllerSnapshots: NSViewController, SetDismisser, SetConfigurations
     private func info (num: Int) {
         switch num {
         case 1:
-            self.info.stringValue = "Not a snapshot task..."
+            self.info.stringValue = "Snapshots is not avaliable in this version of RsyncGUI - please us RsyncOSX..."
         case 2:
             self.info.stringValue = "Aborting delete operation..."
         case 3:
@@ -118,7 +118,7 @@ class ViewControllerSnapshots: NSViewController, SetDismisser, SetConfigurations
             self.info(num: 0)
             self.snapshotsloggdata!.preparecatalogstodelete()
             guard self.snapshotsloggdata!.remotecatalogstodelete != nil else { return }
-            self.presentViewControllerAsSheet(self.viewControllerProgress!)
+            self.presentAsSheet(self.viewControllerProgress!)
             self.deletebutton.isEnabled = false
             self.deletesnapshots.isEnabled = false
             self.deletesnapshotcatalogs()
@@ -219,7 +219,7 @@ class ViewControllerSnapshots: NSViewController, SetDismisser, SetConfigurations
 extension ViewControllerSnapshots: DismissViewController {
 
     func dismiss_view(viewcontroller: NSViewController) {
-        self.dismissViewController(viewcontroller)
+        self.dismiss(viewcontroller)
         if self.snapshotsloggdata?.remotecatalogstodelete != nil {
             self.snapshotsloggdata?.remotecatalogstodelete = nil
             self.info(num: 2)
@@ -321,7 +321,7 @@ extension ViewControllerSnapshots: Reloadandrefresh {
 }
 
 extension ViewControllerSnapshots: NSTextFieldDelegate {
-    override func controlTextDidBeginEditing(_ notification: Notification) {
+    func controlTextDidBeginEditing(_ notification: Notification) {
         self.delayWithSeconds(0.5) {
             guard self.snapshotsloggdata != nil else { return }
             if (notification.object as? NSTextField)! == self.stringdeletesnapshotsnum {

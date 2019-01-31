@@ -143,7 +143,7 @@ class Ssh: Files {
     }
 
     init(outputprocess: OutputProcess?) {
-        super.init(root: .realRoot, configpath: ViewControllerReference.shared.configpath)
+        super.init(whatroot: .realRoot, configpath: ViewControllerReference.shared.configpath)
         self.outputprocess = outputprocess
         self.keyFileURLS = self.getFilesURLs()
         self.keyFileStrings = self.getsshcatalogsfilestrings()

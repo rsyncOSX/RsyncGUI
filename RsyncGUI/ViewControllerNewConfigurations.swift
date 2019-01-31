@@ -105,7 +105,7 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, VcSc
     // Userconfiguration button
     @IBAction func userconfiguration(_ sender: NSButton) {
         globalMainQueue.async(execute: { () -> Void in
-            self.presentViewControllerAsSheet(self.viewControllerUserconfiguration!)
+            self.presentAsSheet(self.viewControllerUserconfiguration!)
         })
     }
 
@@ -286,7 +286,7 @@ extension ViewControllerNewConfigurations: NSTableViewDelegate {
 extension ViewControllerNewConfigurations: DismissViewController {
 
     func dismiss_view(viewcontroller: NSViewController) {
-        self.dismissViewController(viewcontroller)
+        self.dismiss(viewcontroller)
     }
 }
 
@@ -315,7 +315,7 @@ extension ViewControllerNewConfigurations: UpdateProgress {
 
 extension ViewControllerNewConfigurations: NSTextFieldDelegate {
 
-    override func controlTextDidEndEditing(_ notification: Notification) {
+    func controlTextDidEndEditing(_ notification: Notification) {
         if (notification.object as? NSTextField)! == self.localCatalog {
             self.editlocalcatalog = true
         } else {

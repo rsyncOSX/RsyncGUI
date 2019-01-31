@@ -132,7 +132,7 @@ class ViewControllerLoggData: NSViewController, SetConfigurations, SetSchedules,
 
 extension ViewControllerLoggData: NSSearchFieldDelegate {
 
-    override func controlTextDidBeginEditing(_ obj: Notification) {
+    func controlTextDidBeginEditing(_ obj: Notification) {
         self.delayWithSeconds(0.25) {
             let filterstring = self.search.stringValue
             if filterstring.isEmpty {

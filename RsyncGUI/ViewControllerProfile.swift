@@ -139,7 +139,7 @@ extension ViewControllerProfile: NSTableViewDelegate {
 }
 
 extension ViewControllerProfile: NSTextFieldDelegate {
-    override func controlTextDidBeginEditing(_ notification: Notification) {
+    func controlTextDidBeginEditing(_ notification: Notification) {
         self.delayWithSeconds(0.5) {
             if self.newprofile.stringValue.count > 0 {
                 self.loadbutton.title = "Save"

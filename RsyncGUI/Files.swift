@@ -9,7 +9,7 @@
 
 import Foundation
 
-enum Root {
+enum WhatRoot {
     case profileRoot
     case realRoot
     case sandboxedRoot
@@ -22,6 +22,7 @@ enum Fileerrortype {
     case profiledeletedirectory
     case filesize
     case sequrityscoped
+    case homerootcatalog
 }
 
 // Protocol for reporting file errors
@@ -65,26 +66,31 @@ extension Fileerrormessage {
             return "Filesize of logfile is getting bigger"
         case .sequrityscoped:
             return "Could not save SequrityScoped URL"
+        case .homerootcatalog:
+            return "Could not get root of homecatalog"
         }
     }
 }
 
 class Files: Reportfileerror {
 
-    var root: Root?
+    var whatroot: WhatRoot?
     var realrootpath: String?
-    var sandboxedroot: String?
+    var sandboxedrootpath: String?
     var sshrealrootpath: String?
     private var configpath: String?
     var userHomeDirectoryPath: String {
         let pw = getpwuid(getuid())
-        let home = pw?.pointee.pw_dir
-        let homePath = FileManager.default.string(withFileSystemRepresentation: home!, length: Int(strlen(home)))
-        return homePath
+        if let home = pw?.pointee.pw_dir {
+            let homePath = FileManager.default.string(withFileSystemRepresentation: home, length: Int(strlen(home)))
+            return homePath
+        }
+        self.error(error: "Root of homecatalog", errortype: .homerootcatalog)
+        return ""
     }
 
     private func setrootpath() {
-        switch self.root! {
+        switch self.whatroot! {
         case .profileRoot:
             let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as NSArray
             let docuDir = (paths.firstObject as? String)!
@@ -94,7 +100,7 @@ class Files: Reportfileerror {
             self.realrootpath = self.userHomeDirectoryPath
             self.sshrealrootpath = self.userHomeDirectoryPath + "/.ssh/"
         case .sandboxedRoot:
-             self.sandboxedroot = NSHomeDirectory()
+             self.sandboxedrootpath = NSHomeDirectory()
         }
     }
 
@@ -187,9 +193,9 @@ class Files: Reportfileerror {
         }
     }
 
-    init (root: Root, configpath: String) {
+    init (whatroot: WhatRoot, configpath: String) {
         self.configpath = configpath
-        self.root = root
+        self.whatroot = whatroot
         self.setrootpath()
     }
 }
