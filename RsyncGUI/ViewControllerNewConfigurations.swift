@@ -170,16 +170,17 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, VcSc
     }
 
     private func resetinputfields() {
-        self.viewParameter1.stringValue = archive
-        self.viewParameter2.stringValue = verbose
-        self.viewParameter3.stringValue = compress
-        self.viewParameter4.stringValue = delete
-        self.viewParameter5.stringValue = eparam + " " + ssh
+        self.viewParameter1.stringValue = self.archive
+        self.viewParameter2.stringValue = self.verbose
+        self.viewParameter3.stringValue = self.compress
+        self.viewParameter4.stringValue = self.delete
+        self.viewParameter5.stringValue = self.eparam + " " + self.ssh
         self.localCatalog.stringValue = ""
         self.offsiteCatalog.stringValue = ""
         self.offsiteUsername.stringValue = ""
         self.offsiteServer.stringValue = ""
         self.backupID.stringValue = ""
+        self.sshport.stringValue = ""
         self.rsyncdaemon.state = .off
     }
 
