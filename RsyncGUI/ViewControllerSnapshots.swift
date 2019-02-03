@@ -41,7 +41,7 @@ class ViewControllerSnapshots: NSViewController, SetDismisser, SetConfigurations
     private func info (num: Int) {
         switch num {
         case 1:
-            self.info.stringValue = "Not a snapshot task..."
+            self.info.stringValue = "Snapshots is not avaliable in this version of RsyncGUI - please us RsyncOSX..."
         case 2:
             self.info.stringValue = "Aborting delete operation..."
         case 3:
