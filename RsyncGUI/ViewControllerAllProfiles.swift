@@ -29,10 +29,11 @@ class ViewControllerAllProfiles: NSViewController, Delay, Abort {
     private var column: Int?
     private var filterby: Sortandfilter?
     private var sortedascendigdesending: Bool = true
-    var diddissappear: Bool = false
     private var index: Int?
     private var outputprocess: OutputProcess?
     private var process: Process?
+
+    weak var allprofiledetailsdelegata: AllProfileDetails?
 
     @IBAction func abort(_ sender: NSButton) {
         self.process?.terminate()
@@ -80,23 +81,20 @@ class ViewControllerAllProfiles: NSViewController, Delay, Abort {
         self.mainTableView.target = self
         self.mainTableView.doubleAction = #selector(ViewControllerProfile.tableViewDoubleClick(sender:))
         self.working.usesThreadedAnimation = true
-        ViewControllerReference.shared.setvcref(viewcontroller: .vcallprofiles, nsviewcontroller: self)
+        
     }
-
+    
     override func viewDidAppear() {
         super.viewDidAppear()
-        guard self.diddissappear == false else {
-            globalMainQueue.async(execute: { () -> Void in
-                self.mainTableView.reloadData()
-            })
-            return
-        }
         self.reloadallprofiles()
+        ViewControllerReference.shared.setvcref(viewcontroller: .vcallprofiles, nsviewcontroller: self)
+        self.allprofiledetailsdelegata = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
+        self.allprofiledetailsdelegata?.enablereloadallprofiles()
     }
-
+    
     override func viewDidDisappear() {
         super.viewDidDisappear()
-        self.diddissappear = true
+        self.allprofiledetailsdelegata?.disablereloadallprofiles()
     }
 
     func reloadallprofiles() {
