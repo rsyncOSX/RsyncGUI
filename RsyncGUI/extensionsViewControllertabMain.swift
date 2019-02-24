@@ -718,3 +718,14 @@ extension ViewControllertabMain: SaveSequrityScopedURL {
         self.configurations!.savesequrityscopedurl(urlpathforcatalog: pathcatalog)
     }
 }
+
+extension ViewControllertabMain: AllProfileDetails {
+    func disablereloadallprofiles() {
+        self.allprofilesview = false
+    }
+    
+    func enablereloadallprofiles() {
+        self.allprofilesview = true
+        self.allprofiledetailsDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcallprofiles) as? ViewControllerAllProfiles
+    }
+}

@@ -9,10 +9,10 @@
 
 import Foundation
 
-final class PersistentStorageUserconfiguration: Readwritefiles, SetConfigurations {
+final class PersistentStorageUserconfiguration: ReadWriteDictionary, SetConfigurations {
 
     /// Variable holds all configuration data
-    private var userconfiguration: [NSDictionary]?
+    var userconfiguration: [NSDictionary]?
 
     /// Function reads configurations from permanent store
     /// - returns : array of NSDictonarys, return might be nil
@@ -88,13 +88,13 @@ final class PersistentStorageUserconfiguration: Readwritefiles, SetConfiguration
     // Configuration is [NSDictionary]
     private func writeToStore (_ array: [NSDictionary]) {
         // Getting the object just for the write method, no read from persistent store
-        _ = self.writeDatatoPersistentStorage(array, task: .userconfig)
+        _ = self.writeNSDictionaryToPersistentStorage(array)
     }
 
     init (readfromstorage: Bool) {
-        super.init(task: .userconfig, profile: nil, configpath: ViewControllerReference.shared.configpath)
+        super.init(whattoreadwrite: .userconfig, profile: nil, configpath: ViewControllerReference.shared.configpath)
         if readfromstorage {
-            self.userconfiguration = self.getDatafromfile()
+            self.userconfiguration = self.readNSDictionaryFromPersistentStore()
         }
     }
 }

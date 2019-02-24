@@ -10,6 +10,10 @@
 import Foundation
 import Cocoa
 
+protocol ReloadTableAllProfiles: class {
+    func reloadtable()
+}
+
 class ViewControllerAllProfiles: NSViewController, Delay, Abort {
 
     // Main tableview
@@ -17,7 +21,6 @@ class ViewControllerAllProfiles: NSViewController, Delay, Abort {
     @IBOutlet weak var search: NSSearchField!
     @IBOutlet weak var sortdirection: NSButton!
     @IBOutlet weak var numberOfprofiles: NSTextField!
-    @IBOutlet weak var sizebutton: NSButton!
     @IBOutlet weak var working: NSProgressIndicator!
 
     private var allprofiles: AllConfigurations?
@@ -62,7 +65,6 @@ class ViewControllerAllProfiles: NSViewController, Delay, Abort {
         let config = Configuration(dictionary: dict!)
         let duargs: DuArgumentsSsh = DuArgumentsSsh(config: config)
         guard duargs.getArguments() != nil || duargs.getCommand() != nil else { return }
-        self.sizebutton.isEnabled = false
         self.working.startAnimation(nil)
         let task: DuCommandSsh = DuCommandSsh(command: duargs.getCommand(), arguments: duargs.getArguments())
         task.setdelegate(object: self)
@@ -110,7 +112,6 @@ class ViewControllerAllProfiles: NSViewController, Delay, Abort {
     }
 
     @objc(tableViewDoubleClick:) func tableViewDoubleClick(sender: AnyObject) {
-        guard self.sizebutton.isEnabled == true else { return }
         self.getremotesizes()
     }
 }
@@ -148,7 +149,6 @@ extension ViewControllerAllProfiles: NSTableViewDelegate, Attributedestring {
     }
     // setting which table row is selected
     func tableViewSelectionDidChange(_ notification: Notification) {
-        guard self.sizebutton.isEnabled == true else { return }
         let myTableViewFromNotification = (notification.object as? NSTableView)!
         let column = myTableViewFromNotification.selectedColumn
         let indexes = myTableViewFromNotification.selectedRowIndexes
@@ -217,7 +217,6 @@ extension ViewControllerAllProfiles: NSSearchFieldDelegate {
 
 extension ViewControllerAllProfiles: UpdateProgress {
     func processTermination() {
-        self.sizebutton.isEnabled = true
         self.working.stopAnimation(nil)
         guard self.process != nil else { return }
         self.process = nil
@@ -232,5 +231,11 @@ extension ViewControllerAllProfiles: UpdateProgress {
 
     func fileHandler() {
         //
+    }
+}
+
+extension ViewControllerAllProfiles: ReloadTableAllProfiles {
+    func reloadtable() {
+        self.reloadallprofiles()
     }
 }
