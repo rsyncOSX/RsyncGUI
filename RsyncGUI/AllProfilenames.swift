@@ -1,6 +1,6 @@
 //
 //  AllProfilenames.swift
-//  RsyncGUI
+//  RsyncOSX
 //
 //  Created by Thomas Evensen on 15.05.2018.
 //  Copyright © 2018 Thomas Evensen. All rights reserved.

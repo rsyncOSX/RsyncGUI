@@ -10,6 +10,10 @@
 import Foundation
 import Cocoa
 
+protocol ReloadTableAllProfiles: class {
+    func reloadtable()
+}
+
 class ViewControllerAllProfiles: NSViewController, Delay, Abort {
 
     // Main tableview
@@ -227,5 +231,11 @@ extension ViewControllerAllProfiles: UpdateProgress {
 
     func fileHandler() {
         //
+    }
+}
+
+extension ViewControllerAllProfiles: ReloadTableAllProfiles {
+    func reloadtable() {
+        self.reloadallprofiles()
     }
 }
