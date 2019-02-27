@@ -448,9 +448,15 @@ extension ViewControllertabMain: SingleTaskProgress {
 
     func presentViewInformation(outputprocess: OutputProcess) {
         self.outputprocess = outputprocess
-        globalMainQueue.async(execute: { () -> Void in
-            self.presentAsSheet(self.viewControllerInformation!)
-        })
+        if self.dynamicappend {
+            globalMainQueue.async(execute: { () -> Void in
+                self.mainTableView.reloadData()
+            })
+        } else {
+            globalMainQueue.async(execute: { () -> Void in
+                self.presentAsSheet(self.viewControllerInformation!)
+            })
+        }
     }
 
     func terminateProgressProcess() {
@@ -723,7 +729,7 @@ extension ViewControllertabMain: AllProfileDetails {
     func disablereloadallprofiles() {
         self.allprofilesview = false
     }
-    
+
     func enablereloadallprofiles() {
         self.allprofilesview = true
         self.allprofiledetailsDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcallprofiles) as? ViewControllerAllProfiles
