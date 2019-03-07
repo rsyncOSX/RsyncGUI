@@ -44,6 +44,8 @@ final class Configurations: ReloadTable, SetSchedules {
     var localremote: [NSMutableDictionary]?
     // remote info tasks
     var remoteinfotaskworkqueue: RemoteInfoTaskWorkQueue?
+    // Which kind of task
+    var processtermination: ProcessTermination?
 
     // Sandbox
     var SequrityScopedURLs: [NSDictionary]?
@@ -478,6 +480,7 @@ final class Configurations: ReloadTable, SetSchedules {
         self.configurations = nil
         self.argumentAllConfigurations = nil
         self.configurationsDataSource = nil
+        self.processtermination = .quicktask
         self.profile = profile
         self.storageapi = PersistentStorageAPI(profile: self.profile)
         self.readconfigurations()

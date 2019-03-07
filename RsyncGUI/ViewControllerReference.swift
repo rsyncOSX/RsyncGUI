@@ -118,6 +118,8 @@ class ViewControllerReference {
     var executescheduledtasksmenuapp: Bool = false
     // True if menuapp is running
     var menuappisrunning: Bool = false
+    // Which tab is active
+    var activetab: ViewController?
 
     func getvcref(viewcontroller: ViewController) -> NSViewController? {
         switch viewcontroller {
