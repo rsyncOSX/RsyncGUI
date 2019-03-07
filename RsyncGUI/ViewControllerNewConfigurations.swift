@@ -5,7 +5,7 @@
 //  Created by Thomas Evensen on 13/02/16.
 //  Copyright © 2016 Thomas Evensen. All rights reserved.
 //
-//  swiftlint:disable function_body_length line_length
+//  swiftlint:disable function_body_length line_length type_body_length
 
 import Foundation
 import Cocoa
@@ -16,7 +16,7 @@ enum Typebackup {
     case singlefile
 }
 
-class ViewControllerNewConfigurations: NSViewController, SetConfigurations, VcSchedule, Delay, Index {
+class ViewControllerNewConfigurations: NSViewController, SetConfigurations, VcSchedule, Delay, Index, VcExecute {
 
     var storageapi: PersistentStorageAPI?
     var newconfigurations: NewConfigurations?
@@ -57,6 +57,33 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, VcSc
     @IBOutlet weak var backuptype: NSComboBox!
     @IBOutlet weak var remotecapacitybutton: NSButton!
     @IBOutlet weak var useGUIbutton: NSButton!
+
+    var verifyrsyncpath: Verifyrsyncpath?
+
+    @IBAction func totinfo(_ sender: NSButton) {
+        guard ViewControllerReference.shared.norsync == false else {
+            self.verifyrsyncpath!.noRsync()
+            return
+        }
+        self.configurations!.processtermination = .remoteinfotask
+        globalMainQueue.async(execute: { () -> Void in
+            self.presentAsSheet(self.viewControllerRemoteInfo!)
+        })
+    }
+
+    @IBAction func quickbackup(_ sender: NSButton) {
+        guard ViewControllerReference.shared.norsync == false else {
+            self.verifyrsyncpath!.noRsync()
+            return
+        }
+        self.openquickbackup()
+    }
+
+    @IBAction func automaticbackup(_ sender: NSButton) {
+        self.configurations!.processtermination = .automaticbackup
+        self.configurations?.remoteinfotaskworkqueue = RemoteInfoTaskWorkQueue(inbatch: false)
+        self.presentAsSheet(self.viewControllerEstimating!)
+    }
 
     func filemanager() {
         guard self.useGUIbutton.state == .on else { return }
@@ -139,6 +166,7 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, VcSc
 
     override func viewDidAppear() {
         super.viewDidAppear()
+        ViewControllerReference.shared.activetab = .vcnewconfigurations
         self.backuptypeselected = .synchronize
         self.backuptype.selectItem(at: 0)
         self.useGUIbutton.state = .off
@@ -323,5 +351,15 @@ extension ViewControllerNewConfigurations: NSTextFieldDelegate {
             self.editlocalcatalog = false
         }
         self.useGUIbutton.state = .off
+    }
+}
+
+extension ViewControllerNewConfigurations: OpenQuickBackup {
+    func openquickbackup() {
+        self.configurations!.processtermination = .quicktask
+        self.configurations!.allowNotifyinMain = false
+        globalMainQueue.async(execute: { () -> Void in
+            self.presentAsSheet(self.viewControllerQuickBackup!)
+        })
     }
 }

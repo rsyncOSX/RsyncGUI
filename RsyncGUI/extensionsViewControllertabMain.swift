@@ -224,10 +224,10 @@ extension ViewControllertabMain: UpdateProgress {
     // Protocol UpdateProgress two functions, ProcessTermination() and FileHandler()
     func processTermination() {
         self.readyforexecution = true
-        if self.processtermination == nil {
-            self.processtermination = .singlequicktask
+        if self.configurations!.processtermination == nil {
+            self.configurations!.processtermination = .singlequicktask
         }
-        switch self.processtermination! {
+        switch self.configurations!.processtermination! {
         case .singletask:
             guard self.singletask != nil else { return }
             self.outputprocess = self.singletask!.outputprocess
@@ -261,16 +261,37 @@ extension ViewControllertabMain: UpdateProgress {
             processterminationDelegate?.processTermination()
         case .automaticbackup:
             guard self.configurations!.remoteinfotaskworkqueue != nil else { return }
+            weak var estimateupdateDelegate: Updateestimating?
+            estimateupdateDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcestimatingtasks) as? ViewControllerEstimatingTasks
             // compute alle estimates
             if self.configurations!.remoteinfotaskworkqueue!.stackoftasktobeestimated != nil {
                 self.configurations!.remoteinfotaskworkqueue?.processTermination()
-                self.estimateupdateDelegate?.updateProgressbar()
+                estimateupdateDelegate?.updateProgressbar()
             } else {
-                self.estimateupdateDelegate?.dismissview()
+                estimateupdateDelegate?.dismissview()
                 self.configurations!.remoteinfotaskworkqueue?.processTermination()
                 self.configurations!.remoteinfotaskworkqueue?.selectalltaskswithnumbers(deselect: false)
                 self.configurations!.remoteinfotaskworkqueue?.setbackuplist()
-                self.openquickbackup()
+                weak var openDelegate: OpenQuickBackup?
+                switch ViewControllerReference.shared.activetab ?? .vctabmain {
+                case .vcnewconfigurations:
+                    openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcnewconfigurations) as? ViewControllerNewConfigurations
+                case .vctabmain:
+                    openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
+                case .vccopyfiles:
+                    openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vccopyfiles) as? ViewControllerCopyFiles
+                case .vcsnapshot:
+                    openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcsnapshot) as? ViewControllerSnapshots
+                case .vcverify:
+                    openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcverify) as? ViewControllerVerify
+                case .vcssh:
+                    openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcssh) as? ViewControllerSsh
+                case .vcloggdata:
+                    openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcloggdata) as? ViewControllerLoggData
+                default:
+                    openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
+                }
+                openDelegate?.openquickbackup()
             }
         case .restore:
             weak var processterminationDelegate: UpdateProgress?
@@ -284,7 +305,7 @@ extension ViewControllertabMain: UpdateProgress {
                 self.estimateupdateDelegate?.updateProgressbar()
             } else {
                 self.configurations!.remoteinfotaskworkqueue?.processTermination()
-                self.processtermination = .batchtask
+                self.configurations!.processtermination = .batchtask
             }
         }
     }
@@ -293,10 +314,10 @@ extension ViewControllertabMain: UpdateProgress {
     // Process is either in singleRun or batchRun
     func fileHandler() {
         weak var outputeverythingDelegate: ViewOutputDetails?
-        if self.processtermination == nil {
-            self.processtermination = .singlequicktask
+        if self.configurations!.processtermination == nil {
+            self.configurations!.processtermination = .singlequicktask
         }
-        switch self.processtermination! {
+        switch self.configurations!.processtermination! {
         case .singletask:
             guard self.singletask != nil else { return }
             weak var localprocessupdateDelegate: UpdateProgress?
@@ -614,7 +635,7 @@ extension ViewControllertabMain: SetRemoteInfo {
 
 extension ViewControllertabMain: OpenQuickBackup {
     func openquickbackup() {
-        self.processtermination = .quicktask
+        self.configurations!.processtermination = .quicktask
         self.configurations!.allowNotifyinMain = false
         globalMainQueue.async(execute: { () -> Void in
             self.presentAsSheet(self.viewControllerQuickBackup!)

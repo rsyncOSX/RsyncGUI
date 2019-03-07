@@ -10,7 +10,7 @@
 import Foundation
 import Cocoa
 
-protocol OpenQuickBackup {
+protocol OpenQuickBackup: class {
     func openquickbackup()
 }
 
@@ -38,8 +38,25 @@ class ViewControllerRemoteInfo: NSViewController, SetDismisser, Abort {
         if let backup = self.dobackups() {
             if backup.count > 0 {
                 self.remoteinfotask?.setbackuplist(list: backup)
-                let openDelegate: OpenQuickBackup?
-                openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
+                weak var openDelegate: OpenQuickBackup?
+                switch ViewControllerReference.shared.activetab ?? .vctabmain {
+                case .vcnewconfigurations:
+                    openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcnewconfigurations) as? ViewControllerNewConfigurations
+                case .vctabmain:
+                    openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
+                case .vccopyfiles:
+                    openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vccopyfiles) as? ViewControllerCopyFiles
+                case .vcsnapshot:
+                    openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcsnapshot) as? ViewControllerSnapshots
+                case .vcverify:
+                    openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcverify) as? ViewControllerVerify
+                case .vcssh:
+                    openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcssh) as? ViewControllerSsh
+                case .vcloggdata:
+                    openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcloggdata) as? ViewControllerLoggData
+                default:
+                    openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
+                }
                 openDelegate?.openquickbackup()
             }
         }
