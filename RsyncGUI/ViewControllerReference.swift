@@ -120,6 +120,8 @@ class ViewControllerReference {
     var menuappisrunning: Bool = false
     // Which tab is active
     var activetab: ViewController?
+    // Initial start
+    var initialstart: Int = 0
 
     func getvcref(viewcontroller: ViewController) -> NSViewController? {
         switch viewcontroller {
