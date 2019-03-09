@@ -910,7 +910,11 @@
                                             </connections>
                                         </button>
                                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vZ8-RO-Huz">
-                                            <rect key="frame" x="45" y="1" width="62" height="32"/>
+                                            <rect key="frame" x="21" y="1" width="80" height="32"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="21" id="HL0-FU-mKt"/>
+                                                <constraint firstAttribute="width" constant="68" id="rko-nZ-6HT"/>
+                                            </constraints>
                                             <buttonCell key="cell" type="push" title="Tcp" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="FaP-hR-iYc">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
@@ -926,7 +930,7 @@
                                         <constraint firstItem="vZ8-RO-Huz" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="AG8-9G-pGh" secondAttribute="leading" constant="20" symbolic="YES" id="Xxw-NG-KOW"/>
                                         <constraint firstItem="vZ8-RO-Huz" firstAttribute="top" secondItem="AG8-9G-pGh" secondAttribute="top" constant="2" id="ZQu-d4-mdf"/>
                                         <constraint firstItem="p7k-92-WMK" firstAttribute="leading" secondItem="AG8-9G-pGh" secondAttribute="leading" constant="5" id="hmi-oU-VN1"/>
-                                        <constraint firstAttribute="trailing" secondItem="vZ8-RO-Huz" secondAttribute="trailing" constant="23" id="idA-MS-94X"/>
+                                        <constraint firstAttribute="trailing" secondItem="vZ8-RO-Huz" secondAttribute="trailing" constant="29" id="idA-MS-94X"/>
                                         <constraint firstAttribute="bottom" secondItem="vZ8-RO-Huz" secondAttribute="bottom" constant="8" id="tON-6g-Crh"/>
                                     </constraints>
                                 </view>
