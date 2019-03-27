@@ -39,7 +39,7 @@ final class CatalogProfile: Files {
         if let path = self.realrootpath {
             let profileDirectory = path + "/" + profileName
             if fileManager.fileExists(atPath: profileDirectory) == true {
-                let answer = Alerts.dialogOKCancel("Delete profile: " + profileName + "?", text: "Cancel or OK")
+                let answer = Alerts.dialogOrCancel("Delete profile: " + profileName + "?", text: "Cancel or OK", dialog: "Delete")
                 if answer {
                     do {
                         try fileManager.removeItem(atPath: profileDirectory)
