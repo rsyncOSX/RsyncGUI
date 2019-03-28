@@ -75,7 +75,7 @@ class ViewControllerSsh: NSViewController, SetConfigurations, VcExecute {
     }()
 
     @IBAction func resetsequrityscoped(_ sender: NSButton) {
-        let answer = Alerts.dialogOKCancel("You are about to reset RsynGUI access to your files", text: "Please close and start RsyncGUI again")
+        let answer = Alerts.dialogOrCancel("You are about to reset RsynGUI access to your files", text: "Please close and start RsyncGUI again", dialog: "Reset")
         if answer {
             weak var resetsequrityscopedDelegate: ResetSequrityScopedURL?
             resetsequrityscopedDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
