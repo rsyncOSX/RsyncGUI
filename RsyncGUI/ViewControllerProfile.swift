@@ -88,7 +88,6 @@ class ViewControllerProfile: NSViewController, SetConfigurations, SetDismisser, 
         self.profile = CatalogProfile()
         self.profilesArray = self.profile!.getDirectorysStrings()
         self.newProfileDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
-        self.snapshotnewProfileDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcsnapshot) as? ViewControllerSnapshots
         self.copyfilesnewProfileDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vccopyfiles) as? ViewControllerCopyFiles
         globalMainQueue.async(execute: { () -> Void in
             self.profilesTable.reloadData()

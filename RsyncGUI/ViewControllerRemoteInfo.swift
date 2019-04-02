@@ -46,8 +46,6 @@ class ViewControllerRemoteInfo: NSViewController, SetDismisser, Abort {
                     openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
                 case .vccopyfiles:
                     openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vccopyfiles) as? ViewControllerCopyFiles
-                case .vcsnapshot:
-                    openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcsnapshot) as? ViewControllerSnapshots
                 case .vcverify:
                     openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcverify) as? ViewControllerVerify
                 case .vcssh:

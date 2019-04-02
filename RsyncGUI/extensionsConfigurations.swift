@@ -37,7 +37,6 @@ protocol Reloadandrefresh: class {
 protocol ReloadTable {
     var reloadDelegateMain: Reloadandrefresh? { get }
     var reloadDelegateLoggData: Reloadandrefresh? { get }
-    var reloadDelegateSnapshot: Reloadandrefresh? { get }
 }
 
 extension ReloadTable {
@@ -47,17 +46,12 @@ extension ReloadTable {
     weak var reloadDelegateLoggData: Reloadandrefresh? {
         return ViewControllerReference.shared.getvcref(viewcontroller: .vcloggdata) as? ViewControllerLoggData
     }
-    weak var reloadDelegateSnapshot: Reloadandrefresh? {
-        return ViewControllerReference.shared.getvcref(viewcontroller: .vcsnapshot) as? ViewControllerSnapshots
-    }
 
     func reloadtable(vcontroller: ViewController) {
         if vcontroller == .vctabmain {
             self.reloadDelegateMain?.reloadtabledata()
         } else if vcontroller == .vcloggdata {
             self.reloadDelegateLoggData?.reloadtabledata()
-        } else if vcontroller == .vcsnapshot {
-            self.reloadDelegateSnapshot?.reloadtabledata()
         }
     }
 }

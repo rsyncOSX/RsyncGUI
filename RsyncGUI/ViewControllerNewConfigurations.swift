@@ -212,14 +212,6 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, VcSc
         self.rsyncdaemon.state = .off
     }
 
-    private func snapshotcreatecatalog (dict: NSDictionary, outputprocess: OutputProcess?) {
-        let config: Configuration = Configuration(dictionary: dict)
-        guard config.offsiteServer.isEmpty == false else { return }
-        let args = SnapshotCreateCatalogArguments(config: config)
-        let updatecurrent = SnapshotCreateCatalog(command: args.getCommand(), arguments: args.getArguments())
-        updatecurrent.executeProcess(outputprocess: outputprocess)
-    }
-
     @IBAction func addConfig(_ sender: NSButton) {
         let dict: NSMutableDictionary = [
             "task": ViewControllerReference.shared.backup,
@@ -238,12 +230,7 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, VcSc
             "dateRun": "",
             "singleFile": 0]
         dict.setValue("no", forKey: "batch")
-        if self.backuptypeselected == .snapshots {
-            dict.setValue(ViewControllerReference.shared.snapshot, forKey: "task")
-            dict.setValue(1, forKey: "snapshotnum")
-            self.outputprocess = OutputProcess()
-            self.snapshotcreatecatalog(dict: dict, outputprocess: self.outputprocess)
-        } else if self.backuptypeselected == .singlefile {
+        if self.backuptypeselected == .singlefile {
             dict.setValue(1, forKey: "singleFile")
         }
         if !self.localCatalog.stringValue.hasSuffix("/") && self.backuptypeselected != .singlefile {
