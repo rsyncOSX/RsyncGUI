@@ -239,7 +239,6 @@ protocol SetDismisser {
     var dismissDelegateCopyFiles: DismissViewController? {get}
     var dismissDelegateNewConfigurations: DismissViewController? {get}
     var dismissDelegateSsh: DismissViewController? {get}
-    var dimissDelegateSnapshot: DismissViewController? {get}
     func dismissview(viewcontroller: NSViewController, vcontroller: ViewController)
 }
 
@@ -256,9 +255,6 @@ extension SetDismisser {
     weak var dismissDelegateSsh: DismissViewController? {
         return ViewControllerReference.shared.getvcref(viewcontroller: .vcssh) as? ViewControllerSsh
     }
-    weak var dimissDelegateSnapshot: DismissViewController? {
-        return ViewControllerReference.shared.getvcref(viewcontroller: .vcsnapshot) as? ViewControllerSnapshots
-    }
 
     func dismissview(viewcontroller: NSViewController, vcontroller: ViewController) {
         if vcontroller == .vctabmain {
@@ -269,8 +265,6 @@ extension SetDismisser {
             self.dismissDelegateNewConfigurations?.dismiss_view(viewcontroller: (self as? NSViewController)!)
         } else if vcontroller == .vcssh {
             self.dismissDelegateSsh?.dismiss_view(viewcontroller: (self as? NSViewController)!)
-        } else if vcontroller == .vcsnapshot {
-            self.dimissDelegateSnapshot?.dismiss_view(viewcontroller: (self as? NSViewController)!)
         }
     }
 }

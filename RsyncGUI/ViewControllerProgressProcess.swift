@@ -38,9 +38,6 @@ class ViewControllerProgressProcess: NSViewController, SetConfigurations, SetDis
         ViewControllerReference.shared.setvcref(viewcontroller: .vcprogressview, nsviewcontroller: self)
         if let pvc = self.configurations!.singleTask {
             self.countDelegate = pvc
-        } else {
-            self.countDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcsnapshot) as? ViewControllerSnapshots
-            self.inmain = false
         }
         self.calculatedNumberOfFiles = self.countDelegate?.maxCount()
         self.initiateProgressbar()

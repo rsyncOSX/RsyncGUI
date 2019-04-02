@@ -18,7 +18,6 @@ protocol ReadLoggdata: class {
 class ViewControllerLoggData: NSViewController, SetConfigurations, SetSchedules, Delay, Index, Connected, VcExecute {
 
     private var scheduleloggdata: ScheduleLoggData?
-    private var snapshotsloggdata: SnapshotsLoggData?
     private var row: NSDictionary?
     private var filterby: Sortandfilter?
     private var index: Int?
@@ -128,10 +127,6 @@ class ViewControllerLoggData: NSViewController, SetConfigurations, SetSchedules,
             let hiddenID = self.configurations?.gethiddenID(index: index) ?? -1
             let config = self.configurations?.getConfigurations()[index]
             self.scheduleloggdata = ScheduleLoggData(hiddenID: hiddenID, sortdirection: self.sortedascendigdesending)
-            if self.connected(config: config!) {
-                if config?.task == "snapshot" { self.working.startAnimation(nil) }
-                self.snapshotsloggdata = SnapshotsLoggData(config: config!, insnapshot: false)
-            }
             self.info(num: 1)
         } else {
             self.info(num: 0)
@@ -302,9 +297,6 @@ extension ViewControllerLoggData: ReadLoggdata {
 
 extension ViewControllerLoggData: UpdateProgress {
     func processTermination() {
-        self.snapshotsloggdata?.processTermination()
-        guard self.snapshotsloggdata?.outputprocess?.error == false else { return }
-        self.scheduleloggdata?.intersect(snapshotaloggdata: self.snapshotsloggdata)
         self.working.stopAnimation(nil)
         globalMainQueue.async(execute: { () -> Void in
             self.scheduletable.reloadData()

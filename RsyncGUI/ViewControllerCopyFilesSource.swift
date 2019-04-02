@@ -15,7 +15,6 @@ class ViewControllerCopyFilesSource: NSViewController, SetConfigurations, SetDis
     @IBOutlet weak var selectButton: NSButton!
 
     weak var getSourceDelegateSsh: ViewControllerSsh?
-    weak var getSourceDelegateSnapshots: ViewControllerSnapshots?
     private var index: Int?
 
     private func dismissview() {
@@ -23,8 +22,6 @@ class ViewControllerCopyFilesSource: NSViewController, SetConfigurations, SetDis
             self.dismissview(viewcontroller: self, vcontroller: .vccopyfiles)
         } else if (self.presentingViewController as? ViewControllerSsh) != nil {
             self.dismissview(viewcontroller: self, vcontroller: .vcssh)
-        } else if (self.presentingViewController as? ViewControllerSnapshots) != nil {
-            self.dismissview(viewcontroller: self, vcontroller: .vcsnapshot)
         }
     }
 
@@ -33,11 +30,6 @@ class ViewControllerCopyFilesSource: NSViewController, SetConfigurations, SetDis
             self.getSourceDelegateSsh = pvc
             if let index = self.index {
                 self.getSourceDelegateSsh?.getSourceindex(index: index)
-            }
-        } else if let pvc = self.presentingViewController as? ViewControllerSnapshots {
-            self.getSourceDelegateSnapshots = pvc
-            if let index = self.index {
-                self.getSourceDelegateSnapshots?.getSourceindex(index: index)
             }
         }
     }
@@ -78,11 +70,6 @@ class ViewControllerCopyFilesSource: NSViewController, SetConfigurations, SetDis
         self.selectButton.isEnabled = true
         if let index = indexes.first {
             if self.presentingViewController as? ViewControllerSsh != nil {
-                let object = self.configurations!.getConfigurationsDataSourcecountBackupSnapshot()![index]
-                let hiddenID = object.value(forKey: "hiddenID") as? Int
-                guard hiddenID != nil else { return }
-                self.index = hiddenID!
-            } else if self.presentingViewController as? ViewControllerSnapshots != nil {
                 let object = self.configurations!.getConfigurationsDataSourcecountBackupSnapshot()![index]
                 let hiddenID = object.value(forKey: "hiddenID") as? Int
                 guard hiddenID != nil else { return }

@@ -110,22 +110,6 @@ final class ScheduleLoggData: SetConfigurations, SetSchedules, Sorting {
         }
     }
 
-    func intersect(snapshotaloggdata: SnapshotsLoggData?) {
-        guard snapshotaloggdata?.snapshotslogs != nil else { return }
-        guard self.loggdata != nil else { return }
-        for i in 0 ..< self.loggdata!.count {
-            for j in 0 ..< snapshotaloggdata!.snapshotslogs!.count where
-                self.compare(snapshotaloggdata!.snapshotslogs![j], self.loggdata![i]) {
-                self.loggdata![i].setValue(1, forKey: "snapCellID")
-            }
-            if self.loggdata![i].value(forKey: "snapCellID") as? Int == 1 {
-                self.loggdata![i].setValue(0, forKey: "deleteCellID")
-            } else {
-                self.loggdata![i].setValue(1, forKey: "deleteCellID")
-            }
-        }
-    }
-
     init (sortdirection: Bool) {
         if self.loggdata == nil {
             self.readAndSortAllLoggdata(sortdirection: sortdirection)
