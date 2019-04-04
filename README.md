@@ -6,7 +6,7 @@ This repository is the source code for the macOS app RsyncGUI. RsyncGUI is a san
 
 Rsync is a file-based synchronization and backup tool. There is no custom solution for the backup archive. You can quit utilizing RsyncGUI (and rsync) at any time and still have access to all synchronized files.
 
-The app was [released](https://itunes.apple.com/us/app/rsyncgui/id1449707783?l=nb&ls=1&mt=12) on Apple Mac App Store as version 1.0.0 of `RsyncGUI` 24 January 2019. See the [changelog](https://rsyncosx.github.io/RsyncGUIChangelog) for updates submitted for approval by Apple.
+The app was [released](https://itunes.apple.com/us/app/rsyncgui/id1449707783?l=nb&ls=1&mt=12) on Apple Mac App Store as version 1.0.0 of `RsyncGUI` 24 January 2019. See the [changelog](https://rsyncosx.github.io/RsyncGUIChangelog) for updates.
 
 ### Apple App Sandboxing technology
 
@@ -22,7 +22,7 @@ The [snapshot](https://rsyncosx.github.io/Snapshots) feature is not available in
 
 ### Main view
 
-Some views of the beta of RsyncGUI. The last view shows which catalogs is approved for access. The first line is the `.ssh` catalog because `rsync` has to read the private ssh certificates. The second row is the Documents catalog. The remote catalog is remote and not required for RsyncGUI to know about regarding the Sandbox.
+Some views of RsyncGUI. The last view shows which catalogs are approved for access. Approval for access is part of the Apple Sandbox features. The first row (in last view) is the `.ssh` catalog because `rsync` has to read the private ssh certificates. The second row is the Documents catalog. The remote catalog is remote and not required for RsyncGUI to know about regarding the Sandbox.
 
 ![](images/main1.png)
 ![](images/main2.png)
