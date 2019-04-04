@@ -125,7 +125,6 @@ class ViewControllerLoggData: NSViewController, SetConfigurations, SetSchedules,
         self.index = self.index()
         if let index = self.index {
             let hiddenID = self.configurations?.gethiddenID(index: index) ?? -1
-            let config = self.configurations?.getConfigurations()[index]
             self.scheduleloggdata = ScheduleLoggData(hiddenID: hiddenID, sortdirection: self.sortedascendigdesending)
             self.info(num: 1)
         } else {
@@ -203,8 +202,7 @@ extension ViewControllerLoggData: NSTableViewDelegate {
         guard self.scheduleloggdata != nil else { return nil }
         guard row < self.scheduleloggdata!.loggdata!.count else { return nil }
         let object: NSDictionary = self.scheduleloggdata!.loggdata![row]
-        if tableColumn!.identifier.rawValue == "deleteCellID" ||
-            tableColumn!.identifier.rawValue == "snapCellID" {
+        if tableColumn!.identifier.rawValue == "deleteCellID" {
             return object[tableColumn!.identifier] as? Int
         } else {
             return object[tableColumn!.identifier] as? String

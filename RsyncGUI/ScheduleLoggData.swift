@@ -53,7 +53,6 @@ final class ScheduleLoggData: SetConfigurations, SetSchedules, Sorting {
                     "resultExecuted": dict.value(forKey: "resultExecuted") as? String ?? "",
                     "deleteCellID": dict.value(forKey: "deleteCellID") as? Int ?? 0,
                     "hiddenID": hiddenID,
-                    "snapCellID": 0,
                     "parent": i,
                     "sibling": j]
                 data.append(logdetail)
@@ -77,7 +76,6 @@ final class ScheduleLoggData: SetConfigurations, SetSchedules, Sorting {
                     "resultExecuted": dict.value(forKey: "resultExecuted") as? String ?? "",
                     "deleteCellID": dict.value(forKey: "deleteCellID") as? Int ?? 0,
                     "hiddenID": hiddenID,
-                    "snapCellID": 0,
                     "parent": i,
                     "sibling": j]
                 data.append(logdetail)
