@@ -149,7 +149,7 @@ final class Configurations: ReloadTable, SetSchedules {
     /// - parameter none: none
     /// - returns : Array of NSDictionary
     func getConfigurationsDataSourcecountBackup() -> [NSMutableDictionary]? {
-        let configurations: [Configuration] = self.configurations!.filter({return ($0.task == ViewControllerReference.shared.synchronize || $0.task == ViewControllerReference.shared.snapshot)})
+        let configurations: [Configuration] = self.configurations!.filter({return ($0.task == ViewControllerReference.shared.synchronize)})
         var data = [NSMutableDictionary]()
         for i in 0 ..< configurations.count {
             let row: NSMutableDictionary = [
@@ -179,7 +179,7 @@ final class Configurations: ReloadTable, SetSchedules {
     }
 
     func getConfigurationsDataSourcecountBackupSnapshot() -> [NSDictionary]? {
-        var configurations: [Configuration] = self.configurations!.filter({return ($0.task == ViewControllerReference.shared.synchronize || $0.task == ViewControllerReference.shared.snapshot )})
+        var configurations: [Configuration] = self.configurations!.filter({return ($0.task == ViewControllerReference.shared.synchronize )})
         var data = [NSDictionary]()
         for i in 0 ..< configurations.count {
             if configurations[i].offsiteServer.isEmpty == true {
@@ -205,7 +205,7 @@ final class Configurations: ReloadTable, SetSchedules {
     /// Function returns all Configurations marked for backup.
     /// - returns : array of Configurations
     func getConfigurationsBatch() -> [Configuration] {
-        return self.configurations!.filter({return ($0.task == ViewControllerReference.shared.synchronize || $0.task == ViewControllerReference.shared.snapshot ) && ($0.batch == "yes")})
+        return self.configurations!.filter({return ($0.task == ViewControllerReference.shared.synchronize) && ($0.batch == "yes")})
     }
 
     /// Function computes arguments for rsync, either arguments for
@@ -440,13 +440,10 @@ final class Configurations: ReloadTable, SetSchedules {
         self.argumentAllConfigurations = [ArgumentsOneConfiguration]()
         var store: [Configuration]? = self.storageapi!.getConfigurations()
         guard store != nil else { return }
-        for i in 0 ..< store!.count {
-            if store![i].task == ViewControllerReference.shared.synchronize ||
-                store![i].task == ViewControllerReference.shared.snapshot {
-                self.configurations!.append(store![i])
-                let rsyncArgumentsOneConfig = ArgumentsOneConfiguration(config: store![i])
-                self.argumentAllConfigurations!.append(rsyncArgumentsOneConfig)
-            }
+        for i in 0 ..< store!.count where  store![i].task == ViewControllerReference.shared.synchronize {
+            self.configurations!.append(store![i])
+            let rsyncArgumentsOneConfig = ArgumentsOneConfiguration(config: store![i])
+            self.argumentAllConfigurations!.append(rsyncArgumentsOneConfig)
         }
         // Then prepare the datasource for use in tableviews as Dictionarys
         var data = [NSMutableDictionary]()
@@ -469,8 +466,7 @@ final class Configurations: ReloadTable, SetSchedules {
                 "daysID": self.configurations![i].dayssincelastbackup ?? "",
                 "snapCellID": self.configurations![i].snapshotnum ?? ""
             ]
-            if self.configurations![i].task == ViewControllerReference.shared.synchronize ||
-                self.configurations![i].task == ViewControllerReference.shared.snapshot {
+            if self.configurations![i].task == ViewControllerReference.shared.synchronize {
                 data.append(row)
             }
             // Sandbox

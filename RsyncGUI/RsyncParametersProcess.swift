@@ -165,9 +165,6 @@ final class RsyncParametersProcess {
         switch config.task {
         case ViewControllerReference.shared.synchronize:
             self.argumentsforsynchronize(dryRun: dryRun, forDisplay: forDisplay)
-        case ViewControllerReference.shared.snapshot:
-            self.linkdestparameter(config, verify: false)
-            self.argumentsforsynchronizesnapshot(dryRun: dryRun, forDisplay: forDisplay)
         default:
             break
         }
@@ -199,9 +196,6 @@ final class RsyncParametersProcess {
         switch config.task {
         case ViewControllerReference.shared.synchronize:
             self.argumentsforsynchronize(dryRun: true, forDisplay: forDisplay)
-        case ViewControllerReference.shared.snapshot:
-            self.linkdestparameter(config, verify: true)
-            self.argumentsforsynchronizesnapshot(dryRun: true, forDisplay: forDisplay)
         default:
             break
         }
@@ -215,8 +209,6 @@ final class RsyncParametersProcess {
         switch config.task {
         case ViewControllerReference.shared.synchronize:
             self.argumentsforsynchronize(dryRun: dryRun, forDisplay: forDisplay)
-        case ViewControllerReference.shared.snapshot:
-            self.argumentsforsynchronizesnapshot(dryRun: dryRun, forDisplay: forDisplay)
         default:
             break
         }

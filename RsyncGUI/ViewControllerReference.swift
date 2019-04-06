@@ -69,7 +69,6 @@ class ViewControllerReference {
     var fileURL: URL?
     // String tasks
     var synchronize: String = "synchronize"
-    var snapshot: String = "snapshot"
     // Mark number of days since last backup
     var marknumberofdayssince: Double = 5
     // rsync version string

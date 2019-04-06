@@ -107,7 +107,7 @@ final class RsyncParameters {
         }
         return index
     }
-    
+
     // Split an Rsync argument into argument and value
     private func split (_ str: String) -> [String] {
         let argument: String?

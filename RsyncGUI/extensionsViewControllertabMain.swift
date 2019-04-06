@@ -88,8 +88,7 @@ extension ViewControllertabMain: NSTableViewDelegate, Attributedestring {
         if self.process != nil {
             self.abortOperations()
         }
-        if self.configurations!.getConfigurations()[row].task == ViewControllerReference.shared.synchronize ||
-            self.configurations!.getConfigurations()[row].task == ViewControllerReference.shared.snapshot {
+        if self.configurations!.getConfigurations()[row].task == ViewControllerReference.shared.synchronize {
             self.setbatchyesno = true
             self.configurations!.setBatchYesNo(row)
         }
