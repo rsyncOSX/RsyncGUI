@@ -31,6 +31,7 @@ final class RsyncParametersProcess {
         let parameter2: String = config.parameter2
         let parameter3: String = config.parameter3
         let parameter4: String = config.parameter4
+        let parameter5: String = config.parameter5
         let offsiteServer: String = config.offsiteServer
         self.arguments!.append(parameter1 ?? "")
         if verify {
@@ -51,7 +52,9 @@ final class RsyncParametersProcess {
         if offsiteServer.isEmpty {
             // nothing
         } else {
-            self.sshportparameter(config, forDisplay: forDisplay)
+            if parameter5.isEmpty == false {
+                self.sshportparameter(config, forDisplay: forDisplay)
+            }
         }
     }
 
@@ -160,7 +163,7 @@ final class RsyncParametersProcess {
         self.setParameters1To6(config, dryRun: dryRun, forDisplay: forDisplay, verify: false)
         self.setParameters8To14(config, dryRun: dryRun, forDisplay: forDisplay)
         switch config.task {
-        case ViewControllerReference.shared.backup:
+        case ViewControllerReference.shared.synchronize:
             self.argumentsforsynchronize(dryRun: dryRun, forDisplay: forDisplay)
         case ViewControllerReference.shared.snapshot:
             self.linkdestparameter(config, verify: false)
@@ -194,7 +197,7 @@ final class RsyncParametersProcess {
         self.setParameters1To6(config, dryRun: true, forDisplay: forDisplay, verify: true)
         self.setParameters8To14(config, dryRun: true, forDisplay: forDisplay)
         switch config.task {
-        case ViewControllerReference.shared.backup:
+        case ViewControllerReference.shared.synchronize:
             self.argumentsforsynchronize(dryRun: true, forDisplay: forDisplay)
         case ViewControllerReference.shared.snapshot:
             self.linkdestparameter(config, verify: true)
@@ -210,7 +213,7 @@ final class RsyncParametersProcess {
         self.setParameters1To6(config, dryRun: dryRun, forDisplay: forDisplay, verify: false)
         self.setParameters8To14(config, dryRun: dryRun, forDisplay: forDisplay)
         switch config.task {
-        case ViewControllerReference.shared.backup:
+        case ViewControllerReference.shared.synchronize:
             self.argumentsforsynchronize(dryRun: dryRun, forDisplay: forDisplay)
         case ViewControllerReference.shared.snapshot:
             self.argumentsforsynchronizesnapshot(dryRun: dryRun, forDisplay: forDisplay)
