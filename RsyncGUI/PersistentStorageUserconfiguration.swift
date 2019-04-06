@@ -14,12 +14,6 @@ final class PersistentStorageUserconfiguration: ReadWriteDictionary, SetConfigur
     /// Variable holds all configuration data
     var userconfiguration: [NSDictionary]?
 
-    /// Function reads configurations from permanent store
-    /// - returns : array of NSDictonarys, return might be nil
-    func readUserconfigurationsFromPermanentStore() -> [NSDictionary]? {
-        return self.userconfiguration
-    }
-
     // Saving user configuration
     func saveUserconfiguration () {
         var version3Rsync: Int?

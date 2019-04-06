@@ -5,7 +5,6 @@
 //  Created by Thomas Evensen on 24/08/2016.
 //  Copyright © 2016 Thomas Evensen. All rights reserved.
 //
-// swiftlint:disable line_length
 
 import Cocoa
 
@@ -28,8 +27,6 @@ class ViewControllerProgressProcess: NSViewController, SetConfigurations, SetDis
     @IBAction func abort(_ sender: NSButton) {
         if self.inmain {
             self.abort()
-        } else {
-            self.dismissview(viewcontroller: self, vcontroller: .vcsnapshot)
         }
     }
 
@@ -75,8 +72,6 @@ extension ViewControllerProgressProcess: UpdateProgress {
         self.stopProgressbar()
         if inmain {
             self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
-        } else {
-             self.dismissview(viewcontroller: self, vcontroller: .vcsnapshot)
         }
     }
 
