@@ -46,6 +46,8 @@ class ViewControllerRsyncParameters: NSViewController, SetConfigurations, SetDis
     @IBOutlet weak var rsyncdaemon: NSButton!
     @IBOutlet weak var sshport: NSTextField!
     @IBOutlet weak var compressparameter: NSButton!
+    @IBOutlet weak var esshparameter: NSButton!
+    @IBOutlet weak var deleteparamater: NSButton!
 
     @IBOutlet weak var combo8: NSComboBox!
     @IBOutlet weak var combo9: NSComboBox!
@@ -70,6 +72,35 @@ class ViewControllerRsyncParameters: NSViewController, SetConfigurations, SetDis
                 break
             }
             self.param3.stringValue = self.configurations!.getConfigurations()[index].parameter3
+        }
+    }
+
+    @IBAction func removeesshparameter(_ sender: NSButton) {
+        if let index = self.index() {
+            switch self.esshparameter.state {
+            case .on:
+                self.configurations!.removeesshparameter(index: index, delete: true)
+                self.param5.stringValue = self.configurations!.getConfigurations()[index].parameter5
+            case .off:
+                self.configurations!.removeesshparameter(index: index, delete: false)
+                self.param5.stringValue = self.configurations!.getConfigurations()[index].parameter5 + " ssh"
+            default:
+                break
+            }
+        }
+    }
+
+    @IBAction func removedeleteparameter(_ sender: NSButton) {
+        if let index = self.index() {
+            switch self.deleteparamater.state {
+            case .on:
+                self.configurations!.removeedeleteparameter(index: index, delete: true)
+            case .off:
+                self.configurations!.removeedeleteparameter(index: index, delete: false)
+            default:
+                break
+            }
+            self.param4.stringValue = self.configurations!.getConfigurations()[index].parameter4
         }
     }
 
@@ -128,23 +159,6 @@ class ViewControllerRsyncParameters: NSViewController, SetConfigurations, SetDis
         default:
             break
         }
-
-    }
-
-    @IBOutlet weak var donotdeletebutton: NSButton!
-    @IBAction func donotdeletefiles(_ sender: NSButton) {
-        switch self.donotdeletebutton.state {
-        case .on:
-            let suffix = self.parameters!.getdonotdeletefilesString()
-            self.initcombox(combobox: self.combo11, index: (self.parameters!.indexandvaluersyncparameter(suffix).0))
-            self.param11.stringValue = self.parameters!.indexandvaluersyncparameter(suffix).1
-        case .off:
-            self.initcombox(combobox: self.combo11, index: (0))
-            self.param11.stringValue = ""
-        default:
-            break
-        }
-
     }
 
     @IBOutlet weak var backupbutton: NSButton!
@@ -169,16 +183,27 @@ class ViewControllerRsyncParameters: NSViewController, SetConfigurations, SetDis
             self.backupbutton.state = .off
             self.suffixButton.state = .off
             self.suffixButton2.state = .off
-            self.donotdeletebutton.state = .off
             self.param1.stringValue = configurations[index].parameter1
             self.param2.stringValue = configurations[index].parameter2
             self.param3.stringValue = configurations[index].parameter3
             self.param4.stringValue = configurations[index].parameter4
-            self.param5.stringValue = configurations[index].parameter5 + " " + configurations[index].parameter6
+            if configurations[index].parameter5.isEmpty == false {
+                self.param5.stringValue = configurations[index].parameter5 + " " + configurations[index].parameter6
+            }
             if configurations[index].parameter3.isEmpty == true {
                 self.compressparameter.state = .on
             } else {
                 self.compressparameter.state = .off
+            }
+            if configurations[index].parameter4.isEmpty == true {
+                self.self.deleteparamater.state = .on
+            } else {
+                self.deleteparamater.state = .off
+            }
+            if configurations[index].parameter5.isEmpty == true {
+                self.esshparameter.state = .on
+            } else {
+                self.esshparameter.state = .off
             }
             self.initcombox(combobox: self.combo8, index: self.parameters!.getParameter(rsyncparameternumber: 8).0)
             self.param8.stringValue = self.parameters!.getParameter(rsyncparameternumber: 8).1

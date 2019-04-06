@@ -132,7 +132,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, De
             self.verifyrsyncpath!.noRsync()
             return
         }
-        guard self.configurations!.getConfigurations()[self.index!].task == ViewControllerReference.shared.backup ||
+        guard self.configurations!.getConfigurations()[self.index!].task == ViewControllerReference.shared.synchronize ||
             self.configurations!.getConfigurations()[self.index!].task == ViewControllerReference.shared.snapshot
             else {
                 self.info(num: 7)
@@ -174,7 +174,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, De
             self.verifyrsyncpath!.noRsync()
             return
         }
-        guard self.configurations!.getConfigurations()[self.index!].task == ViewControllerReference.shared.backup ||
+        guard self.configurations!.getConfigurations()[self.index!].task == ViewControllerReference.shared.synchronize ||
             self.configurations!.getConfigurations()[self.index!].task == ViewControllerReference.shared.snapshot
             else {
                 self.info(num: 7)
@@ -327,7 +327,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, De
             self.info(num: 1)
             return
         }
-        guard self.configurations!.getConfigurations()[self.index!].task == ViewControllerReference.shared.backup ||
+        guard self.configurations!.getConfigurations()[self.index!].task == ViewControllerReference.shared.synchronize ||
             self.configurations!.getConfigurations()[self.index!].task == ViewControllerReference.shared.snapshot
             else { return }
         self.executetasknow()
@@ -432,7 +432,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, De
             return
         }
         guard self.index != nil else { return }
-        guard self.configurations!.getConfigurations()[self.index!].task == ViewControllerReference.shared.backup ||
+        guard self.configurations!.getConfigurations()[self.index!].task == ViewControllerReference.shared.synchronize ||
             self.configurations!.getConfigurations()[self.index!].task == ViewControllerReference.shared.snapshot
             else {
                 self.info(num: 6)
