@@ -17,7 +17,6 @@ final class RsyncParametersProcess {
     var offsiteUsername: String?
     var offsiteServer: String?
     var remoteargs: String?
-    var linkdestparam: String?
     private let suffixString = "--suffix=_`date +'%Y-%m-%d.%H.%M'`"
     private let suffixString2 = "--suffix=_$(date +%Y-%m-%d.%H.%M)"
 
@@ -250,46 +249,9 @@ final class RsyncParametersProcess {
         }
     }
 
-    // Additional parameters if snapshot
-    private func linkdestparameter(_ config: Configuration, verify: Bool) {
-        let snapshotnum = config.snapshotnum ?? 1
-        self.linkdestparam =  "--link-dest=" + config.offsiteCatalog + String(snapshotnum - 1)
-        if self.remoteargs != nil {
-            if verify {
-                 self.remoteargs! += String(snapshotnum - 1)
-            } else {
-                self.remoteargs! += String(snapshotnum)
-            }
-        }
-        if verify {
-             self.offsiteCatalog! += String(snapshotnum - 1)
-        } else {
-            self.offsiteCatalog! += String(snapshotnum)
-        }
-    }
-
     private func argumentsforsynchronize(dryRun: Bool, forDisplay: Bool) {
         self.arguments!.append(self.localCatalog!)
         guard self.offsiteCatalog != nil else { return }
-        if self.offsiteServer!.isEmpty {
-            if forDisplay {self.arguments!.append(" ")}
-            self.arguments!.append(self.offsiteCatalog!)
-            if forDisplay {self.arguments!.append(" ")}
-        } else {
-            if forDisplay {self.arguments!.append(" ")}
-            self.arguments!.append(remoteargs!)
-            if forDisplay {self.arguments!.append(" ")}
-        }
-    }
-
-    private func argumentsforsynchronizesnapshot(dryRun: Bool, forDisplay: Bool) {
-        guard self.linkdestparam != nil else {
-            self.arguments!.append(self.localCatalog!)
-            return
-        }
-        self.arguments!.append(self.linkdestparam!)
-        if forDisplay {self.arguments!.append(" ")}
-        self.arguments!.append(self.localCatalog!)
         if self.offsiteServer!.isEmpty {
             if forDisplay {self.arguments!.append(" ")}
             self.arguments!.append(self.offsiteCatalog!)
