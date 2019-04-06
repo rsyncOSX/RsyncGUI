@@ -153,7 +153,6 @@ extension ViewControllertabMain: NewProfile {
         self.displayProfile()
         self.reloadtabledata()
         self.deselectrowtable()
-        self.reloadtable(vcontroller: .vcsnapshot)
     }
 
     func enableProfileMenu() {

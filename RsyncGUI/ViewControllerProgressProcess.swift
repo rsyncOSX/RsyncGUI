@@ -27,8 +27,6 @@ class ViewControllerProgressProcess: NSViewController, SetConfigurations, SetDis
     @IBAction func abort(_ sender: NSButton) {
         if self.inmain {
             self.abort()
-        } else {
-            self.dismissview(viewcontroller: self, vcontroller: .vcsnapshot)
         }
     }
 
@@ -74,8 +72,6 @@ extension ViewControllerProgressProcess: UpdateProgress {
         self.stopProgressbar()
         if inmain {
             self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
-        } else {
-             self.dismissview(viewcontroller: self, vcontroller: .vcsnapshot)
         }
     }
 

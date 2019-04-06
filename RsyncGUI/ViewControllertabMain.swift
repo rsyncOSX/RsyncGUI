@@ -237,7 +237,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, De
                 self.hiddenID = nil
                 self.index = nil
                 self.reloadtabledata()
-                self.reloadtable(vcontroller: .vcsnapshot)
             }
         }
     }
