@@ -5,7 +5,7 @@
 //  Created by Thomas Evensen on 24/08/2016.
 //  Copyright © 2016 Thomas Evensen. All rights reserved.
 //
-// swiftlint:disable line_length cyclomatic_complexity function_body_length
+// swiftlint:disable line_length cyclomatic_complexity
 
 import Foundation
 
@@ -49,13 +49,6 @@ final class Userconfiguration {
                 sequrityscopedaddpathDelegate?.sequrityscopedaddpath(path: restorePath)
             } else {
                 ViewControllerReference.shared.restorePath = nil
-            }
-        }
-        if let executeinmenuapp = dict.value(forKey: "executeinmenuapp") as? Int {
-            if executeinmenuapp == 1 {
-                ViewControllerReference.shared.executescheduledtasksmenuapp = true
-            } else {
-                ViewControllerReference.shared.executescheduledtasksmenuapp = false
             }
         }
         // Mark tasks
