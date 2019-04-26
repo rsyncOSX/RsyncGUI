@@ -110,10 +110,6 @@ class ViewControllerReference {
     private var viewControllerVerify: NSViewController?
     // Alloutput
     private var viewControllerAlloutput: NSViewController?
-    // Execute scheduled tasks in menu app, default off
-    var executescheduledtasksmenuapp: Bool = false
-    // True if menuapp is running
-    var menuappisrunning: Bool = false
     // Which tab is active
     var activetab: ViewController?
     // Initial start

@@ -5,6 +5,7 @@
 //  Created by Thomas Evensen on 26/04/2019.
 //  Copyright © 2019 Thomas Evensen. All rights reserved.
 //
+// swiftlint:disable function_body_length
 
 import Foundation
 
@@ -16,7 +17,6 @@ final class ConvertUserconfiguration {
         var detailedlogging: Int?
         var minimumlogging: Int?
         var fulllogging: Int?
-        var executeinmenuapp: Int?
         var rsyncPath: String?
         var restorePath: String?
         var marknumberofdayssince: String?
@@ -47,19 +47,13 @@ final class ConvertUserconfiguration {
         if ViewControllerReference.shared.restorePath != nil {
             restorePath = ViewControllerReference.shared.restorePath!
         }
-        if ViewControllerReference.shared.executescheduledtasksmenuapp == true {
-            executeinmenuapp = 1
-        } else {
-            executeinmenuapp = 0
-        }
         marknumberofdayssince = String(ViewControllerReference.shared.marknumberofdayssince)
         let dict: NSMutableDictionary = [
             "version3Rsync": version3Rsync ?? 0 as Int,
             "detailedlogging": detailedlogging ?? 0 as Int,
             "minimumlogging": minimumlogging! as Int,
             "fulllogging": fulllogging! as Int,
-            "marknumberofdayssince": marknumberofdayssince ?? "5.0",
-            "executeinmenuapp": executeinmenuapp ?? 1 as Int]
+            "marknumberofdayssince": marknumberofdayssince ?? "5.0"]
         if rsyncPath != nil {
             dict.setObject(rsyncPath!, forKey: "rsyncPath" as NSCopying)
         }

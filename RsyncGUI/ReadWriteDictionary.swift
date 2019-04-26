@@ -9,7 +9,6 @@
 //  let str = "/Rsync/" + serialNumber + profile? + "/configRsync.plist"
 //  let str = "/Rsync/" + serialNumber + "/config.plist"
 //
-// swiftlint:disable line_length
 
 import Foundation
 import Cocoa
@@ -91,10 +90,6 @@ class ReadWriteDictionary {
         let dictionary = NSDictionary(object: array, forKey: self.key! as NSCopying)
         guard self.filename != nil else { return false }
         let write = dictionary.write(toFile: self.filename!, atomically: true)
-        if write && ViewControllerReference.shared.menuappisrunning {
-            _ = Notifications().showNotification(message: "Sending reload message to menu app")
-            DistributedNotificationCenter.default().postNotificationName(NSNotification.Name("no.blogspot.RsyncOSX.reload"), object: nil, deliverImmediately: true)
-        }
         return write
     }
 
