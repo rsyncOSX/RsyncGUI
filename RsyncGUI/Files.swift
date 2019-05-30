@@ -35,7 +35,7 @@ protocol Reportfileerror {
 }
 
 extension Reportfileerror {
-    weak var errorDelegate: Fileerror? {
+    var errorDelegate: Fileerror? {
         return ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
     }
 

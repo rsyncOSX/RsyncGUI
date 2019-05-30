@@ -243,16 +243,16 @@ protocol SetDismisser {
 }
 
 extension SetDismisser {
-    weak var dismissDelegateMain: DismissViewController? {
+    var dismissDelegateMain: DismissViewController? {
         return ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
     }
-    weak var dismissDelegateCopyFiles: DismissViewController? {
+    var dismissDelegateCopyFiles: DismissViewController? {
         return ViewControllerReference.shared.getvcref(viewcontroller: .vccopyfiles) as? ViewControllerCopyFiles
     }
-    weak var dismissDelegateNewConfigurations: DismissViewController? {
+    var dismissDelegateNewConfigurations: DismissViewController? {
         return ViewControllerReference.shared.getvcref(viewcontroller: .vcnewconfigurations) as? ViewControllerNewConfigurations
     }
-    weak var dismissDelegateSsh: DismissViewController? {
+    var dismissDelegateSsh: DismissViewController? {
         return ViewControllerReference.shared.getvcref(viewcontroller: .vcssh) as? ViewControllerSsh
     }
 
@@ -279,7 +279,7 @@ protocol Deselect {
 }
 
 extension Deselect {
-    weak var deselectDelegateMain: DeselectRowTable? {
+    var deselectDelegateMain: DeselectRowTable? {
         return ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
     }
 
@@ -349,10 +349,10 @@ protocol OutPut {
 }
 
 extension OutPut {
-    weak var informationDelegateMain: GetOutput? {
+    var informationDelegateMain: GetOutput? {
         return ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
     }
-    weak var informationDelegateCopyFiles: GetOutput? {
+    var informationDelegateCopyFiles: GetOutput? {
         return ViewControllerReference.shared.getvcref(viewcontroller: .vccopyfiles) as? ViewControllerCopyFiles
     }
 
