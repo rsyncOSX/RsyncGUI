@@ -100,6 +100,7 @@
 		E975284520CEAADC0029B027 /* ViewControllerRestore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E975284420CEAADB0029B027 /* ViewControllerRestore.swift */; };
 		E9764F60204BEE970018C0D7 /* AllConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9764F5F204BEE970018C0D7 /* AllConfigurations.swift */; };
 		E97AB382210B6E7E002EB9A1 /* VerifyTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97AB381210B6E7E002EB9A1 /* VerifyTask.swift */; };
+		E97C05F8229FBBA30044EAF6 /* ConvertOneConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97C05F7229FBBA30044EAF6 /* ConvertOneConfig.swift */; };
 		E97C09A71EFAFBC400E86999 /* BatchTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97C09A61EFAFBC400E86999 /* BatchTask.swift */; };
 		E97E3BA71F6256DB00411D0E /* Configurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97E3BA61F6256DB00411D0E /* Configurations.swift */; };
 		E982BA2820CEB59F00E71918 /* RestoreTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E982BA2720CEB59F00E71918 /* RestoreTask.swift */; };
@@ -225,6 +226,7 @@
 		E975284420CEAADB0029B027 /* ViewControllerRestore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerRestore.swift; sourceTree = "<group>"; };
 		E9764F5F204BEE970018C0D7 /* AllConfigurations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllConfigurations.swift; sourceTree = "<group>"; };
 		E97AB381210B6E7E002EB9A1 /* VerifyTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyTask.swift; sourceTree = "<group>"; };
+		E97C05F7229FBBA30044EAF6 /* ConvertOneConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertOneConfig.swift; sourceTree = "<group>"; };
 		E97C09A61EFAFBC400E86999 /* BatchTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BatchTask.swift; sourceTree = "<group>"; };
 		E97E3BA61F6256DB00411D0E /* Configurations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configurations.swift; sourceTree = "<group>"; };
 		E982BA2720CEB59F00E71918 /* RestoreTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreTask.swift; sourceTree = "<group>"; };
@@ -609,6 +611,7 @@
 				E9BBE8C02273131F00404D7A /* ConvertConfigurations.swift */,
 				E9BBE8C12273131F00404D7A /* ConvertSchedules.swift */,
 				E9BBE8C22273131F00404D7A /* ConvertUserconfiguration.swift */,
+				E97C05F7229FBBA30044EAF6 /* ConvertOneConfig.swift */,
 			);
 			name = Convert;
 			sourceTree = "<group>";
@@ -852,6 +855,7 @@
 				E94BCEF421C63F0800DB8EA2 /* RemoteCapacity.swift in Sources */,
 				E95AE70721A5B88B00B2420B /* OperationFactory.swift in Sources */,
 				A091C6581D86A0A800278E74 /* ViewControllerCopyFiles.swift in Sources */,
+				E97C05F8229FBBA30044EAF6 /* ConvertOneConfig.swift in Sources */,
 				A08110671D6DA7D8009444D3 /* ViewControllerProgressProcess.swift in Sources */,
 				E94D2603205025790026D18F /* ViewControllerAllProfiles.swift in Sources */,
 				A04492B01D658F2100B3CE17 /* PersistentStorageScheduling.swift in Sources */,

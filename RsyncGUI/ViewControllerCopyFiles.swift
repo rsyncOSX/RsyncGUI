@@ -235,7 +235,7 @@ class ViewControllerCopyFiles: NSViewController, SetConfigurations, Delay, VcCop
                 self.restorebutton.isEnabled = false
                 self.remoteCatalog.stringValue = ""
                 self.rsyncindex = index
-                let hiddenID = self.configurations!.getConfigurationsDataSourcecountBackupSnapshot()![index].value(forKey: "hiddenID") as? Int ?? -1
+                let hiddenID = self.configurations!.getConfigurationsDataSourcecountBackup()![index].value(forKey: "hiddenID") as? Int ?? -1
                 self.copyFiles = CopySingleFiles(hiddenID: hiddenID)
                 self.working.startAnimation(nil)
                 self.displayRemoteserver(index: index)
@@ -303,7 +303,7 @@ extension ViewControllerCopyFiles: NSTableViewDataSource {
             self.numberofrows.stringValue = "Number of remote files: " + String(self.restoretabledata!.count)
             return self.restoretabledata!.count
         } else {
-             return self.configurations?.getConfigurationsDataSourcecountBackupSnapshot()?.count ?? 0
+             return self.configurations?.getConfigurationsDataSourcecountBackup()?.count ?? 0
         }
     }
 }
@@ -320,8 +320,8 @@ extension ViewControllerCopyFiles: NSTableViewDelegate {
                 return cell
             }
         } else {
-            guard row < self.configurations!.getConfigurationsDataSourcecountBackupSnapshot()!.count else { return nil }
-            let object: NSDictionary = self.configurations!.getConfigurationsDataSourcecountBackupSnapshot()![row]
+            guard row < self.configurations!.getConfigurationsDataSourcecountBackup()!.count else { return nil }
+            let object: NSDictionary = self.configurations!.getConfigurationsDataSourcecountBackup()![row]
             let cellIdentifier: String = tableColumn!.identifier.rawValue
             if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: cellIdentifier), owner: self) as? NSTableCellView {
                 cell.textField?.stringValue = object.value(forKey: cellIdentifier) as? String ?? ""
