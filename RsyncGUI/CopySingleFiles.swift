@@ -32,12 +32,12 @@ final class CopySingleFiles: SetConfigurations {
     func executeRsync(remotefile: String, localCatalog: String, dryrun: Bool) {
         guard self.config != nil else { return }
         if dryrun {
-            self.argumentsObject = CopyFileArguments(task: .rsyncCmd, config: self.config!, remoteFile: remotefile,
-                                                     localCatalog: localCatalog, drynrun: true)
+            self.argumentsObject = CopyFileArguments(task: .rsyncCmd, config: self.config!,
+                remoteFile: remotefile, localCatalog: localCatalog, drynrun: true)
             self.arguments = self.argumentsObject!.getArguments()
         } else {
-            self.argumentsObject = CopyFileArguments(task: .rsyncCmd, config: self.config!, remoteFile: remotefile,
-                                                     localCatalog: localCatalog, drynrun: false)
+            self.argumentsObject = CopyFileArguments(task: .rsyncCmd, config: self.config!,
+                remoteFile: remotefile, localCatalog: localCatalog, drynrun: false)
             self.arguments = self.argumentsObject!.getArguments()
         }
         self.outputprocess = OutputProcess()
@@ -47,8 +47,8 @@ final class CopySingleFiles: SetConfigurations {
 
     func getCommandDisplayinView(remotefile: String, localCatalog: String) -> String {
         guard self.config != nil else { return "" }
-        self.commandDisplay = CopyFileArguments(task: .rsyncCmd, config: self.config!, remoteFile: remotefile,
-                                                localCatalog: localCatalog, drynrun: true).getcommandDisplay()
+        self.commandDisplay = CopyFileArguments(task: .rsyncCmd, config: self.config!,
+            remoteFile: remotefile, localCatalog: localCatalog, drynrun: true).getcommandDisplay()
         guard self.commandDisplay != nil else { return "" }
         return self.commandDisplay!
     }
