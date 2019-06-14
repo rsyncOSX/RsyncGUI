@@ -71,6 +71,7 @@
 		E92755A62130539400B1F781 /* Dispatchqueues.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92755A52130539400B1F781 /* Dispatchqueues.swift */; };
 		E9284CF621308AE9006648C1 /* extensionsConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9284CF521308AE9006648C1 /* extensionsConfigurations.swift */; };
 		E92A623B203D7B1C000B9300 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92A623A203D7B1C000B9300 /* Notifications.swift */; };
+		E92F368D22B4022800B9C3AB /* Remotefilelist.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92F368C22B4022800B9C3AB /* Remotefilelist.swift */; };
 		E933B6CD2196B30D0033D7D2 /* RemoteNumbers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E933B6CC2196B30D0033D7D2 /* RemoteNumbers.swift */; };
 		E9374D2E1E329A5800CD3945 /* CompleteQuickbackupTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9374D2D1E329A5800CD3945 /* CompleteQuickbackupTask.swift */; };
 		E939EC4A20C048A000C47F91 /* extensionsViewControllertabMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = E939EC4920C048A000C47F91 /* extensionsViewControllertabMain.swift */; };
@@ -197,6 +198,7 @@
 		E92755A52130539400B1F781 /* Dispatchqueues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dispatchqueues.swift; sourceTree = "<group>"; };
 		E9284CF521308AE9006648C1 /* extensionsConfigurations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensionsConfigurations.swift; sourceTree = "<group>"; };
 		E92A623A203D7B1C000B9300 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
+		E92F368C22B4022800B9C3AB /* Remotefilelist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Remotefilelist.swift; sourceTree = "<group>"; };
 		E933B6CC2196B30D0033D7D2 /* RemoteNumbers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNumbers.swift; sourceTree = "<group>"; };
 		E9374D2D1E329A5800CD3945 /* CompleteQuickbackupTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompleteQuickbackupTask.swift; sourceTree = "<group>"; };
 		E939EC4920C048A000C47F91 /* extensionsViewControllertabMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensionsViewControllertabMain.swift; sourceTree = "<group>"; };
@@ -445,6 +447,7 @@
 				E982BA2720CEB59F00E71918 /* RestoreTask.swift */,
 				E97AB381210B6E7E002EB9A1 /* VerifyTask.swift */,
 				E93A64832195E3BD0040B334 /* DuCommandSsh.swift */,
+				E92F368C22B4022800B9C3AB /* Remotefilelist.swift */,
 			);
 			name = Process;
 			sourceTree = "<group>";
@@ -761,6 +764,7 @@
 				E9A8D81C1ED20AEB009648DE /* GetRemoteFileListingsArguments.swift in Sources */,
 				E94D6E3221A5BBA400DDDB61 /* QuickbackupDispatch.swift in Sources */,
 				E9F941651FC5FCC3005F2439 /* Logging.swift in Sources */,
+				E92F368D22B4022800B9C3AB /* Remotefilelist.swift in Sources */,
 				E9614AD61F231AFC00CAE21A /* Verifyrsyncpath.swift in Sources */,
 				E97E3BA71F6256DB00411D0E /* Configurations.swift in Sources */,
 				E9764F60204BEE970018C0D7 /* AllConfigurations.swift in Sources */,
