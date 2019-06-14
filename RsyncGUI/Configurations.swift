@@ -336,7 +336,7 @@ final class Configurations: ReloadTable, SetSchedules {
     }
 
     func getResourceConfiguration(_ hiddenID: Int, resource: ResourceInConfiguration) -> String {
-        var result = self.configurations!.filter({return ($0.hiddenID == hiddenID)})
+        let result = self.configurations!.filter({return ($0.hiddenID == hiddenID)})
         guard result.count > 0 else { return "" }
         switch resource {
         case .localCatalog:
@@ -414,7 +414,7 @@ final class Configurations: ReloadTable, SetSchedules {
     /// - parameter none: none
     private func readconfigurations() {
         self.argumentAllConfigurations = [ArgumentsOneConfiguration]()
-        var store: [Configuration]? = self.storageapi!.getConfigurations()
+        let store: [Configuration]? = self.storageapi!.getConfigurations()
         guard store != nil else { return }
         for i in 0 ..< store!.count where  store![i].task == ViewControllerReference.shared.synchronize {
             self.configurations!.append(store![i])
