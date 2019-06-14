@@ -10,7 +10,7 @@ import Foundation
 
 struct ConvertOneConfig {
     var config: Configuration?
-    
+
     var dict: NSMutableDictionary {
         let row: NSMutableDictionary = [
             "taskCellID": self.config!.task,
@@ -25,7 +25,7 @@ struct ConvertOneConfig {
             "selectCellID": 0]
         return row
     }
-    
+
     var dict2: NSDictionary {
         let row: NSDictionary = [
             "taskCellID": self.config!.task,
@@ -40,7 +40,7 @@ struct ConvertOneConfig {
             "selectCellID": 0]
         return row
     }
-    
+
     var dict3: NSMutableDictionary {
         var batch: Int = 0
         if self.config!.batch == "yes" {
@@ -58,9 +58,8 @@ struct ConvertOneConfig {
             "snapCellID": self.config!.snapshotnum ?? ""]
         return row
     }
-    
+
     init(config: Configuration) {
         self.config = config
     }
 }
-

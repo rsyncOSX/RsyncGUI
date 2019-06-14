@@ -10,7 +10,7 @@
 import Foundation
 
 final class RsyncVersionString: ProcessCmd {
-    
+
     var outputprocess: OutputProcess?
 
     init () {
