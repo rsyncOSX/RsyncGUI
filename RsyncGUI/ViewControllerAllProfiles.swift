@@ -94,6 +94,8 @@ class ViewControllerAllProfiles: NSViewController, Delay, Abort {
     override func viewDidDisappear() {
         super.viewDidDisappear()
         self.allprofiledetailsdelegata?.disablereloadallprofiles()
+        self.allprofiles = nil
+        self.allschedules = nil
     }
 
     func reloadallprofiles() {
