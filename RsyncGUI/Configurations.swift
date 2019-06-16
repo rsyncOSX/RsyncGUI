@@ -424,7 +424,7 @@ final class Configurations: ReloadTable, SetSchedules {
         // Then prepare the datasource for use in tableviews as Dictionarys
         var data = [NSMutableDictionary]()
         for i in 0 ..< self.configurations!.count {
-             data.append(ConvertOneConfig(config: self.configurations![i]).dict3)
+             data.append(ConvertOneConfig(config: self.configurations![i]).dict)
             // Sandbox
             self.securityScopedURLpath(path: self.configurations![i].localCatalog, offsite: false)
             if self.configurations![i].offsiteServer.isEmpty == true {

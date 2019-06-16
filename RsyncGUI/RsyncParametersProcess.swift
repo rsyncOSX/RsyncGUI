@@ -172,11 +172,7 @@ final class RsyncParametersProcess {
 
     func argumentsRestore(_ config: Configuration, dryRun: Bool, forDisplay: Bool, tmprestore: Bool) -> [String] {
         self.localCatalog = config.localCatalog
-        if config.snapshotnum != nil {
-            self.remoteargssnapshot(config)
-        } else {
-            self.remoteargs(config)
-        }
+        self.remoteargs(config)
         self.setParameters1To6(config, dryRun: dryRun, forDisplay: forDisplay, verify: false)
         self.setParameters8To14(config, dryRun: dryRun, forDisplay: forDisplay)
         if tmprestore {
@@ -216,24 +212,6 @@ final class RsyncParametersProcess {
 
     private func remoteargs(_ config: Configuration) {
         self.offsiteCatalog = config.offsiteCatalog
-        self.offsiteUsername = config.offsiteUsername
-        self.offsiteServer = config.offsiteServer
-        if self.offsiteServer!.isEmpty == false {
-            if config.rsyncdaemon != nil {
-                if config.rsyncdaemon == 1 {
-                    self.remoteargs = self.offsiteUsername! + "@" + self.offsiteServer! + "::" + self.offsiteCatalog!
-                } else {
-                    self.remoteargs = self.offsiteUsername! + "@" + self.offsiteServer! + ":" + self.offsiteCatalog!
-                }
-            } else {
-                self.remoteargs = self.offsiteUsername! + "@" + self.offsiteServer! + ":" + self.offsiteCatalog!
-            }
-        }
-    }
-
-    private func remoteargssnapshot(_ config: Configuration) {
-        let snapshotnum = config.snapshotnum ?? 1
-        self.offsiteCatalog = config.offsiteCatalog + String(snapshotnum - 1) + "/"
         self.offsiteUsername = config.offsiteUsername
         self.offsiteServer = config.offsiteServer
         if self.offsiteServer!.isEmpty == false {
