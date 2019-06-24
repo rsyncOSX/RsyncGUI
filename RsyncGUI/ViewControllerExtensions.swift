@@ -12,9 +12,6 @@ import Cocoa
 
 protocol VcSchedule {
     var storyboard: NSStoryboard? { get }
-    var viewControllerScheduleDetails: NSViewController? { get }
-    var viewControllerUserconfiguration: NSViewController? { get }
-    var viewControllerProfile: NSViewController? { get }
 }
 
 extension VcSchedule {
@@ -75,21 +72,17 @@ extension VcExecute {
         return (self.storyboard!.instantiateController(withIdentifier: "StoryboardEstimatingID")
             as? NSViewController)!
     }
+
+    // Progressbar process
+    // self.presentViewControllerAsSheet(self.viewControllerProgress)
+    var viewControllerProgress: NSViewController? {
+        return (self.storyboard!.instantiateController(withIdentifier: "StoryboardProgressID")
+            as? NSViewController)!
+    }
 }
 
 protocol VcMain {
     var storyboard: NSStoryboard? { get }
-    var viewControllerInformation: NSViewController? { get }
-    var viewControllerProgress: NSViewController? { get }
-    var viewControllerBatch: NSViewController? { get }
-    var viewControllerUserconfiguration: NSViewController? { get }
-    var viewControllerRsyncParams: NSViewController? { get }
-    var newVersionViewController: NSViewController? { get }
-    var viewControllerProfile: NSViewController? { get }
-    var editViewController: NSViewController? { get }
-    var viewControllerAbout: NSViewController? { get }
-    var viewControllerScheduleDetails: NSViewController? { get }
-    var viewControllerInformationLocalRemote: NSViewController? { get }
 }
 
 extension VcMain {
