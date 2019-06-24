@@ -10,7 +10,7 @@ import Foundation
 
 struct Getrsyncpath {
     var rsyncpath: String?
-    init(){
+    init() {
         if ViewControllerReference.shared.rsyncVer3 {
             if ViewControllerReference.shared.rsyncPath == nil {
                 self.rsyncpath = ViewControllerReference.shared.usrlocalbinrsync
