@@ -52,7 +52,7 @@ class ProcessCmd: Delay {
         if let command = self.command {
             task.launchPath = command
         } else {
-            task.launchPath = Verifyrsyncpath().rsyncpath()
+           task.launchPath = Getrsyncpath().rsyncpath
         }
         task.arguments = self.arguments
         // Pipe for reading output from Process

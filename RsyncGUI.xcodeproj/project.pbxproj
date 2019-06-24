@@ -69,6 +69,9 @@
 		E92755A221304F0000B1F781 /* Macserialnumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92755A121304F0000B1F781 /* Macserialnumber.swift */; };
 		E92755A42130506000B1F781 /* Dateandtime.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92755A32130506000B1F781 /* Dateandtime.swift */; };
 		E92755A62130539400B1F781 /* Dispatchqueues.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92755A52130539400B1F781 /* Dispatchqueues.swift */; };
+		E9282DB322C0AE38004AA0E5 /* Norsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9282DB222C0AE38004AA0E5 /* Norsync.swift */; };
+		E9282DB522C0AF99004AA0E5 /* Displayrsyncpath.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9282DB422C0AF99004AA0E5 /* Displayrsyncpath.swift */; };
+		E9282DB722C0B050004AA0E5 /* Getrsyncpath.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9282DB622C0B050004AA0E5 /* Getrsyncpath.swift */; };
 		E9284CF621308AE9006648C1 /* extensionsConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9284CF521308AE9006648C1 /* extensionsConfigurations.swift */; };
 		E92A623B203D7B1C000B9300 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92A623A203D7B1C000B9300 /* Notifications.swift */; };
 		E92F368D22B4022800B9C3AB /* Remotefilelist.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92F368C22B4022800B9C3AB /* Remotefilelist.swift */; };
@@ -195,6 +198,9 @@
 		E92755A121304F0000B1F781 /* Macserialnumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Macserialnumber.swift; sourceTree = "<group>"; };
 		E92755A32130506000B1F781 /* Dateandtime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dateandtime.swift; sourceTree = "<group>"; };
 		E92755A52130539400B1F781 /* Dispatchqueues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dispatchqueues.swift; sourceTree = "<group>"; };
+		E9282DB222C0AE38004AA0E5 /* Norsync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Norsync.swift; sourceTree = "<group>"; };
+		E9282DB422C0AF99004AA0E5 /* Displayrsyncpath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Displayrsyncpath.swift; sourceTree = "<group>"; };
+		E9282DB622C0B050004AA0E5 /* Getrsyncpath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Getrsyncpath.swift; sourceTree = "<group>"; };
 		E9284CF521308AE9006648C1 /* extensionsConfigurations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensionsConfigurations.swift; sourceTree = "<group>"; };
 		E92A623A203D7B1C000B9300 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		E92F368C22B4022800B9C3AB /* Remotefilelist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Remotefilelist.swift; sourceTree = "<group>"; };
@@ -428,6 +434,9 @@
 				E92755A52130539400B1F781 /* Dispatchqueues.swift */,
 				E933B6CC2196B30D0033D7D2 /* RemoteNumbers.swift */,
 				E9B9CCA521BC46B00042D5CE /* extensionDate.swift */,
+				E9282DB222C0AE38004AA0E5 /* Norsync.swift */,
+				E9282DB422C0AF99004AA0E5 /* Displayrsyncpath.swift */,
+				E9282DB622C0B050004AA0E5 /* Getrsyncpath.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -790,6 +799,8 @@
 				A0F2E20C1D6D91AA0091E8BF /* Userconfiguration.swift in Sources */,
 				E933B6CD2196B30D0033D7D2 /* RemoteNumbers.swift in Sources */,
 				A0762A1F1DB4A8F000538CE9 /* CatalogProfile.swift in Sources */,
+				E9282DB322C0AE38004AA0E5 /* Norsync.swift in Sources */,
+				E9282DB522C0AF99004AA0E5 /* Displayrsyncpath.swift in Sources */,
 				E982BA2820CEB59F00E71918 /* RestoreTask.swift in Sources */,
 				E945D61420B736E9000E787B /* ViewControllerInformationLocalRemote.swift in Sources */,
 				E9FFA02F1E728C6E00B7AB2B /* Rsync.swift in Sources */,
@@ -821,6 +832,7 @@
 				A004D81A1D9586580016914F /* ViewControllerLoggData.swift in Sources */,
 				E9F4EBB81EB4C32D006EEEF1 /* CommandSsh.swift in Sources */,
 				A04492BB1D658F2100B3CE17 /* ytcpsocket.swift in Sources */,
+				E9282DB722C0B050004AA0E5 /* Getrsyncpath.swift in Sources */,
 				E96A95922195D5F3000326F2 /* DuArgumentsSsh.swift in Sources */,
 				E94F0708211D8FCC00B2C3D8 /* ViewControllerAllOutput.swift in Sources */,
 				E98997F621E265F300B5D5A3 /* OpenPanelDelegate.swift in Sources */,
