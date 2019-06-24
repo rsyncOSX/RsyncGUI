@@ -88,7 +88,7 @@ final class Userconfiguration {
         self.rsyncchangedDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
         self.rsyncchangedDelegate?.rsyncischanged()
         // Check for rsync and set rsync version string in main view
-        Verifyrsyncpath().verifyrsyncpath()
+        _ = Setrsyncpath()
         _ = RsyncVersionString()
     }
 }

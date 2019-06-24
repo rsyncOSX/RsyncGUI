@@ -8,6 +8,16 @@
 
 import Foundation
 
+protocol Setinfoaboutrsync: class {
+    func setinfoaboutrsync()
+}
+
+enum RsynccommandDisplay {
+    case synchronize
+    case restore
+    case verify
+}
+
 struct Displayrsyncpath: SetConfigurations {
 
     var displayrsyncpath: String?

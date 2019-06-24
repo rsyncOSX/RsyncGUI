@@ -1,30 +1,20 @@
 //
-//  Verifyrsyncpath.swift
+//  Setrsyncpath.swift
 //  RsyncGUI
 //
-//  Created by Thomas Evensen on 22.07.2017.
-//  Copyright © 2017 Thomas Evensen. All rights reserved.
+//  Created by Thomas Evensen on 24/06/2019.
+//  Copyright © 2019 Thomas Evensen. All rights reserved.
 //
-//  swiftlint:disable line_length
+// swiftlint:disable line_length
 
 import Foundation
 
-protocol Setinfoaboutrsync: class {
-    func setinfoaboutrsync()
-}
+struct Setrsyncpath {
 
-enum RsynccommandDisplay {
-    case synchronize
-    case restore
-    case verify
-}
+    weak var setinfoaboutrsyncDelegate: Setinfoaboutrsync?
 
-final class Verifyrsyncpath: SetConfigurations {
-
-    weak var setinfoaboutsyncDelegate: Setinfoaboutrsync?
-
-    // Function to verify full rsyncpath
-    func verifyrsyncpath() {
+    init() {
+        self.setinfoaboutrsyncDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
         let fileManager = FileManager.default
         let path: String?
         // If not in /usr/bin or /usr/local/bin
@@ -38,7 +28,7 @@ final class Verifyrsyncpath: SetConfigurations {
         }
         guard ViewControllerReference.shared.rsyncVer3 == true else {
             ViewControllerReference.shared.norsync = false
-            self.setinfoaboutsyncDelegate?.setinfoaboutrsync()
+            self.setinfoaboutrsyncDelegate?.setinfoaboutrsync()
             return
         }
         if fileManager.fileExists(atPath: path!) == false {
@@ -46,10 +36,20 @@ final class Verifyrsyncpath: SetConfigurations {
         } else {
             ViewControllerReference.shared.norsync = false
         }
-        self.setinfoaboutsyncDelegate?.setinfoaboutrsync()
+        self.setinfoaboutrsyncDelegate?.setinfoaboutrsync()
     }
 
-    init() {
-        self.setinfoaboutsyncDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
+    init(path: String) {
+        var path = path
+        if path.isEmpty == false {
+            if path.hasSuffix("/") == false {
+                path += "/"
+                ViewControllerReference.shared.rsyncPath = path
+            } else {
+                ViewControllerReference.shared.rsyncPath = path
+            }
+        } else {
+            ViewControllerReference.shared.rsyncPath = nil
+        }
     }
 }
