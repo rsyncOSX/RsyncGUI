@@ -27,7 +27,7 @@ final class CopySingleFiles: SetConfigurations {
         self.process!.abortProcess()
     }
 
-    func executeRsync(remotefile: String, localCatalog: String, dryrun: Bool) {
+    func executecopyfiles(remotefile: String, localCatalog: String, dryrun: Bool) {
         var arguments: [String]?
         guard self.config != nil else { return }
         if dryrun {
@@ -57,5 +57,4 @@ final class CopySingleFiles: SetConfigurations {
         self.index = self.configurations?.getIndex(hiddenID)
         self.config = self.configurations!.getConfigurations()[self.index!]
     }
-
 }

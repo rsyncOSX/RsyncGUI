@@ -10,7 +10,7 @@ import Cocoa
 
 public struct Alerts {
 
-    public static func showInfo(_ info: String) {
+    public static func showInfo(info: String) {
         let alert = NSAlert()
         alert.messageText = info
         alert.alertStyle = NSAlert.Style.warning
@@ -18,7 +18,7 @@ public struct Alerts {
         alert.runModal()
     }
 
-    public static func dialogOrCancel(_ question: String, text: String, dialog: String) -> Bool {
+    public static func dialogOrCancel(question: String, text: String, dialog: String) -> Bool {
         let myPopup: NSAlert = NSAlert()
         myPopup.messageText = question
         myPopup.informativeText = text
