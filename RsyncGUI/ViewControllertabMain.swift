@@ -56,7 +56,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, De
     var singletask: SingleTask?
     // Reference to batch taskobject
     var batchtasks: BatchTask?
-    var verifyrsyncpath: Verifyrsyncpath?
     var tcpconnections: TCPconnections?
     // Delegate function getting batchTaskObject
     weak var batchtasksDelegate: GetNewBatchTask?
@@ -129,7 +128,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, De
             return
         }
         guard ViewControllerReference.shared.norsync == false else {
-            self.verifyrsyncpath!.noRsync()
+            _ = Norsync()
             return
         }
         guard self.configurations!.getConfigurations()[self.index!].task == ViewControllerReference.shared.synchronize else {
@@ -169,7 +168,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, De
             return
         }
         guard ViewControllerReference.shared.norsync == false else {
-            self.verifyrsyncpath!.noRsync()
+            _ = Norsync()
             return
         }
         guard self.configurations!.getConfigurations()[self.index!].task == ViewControllerReference.shared.synchronize else {
@@ -182,7 +181,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, De
 
     @IBAction func totinfo(_ sender: NSButton) {
         guard ViewControllerReference.shared.norsync == false else {
-            self.verifyrsyncpath!.noRsync()
+            _ = Norsync()
             return
         }
         self.configurations!.processtermination = .remoteinfotask
@@ -193,7 +192,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, De
 
     @IBAction func quickbackup(_ sender: NSButton) {
         guard ViewControllerReference.shared.norsync == false else {
-            self.verifyrsyncpath!.noRsync()
+            _ = Norsync()
             return
         }
         self.openquickbackup()
@@ -311,7 +310,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, De
     @IBAction func executetasknow(_ sender: NSButton) {
         self.configurations!.processtermination = .singlequicktask
         guard ViewControllerReference.shared.norsync == false else {
-            self.verifyrsyncpath!.noRsync()
+            _ = Norsync()
             return
         }
         guard self.hiddenID != nil else {
@@ -354,11 +353,11 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, De
         if let index = self.index {
             guard index <= self.configurations!.getConfigurations().count else { return }
             if self.backupdryrun.state == .on {
-                self.rsyncCommand.stringValue = self.verifyrsyncpath!.displayrsynccommand(index: index, display: .synchronize)
+                self.rsyncCommand.stringValue = Displayrsyncpath(index: index, display: .synchronize).displayrsyncpath ?? ""
             } else if self.restoredryrun.state == .on {
-                self.rsyncCommand.stringValue = self.verifyrsyncpath!.displayrsynccommand(index: index, display: .restore)
+                self.rsyncCommand.stringValue = Displayrsyncpath(index: index, display: .restore).displayrsyncpath ?? ""
             } else {
-                self.rsyncCommand.stringValue = self.verifyrsyncpath!.displayrsynccommand(index: index, display: .verify)
+                self.rsyncCommand.stringValue = Displayrsyncpath(index: index, display: .verify).displayrsyncpath ?? ""
             }
         } else {
             self.rsyncCommand.stringValue = ""
@@ -398,7 +397,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, De
         self.rsyncischanged()
         self.displayProfile()
         self.readyforexecution = true
-        if self.verifyrsyncpath == nil { self.verifyrsyncpath = Verifyrsyncpath()}
         if self.tcpconnections == nil { self.tcpconnections = TCPconnections()}
         self.info(num: 0)
     }
@@ -422,7 +420,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, De
     func executeSingleTask() {
         self.configurations!.processtermination = .singletask
         guard ViewControllerReference.shared.norsync == false else {
-            self.verifyrsyncpath!.noRsync()
+            _ = Norsync()
             return
         }
         guard self.index != nil else { return }
@@ -448,7 +446,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, De
     @IBAction func executeBatch(_ sender: NSButton) {
         self.configurations!.processtermination = .estimatebatchtask
         guard ViewControllerReference.shared.norsync == false else {
-            self.verifyrsyncpath!.noRsync()
+            _ = Norsync()
             return
         }
         self.singletask = nil

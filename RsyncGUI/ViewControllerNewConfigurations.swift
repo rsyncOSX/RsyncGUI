@@ -58,11 +58,9 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, VcSc
     @IBOutlet weak var remotecapacitybutton: NSButton!
     @IBOutlet weak var useGUIbutton: NSButton!
 
-    var verifyrsyncpath: Verifyrsyncpath?
-
     @IBAction func totinfo(_ sender: NSButton) {
         guard ViewControllerReference.shared.norsync == false else {
-            self.verifyrsyncpath!.noRsync()
+            _ = Norsync()
             return
         }
         self.configurations!.processtermination = .remoteinfotask
@@ -73,7 +71,7 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, VcSc
 
     @IBAction func quickbackup(_ sender: NSButton) {
         guard ViewControllerReference.shared.norsync == false else {
-            self.verifyrsyncpath!.noRsync()
+            _ = Norsync()
             return
         }
         self.openquickbackup()

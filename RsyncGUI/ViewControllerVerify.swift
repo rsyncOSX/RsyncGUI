@@ -47,11 +47,9 @@ class ViewControllerVerify: NSViewController, SetConfigurations, Index, VcExecut
     @IBOutlet weak var remotecatalog: NSTextField!
     @IBOutlet weak var remoteserver: NSTextField!
 
-    var verifyrsyncpath: Verifyrsyncpath?
-
     @IBAction func totinfo(_ sender: NSButton) {
         guard ViewControllerReference.shared.norsync == false else {
-            self.verifyrsyncpath!.noRsync()
+            _ = Norsync()
             return
         }
         self.configurations!.processtermination = .remoteinfotask
@@ -62,7 +60,7 @@ class ViewControllerVerify: NSViewController, SetConfigurations, Index, VcExecut
 
     @IBAction func quickbackup(_ sender: NSButton) {
         guard ViewControllerReference.shared.norsync == false else {
-            self.verifyrsyncpath!.noRsync()
+            _ = Norsync()
             return
         }
         self.openquickbackup()
@@ -76,10 +74,10 @@ class ViewControllerVerify: NSViewController, SetConfigurations, Index, VcExecut
 
     @IBAction func verify(_ sender: NSButton) {
         guard self.index != nil else { return }
-        self.rsynccommanddisplay.stringValue = Verifyrsyncpath().displayrsynccommand(index: self.index!, display: .verify)
+        self.rsynccommanddisplay.stringValue = Displayrsyncpath(index: self.index!, display: .verify).displayrsyncpath ?? ""
         self.verifyradiobutton.state = .on
         self.changedradiobutton.state = .off
-         self.gotit.textColor = .white
+        self.gotit.textColor = .white
         self.gotit.stringValue = "Verifying, please wait..."
         self.enabledisablebuttons(enable: false)
         self.working.startAnimation(nil)
@@ -94,7 +92,7 @@ class ViewControllerVerify: NSViewController, SetConfigurations, Index, VcExecut
 
     @IBAction func changed(_ sender: NSButton) {
         guard self.index != nil else { return }
-        self.rsynccommanddisplay.stringValue = Verifyrsyncpath().displayrsynccommand(index: self.index!, display: .restore)
+        self.rsynccommanddisplay.stringValue = Displayrsyncpath(index: self.index!, display: .restore).displayrsyncpath ?? ""
         self.changedradiobutton.state = .on
         self.verifyradiobutton.state = .off
         self.gotit.textColor = .white
@@ -121,9 +119,9 @@ class ViewControllerVerify: NSViewController, SetConfigurations, Index, VcExecut
             return
         }
         if self.verifyradiobutton.state == .on {
-            self.rsynccommanddisplay.stringValue = Verifyrsyncpath().displayrsynccommand(index: self.index!, display: .verify)
+            self.rsynccommanddisplay.stringValue = Displayrsyncpath(index: self.index!, display: .verify).displayrsyncpath ?? ""
         } else {
-            self.rsynccommanddisplay.stringValue = Verifyrsyncpath().displayrsynccommand(index: self.index!, display: .restore)
+            self.rsynccommanddisplay.stringValue = Displayrsyncpath(index: self.index!, display: .restore).displayrsyncpath ?? ""
         }
     }
 
