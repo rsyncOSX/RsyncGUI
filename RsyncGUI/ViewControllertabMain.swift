@@ -47,7 +47,7 @@ protocol AllProfileDetails: class {
     func disablereloadallprofiles()
 }
 
-class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, Delay, Fileerrormessage {
+class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, Delay, Fileerrormessage, Setcolor {
 
     // Configurations object
     var configurations: Configurations?
@@ -468,10 +468,10 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, De
         }
         if let profile = self.configurations!.getProfile() {
             self.profilInfo.stringValue = "Profile: " + profile
-            self.profilInfo.textColor = .white
+            self.profilInfo.textColor = setcolor(nsviewcontroller: self, color: .white)
         } else {
             self.profilInfo.stringValue = "Profile: default"
-            self.profilInfo.textColor = .black
+            self.profilInfo.textColor = setcolor(nsviewcontroller: self, color: .green)
         }
         localprofileinfoadd = ViewControllerReference.shared.getvcref(viewcontroller: .vcnewconfigurations ) as? ViewControllerNewConfigurations
         localprofileinfomain?.setprofile(profile: self.profilInfo.stringValue, color: self.profilInfo.textColor!)
@@ -545,3 +545,51 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, De
         }
     }
 }
+
+enum Color {
+    case red
+    case white
+    case green
+    case black
+}
+
+protocol Setcolor: class {
+    func setcolor(nsviewcontroller: NSViewController, color: Color) -> NSColor
+}
+
+extension Setcolor {
+    
+    private func isDarkMode(view: NSView) -> Bool {
+        if #available(OSX 10.14, *) {
+            return view.effectiveAppearance.bestMatch(from: [.darkAqua, .aqua]) == .darkAqua
+        }
+        return false
+    }
+    
+    func setcolor(nsviewcontroller: NSViewController, color: Color) -> NSColor {
+        let darkmode = isDarkMode(view: nsviewcontroller.view)
+        switch color {
+        case .red:
+            return .red
+        case .white:
+            if darkmode {
+                return .white
+            } else {
+                return .black
+            }
+        case .green:
+            if darkmode {
+                return .green
+            } else {
+                return .blue
+            }
+        case .black:
+            if darkmode {
+                return .white
+            } else {
+                return .black
+            }
+        }
+    }
+}
+
