@@ -435,7 +435,7 @@ final class Configurations: ReloadTable, SetSchedules {
         self.configurationsDataSource = data
     }
 
-    init(profile: String?, viewcontroller: NSViewController) {
+    init(profile: String?) {
         // Sandbox
         self.SequrityScopedURLs = [NSDictionary]()
         self.securityScopedURLrootcatalog()
