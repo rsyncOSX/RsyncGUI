@@ -14,7 +14,7 @@ public struct Alerts {
         let alert = NSAlert()
         alert.messageText = info
         alert.alertStyle = NSAlert.Style.warning
-        alert.addButton(withTitle: "OK")
+        alert.addButton(withTitle: "Close")
         alert.runModal()
     }
 

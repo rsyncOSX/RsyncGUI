@@ -73,7 +73,6 @@
 		E9282DB522C0AF99004AA0E5 /* Displayrsyncpath.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9282DB422C0AF99004AA0E5 /* Displayrsyncpath.swift */; };
 		E9282DB722C0B050004AA0E5 /* Getrsyncpath.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9282DB622C0B050004AA0E5 /* Getrsyncpath.swift */; };
 		E9284CF621308AE9006648C1 /* extensionsConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9284CF521308AE9006648C1 /* extensionsConfigurations.swift */; };
-		E92A623B203D7B1C000B9300 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92A623A203D7B1C000B9300 /* Notifications.swift */; };
 		E92F368D22B4022800B9C3AB /* Remotefilelist.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92F368C22B4022800B9C3AB /* Remotefilelist.swift */; };
 		E933B6CD2196B30D0033D7D2 /* RemoteNumbers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E933B6CC2196B30D0033D7D2 /* RemoteNumbers.swift */; };
 		E9374D2E1E329A5800CD3945 /* CompleteQuickbackupTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9374D2D1E329A5800CD3945 /* CompleteQuickbackupTask.swift */; };
@@ -108,6 +107,7 @@
 		E97C09A71EFAFBC400E86999 /* BatchTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97C09A61EFAFBC400E86999 /* BatchTask.swift */; };
 		E97E3BA71F6256DB00411D0E /* Configurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97E3BA61F6256DB00411D0E /* Configurations.swift */; };
 		E982BA2820CEB59F00E71918 /* RestoreTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E982BA2720CEB59F00E71918 /* RestoreTask.swift */; };
+		E988932422C1E95C0094B15B /* Selectprofile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E988932322C1E95C0094B15B /* Selectprofile.swift */; };
 		E98997F321E265F300B5D5A3 /* OpenPanelBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98997EE21E265F200B5D5A3 /* OpenPanelBuilder.swift */; };
 		E98997F521E265F300B5D5A3 /* PermissionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98997F021E265F300B5D5A3 /* PermissionManager.swift */; };
 		E98997F621E265F300B5D5A3 /* OpenPanelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98997F121E265F300B5D5A3 /* OpenPanelDelegate.swift */; };
@@ -202,7 +202,6 @@
 		E9282DB422C0AF99004AA0E5 /* Displayrsyncpath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Displayrsyncpath.swift; sourceTree = "<group>"; };
 		E9282DB622C0B050004AA0E5 /* Getrsyncpath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Getrsyncpath.swift; sourceTree = "<group>"; };
 		E9284CF521308AE9006648C1 /* extensionsConfigurations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensionsConfigurations.swift; sourceTree = "<group>"; };
-		E92A623A203D7B1C000B9300 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		E92F368C22B4022800B9C3AB /* Remotefilelist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Remotefilelist.swift; sourceTree = "<group>"; };
 		E933B6CC2196B30D0033D7D2 /* RemoteNumbers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNumbers.swift; sourceTree = "<group>"; };
 		E9374D2D1E329A5800CD3945 /* CompleteQuickbackupTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompleteQuickbackupTask.swift; sourceTree = "<group>"; };
@@ -237,6 +236,7 @@
 		E97C09A61EFAFBC400E86999 /* BatchTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BatchTask.swift; sourceTree = "<group>"; };
 		E97E3BA61F6256DB00411D0E /* Configurations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configurations.swift; sourceTree = "<group>"; };
 		E982BA2720CEB59F00E71918 /* RestoreTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreTask.swift; sourceTree = "<group>"; };
+		E988932322C1E95C0094B15B /* Selectprofile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Selectprofile.swift; sourceTree = "<group>"; };
 		E98997EE21E265F200B5D5A3 /* OpenPanelBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenPanelBuilder.swift; sourceTree = "<group>"; };
 		E98997F021E265F300B5D5A3 /* PermissionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PermissionManager.swift; sourceTree = "<group>"; };
 		E98997F121E265F300B5D5A3 /* OpenPanelDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenPanelDelegate.swift; sourceTree = "<group>"; };
@@ -426,7 +426,6 @@
 				E9C6EA891ED2AE2F00680D4D /* Numbers.swift */,
 				A00FE1A91D6A1AAB00012089 /* Alerts.swift */,
 				E96CA1FD1E094C3000CD1D03 /* Resources.swift */,
-				E92A623A203D7B1C000B9300 /* Notifications.swift */,
 				E96291B0213049D7005119A7 /* TCPconnections.swift */,
 				E92755A121304F0000B1F781 /* Macserialnumber.swift */,
 				E92755A32130506000B1F781 /* Dateandtime.swift */,
@@ -437,6 +436,7 @@
 				E9282DB422C0AF99004AA0E5 /* Displayrsyncpath.swift */,
 				E9282DB622C0B050004AA0E5 /* Getrsyncpath.swift */,
 				E964B56422C0C686004C6A15 /* Setrsyncpath.swift */,
+				E988932322C1E95C0094B15B /* Selectprofile.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -822,12 +822,12 @@
 				E96291B1213049D7005119A7 /* TCPconnections.swift in Sources */,
 				A0AA33811D6F926A00DF4C77 /* ViewControllerBatch.swift in Sources */,
 				E9F068EC1F27B7FB00DDF1A1 /* SingleTask.swift in Sources */,
+				E988932422C1E95C0094B15B /* Selectprofile.swift in Sources */,
 				A054F1A91D6D773E00D27688 /* ViewControllerInformation.swift in Sources */,
 				E96C78422222775F00AF81E1 /* ReadWriteDictionary.swift in Sources */,
 				E94D6E3321A5BBA400DDDB61 /* ExecuteQuickbackupTask.swift in Sources */,
 				E9F4A0C220A9A7DE0019A9F6 /* AllSchedules.swift in Sources */,
 				A0430ADA1DAFFD3C00BBC106 /* SingleTaskWorkQueu.swift in Sources */,
-				E92A623B203D7B1C000B9300 /* Notifications.swift in Sources */,
 				E92755A42130506000B1F781 /* Dateandtime.swift in Sources */,
 				A004D81A1D9586580016914F /* ViewControllerLoggData.swift in Sources */,
 				E9F4EBB81EB4C32D006EEEF1 /* CommandSsh.swift in Sources */,
