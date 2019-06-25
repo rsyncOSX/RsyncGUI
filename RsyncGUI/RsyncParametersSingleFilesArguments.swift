@@ -65,7 +65,7 @@ final class RsyncParametersSingleFilesArguments: ProcessArguments {
     private func argumentstodisplay() {
         guard self.args != nil else { return }
         // Prepare the display version of arguments
-        self.argDisplay = self.command! + " "
+        self.argDisplay = Getrsyncpath().rsyncpath ?? "" + " "
         for i in 0 ..< self.args!.count {
             if i == 1 && self.config!.sshport != nil {
                 self.argDisplay = self.argDisplay!  + "\"" + self.args![i] + "\"  "
