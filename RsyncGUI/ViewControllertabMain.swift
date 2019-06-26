@@ -527,15 +527,15 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, De
 
     func createandreloadconfigurations() {
         guard self.configurations != nil else {
-            self.configurations = Configurations(profile: nil, viewcontroller: self)
+            self.configurations = Configurations(profile: nil)
             return
         }
         if let profile = self.configurations!.getProfile() {
             self.configurations = nil
-            self.configurations = Configurations(profile: profile, viewcontroller: self)
+            self.configurations = Configurations(profile: profile)
         } else {
             self.configurations = nil
-            self.configurations = Configurations(profile: nil, viewcontroller: self)
+            self.configurations = Configurations(profile: nil)
         }
         globalMainQueue.async(execute: { () -> Void in
             self.mainTableView.reloadData()
@@ -558,14 +558,14 @@ protocol Setcolor: class {
 }
 
 extension Setcolor {
-    
+
     private func isDarkMode(view: NSView) -> Bool {
         if #available(OSX 10.14, *) {
             return view.effectiveAppearance.bestMatch(from: [.darkAqua, .aqua]) == .darkAqua
         }
         return false
     }
-    
+
     func setcolor(nsviewcontroller: NSViewController, color: Color) -> NSColor {
         let darkmode = isDarkMode(view: nsviewcontroller.view)
         switch color {
@@ -592,4 +592,3 @@ extension Setcolor {
         }
     }
 }
-
