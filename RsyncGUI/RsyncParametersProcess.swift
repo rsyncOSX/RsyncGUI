@@ -124,7 +124,7 @@ final class RsyncParametersProcess {
     }
 
     private func dryrunparameter(_ config: Configuration, forDisplay: Bool) {
-        let dryrun: String = config.dryrun
+        let dryrun = "--dry-run"
         self.arguments!.append(dryrun)
         if forDisplay {self.arguments!.append(" ")}
         if self.stats! == false {
