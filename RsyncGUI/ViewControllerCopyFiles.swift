@@ -411,7 +411,6 @@ extension ViewControllerCopyFiles: NewProfile {
 extension ViewControllerCopyFiles: OpenQuickBackup {
     func openquickbackup() {
         self.configurations!.processtermination = .quicktask
-        self.configurations!.allowNotifyinMain = false
         globalMainQueue.async(execute: { () -> Void in
             self.presentAsSheet(self.viewControllerQuickBackup!)
         })

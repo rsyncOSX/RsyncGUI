@@ -291,7 +291,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, De
 
     // Logg records
     @IBAction func loggrecords(_ sender: NSButton) {
-        self.configurations!.allowNotifyinMain = true
         globalMainQueue.async(execute: { () -> Void in
             self.presentAsSheet(self.viewControllerScheduleDetails!)
         })
@@ -382,7 +381,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, De
             ViewControllerReference.shared.initialstart = 1
         }
         ViewControllerReference.shared.activetab = .vctabmain
-        self.configurations!.allowNotifyinMain = true
         if self.configurations!.configurationsDataSourcecount() > 0 {
             globalMainQueue.async(execute: { () -> Void in
                 self.mainTableView.reloadData()
@@ -398,7 +396,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, De
     override func viewDidDisappear() {
         super.viewDidDisappear()
         // Do not allow notify in Main
-        self.configurations!.allowNotifyinMain = false
         self.dynamicappend = false
     }
 
@@ -499,7 +496,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, De
         self.singletask = nil
         self.showrsynccommandmainview()
         self.reloadtabledata()
-        self.configurations!.allowNotifyinMain = true
     }
 
     func createandreloadschedules() {
