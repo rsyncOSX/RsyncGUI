@@ -724,12 +724,6 @@ extension ViewControllertabMain: ViewOutputDetails {
     }
 }
 
-extension ViewControllertabMain: SequrityScopedAddpath {
-    func sequrityscopedaddpath(path: String) {
-        
-    }
-}
-
 extension ViewControllertabMain: ResetSequrityScopedURL {
     func resetsequrityscopedurl() {
         let permissionManager: PermissionManager = PermissionManager(bookmarksManager: BookmarksManager.defaultManager)

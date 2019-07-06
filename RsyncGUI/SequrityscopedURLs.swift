@@ -13,27 +13,6 @@ class SequrityscopedURLs {
 
     var sequrityscopedURLs: [NSDictionary]?
 
-/*
-    func securityScopedURLpath(path: String, offsite: Bool) {
-        let fileURLpath = URL(fileURLWithPath: path)
-        if offsite {
-            let success = self.accessFiles(fileURL: fileURLpath)
-            let dict: NSMutableDictionary = [
-                "offsiteCatalog": fileURLpath,
-                "SecurityScoped": success
-            ]
-            self.SequrityScopedURLs!.append(dict)
-        } else {
-            let success = self.accessFiles(fileURL: fileURLpath)
-            let dict: NSMutableDictionary = [
-                "localcatalog": fileURLpath,
-                "SecurityScoped": success
-            ]
-            self.SequrityScopedURLs!.append(dict)
-        }
-    }
-
- */
     private func securityScopedURLrootcatalog() {
         let rootcatalog = Files(whatroot: .realRoot, configpath: ViewControllerReference.shared.configpath).realrootpath ?? ""
         let append = AppendSequrityscopedURLs(path: rootcatalog)

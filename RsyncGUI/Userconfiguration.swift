@@ -9,10 +9,6 @@
 
 import Foundation
 
-protocol SequrityScopedAddpath: class {
-    func sequrityscopedaddpath(path: String)
-}
-
 // Reading userconfiguration from file into RsyncGUI
 final class Userconfiguration {
 
@@ -44,9 +40,8 @@ final class Userconfiguration {
             if restorePath.count > 0 {
                 ViewControllerReference.shared.restorePath = restorePath
                 // Sandbox
-                weak var sequrityscopedaddpathDelegate: SequrityScopedAddpath?
-                sequrityscopedaddpathDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
-                sequrityscopedaddpathDelegate?.sequrityscopedaddpath(path: restorePath)
+                _ = AppendSequrityscopedURLs(path: restorePath)
+                // Sandbox
             } else {
                 ViewControllerReference.shared.restorePath = nil
             }
