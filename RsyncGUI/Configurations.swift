@@ -379,8 +379,8 @@ final class Configurations: ReloadTable, SetSchedules {
     init(profile: String?) {
         // initial Sandbox
         self.SequrityScopedURLs = [NSDictionary]()
-        self.SequrityScopedURLs?.append(SequrityscopedURLs(prefix: nil).dictionary!)
-        self.SequrityScopedURLs?.append(SequrityscopedURLs(prefix: "/.ssh").dictionary!)
+        self.SequrityScopedURLs?.append(SequrityscopedURLs(suffix: nil).dictionary!)
+        self.SequrityScopedURLs?.append(SequrityscopedURLs(suffix: "/.ssh").dictionary!)
         // initial Sandbox
         self.configurations = [Configuration]()
         self.argumentAllConfigurations = nil
