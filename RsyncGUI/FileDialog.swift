@@ -16,9 +16,9 @@ final class FileDialog {
     var modal: Bool = true
 
     private func saveSequrityScopedURL() {
-        weak var sequrityscopedaddpathDelegate: SaveSequrityScopedURL?
-        sequrityscopedaddpathDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
-        sequrityscopedaddpathDelegate?.savesequrityscopedurl(pathcatalog: self.urlpath!)
+        weak var sequrityscopedsavepathDelegate: SaveSequrityScopedURL?
+        sequrityscopedsavepathDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
+        sequrityscopedsavepathDelegate?.savesequrityscopedurl(urlpath: self.urlpath!)
     }
 
     private func openfiledlg (title: String, message: String) {

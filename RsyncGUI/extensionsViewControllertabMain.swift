@@ -726,19 +726,21 @@ extension ViewControllertabMain: ViewOutputDetails {
 
 extension ViewControllertabMain: SequrityScopedAddpath {
     func sequrityscopedaddpath(path: String) {
-        self.configurations!.securityScopedURLpath(path: path, offsite: false)
+        
     }
 }
 
 extension ViewControllertabMain: ResetSequrityScopedURL {
     func resetsequrityscopedurl() {
-        self.configurations!.resetsequrityscopedurl()
+        let permissionManager: PermissionManager = PermissionManager(bookmarksManager: BookmarksManager.defaultManager)
+        permissionManager.bookmarksManager.clearSecurityScopedBookmarks()
     }
 }
 
 extension ViewControllertabMain: SaveSequrityScopedURL {
-    func savesequrityscopedurl(pathcatalog: URL) {
-        self.configurations!.savesequrityscopedurl(urlpathforcatalog: pathcatalog)
+    func savesequrityscopedurl(urlpath: URL) {
+        let permissionManager: PermissionManager = PermissionManager(bookmarksManager: BookmarksManager.defaultManager)
+        permissionManager.bookmarksManager.saveSecurityScopedBookmarkForFileAtURL(securityScopedFileURL: urlpath)
     }
 }
 

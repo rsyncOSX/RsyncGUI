@@ -58,6 +58,8 @@
 		A0F2E20C1D6D91AA0091E8BF /* Userconfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F2E20B1D6D91AA0091E8BF /* Userconfiguration.swift */; };
 		A0FAF5CF1DDF2E5F0009FE7A /* ViewControllerAbout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FAF5CE1DDF2E5F0009FE7A /* ViewControllerAbout.swift */; };
 		A0FC45641D9545CC005208EF /* ScheduleLoggData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FC45631D9545CC005208EF /* ScheduleLoggData.swift */; };
+		E840ED1B22D0BDC900CF62FF /* SequrityscopedURLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E840ED1A22D0BDC900CF62FF /* SequrityscopedURLs.swift */; };
+		E840ED1F22D0CD3C00CF62FF /* AppendSequrityscopedURLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E840ED1E22D0CD3C00CF62FF /* AppendSequrityscopedURLs.swift */; };
 		E905DC111EACF7550003BF37 /* ViewControllerSsh.swift in Sources */ = {isa = PBXBuildFile; fileRef = E905DC101EACF7550003BF37 /* ViewControllerSsh.swift */; };
 		E905EDB41FED05B10044234E /* QuickBackup.swift in Sources */ = {isa = PBXBuildFile; fileRef = E905EDB31FED05B10044234E /* QuickBackup.swift */; };
 		E914B7722131197B00FFE398 /* extensionsSchedules.swift in Sources */ = {isa = PBXBuildFile; fileRef = E914B7712131197B00FFE398 /* extensionsSchedules.swift */; };
@@ -196,6 +198,8 @@
 		A0F2E20B1D6D91AA0091E8BF /* Userconfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Userconfiguration.swift; sourceTree = "<group>"; };
 		A0FAF5CE1DDF2E5F0009FE7A /* ViewControllerAbout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerAbout.swift; sourceTree = "<group>"; };
 		A0FC45631D9545CC005208EF /* ScheduleLoggData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleLoggData.swift; sourceTree = "<group>"; };
+		E840ED1A22D0BDC900CF62FF /* SequrityscopedURLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SequrityscopedURLs.swift; sourceTree = "<group>"; };
+		E840ED1E22D0CD3C00CF62FF /* AppendSequrityscopedURLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppendSequrityscopedURLs.swift; sourceTree = "<group>"; };
 		E905DC101EACF7550003BF37 /* ViewControllerSsh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerSsh.swift; sourceTree = "<group>"; };
 		E905EDB31FED05B10044234E /* QuickBackup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickBackup.swift; sourceTree = "<group>"; };
 		E914B7712131197B00FFE398 /* extensionsSchedules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensionsSchedules.swift; sourceTree = "<group>"; };
@@ -586,6 +590,8 @@
 				E98997EE21E265F200B5D5A3 /* OpenPanelBuilder.swift */,
 				E98997F121E265F300B5D5A3 /* OpenPanelDelegate.swift */,
 				E98997F021E265F300B5D5A3 /* PermissionManager.swift */,
+				E840ED1A22D0BDC900CF62FF /* SequrityscopedURLs.swift */,
+				E840ED1E22D0CD3C00CF62FF /* AppendSequrityscopedURLs.swift */,
 			);
 			name = Sandbox;
 			sourceTree = "<group>";
@@ -859,6 +865,7 @@
 				E9C6D24120AAB96800B9D212 /* AllProfilenames.swift in Sources */,
 				E9C6EA8A1ED2AE2F00680D4D /* Numbers.swift in Sources */,
 				A0F2E20C1D6D91AA0091E8BF /* Userconfiguration.swift in Sources */,
+				E840ED1F22D0CD3C00CF62FF /* AppendSequrityscopedURLs.swift in Sources */,
 				E933B6CD2196B30D0033D7D2 /* RemoteNumbers.swift in Sources */,
 				A0762A1F1DB4A8F000538CE9 /* CatalogProfile.swift in Sources */,
 				E9282DB322C0AE38004AA0E5 /* Norsync.swift in Sources */,
@@ -931,6 +938,7 @@
 				E95AE70721A5B88B00B2420B /* OperationFactory.swift in Sources */,
 				A091C6581D86A0A800278E74 /* ViewControllerCopyFiles.swift in Sources */,
 				E97C05F8229FBBA30044EAF6 /* ConvertOneConfig.swift in Sources */,
+				E840ED1B22D0BDC900CF62FF /* SequrityscopedURLs.swift in Sources */,
 				A08110671D6DA7D8009444D3 /* ViewControllerProgressProcess.swift in Sources */,
 				E94D2603205025790026D18F /* ViewControllerAllProfiles.swift in Sources */,
 				A04492B01D658F2100B3CE17 /* PersistentStorageScheduling.swift in Sources */,
