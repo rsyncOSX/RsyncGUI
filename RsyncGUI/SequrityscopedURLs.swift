@@ -9,40 +9,19 @@
 
 import Foundation
 
-class SequrityscopedURLs {
+struct SequrityscopedURLs {
 
-    var sequrityscopedURLs: [NSDictionary]?
+    var dictionary: NSMutableDictionary?
 
-    private func securityScopedURLrootcatalog() {
-        let rootcatalog = Files(whatroot: .realRoot, configpath: ViewControllerReference.shared.configpath).realrootpath ?? ""
+    init(prefix: String?) {
+        var rootcatalog = Files(whatroot: .realRoot, configpath: ViewControllerReference.shared.configpath).realrootpath ?? ""
+        if prefix != nil {
+            rootcatalog = rootcatalog + prefix!
+        }
         let append = AppendSequrityscopedURLs(path: rootcatalog)
-        let success = append.success
-        // guard success else { return }
-        let fileURLrootcatalog = append.urlpath
-        let dict: NSMutableDictionary = [
-            "localcatalog": fileURLrootcatalog!,
-            "SecurityScoped": success
+        self.dictionary = [
+            "localcatalog": append.urlpath!,
+            "SecurityScoped": append.success
         ]
-        self.sequrityscopedURLs!.append(dict)
-    }
-
-    private func securityScopedURLsshrootcatalog() {
-        let rootcatalog = Files(whatroot: .realRoot, configpath: ViewControllerReference.shared.configpath).realrootpath ?? ""
-        let sshrootcatalog = rootcatalog + "/.ssh"
-        let append = AppendSequrityscopedURLs(path: sshrootcatalog)
-        let success = append.success
-        // guard success else { return }
-        let fileURLsshrootcatalog = append.urlpath
-        let dict: NSMutableDictionary = [
-            "localcatalog": fileURLsshrootcatalog!,
-            "SecurityScoped": success
-        ]
-        self.sequrityscopedURLs!.append(dict)
-    }
-
-    init() {
-        self.sequrityscopedURLs = [NSDictionary]()
-        self.securityScopedURLrootcatalog()
-        self.securityScopedURLsshrootcatalog()
     }
 }
