@@ -346,6 +346,24 @@ final class Configurations: ReloadTable, SetSchedules {
         }
     }
 
+     // Sandbox
+    private func appendsequrityscopedurls(config: Configuration) {
+        let append = AppendSequrityscopedURLs(path: config.localCatalog)
+        let dict: NSMutableDictionary = [
+            "localcatalog": append.urlpath!,
+            "SecurityScoped": append.success
+        ]
+        self.SequrityScopedURLs!.append(dict)
+        if config.offsiteServer.isEmpty == true {
+            let append = AppendSequrityscopedURLs(path: config.offsiteCatalog)
+            let dict: NSMutableDictionary = [
+                "localcatalog": append.urlpath!,
+                "SecurityScoped": append.success
+            ]
+            self.SequrityScopedURLs!.append(dict)
+        }
+    }
+
     /// Function is reading all Configurations into memory from permanent store and
     /// prepare all arguments for rsync. All configurations are stored in the private
     /// variable within object.
@@ -365,12 +383,7 @@ final class Configurations: ReloadTable, SetSchedules {
         for i in 0 ..< self.configurations!.count {
             data.append(ConvertOneConfig(config: self.configurations![i]).dict)
             // Sandbox
-            let append = AppendSequrityscopedURLs(path: self.configurations![i].localCatalog)
-            let dict: NSMutableDictionary = [
-                "offsiteCatalog": append.urlpath!,
-                "SecurityScoped": append.success
-            ]
-            self.SequrityScopedURLs!.append(dict)
+            self.appendsequrityscopedurls(config: self.configurations![i])
             // Sandbox
         }
         self.configurationsDataSource = data
