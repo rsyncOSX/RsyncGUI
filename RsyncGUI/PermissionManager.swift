@@ -20,10 +20,6 @@ public class PermissionManager {
 	public lazy var openPanel: NSOpenPanel = OpenPanelBuilder().openPanel()
 	public static let defaultManager: PermissionManager = PermissionManager()
 
-	public init(bookmarksManager: BookmarksManager = BookmarksManager()) {
-		self.bookmarksManager = bookmarksManager
-	}
-
 	public func needsPermissionForFileAtURL(fileURL: URL) -> Bool {
 		let reachable = try? fileURL.checkResourceIsReachable()
 		let readable = FileManager.default.isReadableFile(atPath: fileURL.absoluteString)
@@ -76,4 +72,8 @@ public class PermissionManager {
 		}
 		return false
 	}
+
+    public init(bookmarksManager: BookmarksManager = BookmarksManager()) {
+        self.bookmarksManager = bookmarksManager
+    }
 }

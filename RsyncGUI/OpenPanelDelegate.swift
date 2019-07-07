@@ -21,5 +21,4 @@ public class OpenPanelDelegate: NSObject, OpenPanelDelegateType {
 		}
 		return false
 	}
-
 }

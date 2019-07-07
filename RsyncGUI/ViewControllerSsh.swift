@@ -15,7 +15,7 @@ protocol ResetSequrityScopedURL: class {
 }
 
 protocol SaveSequrityScopedURL: class {
-    func savesequrityscopedurl(pathcatalog: URL)
+    func savesequrityscopedurl(urlpath: URL)
 }
 
 class ViewControllerSsh: NSViewController, SetConfigurations, VcExecute {
