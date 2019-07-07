@@ -9,7 +9,7 @@
 
 import Foundation
 
-struct SequrityscopedURLs {
+struct RootcatalogSequrityscopedURLs {
 
     var dictionary: NSMutableDictionary?
 
