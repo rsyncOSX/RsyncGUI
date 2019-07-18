@@ -223,13 +223,13 @@ extension ViewControllerLoggData: NSTableViewDelegate {
         switch column {
         case 0:
              self.filterby = .task
-        case 3:
+        case 2:
             self.filterby = .backupid
-        case 4:
+        case 3:
             self.filterby = .localcatalog
-        case 5:
+        case 4:
             self.filterby = .remoteserver
-        case 6:
+        case 5:
             sortbystring = false
             self.filterby = .executedate
         default:
