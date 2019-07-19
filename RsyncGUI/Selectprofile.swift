@@ -21,7 +21,6 @@ final class Selectprofile {
         self.profile = profile
         self.newProfileDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
         self.copyfilesnewProfileDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vccopyfiles) as? ViewControllerCopyFiles
-        self.reloadloggdataDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcloggdata) as? ViewControllerLoggData
         if self.profile == "Default profile" {
             newProfileDelegate?.newProfile(profile: nil)
         } else {

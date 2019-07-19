@@ -425,6 +425,8 @@ extension Sorting {
         switch sortby {
         case .localcatalog:
             sortstring = "localCatalog"
+        case .remotecatalog:
+            sortstring = "offsiteCatalog"
         case .remoteserver:
             sortstring = "offsiteServer"
         case .task:

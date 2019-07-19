@@ -26,7 +26,7 @@ final class ScheduleLoggData: SetConfigurations, SetSchedules, Sorting {
 
     var loggdata: [NSMutableDictionary]?
     private var scheduleConfiguration: [ConfigurationSchedule]?
-    
+
     func filter(search: String?, filterby: Sortandfilter?) {
         guard search != nil && self.loggdata != nil && filterby != nil else { return }
         globalDefaultQueue.async(execute: {() -> Void in
@@ -36,7 +36,7 @@ final class ScheduleLoggData: SetConfigurations, SetSchedules, Sorting {
             })
         })
     }
-    
+
     private func readAndSortAllLoggdata(hiddenID: Int?, sortascending: Bool) {
         var data = [NSMutableDictionary]()
         let input: [ConfigurationSchedule] = self.schedules!.getSchedule()
@@ -65,7 +65,7 @@ final class ScheduleLoggData: SetConfigurations, SetSchedules, Sorting {
         }
         self.loggdata = self.sortbydate(notsorted: data, sortdirection: sortascending)
     }
-    
+
     private func allreadAndSortAllLoggdata() {
         var data = [NSMutableDictionary]()
         let input: [ConfigurationSchedule]? = self.scheduleConfiguration
@@ -80,7 +80,7 @@ final class ScheduleLoggData: SetConfigurations, SetSchedules, Sorting {
         }
         self.loggdata = self.sortbydate(notsorted: data, sortdirection: true)
     }
-    
+
     let compare: (NSMutableDictionary, NSMutableDictionary) -> Bool = { (number1, number2) in
         if number1.value(forKey: "sibling") as? Int == number2.value(forKey: "sibling") as? Int &&
             number1.value(forKey: "parent") as? Int == number2.value(forKey: "parent") as? Int {
@@ -89,19 +89,19 @@ final class ScheduleLoggData: SetConfigurations, SetSchedules, Sorting {
             return false
         }
     }
-    
+
     init (sortascending: Bool) {
         if self.loggdata == nil {
             self.readAndSortAllLoggdata(hiddenID: nil, sortascending: sortascending)
         }
     }
-    
+
     init (hiddenID: Int, sortascending: Bool) {
         if self.loggdata == nil {
             self.readAndSortAllLoggdata(hiddenID: hiddenID, sortascending: sortascending)
         }
     }
-    
+
     init (allschedules: Allschedules?) {
         guard allschedules != nil else { return }
         self.scheduleConfiguration = allschedules!.getallschedules()

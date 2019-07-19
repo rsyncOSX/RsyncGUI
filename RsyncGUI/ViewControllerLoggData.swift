@@ -86,6 +86,7 @@ class ViewControllerLoggData: NSViewController, SetConfigurations, SetSchedules,
             self.scheduletable.reloadData()
         })
     }
+
     @IBAction func selectlogs(_ sender: NSButton) {
         guard self.scheduleloggdata!.loggdata != nil else { return }
         for i in 0 ..< self.scheduleloggdata!.loggdata!.count {
@@ -116,7 +117,6 @@ class ViewControllerLoggData: NSViewController, SetConfigurations, SetSchedules,
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do view setup here.
         self.scheduletable.delegate = self
         self.scheduletable.dataSource = self
         self.search.delegate = self
@@ -178,7 +178,6 @@ extension ViewControllerLoggData: NSSearchFieldDelegate {
         self.reloadtabledata()
         self.selectbutton.state = .off
     }
-
 }
 
 extension ViewControllerLoggData: NSTableViewDataSource {
@@ -194,7 +193,6 @@ extension ViewControllerLoggData: NSTableViewDataSource {
             return self.scheduleloggdata!.loggdata?.count ?? 0
         }
     }
-
 }
 
 extension ViewControllerLoggData: NSTableViewDelegate {
@@ -275,26 +273,6 @@ extension ViewControllerLoggData: Reloadandrefresh {
         globalMainQueue.async(execute: { () -> Void in
             self.scheduletable.reloadData()
         })
-    }
-}
-
-extension ViewControllerLoggData: ReadLoggdata {
-    func readloggdata() {
-        if Activetab(viewcontroller: .vcloggdata).isactive {
-            self.scheduleloggdata = nil
-            globalMainQueue.async(execute: { () -> Void in
-                self.index = self.index()
-                if let index = self.index {
-                    let hiddenID = self.configurations?.gethiddenID(index: index) ?? -1
-                    self.scheduleloggdata = ScheduleLoggData(hiddenID: hiddenID, sortascending: self.sortedascending)
-                    self.info(num: 1)
-                } else {
-                    self.info(num: 0)
-                    self.scheduleloggdata = ScheduleLoggData(sortascending: self.sortedascending)
-                }
-                self.scheduletable.reloadData()
-            })
-        }
     }
 }
 
