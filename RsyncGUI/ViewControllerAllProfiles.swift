@@ -28,7 +28,7 @@ class ViewControllerAllProfiles: NSViewController, Delay, Abort {
     private var allschedulessortedandexpanded: ScheduleSortedAndExpand?
     private var column: Int?
     private var filterby: Sortandfilter?
-    private var sortedascendigdesending: Bool = true
+    private var sortascending: Bool = true
     private var index: Int?
     private var outputprocess: OutputProcess?
     private var process: Process?
@@ -41,13 +41,23 @@ class ViewControllerAllProfiles: NSViewController, Delay, Abort {
     }
 
     @IBAction func sortdirection(_ sender: NSButton) {
-        if self.sortedascendigdesending == true {
-            self.sortedascendigdesending = false
+        if self.sortascending == true {
+            self.sortascending = false
             self.sortdirection.image = #imageLiteral(resourceName: "down")
         } else {
-            self.sortedascendigdesending = true
+            self.sortascending = true
             self.sortdirection.image = #imageLiteral(resourceName: "up")
         }
+        guard self.filterby != nil else { return }
+        switch self.filterby! {
+        case .executedate:
+            self.allprofiles?.allconfigurationsasdictionary = self.allprofiles!.sortbydate(notsorted: self.allprofiles?.allconfigurationsasdictionary, sortdirection: self.sortascending)
+        default:
+            self.allprofiles?.allconfigurationsasdictionary = self.allprofiles!.sortbystring(notsorted: self.allprofiles?.allconfigurationsasdictionary, sortby: self.filterby!, sortdirection: self.sortascending)
+        }
+        globalMainQueue.async(execute: { () -> Void in
+            self.mainTableView.reloadData()
+        })
     }
 
     @IBAction func getremotesizes(_ sender: NSButton) {
@@ -103,8 +113,8 @@ class ViewControllerAllProfiles: NSViewController, Delay, Abort {
         self.allschedules = Allschedules(nolog: true)
         self.allschedulessortedandexpanded = ScheduleSortedAndExpand(allschedules: self.allschedules)
         self.sortdirection.image = #imageLiteral(resourceName: "up")
-        self.sortedascendigdesending = true
-        self.allprofiles?.allconfigurationsasdictionary = self.allprofiles!.sortbydate(notsorted: self.allprofiles?.allconfigurationsasdictionary, sortdirection: self.sortedascendigdesending)
+        self.sortascending = true
+        self.allprofiles?.allconfigurationsasdictionary = self.allprofiles!.sortbydate(notsorted: self.allprofiles?.allconfigurationsasdictionary, sortdirection: self.sortascending)
         globalMainQueue.async(execute: { () -> Void in
             self.mainTableView.reloadData()
         })
@@ -176,9 +186,9 @@ extension ViewControllerAllProfiles: NSTableViewDelegate, Attributedestring {
             return
         }
         if sortbystring {
-            self.allprofiles?.allconfigurationsasdictionary = self.allprofiles!.sortbystring(notsorted: self.allprofiles?.allconfigurationsasdictionary, sortby: self.filterby!, sortdirection: self.sortedascendigdesending)
+            self.allprofiles?.allconfigurationsasdictionary = self.allprofiles!.sortbystring(notsorted: self.allprofiles?.allconfigurationsasdictionary, sortby: self.filterby!, sortdirection: self.sortascending)
         } else {
-            self.allprofiles?.allconfigurationsasdictionary = self.allprofiles!.sortbydate(notsorted: self.allprofiles?.allconfigurationsasdictionary, sortdirection: self.sortedascendigdesending)
+            self.allprofiles?.allconfigurationsasdictionary = self.allprofiles!.sortbydate(notsorted: self.allprofiles?.allconfigurationsasdictionary, sortdirection: self.sortascending)
         }
         globalMainQueue.async(execute: { () -> Void in
             self.mainTableView.reloadData()
