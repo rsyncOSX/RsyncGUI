@@ -14,7 +14,7 @@ final class ConvertSchedules: SetSchedules {
     func convertschedules() -> [NSDictionary] {
         var array = [NSDictionary]()
         // Reading Schedules from memory
-        if let schedules = self.schedulesDelegate?.getschedulesobject()?.getSchedule() {
+        if let schedules = self.schedules?.getSchedule() {
             for i in 0 ..< schedules.count {
                 let schedule = schedules[i]
                 let dict: NSMutableDictionary = [
