@@ -80,7 +80,7 @@ class ViewControllerLoggData: NSViewController, SetConfigurations, SetSchedules,
         case .executedate:
             self.scheduleloggdata?.loggdata = self.scheduleloggdata!.sortbydate(notsorted: self.scheduleloggdata?.loggdata, sortdirection: self.sortedascending)
         default:
-            self.scheduleloggdata?.loggdata = self.scheduleloggdata!.sortbystring(notsorted: self.scheduleloggdata?.loggdata, sortby: self.filterby!, sortdirection: self.sortedascending)
+            self.scheduleloggdata?.loggdata = self.scheduleloggdata!.sortbystring(notsortedlist: self.scheduleloggdata?.loggdata, sortby: self.filterby!, sortdirection: self.sortedascending)
         }
         globalMainQueue.async(execute: { () -> Void in
             self.scheduletable.reloadData()
@@ -159,7 +159,7 @@ class ViewControllerLoggData: NSViewController, SetConfigurations, SetSchedules,
 
 extension ViewControllerLoggData: NSSearchFieldDelegate {
 
-    func controlTextDidBeginEditing(_ obj: Notification) {
+    func controlTextDidChange(_ obj: Notification) {
         self.delayWithSeconds(0.25) {
             let filterstring = self.search.stringValue
             self.selectbutton.state = .off
@@ -179,6 +179,7 @@ extension ViewControllerLoggData: NSSearchFieldDelegate {
         self.reloadtabledata()
         self.selectbutton.state = .off
     }
+
 }
 
 extension ViewControllerLoggData: NSTableViewDataSource {
@@ -235,7 +236,7 @@ extension ViewControllerLoggData: NSTableViewDelegate {
             return
         }
         if sortbystring {
-            self.scheduleloggdata?.loggdata = self.scheduleloggdata!.sortbystring(notsorted: self.scheduleloggdata?.loggdata, sortby: self.filterby!, sortdirection: self.sortedascending)
+            self.scheduleloggdata?.loggdata = self.scheduleloggdata!.sortbystring(notsortedlist: self.scheduleloggdata?.loggdata, sortby: self.filterby!, sortdirection: self.sortedascending)
         } else {
             self.scheduleloggdata?.loggdata = self.scheduleloggdata!.sortbydate(notsorted: self.scheduleloggdata?.loggdata, sortdirection: self.sortedascending)
         }
