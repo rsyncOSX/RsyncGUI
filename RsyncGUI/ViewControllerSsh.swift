@@ -255,18 +255,12 @@ extension ViewControllerSsh: NSTableViewDataSource {
 extension ViewControllerSsh: NSTableViewDelegate {
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         if tableView == self.detailsTable {
-            var text: String = ""
-            var cellIdentifier: String = ""
-            if tableColumn == tableView.tableColumns[0] {
-                text = self.data![row]
-                cellIdentifier = "outputID"
-            }
-            if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: cellIdentifier),
-                                             owner: nil) as? NSTableCellView {
-                cell.textField?.stringValue = text
+            if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "outputID"), owner: nil) as? NSTableCellView {
+                cell.textField?.stringValue = self.data?[row] ?? ""
                 return cell
+            } else {
+                return nil
             }
-            return nil
         } else {
             guard self.configurations!.SequrityScopedURLs != nil else { return nil}
             guard row < self.configurations!.SequrityScopedURLs!.count else { return nil }
