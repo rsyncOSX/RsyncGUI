@@ -53,7 +53,7 @@ class ViewControllerAllProfiles: NSViewController, Delay, Abort {
         case .executedate:
             self.allprofiles?.allconfigurationsasdictionary = self.allprofiles!.sortbydate(notsorted: self.allprofiles?.allconfigurationsasdictionary, sortdirection: self.sortascending)
         default:
-            self.allprofiles?.allconfigurationsasdictionary = self.allprofiles!.sortbystring(notsorted: self.allprofiles?.allconfigurationsasdictionary, sortby: self.filterby!, sortdirection: self.sortascending)
+            self.allprofiles?.allconfigurationsasdictionary = self.allprofiles!.sortbystring(notsortedlist: self.allprofiles?.allconfigurationsasdictionary, sortby: self.filterby!, sortdirection: self.sortascending)
         }
         globalMainQueue.async(execute: { () -> Void in
             self.mainTableView.reloadData()
@@ -186,7 +186,7 @@ extension ViewControllerAllProfiles: NSTableViewDelegate, Attributedestring {
             return
         }
         if sortbystring {
-            self.allprofiles?.allconfigurationsasdictionary = self.allprofiles!.sortbystring(notsorted: self.allprofiles?.allconfigurationsasdictionary, sortby: self.filterby!, sortdirection: self.sortascending)
+            self.allprofiles?.allconfigurationsasdictionary = self.allprofiles!.sortbystring(notsortedlist: self.allprofiles?.allconfigurationsasdictionary, sortby: self.filterby!, sortdirection: self.sortascending)
         } else {
             self.allprofiles?.allconfigurationsasdictionary = self.allprofiles!.sortbydate(notsorted: self.allprofiles?.allconfigurationsasdictionary, sortdirection: self.sortascending)
         }

@@ -400,7 +400,7 @@ protocol Reloadsortedandrefresh {
 // Protocol for sorting
 protocol Sorting {
     func sortbydate(notsorted: [NSMutableDictionary]?, sortdirection: Bool) -> [NSMutableDictionary]?
-    func sortbystring(notsorted: [NSMutableDictionary]?, sortby: Sortandfilter, sortdirection: Bool) -> [NSMutableDictionary]?
+    func sortbystring(notsortedlist: [NSMutableDictionary]?, sortby: Sortandfilter, sortdirection: Bool) -> [NSMutableDictionary]?
 }
 
 extension Sorting {
@@ -419,8 +419,8 @@ extension Sorting {
         return sorted
     }
 
-    func sortbystring(notsorted: [NSMutableDictionary]?, sortby: Sortandfilter, sortdirection: Bool) -> [NSMutableDictionary]? {
-        guard notsorted != nil else { return nil }
+    func sortbystring(notsortedlist: [NSMutableDictionary]?, sortby: Sortandfilter, sortdirection: Bool) -> [NSMutableDictionary]? {
+        guard notsortedlist != nil else { return nil }
         var sortstring: String?
         switch sortby {
         case .localcatalog:
@@ -438,7 +438,7 @@ extension Sorting {
         default:
             sortstring = ""
         }
-        let sorted = notsorted!.sorted { (dict1, dict2) -> Bool in
+        let sorted = notsortedlist!.sorted { (dict1, dict2) -> Bool in
             if (dict1.value(forKey: sortstring!) as? String) ?? "" > (dict2.value(forKey: sortstring!) as? String) ?? "" {
                 return sortdirection
             } else {
