@@ -10,7 +10,7 @@
 import Foundation
 import Cocoa
 
-class ViewControllerVerify: NSViewController, SetConfigurations, Index, VcExecute {
+class ViewControllerVerify: NSViewController, SetConfigurations, Index, Connected, VcExecute {
 
     @IBOutlet weak var outputtable: NSTableView!
     var outputprocess: OutputProcess?
@@ -81,13 +81,11 @@ class ViewControllerVerify: NSViewController, SetConfigurations, Index, VcExecut
         self.gotit.stringValue = "Verifying, please wait..."
         self.enabledisablebuttons(enable: false)
         self.working.startAnimation(nil)
-        let arguments = self.configurations?.arguments4verify(index: self.index!)
-        self.outputprocess = OutputProcess()
-        self.outputprocess?.addlinefromoutput("*** Verify ***")
-        let verifytask = VerifyTask(arguments: arguments)
-        verifytask.setdelegate(object: self)
-        verifytask.executeProcess(outputprocess: self.outputprocess)
-        self.processRefererence = verifytask
+        if let arguments = self.configurations?.arguments4verify(index: self.index!) {
+            self.outputprocess = OutputProcess()
+            self.outputprocess?.addlinefromoutput("*** Verify ***")
+            self.verifyandchanged(arguments: arguments)
+        }
     }
 
     @IBAction func changed(_ sender: NSButton) {
@@ -99,11 +97,16 @@ class ViewControllerVerify: NSViewController, SetConfigurations, Index, VcExecut
         self.gotit.stringValue = "Computing changed, please wait..."
         self.enabledisablebuttons(enable: false)
         self.working.startAnimation(nil)
-        let arguments = self.configurations?.arguments4restore(index: self.index!, argtype: .argdryRun)
-        self.outputprocess = OutputProcess()
-        self.outputprocess?.addlinefromoutput("*** Changed ***")
-        let verifytask = VerifyTask(arguments: arguments)
-        verifytask.setdelegate(object: self)
+        if let arguments = self.configurations?.arguments4restore(index: self.index!, argtype: .argdryRun) {
+            self.outputprocess = OutputProcess()
+            self.outputprocess?.addlinefromoutput("*** Changed ***")
+            self.verifyandchanged(arguments: arguments)
+        }
+    }
+
+    private func verifyandchanged(arguments: [String]) {
+        let verifytask = ProcessCmd(command: nil, arguments: arguments)
+        verifytask.setupdateDelegate(object: self)
         verifytask.executeProcess(outputprocess: self.outputprocess)
         self.processRefererence = verifytask
     }
@@ -144,10 +147,15 @@ class ViewControllerVerify: NSViewController, SetConfigurations, Index, VcExecut
         super.viewDidAppear()
         ViewControllerReference.shared.activetab = .vcverify
         self.index = self.index()
-        self.resetinfo()
         if let index = self.index {
+            let config = self.configurations!.getConfigurations()[index]
+            guard self.connected(config: config) == true else {
+                self.gotit.stringValue = "Seems not to be connected..."
+                return
+            }
             guard index != self.lastindex ?? -1 else { return }
             guard self.estimatedindex ?? -1 != index else { return }
+            self.resetinfo()
             self.setinfo()
             self.enabledisablebuttons(enable: false)
             self.estimatedindex = index
@@ -197,7 +205,7 @@ class ViewControllerVerify: NSViewController, SetConfigurations, Index, VcExecut
         self.processRefererence = verifytask
     }
 
-    private func setNumbers(outputprocess: OutputProcess?, local: Bool) {
+    private func publishnumbers(outputprocess: OutputProcess?, local: Bool) {
         globalMainQueue.async(execute: { () -> Void in
             let infotask = RemoteInfoTask(outputprocess: outputprocess)
             if local {
@@ -220,6 +228,7 @@ class ViewControllerVerify: NSViewController, SetConfigurations, Index, VcExecut
 
     private func setinfo() {
         let hiddenID = self.configurations?.gethiddenID(index: self.index!) ?? 0
+        guard hiddenID > -1 else { return }
         self.localcatalog.stringValue = self.configurations!.getResourceConfiguration(hiddenID, resource: .localCatalog)
         self.remoteserver.stringValue = self.configurations!.getResourceConfiguration(hiddenID, resource: .offsiteServer)
         self.remotecatalog.stringValue = self.configurations!.getResourceConfiguration(hiddenID, resource: .remoteCatalog)
@@ -269,10 +278,10 @@ extension ViewControllerVerify: UpdateProgress {
     func processTermination() {
         if self.gotremoteinfo == false {
             if self.complete == false {
-                self.setNumbers(outputprocess: self.outputprocess, local: true)
+                self.publishnumbers(outputprocess: self.outputprocess, local: true)
             } else {
                 self.gotremoteinfo = true
-                self.setNumbers(outputprocess: self.outputprocess, local: false)
+                self.publishnumbers(outputprocess: self.outputprocess, local: false)
                 self.enabledisablebuttons(enable: true)
             }
             if let index = self.index {
