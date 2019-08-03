@@ -35,7 +35,6 @@ extension ViewControllertabMain: NSTableViewDelegate, Attributedestring {
         guard self.configurations != nil else { return nil}
         if row > self.configurations!.configurationsDataSourcecount() - 1 { return nil }
         let object: NSDictionary = self.configurations!.getConfigurationsDataSource()![row]
-        let hiddenID: Int = self.configurations!.getConfigurations()[row].hiddenID
         let markdays: Bool = self.configurations!.getConfigurations()[row].markdays
         let celltext = object[tableColumn!.identifier] as? String
         if tableColumn!.identifier.rawValue == "batchCellID" {
@@ -47,16 +46,6 @@ extension ViewControllertabMain: NSTableViewDelegate, Attributedestring {
             return self.attributedstring(str: celltext!, color: NSColor.red, align: .left)
         } else if tableColumn!.identifier.rawValue == "offsiteServerCellID", ((object[tableColumn!.identifier] as? String)?.isEmpty)! {
             return "localhost"
-        } else if tableColumn!.identifier.rawValue == "schedCellID" {
-            if let obj = self.schedulesortedandexpanded {
-                if obj.numberoftasks(hiddenID).0 > 0 {
-                    if obj.numberoftasks(hiddenID).1 > 3600 {
-                        return #imageLiteral(resourceName: "yellow")
-                    } else {
-                        return #imageLiteral(resourceName: "green")
-                    }
-                }
-            }
         } else if tableColumn!.identifier.rawValue == "statCellID" {
             if row == self.index {
                 if self.setbatchyesno == false {
@@ -578,8 +567,6 @@ extension ViewControllertabMain: GetSchedulesObject {
     func createschedulesobject(profile: String?) -> Schedules? {
         self.schedules = nil
         self.schedules = Schedules(profile: profile)
-        self.schedulesortedandexpanded = ScheduleSortedAndExpand()
-        ViewControllerReference.shared.quickbackuptask = self.schedulesortedandexpanded?.firstscheduledtask()
         return self.schedules
     }
 }
@@ -653,7 +640,6 @@ extension ViewControllertabMain: Count {
 
 extension ViewControllertabMain: Reloadsortedandrefresh {
     func reloadsortedandrefreshtabledata() {
-        self.schedulesortedandexpanded = ScheduleSortedAndExpand()
         globalMainQueue.async(execute: { () -> Void in
             self.mainTableView.reloadData()
         })
