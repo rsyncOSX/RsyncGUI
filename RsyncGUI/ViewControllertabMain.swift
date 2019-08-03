@@ -100,8 +100,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, De
     var dynamicappend: Bool = false
     // HiddenID task, set when row is selected
     var hiddenID: Int?
-    // Reference to Schedules object
-    var schedulesortedandexpanded: ScheduleSortedAndExpand?
     // Bool if one or more remote server is offline
     // Used in testing if remote server is on/off-line
     var serverOff: [Bool]?
@@ -511,8 +509,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, De
             self.schedules = nil
             self.schedules = Schedules(profile: nil)
         }
-        self.schedulesortedandexpanded = ScheduleSortedAndExpand()
-        ViewControllerReference.shared.quickbackuptask = self.schedulesortedandexpanded?.firstscheduledtask()
     }
 
     func createandreloadconfigurations() {

@@ -25,7 +25,6 @@ class ViewControllerAllProfiles: NSViewController, Delay, Abort {
 
     private var allprofiles: AllConfigurations?
     private var allschedules: Allschedules?
-    private var allschedulessortedandexpanded: ScheduleSortedAndExpand?
     private var column: Int?
     private var filterby: Sortandfilter?
     private var sortascending: Bool = true
@@ -111,7 +110,6 @@ class ViewControllerAllProfiles: NSViewController, Delay, Abort {
     func reloadallprofiles() {
         self.allprofiles = AllConfigurations()
         self.allschedules = Allschedules(nolog: true)
-        self.allschedulessortedandexpanded = ScheduleSortedAndExpand(allschedules: self.allschedules)
         self.sortdirection.image = #imageLiteral(resourceName: "up")
         self.sortascending = true
         self.allprofiles?.allconfigurationsasdictionary = self.allprofiles!.sortbydate(notsorted: self.allprofiles?.allconfigurationsasdictionary, sortdirection: self.sortascending)
@@ -144,18 +142,9 @@ extension ViewControllerAllProfiles: NSTableViewDelegate, Attributedestring {
     func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
         if row > self.allprofiles!.allconfigurationsasdictionary!.count - 1 { return nil }
         let object: NSDictionary = self.allprofiles!.allconfigurationsasdictionary![row]
-        let hiddenID = object.value(forKey: "hiddenID") as? Int ?? -1
-        let profilename = object.value(forKey: "profile") as? String ?? "Default profile"
-        if tableColumn!.identifier.rawValue == "intime" {
-            let taskintime: String? = self.allschedulessortedandexpanded!.sortandcountscheduledonetask(hiddenID, profilename: profilename, number: true)
-            return taskintime ?? ""
-        } else if tableColumn!.identifier.rawValue == "schedule" {
-            let schedule: String? = self.allschedulessortedandexpanded!.sortandcountscheduledonetask(hiddenID, profilename: profilename, number: false)
-            return schedule
-        } else {
-            return object[tableColumn!.identifier] as? String
-        }
+        return object[tableColumn!.identifier] as? String
     }
+
     // setting which table row is selected
     func tableViewSelectionDidChange(_ notification: Notification) {
         let myTableViewFromNotification = (notification.object as? NSTableView)!
