@@ -228,8 +228,10 @@ extension ViewControllerLoggData: NSTableViewDelegate {
         case 3:
             self.filterby = .localcatalog
         case 4:
-            self.filterby = .remoteserver
+            self.filterby = .remotecatalog
         case 5:
+            self.filterby = .remoteserver
+        case 6:
             sortbystring = false
             self.filterby = .executedate
         default:
