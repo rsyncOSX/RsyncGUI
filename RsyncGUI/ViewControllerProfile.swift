@@ -96,19 +96,13 @@ extension ViewControllerProfile: NSTableViewDataSource {
 extension ViewControllerProfile: NSTableViewDelegate {
 
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        var text: String?
-        var cellIdentifier: String = ""
-        let data = self.profilesArray![row]
-        if tableColumn == tableView.tableColumns[0] {
-            text = data
-            cellIdentifier = "profilesID"
-        }
-        if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: cellIdentifier),
+        if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "profilesID"),
                          owner: self) as? NSTableCellView {
-            cell.textField?.stringValue = text!
+            cell.textField?.stringValue = self.profilesArray?[row] ?? ""
             return cell
+        } else {
+            return nil
         }
-        return nil
     }
 
     func tableViewSelectionDidChange(_ notification: Notification) {
