@@ -100,9 +100,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, De
     var dynamicappend: Bool = false
     // HiddenID task, set when row is selected
     var hiddenID: Int?
-    // Bool if one or more remote server is offline
-    // Used in testing if remote server is on/off-line
-    var serverOff: [Bool]?
     // Ready for execute again
     var readyforexecution: Bool = true
     // Can load profiles
