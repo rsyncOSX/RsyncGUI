@@ -37,15 +37,10 @@ extension ViewControllertabMain: NSTableViewDelegate, Attributedestring {
             return "localhost"
         } else if tableColumn!.identifier.rawValue == "statCellID" {
             if row == self.index {
-                if self.setbatchyesno == false {
-                    if self.singletask == nil {
-                        return #imageLiteral(resourceName: "yellow")
-                    } else {
-                        return #imageLiteral(resourceName: "green")
-                    }
+                if self.singletask == nil {
+                    return #imageLiteral(resourceName: "yellow")
                 } else {
-                    self.setbatchyesno = false
-                    return nil
+                    return #imageLiteral(resourceName: "green")
                 }
             }
         } else {
@@ -68,8 +63,7 @@ extension ViewControllertabMain: NSTableViewDelegate, Attributedestring {
             self.abortOperations()
         }
         if self.configurations!.getConfigurations()[row].task == ViewControllerReference.shared.synchronize {
-            self.setbatchyesno = true
-            self.configurations!.setBatchYesNo(row)
+            self.configurations!.enabledisablebatch(row)
         }
         self.singletask = nil
         self.batchtasks = nil
@@ -80,11 +74,7 @@ extension ViewControllertabMain: NSTableViewDelegate, Attributedestring {
 extension ViewControllertabMain: GetOutput {
     // Get information from rsync output.
     func getoutput() -> [String] {
-        if self.outputprocess != nil {
-            return self.outputprocess!.trimoutput(trim: .two)!
-        } else {
-            return [""]
-        }
+        return (self.outputprocess?.trimoutput(trim: .two)) ?? []
     }
 }
 
