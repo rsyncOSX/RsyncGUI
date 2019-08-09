@@ -22,8 +22,6 @@ final class Configurations: ReloadTable, SetSchedules {
     // reference to Process, used for kill in executing task
     var process: Process?
     private var profile: String?
-    // Reference to singletask object
-    var singleTask: SingleTask?
     // The main structure storing all Configurations for tasks
     private var configurations: [Configuration]?
     // Array to store argumenst for all tasks.
