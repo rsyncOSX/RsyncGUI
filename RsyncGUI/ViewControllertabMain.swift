@@ -382,7 +382,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, De
         self.rsyncischanged()
         self.displayProfile()
         self.readyforexecution = true
-        if self.tcpconnections == nil { self.tcpconnections = TCPconnections()}
         self.info(num: 0)
     }
 
