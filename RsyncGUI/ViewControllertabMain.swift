@@ -382,7 +382,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, De
         self.rsyncischanged()
         self.displayProfile()
         self.readyforexecution = true
-        if self.tcpconnections == nil { self.tcpconnections = TCPconnections()}
         self.info(num: 0)
     }
 
@@ -418,8 +417,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, De
             // Dry run
             self.singletask = SingleTask(index: self.index!)
             self.singletask?.executeSingleTask()
-            // Set reference to singleTask object
-            self.configurations!.singleTask = self.singletask
             return
         }
         // Real run
