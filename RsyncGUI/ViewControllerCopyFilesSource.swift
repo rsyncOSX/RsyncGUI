@@ -70,7 +70,7 @@ class ViewControllerCopyFilesSource: NSViewController, SetConfigurations, SetDis
         self.selectButton.isEnabled = true
         if let index = indexes.first {
             if self.presentingViewController as? ViewControllerSsh != nil {
-                let object = self.configurations!.getConfigurationsDataSourcecountBackup()![index]
+                let object = self.configurations!.getConfigurationsDataSourceSynchronize()![index]
                 let hiddenID = object.value(forKey: "hiddenID") as? Int
                 guard hiddenID != nil else { return }
                 self.index = hiddenID!
@@ -82,13 +82,13 @@ class ViewControllerCopyFilesSource: NSViewController, SetConfigurations, SetDis
 extension ViewControllerCopyFilesSource: NSTableViewDataSource {
     func numberOfRows(in tableView: NSTableView) -> Int {
         guard self.configurations != nil else { return 0 }
-        return self.configurations!.getConfigurationsDataSourcecountBackup()?.count ?? 0
+        return self.configurations!.getConfigurationsDataSourceSynchronize()?.count ?? 0
     }
 }
 
 extension ViewControllerCopyFilesSource: NSTableViewDelegate {
     func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
-        let object: NSDictionary = self.configurations!.getConfigurationsDataSourcecountBackup()![row]
+        let object: NSDictionary = self.configurations!.getConfigurationsDataSourceSynchronize()![row]
         return object[tableColumn!.identifier] as? String
     }
 }

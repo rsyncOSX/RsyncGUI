@@ -18,7 +18,7 @@ enum Sort {
 
 class QuickBackup: SetConfigurations {
     var sortedlist: [NSMutableDictionary]?
-    var estimatedlist: [NSMutableDictionary]?
+    var estimatedlist: [NSDictionary]?
     typealias Row = (Int, Int)
     var stackoftasktobeexecuted: [Row]?
     var index: Int?
@@ -147,10 +147,10 @@ class QuickBackup: SetConfigurations {
     init() {
         self.estimatedlist = self.configurations?.estimatedlist
         if self.estimatedlist != nil {
-            self.sortedlist = self.configurations?.getConfigurationsDataSourcecountQuickBackup()?.filter({($0.value(forKey: "selectCellID") as? Int) == 1})
+            self.sortedlist = self.configurations?.getConfigurationsDataSourceSynchronize()?.filter({($0.value(forKey: "selectCellID") as? Int) == 1})
             guard self.sortedlist!.count > 0 else { return }
         } else {
-            self.sortedlist = self.configurations?.getConfigurationsDataSourcecountQuickBackup()
+            self.sortedlist = self.configurations?.getConfigurationsDataSourceSynchronize()
         }
         self.sortbydays()
         self.hiddenID = nil
