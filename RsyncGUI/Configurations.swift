@@ -10,7 +10,7 @@
 //  Created by Thomas Evensen on 08/02/16.
 //  Copyright © 2016 Thomas Evensen. All rights reserved.
 //
-//  swiftlint:disable line_length type_body_length file_length
+//  swiftlint:disable line_length type_body_length
 
 import Foundation
 import Cocoa
@@ -28,15 +28,15 @@ final class Configurations: ReloadTable, SetSchedules {
     // Initialized during startup
     private var argumentAllConfigurations: [ArgumentsOneConfiguration]?
     // Datasource for NSTableViews
-    private var configurationsDataSource: [NSMutableDictionary]?
+    private var configurationsDataSource: [NSDictionary]?
     // Object for batchQueue data and operations
     private var batchQueue: BatchTaskWorkQueu?
     // backup list from remote info view
     var quickbackuplist: [Int]?
     // Estimated backup list, all backups
-    var estimatedlist: [NSMutableDictionary]?
+    var estimatedlist: [NSDictionary]?
     // remote and local info
-    var localremote: [NSMutableDictionary]?
+    var localremote: [NSDictionary]?
     // remote info tasks
     var remoteinfotaskworkqueue: RemoteInfoTaskWorkQueue?
     // Which kind of task
@@ -78,21 +78,21 @@ final class Configurations: ReloadTable, SetSchedules {
     /// as datasource for tableViews
     /// - parameter none: none
     /// - returns : Array of Configurations
-    func getConfigurationsDataSource() -> [NSMutableDictionary]? {
+    func getConfigurationsDataSource() -> [NSDictionary]? {
         return self.configurationsDataSource
     }
 
     /// Function for getting all Configurations marked as backup (not restore)
     /// - parameter none: none
     /// - returns : Array of NSDictionary
-    func getConfigurationsDataSourcecountQuickBackup() -> [NSMutableDictionary]? {
-        let configurations: [Configuration] = self.configurations!.filter({return ($0.task == ViewControllerReference.shared.synchronize)})
+    func getConfigurationsDataSourceSynchronize() -> [NSMutableDictionary]? {
+        var configurations: [Configuration] = self.configurations!.filter({return ($0.task == ViewControllerReference.shared.synchronize)})
         var data = [NSMutableDictionary]()
         for i in 0 ..< configurations.count {
-            let row: NSMutableDictionary = ConvertOneConfig(config: self.configurations![i]).dict
-            if (row.value(forKey: "offsiteServerCellID") as? String)?.isEmpty == true {
-                row.setValue("localhost", forKey: "offsiteServerCellID")
+            if configurations[i].offsiteServer.isEmpty == true {
+                configurations[i].offsiteServer = "localhost"
             }
+            let row: NSMutableDictionary = ConvertOneConfig(config: self.configurations![i]).dict
             if self.quickbackuplist != nil {
                 let quickbackup = self.quickbackuplist!.filter({$0 == configurations[i].hiddenID})
                 if quickbackup.count > 0 {
@@ -100,18 +100,6 @@ final class Configurations: ReloadTable, SetSchedules {
                 }
             }
             data.append(row)
-        }
-        return data
-    }
-
-    func getConfigurationsDataSourcecountBackup() -> [NSDictionary]? {
-        var configurations: [Configuration] = self.configurations!.filter({return ($0.task == ViewControllerReference.shared.synchronize )})
-        var data = [NSDictionary]()
-        for i in 0 ..< configurations.count {
-            if configurations[i].offsiteServer.isEmpty == true {
-                configurations[i].offsiteServer = "localhost"
-            }
-            data.append(ConvertOneConfig(config: self.configurations![i]).dict2)
         }
         return data
     }
