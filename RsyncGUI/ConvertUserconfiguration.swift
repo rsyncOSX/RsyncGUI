@@ -12,7 +12,7 @@ import Foundation
 final class ConvertUserconfiguration {
 
     // Converting user configuration to array of NSDictionary
-    func convertUserconfiguration() -> [NSDictionary] {
+    func convertUserconfiguration() -> [NSMutableDictionary] {
         var version3Rsync: Int?
         var detailedlogging: Int?
         var minimumlogging: Int?
@@ -20,7 +20,7 @@ final class ConvertUserconfiguration {
         var rsyncPath: String?
         var restorePath: String?
         var marknumberofdayssince: String?
-        var array = [NSDictionary]()
+        var array = [NSMutableDictionary]()
         if ViewControllerReference.shared.rsyncVer3 {
             version3Rsync = 1
         } else {
