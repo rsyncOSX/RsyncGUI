@@ -51,7 +51,6 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, VcSc
     @IBOutlet weak var offsiteServer: NSTextField!
     @IBOutlet weak var backupID: NSTextField!
     @IBOutlet weak var sshport: NSTextField!
-    @IBOutlet weak var rsyncdaemon: NSButton!
     @IBOutlet weak var profilInfo: NSTextField!
     @IBOutlet weak var copyconfigbutton: NSButton!
     @IBOutlet weak var backuptype: NSComboBox!
@@ -207,7 +206,6 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, VcSc
         self.offsiteServer.stringValue = ""
         self.backupID.stringValue = ""
         self.sshport.stringValue = ""
-        self.rsyncdaemon.state = .off
     }
 
     @IBAction func addConfig(_ sender: NSButton) {
@@ -239,7 +237,6 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, VcSc
             self.offsiteCatalog.stringValue += "/"
             dict.setValue(self.offsiteCatalog.stringValue, forKey: "offsiteCatalog")
         }
-        dict.setObject(self.rsyncdaemon.state, forKey: "rsyncdaemon" as NSCopying)
         if sshport.stringValue != "" {
             if let port: Int = Int(self.sshport.stringValue) {
                 dict.setObject(port, forKey: "sshport" as NSCopying)
