@@ -27,17 +27,16 @@ protocol SingleTaskProgress: class {
 }
 
 final class SingleTask: SetSchedules, SetConfigurations {
-    
+
     weak var indicatorDelegate: StartStopProgressIndicatorSingleTask?
     weak var singletaskDelegate: SingleTaskProgress?
     weak var setprocessDelegate: SendProcessreference?
-    
-    private var process: Process?
+
     private var index: Int?
     private var outputprocess: OutputProcess?
     private var maxcount: Int = 0
     private var workload: SingleTaskWorkQueu?
-    
+
     func executeSingleTask() {
         if self.workload == nil {
             self.workload = SingleTaskWorkQueu()
@@ -51,8 +50,7 @@ final class SingleTask: SetSchedules, SetConfigurations {
                     self.outputprocess = OutputProcess()
                     process.setdelegate(object: self)
                     process.executeProcess(outputprocess: self.outputprocess)
-                    self.process = process.getProcess()
-                    self.setprocessDelegate?.sendprocessreference(process: self.process!)
+                    self.setprocessDelegate?.sendprocessreference(process: process.getProcess())
                     self.setprocessDelegate?.sendoutputprocessreference(outputprocess: self.outputprocess)
                 }
             }
@@ -64,8 +62,7 @@ final class SingleTask: SetSchedules, SetConfigurations {
                     self.outputprocess = OutputProcess()
                     process.setdelegate(object: self)
                     process.executeProcess(outputprocess: self.outputprocess)
-                    self.process = process.getProcess()
-                    self.setprocessDelegate?.sendprocessreference(process: self.process!)
+                    self.setprocessDelegate?.sendprocessreference(process: process.getProcess())
                     self.setprocessDelegate?.sendoutputprocessreference(outputprocess: self.outputprocess)
                 }
             }
@@ -78,12 +75,12 @@ final class SingleTask: SetSchedules, SetConfigurations {
             self.workload = nil
         }
     }
-    
+
     func error() {
         guard self.workload != nil else { return }
         self.workload!.error()
     }
-    
+
     init(index: Int) {
         self.index = index
         self.indicatorDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
@@ -93,20 +90,20 @@ final class SingleTask: SetSchedules, SetConfigurations {
 }
 
 extension SingleTask: Count {
-    
+
     func maxCount() -> Int {
         return self.maxcount
     }
-    
+
     func inprogressCount() -> Int {
         guard self.outputprocess != nil else { return 0 }
         return self.outputprocess!.count()
     }
-    
+
 }
 
 extension SingleTask: UpdateProgress {
-    
+
     func processTermination() {
         if let workload = self.workload {
             switch workload.pop() {
@@ -130,7 +127,7 @@ extension SingleTask: UpdateProgress {
             }
         }
     }
-    
+
     func fileHandler() {
         weak var outputeverythingDelegate: ViewOutputDetails?
         weak var localprocessupdateDelegate: UpdateProgress?
