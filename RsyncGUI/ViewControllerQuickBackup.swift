@@ -145,8 +145,8 @@ extension ViewControllerQuickBackup: Reloadandrefresh {
     }
 }
 
-extension ViewControllerQuickBackup: CloseViewError {
-    func closeerror() {
+extension ViewControllerQuickBackup: ReportonandhaltonError {
+    func reportandhaltonerror() {
         self.quickbackup = nil
         self.abort()
         self.working.stopAnimation(nil)

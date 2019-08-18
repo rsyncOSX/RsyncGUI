@@ -10,14 +10,9 @@
 import Foundation
 import Cocoa
 
-// Return the created batchobject
-protocol GetNewBatchTask: class {
-    func getbatchtaskObject() -> BatchTask?
-}
-
 // Dismiss view when rsync error
-protocol CloseViewError: class {
-    func closeerror()
+protocol ReportonandhaltonError: class {
+    func reportandhaltonerror()
 }
 
 protocol Attributedestring: class {
@@ -214,8 +209,8 @@ extension ViewControllerBatch: GetNewBatchTask {
     }
 }
 
-extension ViewControllerBatch: CloseViewError {
-    func closeerror() {
+extension ViewControllerBatch: ReportonandhaltonError {
+    func reportandhaltonerror() {
         self.abort()
         self.batchTask?.closeOperation()
         self.batchTask = nil

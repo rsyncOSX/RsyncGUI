@@ -471,8 +471,8 @@
 		A04492C51D65904500B3CE17 /* Process */ = {
 			isa = PBXGroup;
 			children = (
+				E82473A12309B62400355CEA /* Mainprocess */,
 				E9F4EBB71EB4C32D006EEEF1 /* CommandSsh.swift */,
-				E9FFA02C1E7287E100B7AB2B /* ProcessCmd.swift */,
 				E9FFA02E1E728C6E00B7AB2B /* Rsync.swift */,
 				E9CF14131E729540008E8A15 /* RsyncScheduled.swift */,
 				E9E70A3B1FF3BCB30099554D /* RsyncVersionString.swift */,
@@ -559,6 +559,14 @@
 				A05275D91D6F6E0000D8ECBE /* BatchTaskWorkQueu.swift */,
 			);
 			name = Batch;
+			sourceTree = "<group>";
+		};
+		E82473A12309B62400355CEA /* Mainprocess */ = {
+			isa = PBXGroup;
+			children = (
+				E9FFA02C1E7287E100B7AB2B /* ProcessCmd.swift */,
+			);
+			name = Mainprocess;
 			sourceTree = "<group>";
 		};
 		E90E51051F47094800B71F0F /* PersistentStorage */ = {

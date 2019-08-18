@@ -11,28 +11,19 @@ import Foundation
 import Cocoa
 
 // Protocol for progress indicator
-protocol CountEstimating: class {
+protocol CountRemoteEstimatingNumberoftasks: class {
     func maxCount() -> Int
     func inprogressCount() -> Int
 }
 
-protocol Updateestimating: class {
-    func updateProgressbar()
-    func dismissview()
-}
-
-protocol DismissViewEstimating: class {
-    func dismissestimating(viewcontroller: NSViewController)
-}
-
-class ViewControllerEstimatingTasks: NSViewController, Abort {
+class ViewControllerEstimatingTasks: NSViewController, Abort, SetConfigurations, SetDismisser {
 
     var count: Double = 0
     var maxcount: Double = 0
     var calculatedNumberOfFiles: Int?
-    var vc: ViewControllertabMain?
-    weak var countDelegate: CountEstimating?
-    weak var dismissDelegate: DismissViewEstimating?
+    
+    weak var countDelegate: CountRemoteEstimatingNumberoftasks?
+    private var remoteinfotask: RemoteinfoEstimation?
     var diddissappear: Bool = false
 
     @IBOutlet weak var abort: NSButton!
@@ -42,44 +33,89 @@ class ViewControllerEstimatingTasks: NSViewController, Abort {
         self.abort()
     }
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        ViewControllerReference.shared.setvcref(viewcontroller: .vcestimatingtasks, nsviewcontroller: self)
+    }
+    
     override func viewDidAppear() {
         super.viewDidAppear()
         guard self.diddissappear == false else { return }
-        ViewControllerReference.shared.setvcref(viewcontroller: .vcestimatingtasks, nsviewcontroller: self)
-        self.vc = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
-        self.dismissDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
-        if let pvc = self.vc?.configurations!.remoteinfotaskworkqueue {
-            self.countDelegate = pvc
-        }
-        self.calculatedNumberOfFiles = self.countDelegate?.maxCount()
-        self.initiateProgressbar()
         self.abort.isEnabled = true
+        self.remoteinfotask = RemoteinfoEstimation(viewvcontroller: self)
+        self.initiateProgressbar()
     }
-
+    
     override func viewWillDisappear() {
         super.viewWillDisappear()
         self.diddissappear = true
     }
-
+    
     // Progress bars
     private func initiateProgressbar() {
-        if let calculatedNumberOfFiles = self.calculatedNumberOfFiles {
-            self.progress.maxValue = Double(calculatedNumberOfFiles)
-        }
+        self.progress.maxValue = Double(self.remoteinfotask?.maxCount() ?? 0)
         self.progress.minValue = 0
         self.progress.doubleValue = 0
         self.progress.startAnimation(self)
     }
+    
+    private func updateProgressbar(_ value: Double) {
+        self.progress.doubleValue = value
+    }
+    
+    private func closeview() {
+        if (self.presentingViewController as? ViewControllertabMain) != nil {
+            self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
+        } else if (self.presentingViewController as? ViewControllerNewConfigurations) != nil {
+            self.dismissview(viewcontroller: self, vcontroller: .vcnewconfigurations)
+        } else if (self.presentingViewController as? ViewControllerCopyFiles) != nil {
+            self.dismissview(viewcontroller: self, vcontroller: .vccopyfiles)
+        } else if (self.presentingViewController as? ViewControllerSsh) != nil {
+            self.dismissview(viewcontroller: self, vcontroller: .vcssh)
+        } else if (self.presentingViewController as? ViewControllerVerify) != nil {
+            self.dismissview(viewcontroller: self, vcontroller: .vcverify)
+        } else if (self.presentingViewController as? ViewControllerLoggData) != nil {
+            self.dismissview(viewcontroller: self, vcontroller: .vcloggdata)
+        }
+    }
 }
 
-extension ViewControllerEstimatingTasks: Updateestimating {
-    func dismissview() {
-        self.progress.stopAnimation(self)
-        self.dismissDelegate?.dismissestimating(viewcontroller: self)
+extension ViewControllerEstimatingTasks: UpdateProgress {
+    func processTermination() {
+        let progress = Double(self.remoteinfotask?.maxCount() ?? 0) - Double(self.remoteinfotask?.inprogressCount() ?? 0)
+        self.updateProgressbar(progress)
     }
+    
+    func fileHandler() {
+        //
+    }
+}
 
-    func updateProgressbar() {
-        let count = self.countDelegate?.inprogressCount() ?? 0
-        self.progress.doubleValue = Double(self.calculatedNumberOfFiles! - count)
+extension ViewControllerEstimatingTasks: StartStopProgressIndicator {
+    func start() {
+        //
+    }
+    
+    func complete() {
+        //
+    }
+    
+    func stop() {
+        weak var openDelegate: OpenQuickBackup?
+        if (self.presentingViewController as? ViewControllertabMain) != nil {
+            openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
+        } else if (self.presentingViewController as? ViewControllerNewConfigurations) != nil {
+            openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcnewconfigurations) as? ViewControllerNewConfigurations
+        } else if (self.presentingViewController as? ViewControllerCopyFiles) != nil {
+            openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vccopyfiles) as? ViewControllerCopyFiles
+        } else if (self.presentingViewController as? ViewControllerSsh) != nil {
+            openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcssh) as? ViewControllerSsh
+        } else if (self.presentingViewController as? ViewControllerVerify) != nil {
+            openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcverify) as? ViewControllerVerify
+        } else if (self.presentingViewController as? ViewControllerLoggData) != nil {
+            openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcloggdata) as? ViewControllerLoggData
+        }
+        self.closeview()
+        openDelegate?.openquickbackup()
     }
 }
