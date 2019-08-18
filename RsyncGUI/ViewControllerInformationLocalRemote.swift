@@ -12,7 +12,7 @@ import Cocoa
 
 protocol SetLocalRemoteInfo: class {
     func setlocalremoteinfo(info: NSMutableDictionary?)
-    func getlocalremoteinfo(index: Int) -> NSDictionary?
+    func getlocalremoteinfo(index: Int) -> [NSDictionary]?
 }
 
 class ViewControllerInformationLocalRemote: NSViewController, SetDismisser, Index, SetConfigurations, Setcolor, Connected {
@@ -50,10 +50,7 @@ class ViewControllerInformationLocalRemote: NSViewController, SetDismisser, Inde
         if let index = self.index {
             let datelastbackup = self.configurations?.getConfigurations()[index].dateRun ?? ""
             if datelastbackup.isEmpty == false {
-                let dateformatter = Dateandtime().setDateformat()
-                let date = dateformatter(from: datelastbackup)
-                self.datelastbackup.stringValue = NSLocalizedString("Date last backup:", comment: "Remote Info")
-                    + " " + date
+                self.datelastbackup.stringValue = datelastbackup
             } else {
                 self.datelastbackup.stringValue = NSLocalizedString("Date last backup:", comment: "Remote Info")
             }

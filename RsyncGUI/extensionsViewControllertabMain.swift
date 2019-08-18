@@ -461,11 +461,10 @@ extension ViewControllertabMain: Reloadsortedandrefresh {
 }
 
 extension ViewControllertabMain: SetLocalRemoteInfo {
-    func getlocalremoteinfo(index: Int) -> NSDictionary? {
+    func getlocalremoteinfo(index: Int) -> [NSDictionary]? {
         guard self.configurations?.localremote != nil else { return nil }
         if let info = self.configurations?.localremote?.filter({($0.value(forKey: "index") as? Int)! == index}) {
-            guard info.count > 0 else { return nil }
-            return info[0]
+            return info
         } else {
             return nil
         }
