@@ -10,7 +10,11 @@
 import Foundation
 import Cocoa
 
-class ViewControllerQuickBackup: NSViewController, SetDismisser, Abort, Delay {
+protocol QuickBackupCompleted: class {
+    func quickbackupcompleted()
+}
+
+class ViewControllerQuickBackup: NSViewController, SetDismisser, Abort, Delay, Setcolor {
 
     var seconds: Int?
     var row: Int?
@@ -34,15 +38,21 @@ class ViewControllerQuickBackup: NSViewController, SetDismisser, Abort, Delay {
             self.abort()
             self.working.stopAnimation(nil)
         }
-        self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
+        if (self.presentingViewController as? ViewControllertabMain) != nil {
+            self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
+        } else if (self.presentingViewController as? ViewControllerNewConfigurations) != nil {
+            self.dismissview(viewcontroller: self, vcontroller: .vcnewconfigurations)
+        } else if (self.presentingViewController as? ViewControllerCopyFiles) != nil {
+            self.dismissview(viewcontroller: self, vcontroller: .vccopyfiles)
+        } else if (self.presentingViewController as? ViewControllerSsh) != nil {
+            self.dismissview(viewcontroller: self, vcontroller: .vcssh)
+        } else if (self.presentingViewController as? ViewControllerVerify) != nil {
+            self.dismissview(viewcontroller: self, vcontroller: .vcverify)
+        } else if (self.presentingViewController as? ViewControllerLoggData) != nil {
+            self.dismissview(viewcontroller: self, vcontroller: .vcloggdata)
+        }
     }
 
-    private func loadtasks() {
-        self.completed.isHidden = true
-        self.quickbackup = QuickBackup()
-    }
-
-    // Initial functions viewDidLoad and viewDidAppear
     override func viewDidLoad() {
         super.viewDidLoad()
         self.inprogresscountDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
@@ -50,7 +60,8 @@ class ViewControllerQuickBackup: NSViewController, SetDismisser, Abort, Delay {
         self.mainTableView.delegate = self
         self.mainTableView.dataSource = self
         self.working.usesThreadedAnimation = true
-        self.loadtasks()
+        self.completed.isHidden = true
+        self.quickbackup = QuickBackup()
     }
 
     override func viewDidAppear() {
@@ -63,8 +74,8 @@ class ViewControllerQuickBackup: NSViewController, SetDismisser, Abort, Delay {
         }
         guard self.quickbackup?.sortedlist?.count ?? 0 > 0 else {
             self.completed.isHidden = false
-            self.completed.textColor = .green
-            self.completed.stringValue = "There seems to be nothing to do..."
+            self.completed.textColor = setcolor(nsviewcontroller: self, color: .green)
+            self.completed.stringValue = NSLocalizedString("There seems to be nothing to do...", comment: "Quickbackup")
             self.executing = false
             return
         }
@@ -96,6 +107,7 @@ class ViewControllerQuickBackup: NSViewController, SetDismisser, Abort, Delay {
         let value = Double((self.inprogresscountDelegate?.inprogressCount())!)
         progress.doubleValue = value
     }
+
 }
 
 extension ViewControllerQuickBackup: NSTableViewDataSource {
@@ -137,7 +149,6 @@ extension ViewControllerQuickBackup: NSTableViewDelegate {
 }
 
 extension ViewControllerQuickBackup: Reloadandrefresh {
-
     func reloadtabledata() {
         globalMainQueue.async(execute: { () -> Void in
             self.mainTableView.reloadData()
@@ -150,27 +161,17 @@ extension ViewControllerQuickBackup: ReportonandhaltonError {
         self.quickbackup = nil
         self.abort()
         self.working.stopAnimation(nil)
-        self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
+        self.completed.isHidden = false
+        self.completed.stringValue = "Error"
+        self.completed.textColor = setcolor(nsviewcontroller: self, color: .red)
     }
 }
 
-extension ViewControllerQuickBackup: UpdateProgress {
-
-    func processTermination() {
-        self.quickbackup?.setcompleted()
-        self.quickbackup?.processTermination()
-        guard self.quickbackup?.stackoftasktobeexecuted != nil else {
-            self.completed.isHidden = false
-            self.completed.textColor = .green
-            self.working.stopAnimation(nil)
-            self.executing = false
-            return
-        }
-    }
-
-    func fileHandler() {
-        globalMainQueue.async(execute: { () -> Void in
-            self.mainTableView.reloadData()
-        })
+extension ViewControllerQuickBackup: QuickBackupCompleted {
+    func quickbackupcompleted() {
+        self.completed.isHidden = false
+        self.completed.textColor = setcolor(nsviewcontroller: self, color: .green)
+        self.working.stopAnimation(nil)
+        self.executing = false
     }
 }
