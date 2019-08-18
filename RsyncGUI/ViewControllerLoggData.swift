@@ -42,7 +42,7 @@ class ViewControllerLoggData: NSViewController, SetConfigurations, SetSchedules,
             self.presentAsSheet(self.viewControllerRemoteInfo!)
         })
     }
-    
+
     @IBAction func quickbackup(_ sender: NSButton) {
         guard ViewControllerReference.shared.norsync == false else {
             _ = Norsync()
@@ -50,25 +50,24 @@ class ViewControllerLoggData: NSViewController, SetConfigurations, SetSchedules,
         }
         self.openquickbackup()
     }
-    
+
     @IBAction func automaticbackup(_ sender: NSButton) {
         self.presentAsSheet(self.viewControllerEstimating!)
     }
-    
+
     // Selecting profiles
     @IBAction func profiles(_ sender: NSButton) {
         globalMainQueue.async(execute: { () -> Void in
             self.presentAsSheet(self.viewControllerProfile!)
         })
     }
-    
+
     // Userconfiguration button
     @IBAction func userconfiguration(_ sender: NSButton) {
         globalMainQueue.async(execute: { () -> Void in
             self.presentAsSheet(self.viewControllerUserconfiguration!)
         })
     }
-
 
     private func info(num: Int) {
         switch num {

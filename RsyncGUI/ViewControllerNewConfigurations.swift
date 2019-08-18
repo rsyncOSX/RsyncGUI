@@ -66,7 +66,7 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, VcSc
             self.presentAsSheet(self.viewControllerRemoteInfo!)
         })
     }
-    
+
     @IBAction func quickbackup(_ sender: NSButton) {
         guard ViewControllerReference.shared.norsync == false else {
             _ = Norsync()
@@ -74,7 +74,7 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, VcSc
         }
         self.openquickbackup()
     }
-    
+
     @IBAction func automaticbackup(_ sender: NSButton) {
         self.presentAsSheet(self.viewControllerEstimating!)
     }
@@ -85,7 +85,7 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, VcSc
             self.presentAsSheet(self.viewControllerProfile!)
         })
     }
-    
+
     // Userconfiguration button
     @IBAction func userconfiguration(_ sender: NSButton) {
         globalMainQueue.async(execute: { () -> Void in

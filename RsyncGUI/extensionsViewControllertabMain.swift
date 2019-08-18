@@ -5,7 +5,7 @@
 //  Created by Thomas Evensen on 31.05.2018.
 //  Copyright © 2018 Thomas Evensen. All rights reserved.
 //
-//  swiftlint:disable file_length line_length cyclomatic_complexity function_body_length
+//  swiftlint:disable file_length line_length 
 
 import Foundation
 import Cocoa
@@ -426,7 +426,7 @@ extension ViewControllertabMain: SetRemoteInfo {
     func getremoteinfo() -> RemoteinfoEstimation? {
         return self.configurations!.remoteinfoestimation
     }
-    
+
     func setremoteinfo(remoteinfotask: RemoteinfoEstimation?) {
         self.configurations!.remoteinfoestimation = remoteinfotask
     }

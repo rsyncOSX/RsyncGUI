@@ -17,7 +17,7 @@ class OperationFactory {
     init() {
         _ = QuickbackupDispatch()
     }
-    
+
     init(updateprogress: UpdateProgress?) {
         _ = QuickbackupDispatch(updateprogress: updateprogress)
     }

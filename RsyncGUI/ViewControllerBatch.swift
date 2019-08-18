@@ -87,7 +87,7 @@ class ViewControllerBatch: NSViewController, SetDismisser, Abort, SetConfigurati
         self.executeButton.isEnabled = true
         self.estimatingbatch.usesThreadedAnimation = true
     }
-    
+
     override func viewDidAppear() {
         super.viewDidAppear()
         guard self.diddissappear == false else {
@@ -105,12 +105,12 @@ class ViewControllerBatch: NSViewController, SetDismisser, Abort, SetConfigurati
         self.remoteinfotaskDelegate?.setremoteinfo(remoteinfotask: self.remoteinfotask)
         self.initiateProgressbar()
     }
-    
+
     override func viewDidDisappear() {
         super.viewDidDisappear()
         self.diddissappear = true
     }
-    
+
     private func initiateProgressbar(progress: NSProgressIndicator, hiddenID: Int) {
         progress.isHidden = false
         if let calculatedNumberOfFiles = self.executebatch?.maxcountintask(hiddenID: hiddenID) {
@@ -121,12 +121,12 @@ class ViewControllerBatch: NSViewController, SetDismisser, Abort, SetConfigurati
         progress.doubleValue = 0
         progress.startAnimation(self)
     }
-    
+
     private func updateProgressbar(progress: NSProgressIndicator) {
         let value = Double(self.executebatch?.incount() ?? 0)
         progress.doubleValue = value
     }
-    
+
     private func initiateProgressbar() {
         if let calculatedNumberOfFiles = self.configurations?.batchQueuecount() {
             guard calculatedNumberOfFiles > 0 else { return }
@@ -139,13 +139,13 @@ class ViewControllerBatch: NSViewController, SetDismisser, Abort, SetConfigurati
         self.estimatingbatch.doubleValue = 0
         self.estimatingbatch.startAnimation(nil)
     }
-    
+
     private func updateProgressbar() {
         let max = Double(self.configurations?.batchQueuecount() ?? 0)
         let remaining = Double(self.remoteinfotask?.inprogressCount() ?? 0)
         self.estimatingbatch.doubleValue = max - remaining
     }
-    
+
 }
 
 extension ViewControllerBatch: NSTableViewDataSource {
@@ -156,7 +156,7 @@ extension ViewControllerBatch: NSTableViewDataSource {
 }
 
 extension ViewControllerBatch: NSTableViewDelegate {
-    
+
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         guard  self.executebatch?.configurations?.getbatchlist() != nil else { return nil }
         guard row < self.executebatch!.configurations!.getbatchlist()!.count else { return nil }
@@ -189,7 +189,7 @@ extension ViewControllerBatch: NSTableViewDelegate {
 }
 
 extension ViewControllerBatch: StartStopProgressIndicator {
-    
+
     func stop() {
         self.executeButton.isEnabled = true
         self.estimatingbatch.stopAnimation(nil)
@@ -197,11 +197,11 @@ extension ViewControllerBatch: StartStopProgressIndicator {
         self.estimatingbatchlabel.stringValue = NSLocalizedString("Estimation completed, you can start batch...", comment: "Batch")
         self.estimatingbatchlabel.textColor = setcolor(nsviewcontroller: self, color: .green)
     }
-    
+
     func start() {
         self.executeButton.isEnabled = false
     }
-    
+
     func complete() {
         self.executeButton.isEnabled = false
         self.estimatingbatchlabel.isHidden = false
@@ -233,7 +233,7 @@ extension ViewControllerBatch: UpdateProgress {
             self.mainTableView.reloadData()
         })
     }
-    
+
     func fileHandler() {
         globalMainQueue.async(execute: { () -> Void in
             self.mainTableView.reloadData()

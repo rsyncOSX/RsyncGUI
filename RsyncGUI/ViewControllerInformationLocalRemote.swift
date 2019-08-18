@@ -71,11 +71,11 @@ class ViewControllerInformationLocalRemote: NSViewController, SetDismisser, Inde
             }
         }
     }
-    
+
     @IBAction func close(_ sender: NSButton) {
         self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
     }
-    
+
     // Function for getting numbers out of output object updated when
     // Process object executes the job.
     private func setnumbers(outputprocess: OutputProcess?, local: Bool) {
@@ -101,7 +101,7 @@ class ViewControllerInformationLocalRemote: NSViewController, SetDismisser, Inde
             }
         })
     }
-    
+
     private func setcachedNumbers(dict: [NSDictionary]?) {
         if let infodictes = dict {
             guard infodictes.count == 2 else { return }
@@ -136,7 +136,7 @@ extension ViewControllerInformationLocalRemote: UpdateProgress {
             }
         }
     }
-    
+
     func fileHandler() {
         //
     }

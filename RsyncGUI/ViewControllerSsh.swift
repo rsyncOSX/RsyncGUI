@@ -46,7 +46,7 @@ class ViewControllerSsh: NSViewController, SetConfigurations, VcMain {
         return (self.storyboard!.instantiateController(withIdentifier: "CopyFilesID")
             as? NSViewController)!
     }()
-    
+
     @IBAction func totinfo(_ sender: NSButton) {
         guard ViewControllerReference.shared.norsync == false else {
             _ = Norsync()
@@ -56,7 +56,7 @@ class ViewControllerSsh: NSViewController, SetConfigurations, VcMain {
             self.presentAsSheet(self.viewControllerRemoteInfo!)
         })
     }
-    
+
     @IBAction func quickbackup(_ sender: NSButton) {
         guard ViewControllerReference.shared.norsync == false else {
             _ = Norsync()
@@ -64,25 +64,24 @@ class ViewControllerSsh: NSViewController, SetConfigurations, VcMain {
         }
         self.openquickbackup()
     }
-    
+
     @IBAction func automaticbackup(_ sender: NSButton) {
         self.presentAsSheet(self.viewControllerEstimating!)
     }
-    
+
     // Selecting profiles
     @IBAction func profiles(_ sender: NSButton) {
         globalMainQueue.async(execute: { () -> Void in
             self.presentAsSheet(self.viewControllerProfile!)
         })
     }
-    
+
     // Userconfiguration button
     @IBAction func userconfiguration(_ sender: NSButton) {
         globalMainQueue.async(execute: { () -> Void in
             self.presentAsSheet(self.viewControllerUserconfiguration!)
         })
     }
-
 
     @IBAction func resetsequrityscoped(_ sender: NSButton) {
         let answer = Alerts.dialogOrCancel(question: "You are about to reset RsynGUI access to your files", text: "Please close and start RsyncGUI again", dialog: "Reset")

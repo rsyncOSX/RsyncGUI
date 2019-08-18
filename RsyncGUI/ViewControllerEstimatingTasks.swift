@@ -21,7 +21,7 @@ class ViewControllerEstimatingTasks: NSViewController, Abort, SetConfigurations,
     var count: Double = 0
     var maxcount: Double = 0
     var calculatedNumberOfFiles: Int?
-    
+
     weak var countDelegate: CountRemoteEstimatingNumberoftasks?
     private var remoteinfotask: RemoteinfoEstimation?
     var diddissappear: Bool = false
@@ -37,7 +37,7 @@ class ViewControllerEstimatingTasks: NSViewController, Abort, SetConfigurations,
         super.viewDidLoad()
         ViewControllerReference.shared.setvcref(viewcontroller: .vcestimatingtasks, nsviewcontroller: self)
     }
-    
+
     override func viewDidAppear() {
         super.viewDidAppear()
         guard self.diddissappear == false else { return }
@@ -45,12 +45,12 @@ class ViewControllerEstimatingTasks: NSViewController, Abort, SetConfigurations,
         self.remoteinfotask = RemoteinfoEstimation(viewvcontroller: self)
         self.initiateProgressbar()
     }
-    
+
     override func viewWillDisappear() {
         super.viewWillDisappear()
         self.diddissappear = true
     }
-    
+
     // Progress bars
     private func initiateProgressbar() {
         self.progress.maxValue = Double(self.remoteinfotask?.maxCount() ?? 0)
@@ -58,11 +58,11 @@ class ViewControllerEstimatingTasks: NSViewController, Abort, SetConfigurations,
         self.progress.doubleValue = 0
         self.progress.startAnimation(self)
     }
-    
+
     private func updateProgressbar(_ value: Double) {
         self.progress.doubleValue = value
     }
-    
+
     private func closeview() {
         if (self.presentingViewController as? ViewControllertabMain) != nil {
             self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
@@ -85,7 +85,7 @@ extension ViewControllerEstimatingTasks: UpdateProgress {
         let progress = Double(self.remoteinfotask?.maxCount() ?? 0) - Double(self.remoteinfotask?.inprogressCount() ?? 0)
         self.updateProgressbar(progress)
     }
-    
+
     func fileHandler() {
         //
     }
@@ -95,11 +95,11 @@ extension ViewControllerEstimatingTasks: StartStopProgressIndicator {
     func start() {
         //
     }
-    
+
     func complete() {
         //
     }
-    
+
     func stop() {
         weak var openDelegate: OpenQuickBackup?
         if (self.presentingViewController as? ViewControllertabMain) != nil {

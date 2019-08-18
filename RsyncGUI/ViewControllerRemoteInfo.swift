@@ -70,7 +70,7 @@ class ViewControllerRemoteInfo: NSViewController, SetDismisser, Abort, Setcolor 
     private func closeview() {
         if (self.presentingViewController as? ViewControllertabMain) != nil {
             self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
-        }  else if (self.presentingViewController as? ViewControllerNewConfigurations) != nil {
+        } else if (self.presentingViewController as? ViewControllerNewConfigurations) != nil {
             self.dismissview(viewcontroller: self, vcontroller: .vcnewconfigurations)
         } else if (self.presentingViewController as? ViewControllerCopyFiles) != nil {
             self.dismissview(viewcontroller: self, vcontroller: .vccopyfiles)
@@ -112,7 +112,7 @@ class ViewControllerRemoteInfo: NSViewController, SetDismisser, Abort, Setcolor 
             self.remoteinfotaskDelegate?.setremoteinfo(remoteinfotask: self.remoteinfotask)
         }
     }
-    
+
     override func viewDidAppear() {
         super.viewDidAppear()
         guard self.diddissappear == false else {
@@ -133,12 +133,12 @@ class ViewControllerRemoteInfo: NSViewController, SetDismisser, Abort, Setcolor 
             self.selectalltaskswithfilestobackupbutton.isEnabled = false
         }
     }
-    
+
     override func viewDidDisappear() {
         super.viewDidDisappear()
         self.diddissappear = true
     }
-    
+
     private func number() -> String {
         if self.loaded {
             return NSLocalizedString("Loaded cached data...", comment: "Remote info")
@@ -147,12 +147,12 @@ class ViewControllerRemoteInfo: NSViewController, SetDismisser, Abort, Setcolor 
             return NSLocalizedString("Number of tasks to estimate:", comment: "Remote info") + " " + String(describing: max)
         }
     }
-    
+
     private func dobackups() -> [NSMutableDictionary]? {
         let backup = self.remoteinfotask?.records?.filter({$0.value( forKey: "select") as? Int == 1})
         return backup
     }
-    
+
     private func enableexecutebutton() {
         if let backup = self.dobackups() {
             if backup.count > 0 {
@@ -164,28 +164,28 @@ class ViewControllerRemoteInfo: NSViewController, SetDismisser, Abort, Setcolor 
             self.executebutton.isEnabled = false
         }
     }
-    
+
     private func initiateProgressbar() {
         self.progress.maxValue = Double(self.remoteinfotask?.maxCount() ?? 0)
         self.progress.minValue = 0
         self.progress.doubleValue = 0
         self.progress.startAnimation(self)
     }
-    
+
     private func updateProgressbar(_ value: Double) {
         self.progress.doubleValue = value
     }
 }
 
 extension ViewControllerRemoteInfo: NSTableViewDataSource {
-    
+
     func numberOfRows(in tableView: NSTableView) -> Int {
         return self.remoteinfotask?.records?.count ?? 0
     }
 }
 
 extension ViewControllerRemoteInfo: NSTableViewDelegate, Attributedestring {
-    
+
     func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
         guard self.remoteinfotask?.records != nil else { return nil }
         guard row < (self.remoteinfotask!.records?.count)! else { return nil }
@@ -209,7 +209,7 @@ extension ViewControllerRemoteInfo: NSTableViewDelegate, Attributedestring {
             return object[tableColumn!.identifier] as? String
         }
     }
-    
+
     // Toggling selection
     func tableView(_ tableView: NSTableView, setObjectValue object: Any?, for tableColumn: NSTableColumn?, row: Int) {
         guard  self.remoteinfotask?.records != nil else { return }
@@ -230,7 +230,7 @@ extension ViewControllerRemoteInfo: UpdateProgress {
         let progress = Double(self.remoteinfotask?.maxCount() ?? 0) - Double(self.remoteinfotask?.inprogressCount() ?? 0)
         self.updateProgressbar(progress)
     }
-    
+
     func fileHandler() {
         //
     }
@@ -240,7 +240,7 @@ extension ViewControllerRemoteInfo: StartStopProgressIndicator {
     func start() {
         //
     }
-    
+
     func stop() {
         globalMainQueue.async(execute: { () -> Void in
             self.mainTableView.reloadData()
@@ -253,7 +253,7 @@ extension ViewControllerRemoteInfo: StartStopProgressIndicator {
         self.selectalltaskswithfilestobackupbutton.isEnabled = true
         self.enableexecutebutton()
     }
-    
+
     func complete() {
         //
     }
