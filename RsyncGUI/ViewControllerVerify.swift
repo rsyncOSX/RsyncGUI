@@ -207,7 +207,7 @@ class ViewControllerVerify: NSViewController, SetConfigurations, Index, Connecte
 
     private func publishnumbers(outputprocess: OutputProcess?, local: Bool) {
         globalMainQueue.async(execute: { () -> Void in
-            let infotask = RemoteInfoTask(outputprocess: outputprocess)
+            let infotask = RemoteinfonumbersOnetask(outputprocess: outputprocess)
             if local {
                 self.localtotalNumber.stringValue = infotask.totalNumber!
                 self.localtotalNumberSizebytes.stringValue = infotask.totalNumberSizebytes!

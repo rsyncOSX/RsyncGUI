@@ -9,7 +9,7 @@
 
 import Foundation
 
-class RemoteInfoTask {
+class RemoteinfonumbersOnetask {
 
     var transferredNumber: String?
     var transferredNumberSizebytes: String?

@@ -82,7 +82,7 @@
 		E93A64842195E3BD0040B334 /* DuCommandSsh.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93A64832195E3BD0040B334 /* DuCommandSsh.swift */; };
 		E9407BB9208AFB7C00A6780E /* ViewControllerEstimatingTasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9407BB8208AFB7C00A6780E /* ViewControllerEstimatingTasks.swift */; };
 		E942FF291FED41D0004191B5 /* ViewControllerQuickBackup.swift in Sources */ = {isa = PBXBuildFile; fileRef = E942FF281FED41D0004191B5 /* ViewControllerQuickBackup.swift */; };
-		E943DC661FF90A6600E6B8B7 /* RemoteInfoTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E943DC651FF90A6600E6B8B7 /* RemoteInfoTask.swift */; };
+		E943DC661FF90A6600E6B8B7 /* RemoteinfonumbersOnetask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E943DC651FF90A6600E6B8B7 /* RemoteinfonumbersOnetask.swift */; };
 		E943DC681FF9115200E6B8B7 /* EstimateremoteInformationOnetask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E943DC671FF9115200E6B8B7 /* EstimateremoteInformationOnetask.swift */; };
 		E943DC6A1FF9141D00E6B8B7 /* RemoteinfoEstimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E943DC691FF9141D00E6B8B7 /* RemoteinfoEstimation.swift */; };
 		E945D61420B736E9000E787B /* ViewControllerInformationLocalRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = E945D61320B736E9000E787B /* ViewControllerInformationLocalRemote.swift */; };
@@ -223,7 +223,7 @@
 		E93A64832195E3BD0040B334 /* DuCommandSsh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuCommandSsh.swift; sourceTree = "<group>"; };
 		E9407BB8208AFB7C00A6780E /* ViewControllerEstimatingTasks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerEstimatingTasks.swift; sourceTree = "<group>"; };
 		E942FF281FED41D0004191B5 /* ViewControllerQuickBackup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerQuickBackup.swift; sourceTree = "<group>"; };
-		E943DC651FF90A6600E6B8B7 /* RemoteInfoTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteInfoTask.swift; sourceTree = "<group>"; };
+		E943DC651FF90A6600E6B8B7 /* RemoteinfonumbersOnetask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteinfonumbersOnetask.swift; sourceTree = "<group>"; };
 		E943DC671FF9115200E6B8B7 /* EstimateremoteInformationOnetask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EstimateremoteInformationOnetask.swift; sourceTree = "<group>"; };
 		E943DC691FF9141D00E6B8B7 /* RemoteinfoEstimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteinfoEstimation.swift; sourceTree = "<group>"; };
 		E945D61320B736E9000E787B /* ViewControllerInformationLocalRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerInformationLocalRemote.swift; sourceTree = "<group>"; };
@@ -357,7 +357,6 @@
 				E94BCEF221C63EDD00DB8EA2 /* RemoteCapacity */,
 				E9764F5E204BEE710018C0D7 /* AllProfiles */,
 				E99FC81E200FDDBC00477B1A /* ProcessArguments */,
-				E98BD0991FF8BF8400A00782 /* RemoteInformation */,
 				E99AEC701FF8BBA40004992B /* Userconfiguration */,
 				E9F941611FC5FCAE005F2439 /* Logging */,
 				E99D50781EE16241003621D3 /* RsyncParameters */,
@@ -449,6 +448,7 @@
 			isa = PBXGroup;
 			children = (
 				A04492C21D658FC300B3CE17 /* yudpsocket */,
+				E943DC651FF90A6600E6B8B7 /* RemoteinfonumbersOnetask.swift */,
 				E9C6EA891ED2AE2F00680D4D /* Numbers.swift */,
 				A00FE1A91D6A1AAB00012089 /* Alerts.swift */,
 				E96CA1FD1E094C3000CD1D03 /* Resources.swift */,
@@ -537,6 +537,7 @@
 		E824739E2309B2FF00355CEA /* Estimating */ = {
 			isa = PBXGroup;
 			children = (
+				E943DC691FF9141D00E6B8B7 /* RemoteinfoEstimation.swift */,
 				E943DC671FF9115200E6B8B7 /* EstimateremoteInformationOnetask.swift */,
 			);
 			name = Estimating;
@@ -629,15 +630,6 @@
 				E840ED1E22D0CD3C00CF62FF /* AppendSequrityscopedURLs.swift */,
 			);
 			name = Sandbox;
-			sourceTree = "<group>";
-		};
-		E98BD0991FF8BF8400A00782 /* RemoteInformation */ = {
-			isa = PBXGroup;
-			children = (
-				E943DC651FF90A6600E6B8B7 /* RemoteInfoTask.swift */,
-				E943DC691FF9141D00E6B8B7 /* RemoteinfoEstimation.swift */,
-			);
-			name = RemoteInformation;
 			sourceTree = "<group>";
 		};
 		E98FA9E322C5F78300D6D103 /* RsyncGUITests */ = {
@@ -943,7 +935,7 @@
 				E98997F621E265F300B5D5A3 /* OpenPanelDelegate.swift in Sources */,
 				E9F068F21F27B9C100DDF1A1 /* ArgumentsOneConfiguration.swift in Sources */,
 				A091C65B1D86A59500278E74 /* CopySingleFiles.swift in Sources */,
-				E943DC661FF90A6600E6B8B7 /* RemoteInfoTask.swift in Sources */,
+				E943DC661FF90A6600E6B8B7 /* RemoteinfonumbersOnetask.swift in Sources */,
 				A0A403521D76BD2E00A30017 /* ViewControllerRsyncParameters.swift in Sources */,
 				A04492B41D658F2100B3CE17 /* CopyFileArguments.swift in Sources */,
 				E9CF14141E729540008E8A15 /* RsyncScheduled.swift in Sources */,
