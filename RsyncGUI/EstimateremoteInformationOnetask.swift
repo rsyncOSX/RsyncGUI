@@ -9,7 +9,7 @@
 
 import Foundation
 
-final class EstimateRemoteInformationTask: SetConfigurations {
+final class EstimateremoteInformationOnetask: SetConfigurations {
     var arguments: [String]?
     init(index: Int, outputprocess: OutputProcess?, local: Bool) {
         weak var setprocessDelegate: SendProcessreference?

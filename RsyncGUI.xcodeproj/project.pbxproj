@@ -83,8 +83,8 @@
 		E9407BB9208AFB7C00A6780E /* ViewControllerEstimatingTasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9407BB8208AFB7C00A6780E /* ViewControllerEstimatingTasks.swift */; };
 		E942FF291FED41D0004191B5 /* ViewControllerQuickBackup.swift in Sources */ = {isa = PBXBuildFile; fileRef = E942FF281FED41D0004191B5 /* ViewControllerQuickBackup.swift */; };
 		E943DC661FF90A6600E6B8B7 /* RemoteInfoTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E943DC651FF90A6600E6B8B7 /* RemoteInfoTask.swift */; };
-		E943DC681FF9115200E6B8B7 /* EstimateRemoteInformationTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E943DC671FF9115200E6B8B7 /* EstimateRemoteInformationTask.swift */; };
-		E943DC6A1FF9141D00E6B8B7 /* RemoteInfoTaskWorkQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E943DC691FF9141D00E6B8B7 /* RemoteInfoTaskWorkQueue.swift */; };
+		E943DC681FF9115200E6B8B7 /* EstimateremoteInformationOnetask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E943DC671FF9115200E6B8B7 /* EstimateremoteInformationOnetask.swift */; };
+		E943DC6A1FF9141D00E6B8B7 /* RemoteinfoEstimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E943DC691FF9141D00E6B8B7 /* RemoteinfoEstimation.swift */; };
 		E945D61420B736E9000E787B /* ViewControllerInformationLocalRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = E945D61320B736E9000E787B /* ViewControllerInformationLocalRemote.swift */; };
 		E94BCEF421C63F0800DB8EA2 /* RemoteCapacity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94BCEF321C63F0800DB8EA2 /* RemoteCapacity.swift */; };
 		E94D2603205025790026D18F /* ViewControllerAllProfiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94D2602205025790026D18F /* ViewControllerAllProfiles.swift */; };
@@ -224,8 +224,8 @@
 		E9407BB8208AFB7C00A6780E /* ViewControllerEstimatingTasks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerEstimatingTasks.swift; sourceTree = "<group>"; };
 		E942FF281FED41D0004191B5 /* ViewControllerQuickBackup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerQuickBackup.swift; sourceTree = "<group>"; };
 		E943DC651FF90A6600E6B8B7 /* RemoteInfoTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteInfoTask.swift; sourceTree = "<group>"; };
-		E943DC671FF9115200E6B8B7 /* EstimateRemoteInformationTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EstimateRemoteInformationTask.swift; sourceTree = "<group>"; };
-		E943DC691FF9141D00E6B8B7 /* RemoteInfoTaskWorkQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteInfoTaskWorkQueue.swift; sourceTree = "<group>"; };
+		E943DC671FF9115200E6B8B7 /* EstimateremoteInformationOnetask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EstimateremoteInformationOnetask.swift; sourceTree = "<group>"; };
+		E943DC691FF9141D00E6B8B7 /* RemoteinfoEstimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteinfoEstimation.swift; sourceTree = "<group>"; };
 		E945D61320B736E9000E787B /* ViewControllerInformationLocalRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerInformationLocalRemote.swift; sourceTree = "<group>"; };
 		E94BCEF321C63F0800DB8EA2 /* RemoteCapacity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteCapacity.swift; sourceTree = "<group>"; };
 		E94D2602205025790026D18F /* ViewControllerAllProfiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerAllProfiles.swift; sourceTree = "<group>"; };
@@ -365,7 +365,6 @@
 				E9EC786F1EACE063001EED9B /* Ssh */,
 				E988FCBC1F9BCF0A00F21FB9 /* QuickbackupOperation */,
 				A04492C41D65901400B3CE17 /* Utils */,
-				A091C6591D86A1F400278E74 /* CopyFiles */,
 				A05275DB1D6F6E2C00D8ECBE /* Execution */,
 				A04492C51D65904500B3CE17 /* Process */,
 				A04492C11D658FB900B3CE17 /* Schedule */,
@@ -473,7 +472,6 @@
 			isa = PBXGroup;
 			children = (
 				E9F4EBB71EB4C32D006EEEF1 /* CommandSsh.swift */,
-				E943DC671FF9115200E6B8B7 /* EstimateRemoteInformationTask.swift */,
 				E9FFA02C1E7287E100B7AB2B /* ProcessCmd.swift */,
 				E9FFA02E1E728C6E00B7AB2B /* Rsync.swift */,
 				E9CF14131E729540008E8A15 /* RsyncScheduled.swift */,
@@ -489,11 +487,11 @@
 		A05275DB1D6F6E2C00D8ECBE /* Execution */ = {
 			isa = PBXGroup;
 			children = (
+				A091C6591D86A1F400278E74 /* CopyFiles */,
+				E82473A02309B32600355CEA /* Batch */,
+				E824739F2309B31800355CEA /* SingleTask */,
+				E824739E2309B2FF00355CEA /* Estimating */,
 				E905EDB31FED05B10044234E /* QuickBackup.swift */,
-				A0430AD91DAFFD3C00BBC106 /* SingleTaskWorkQueu.swift */,
-				A05275D91D6F6E0000D8ECBE /* BatchTaskWorkQueu.swift */,
-				E97C09A61EFAFBC400E86999 /* BatchTask.swift */,
-				E9F068EB1F27B7FB00DDF1A1 /* SingleTask.swift */,
 				E9BC4DE823027F810058CB52 /* ExecuteTaskNow.swift */,
 			);
 			name = Execution;
@@ -534,6 +532,32 @@
 				E91B6E891FFA17B800A2231A /* ViewControllerRemoteInfo.swift */,
 			);
 			name = RemoteEstimation;
+			sourceTree = "<group>";
+		};
+		E824739E2309B2FF00355CEA /* Estimating */ = {
+			isa = PBXGroup;
+			children = (
+				E943DC671FF9115200E6B8B7 /* EstimateremoteInformationOnetask.swift */,
+			);
+			name = Estimating;
+			sourceTree = "<group>";
+		};
+		E824739F2309B31800355CEA /* SingleTask */ = {
+			isa = PBXGroup;
+			children = (
+				E9F068EB1F27B7FB00DDF1A1 /* SingleTask.swift */,
+				A0430AD91DAFFD3C00BBC106 /* SingleTaskWorkQueu.swift */,
+			);
+			name = SingleTask;
+			sourceTree = "<group>";
+		};
+		E82473A02309B32600355CEA /* Batch */ = {
+			isa = PBXGroup;
+			children = (
+				E97C09A61EFAFBC400E86999 /* BatchTask.swift */,
+				A05275D91D6F6E0000D8ECBE /* BatchTaskWorkQueu.swift */,
+			);
+			name = Batch;
 			sourceTree = "<group>";
 		};
 		E90E51051F47094800B71F0F /* PersistentStorage */ = {
@@ -611,7 +635,7 @@
 			isa = PBXGroup;
 			children = (
 				E943DC651FF90A6600E6B8B7 /* RemoteInfoTask.swift */,
-				E943DC691FF9141D00E6B8B7 /* RemoteInfoTaskWorkQueue.swift */,
+				E943DC691FF9141D00E6B8B7 /* RemoteinfoEstimation.swift */,
 			);
 			name = RemoteInformation;
 			sourceTree = "<group>";
@@ -839,7 +863,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A04972511D6595B200086EFD /* OutputProcess.swift in Sources */,
-				E943DC6A1FF9141D00E6B8B7 /* RemoteInfoTaskWorkQueue.swift in Sources */,
+				E943DC6A1FF9141D00E6B8B7 /* RemoteinfoEstimation.swift in Sources */,
 				E9BBE8C32273131F00404D7A /* ConvertConfigurations.swift in Sources */,
 				E939EC4A20C048A000C47F91 /* extensionsViewControllertabMain.swift in Sources */,
 				E942FF291FED41D0004191B5 /* ViewControllerQuickBackup.swift in Sources */,
@@ -939,7 +963,7 @@
 				E9BBE8C52273131F00404D7A /* ConvertUserconfiguration.swift in Sources */,
 				A04492AC1D658F2100B3CE17 /* Configuration.swift in Sources */,
 				A04492861D658EE800B3CE17 /* AppDelegate.swift in Sources */,
-				E943DC681FF9115200E6B8B7 /* EstimateRemoteInformationTask.swift in Sources */,
+				E943DC681FF9115200E6B8B7 /* EstimateremoteInformationOnetask.swift in Sources */,
 				E9F413BB1F63AC2A00C0945E /* Schedules.swift in Sources */,
 				E9D4FE7122CDBECD00BA477E /* Activetab.swift in Sources */,
 				E9407BB9208AFB7C00A6780E /* ViewControllerEstimatingTasks.swift in Sources */,

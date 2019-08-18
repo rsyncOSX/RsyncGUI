@@ -10,11 +10,11 @@
 import Foundation
 
 protocol SetRemoteInfo: class {
-    func setremoteinfo(remoteinfotask: RemoteInfoTaskWorkQueue?)
-    func getremoteinfo() -> RemoteInfoTaskWorkQueue?
+    func setremoteinfo(remoteinfotask: RemoteinfoEstimation?)
+    func getremoteinfo() -> RemoteinfoEstimation?
 }
 
-class RemoteInfoTaskWorkQueue: SetConfigurations {
+class RemoteinfoEstimation: SetConfigurations {
     // (hiddenID, index)
     typealias Row = (Int, Int)
     var stackoftasktobeestimated: [Row]?
@@ -54,7 +54,7 @@ class RemoteInfoTaskWorkQueue: SetConfigurations {
             self.stackoftasktobeestimated = nil
         }
         self.startstopProgressIndicatorDelegate?.start()
-        _ = EstimateRemoteInformationTask(index: self.index!, outputprocess: self.outputprocess, local: false)
+        _ = EstimateremoteInformationOnetask(index: self.index!, outputprocess: self.outputprocess, local: false)
     }
 
     func processTermination() {
@@ -81,7 +81,7 @@ class RemoteInfoTaskWorkQueue: SetConfigurations {
         if self.stackoftasktobeestimated?.count == 0 {
             self.stackoftasktobeestimated = nil
         }
-        _ = EstimateRemoteInformationTask(index: self.index!, outputprocess: self.outputprocess, local: false)
+        _ = EstimateremoteInformationOnetask(index: self.index!, outputprocess: self.outputprocess, local: false)
     }
 
     func setbackuplist(list: [NSMutableDictionary]) {
@@ -158,7 +158,7 @@ class RemoteInfoTaskWorkQueue: SetConfigurations {
     }
 }
 
-extension RemoteInfoTaskWorkQueue: CountEstimating {
+extension RemoteinfoEstimation: CountEstimating {
     func maxCount() -> Int {
         return self.maxnumber ?? 0
     }

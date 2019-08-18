@@ -28,7 +28,7 @@ class ViewControllerRemoteInfo: NSViewController, SetDismisser, Abort {
     @IBOutlet weak var selectalltaskswithfilestobackupbutton: NSButton!
 
     // remote info tasks
-    private var remoteinfotask: RemoteInfoTaskWorkQueue?
+    private var remoteinfotask: RemoteinfoEstimation?
     weak var remoteinfotaskDelegate: SetRemoteInfo?
     var selected: Bool = false
     var loaded: Bool = false
@@ -91,7 +91,7 @@ class ViewControllerRemoteInfo: NSViewController, SetDismisser, Abort {
             self.loaded = true
             self.progress.isHidden = true
         } else {
-            self.remoteinfotask = RemoteInfoTaskWorkQueue(inbatch: false)
+            self.remoteinfotask = RemoteinfoEstimation(inbatch: false)
             self.remoteinfotaskDelegate?.setremoteinfo(remoteinfotask: self.remoteinfotask)
         }
     }

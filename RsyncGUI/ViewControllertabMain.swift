@@ -319,7 +319,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, De
 
     func automaticbackup() {
         self.configurations!.processtermination = .automaticbackup
-        self.configurations?.remoteinfotaskworkqueue = RemoteInfoTaskWorkQueue(inbatch: false)
+        self.configurations?.remoteinfotaskworkqueue = RemoteinfoEstimation(inbatch: false)
         self.presentAsSheet(self.viewControllerEstimating!)
     }
 

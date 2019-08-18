@@ -57,7 +57,7 @@ class ViewControllerInformationLocalRemote: NSViewController, SetDismisser, Inde
                 self.datelastbackup.stringValue = "Date last backup: " + datelastbackup
                 self.dayslastbackup.stringValue = "Days since last backup: " + numberlastbackup
                 self.outputprocess = OutputProcess()
-                _ = EstimateRemoteInformationTask(index: index, outputprocess: self.outputprocess, local: true)
+                _ = EstimateremoteInformationOnetask(index: index, outputprocess: self.outputprocess, local: true)
             }
          }
     }
@@ -116,7 +116,7 @@ extension ViewControllerInformationLocalRemote: UpdateProgress {
             if self.complete == false {
                 self.complete = true
                 self.outputprocess = OutputProcess()
-                _ = EstimateRemoteInformationTask(index: index, outputprocess: self.outputprocess, local: false)
+                _ = EstimateremoteInformationOnetask(index: index, outputprocess: self.outputprocess, local: false)
             }
         }
     }
