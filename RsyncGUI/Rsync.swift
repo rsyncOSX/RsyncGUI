@@ -17,6 +17,5 @@ final class Rsync: ProcessCmd {
 
     init (arguments: [String]?) {
         super.init(command: nil, arguments: arguments)
-        self.updateDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
     }
 }

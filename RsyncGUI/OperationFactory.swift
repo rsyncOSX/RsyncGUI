@@ -15,6 +15,10 @@ protocol SendProcessreference: class {
 
 class OperationFactory {
     init() {
-        _ = QuickbackupDispatch(seconds: 0)
+        _ = QuickbackupDispatch()
+    }
+    
+    init(updateprogress: UpdateProgress?) {
+        _ = QuickbackupDispatch(updateprogress: updateprogress)
     }
 }

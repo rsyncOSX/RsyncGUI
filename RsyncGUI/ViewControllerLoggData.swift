@@ -15,7 +15,7 @@ protocol ReadLoggdata: class {
     func readloggdata()
 }
 
-class ViewControllerLoggData: NSViewController, SetConfigurations, SetSchedules, Delay, Index, Connected, VcExecute {
+class ViewControllerLoggData: NSViewController, SetConfigurations, SetSchedules, Delay, Index, Connected, VcMain {
 
     private var scheduleloggdata: ScheduleLoggData?
     private var row: NSDictionary?
@@ -38,12 +38,11 @@ class ViewControllerLoggData: NSViewController, SetConfigurations, SetSchedules,
             _ = Norsync()
             return
         }
-        self.configurations!.processtermination = .remoteinfotask
         globalMainQueue.async(execute: { () -> Void in
             self.presentAsSheet(self.viewControllerRemoteInfo!)
         })
     }
-
+    
     @IBAction func quickbackup(_ sender: NSButton) {
         guard ViewControllerReference.shared.norsync == false else {
             _ = Norsync()
@@ -51,12 +50,25 @@ class ViewControllerLoggData: NSViewController, SetConfigurations, SetSchedules,
         }
         self.openquickbackup()
     }
-
+    
     @IBAction func automaticbackup(_ sender: NSButton) {
-        self.configurations!.processtermination = .automaticbackup
-        self.configurations?.remoteinfotaskworkqueue = RemoteinfoEstimation(inbatch: false)
         self.presentAsSheet(self.viewControllerEstimating!)
     }
+    
+    // Selecting profiles
+    @IBAction func profiles(_ sender: NSButton) {
+        globalMainQueue.async(execute: { () -> Void in
+            self.presentAsSheet(self.viewControllerProfile!)
+        })
+    }
+    
+    // Userconfiguration button
+    @IBAction func userconfiguration(_ sender: NSButton) {
+        globalMainQueue.async(execute: { () -> Void in
+            self.presentAsSheet(self.viewControllerUserconfiguration!)
+        })
+    }
+
 
     private func info(num: Int) {
         switch num {
@@ -128,7 +140,6 @@ class ViewControllerLoggData: NSViewController, SetConfigurations, SetSchedules,
 
     override func viewDidAppear() {
         super.viewDidAppear()
-        ViewControllerReference.shared.activetab = .vcloggdata
         self.index = self.index()
         if let index = self.index {
             let hiddenID = self.configurations?.gethiddenID(index: index) ?? -1
@@ -295,7 +306,6 @@ extension ViewControllerLoggData: UpdateProgress {
 
 extension ViewControllerLoggData: OpenQuickBackup {
     func openquickbackup() {
-        self.configurations!.processtermination = .quicktask
         globalMainQueue.async(execute: { () -> Void in
             self.presentAsSheet(self.viewControllerQuickBackup!)
         })

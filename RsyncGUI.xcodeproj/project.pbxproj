@@ -126,8 +126,6 @@
 		E9BC4DE923027F810058CB52 /* ExecuteTaskNow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BC4DE823027F810058CB52 /* ExecuteTaskNow.swift */; };
 		E9C6D24120AAB96800B9D212 /* AllProfilenames.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C6D24020AAB96800B9D212 /* AllProfilenames.swift */; };
 		E9C6EA8A1ED2AE2F00680D4D /* Numbers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C6EA891ED2AE2F00680D4D /* Numbers.swift */; };
-		E9CF14141E729540008E8A15 /* RsyncScheduled.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CF14131E729540008E8A15 /* RsyncScheduled.swift */; };
-		E9D4FE7122CDBECD00BA477E /* Activetab.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D4FE7022CDBECD00BA477E /* Activetab.swift */; };
 		E9E70A3C1FF3BCB30099554D /* RsyncVersionString.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E70A3B1FF3BCB30099554D /* RsyncVersionString.swift */; };
 		E9E763711E6AEA5300B45E8D /* ViewControllerCopyFilesSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E763701E6AEA5300B45E8D /* ViewControllerCopyFilesSource.swift */; };
 		E9E88FD01EB25A080028432F /* ScpArgumentsSsh.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E88FCF1EB25A080028432F /* ScpArgumentsSsh.swift */; };
@@ -270,8 +268,6 @@
 		E9BC4DE823027F810058CB52 /* ExecuteTaskNow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExecuteTaskNow.swift; sourceTree = "<group>"; };
 		E9C6D24020AAB96800B9D212 /* AllProfilenames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllProfilenames.swift; sourceTree = "<group>"; };
 		E9C6EA891ED2AE2F00680D4D /* Numbers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Numbers.swift; sourceTree = "<group>"; };
-		E9CF14131E729540008E8A15 /* RsyncScheduled.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RsyncScheduled.swift; sourceTree = "<group>"; };
-		E9D4FE7022CDBECD00BA477E /* Activetab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activetab.swift; sourceTree = "<group>"; };
 		E9E70A3B1FF3BCB30099554D /* RsyncVersionString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RsyncVersionString.swift; sourceTree = "<group>"; };
 		E9E763701E6AEA5300B45E8D /* ViewControllerCopyFilesSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerCopyFilesSource.swift; sourceTree = "<group>"; };
 		E9E88FCF1EB25A080028432F /* ScpArgumentsSsh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScpArgumentsSsh.swift; sourceTree = "<group>"; };
@@ -463,7 +459,6 @@
 				E9282DB622C0B050004AA0E5 /* Getrsyncpath.swift */,
 				E964B56422C0C686004C6A15 /* Setrsyncpath.swift */,
 				E988932322C1E95C0094B15B /* Selectprofile.swift */,
-				E9D4FE7022CDBECD00BA477E /* Activetab.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -474,7 +469,6 @@
 				E82473A12309B62400355CEA /* Mainprocess */,
 				E9F4EBB71EB4C32D006EEEF1 /* CommandSsh.swift */,
 				E9FFA02E1E728C6E00B7AB2B /* Rsync.swift */,
-				E9CF14131E729540008E8A15 /* RsyncScheduled.swift */,
 				E9E70A3B1FF3BCB30099554D /* RsyncVersionString.swift */,
 				E982BA2720CEB59F00E71918 /* RestoreTask.swift */,
 				E97AB381210B6E7E002EB9A1 /* VerifyTask.swift */,
@@ -945,7 +939,6 @@
 				E943DC661FF90A6600E6B8B7 /* RemoteinfonumbersOnetask.swift in Sources */,
 				A0A403521D76BD2E00A30017 /* ViewControllerRsyncParameters.swift in Sources */,
 				A04492B41D658F2100B3CE17 /* CopyFileArguments.swift in Sources */,
-				E9CF14141E729540008E8A15 /* RsyncScheduled.swift in Sources */,
 				A0B3D9741D758E20001E190E /* ViewControllerUserconfiguration.swift in Sources */,
 				E96059AA2109B63D00DFA08E /* ViewControllerVerify.swift in Sources */,
 				A0FAF5CF1DDF2E5F0009FE7A /* ViewControllerAbout.swift in Sources */,
@@ -965,7 +958,6 @@
 				A04492861D658EE800B3CE17 /* AppDelegate.swift in Sources */,
 				E943DC681FF9115200E6B8B7 /* EstimateremoteInformationOnetask.swift in Sources */,
 				E9F413BB1F63AC2A00C0945E /* Schedules.swift in Sources */,
-				E9D4FE7122CDBECD00BA477E /* Activetab.swift in Sources */,
 				E9407BB9208AFB7C00A6780E /* ViewControllerEstimatingTasks.swift in Sources */,
 				E96C784422227A3600AF81E1 /* PersistentStorageAllprofilesAPI.swift in Sources */,
 				E975284520CEAADC0029B027 /* ViewControllerRestore.swift in Sources */,

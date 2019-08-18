@@ -34,13 +34,11 @@ final class Configurations: ReloadTable, SetSchedules {
     // backup list from remote info view
     var quickbackuplist: [Int]?
     // Estimated backup list, all backups
-    var estimatedlist: [NSDictionary]?
+    var estimatedlist: [NSMutableDictionary]?
     // remote and local info
     var localremote: [NSDictionary]?
     // remote info tasks
-    var remoteinfotaskworkqueue: RemoteinfoEstimation?
-    // Which kind of task
-    var processtermination: ProcessTermination?
+    var remoteinfoestimation: RemoteinfoEstimation?
     // Array for holding sequrity scoped urls
     var SequrityScopedURLs: [NSDictionary]?
 
@@ -385,7 +383,6 @@ final class Configurations: ReloadTable, SetSchedules {
         self.configurations = [Configuration]()
         self.argumentAllConfigurations = nil
         self.configurationsDataSource = nil
-        self.processtermination = .quicktask
         self.profile = profile
         self.storageapi = PersistentStorageAPI(profile: self.profile)
         self.readconfigurations()
