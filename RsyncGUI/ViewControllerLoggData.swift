@@ -310,3 +310,13 @@ extension ViewControllerLoggData: OpenQuickBackup {
         })
     }
 }
+
+extension ViewControllerLoggData: NewProfile {
+    func newProfile(profile: String?) {
+        self.reloadtabledata()
+    }
+
+    func enableProfileMenu() {
+        //
+    }
+}

@@ -15,12 +15,13 @@ final class Selectprofile {
     weak var newProfileDelegate: NewProfile?
     weak var snapshotnewProfileDelegate: NewProfile?
     weak var copyfilesnewProfileDelegate: NewProfile?
-    weak var reloadloggdataDelegate: ReadLoggdata?
+    weak var loggdataProfileDelegate: NewProfile?
 
     init(profile: String?) {
         self.profile = profile
         self.newProfileDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
         self.copyfilesnewProfileDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vccopyfiles) as? ViewControllerCopyFiles
+        self.loggdataProfileDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcloggdata) as? ViewControllerLoggData
         if self.profile == "Default profile" {
             newProfileDelegate?.newProfile(profile: nil)
         } else {
@@ -28,7 +29,7 @@ final class Selectprofile {
         }
         self.snapshotnewProfileDelegate?.newProfile(profile: nil)
         self.copyfilesnewProfileDelegate?.newProfile(profile: nil)
-        self.reloadloggdataDelegate?.readloggdata()
+        self.loggdataProfileDelegate?.newProfile(profile: nil)
     }
 
 }
