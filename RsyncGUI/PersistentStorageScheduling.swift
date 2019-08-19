@@ -14,7 +14,6 @@ import Foundation
 
 final class PersistentStorageScheduling: ReadWriteDictionary, SetSchedules {
 
-    weak var readloggdataDelegate: ReadLoggdata?
     var schedulesasdictionary: [NSDictionary]?
 
     // Saving Schedules from MEMORY to persistent store
@@ -28,7 +27,6 @@ final class PersistentStorageScheduling: ReadWriteDictionary, SetSchedules {
     private func writeToStore(array: [NSDictionary]) {
         if self.writeNSDictionaryToPersistentStorage(array) {
             self.schedulesDelegate?.reloadschedulesobject()
-            self.readloggdataDelegate?.readloggdata()
         }
     }
 

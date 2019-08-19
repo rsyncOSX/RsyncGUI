@@ -11,10 +11,6 @@
 import Foundation
 import Cocoa
 
-protocol ReadLoggdata: class {
-    func readloggdata()
-}
-
 class ViewControllerLoggData: NSViewController, SetConfigurations, SetSchedules, Delay, Index, Connected, VcMain {
 
     private var scheduleloggdata: ScheduleLoggData?
@@ -22,7 +18,6 @@ class ViewControllerLoggData: NSViewController, SetConfigurations, SetSchedules,
     private var filterby: Sortandfilter?
     private var index: Int?
     private var sortedascending: Bool = true
-    typealias Row = (Int, Int)
 
     @IBOutlet weak var scheduletable: NSTableView!
     @IBOutlet weak var search: NSSearchField!
@@ -67,15 +62,6 @@ class ViewControllerLoggData: NSViewController, SetConfigurations, SetSchedules,
         globalMainQueue.async(execute: { () -> Void in
             self.presentAsSheet(self.viewControllerUserconfiguration!)
         })
-    }
-
-    private func info(num: Int) {
-        switch num {
-        case 1:
-            self.info.stringValue = "Got index from Execute and listing logs for one configuration..."
-        default:
-            self.info.stringValue = ""
-        }
     }
 
     @IBAction func sortdirection(_ sender: NSButton) {
@@ -164,6 +150,15 @@ class ViewControllerLoggData: NSViewController, SetConfigurations, SetSchedules,
         guard self.index != nil else { return }
         self.scheduletable.deselectRow(self.index!)
         self.index = self.index()
+    }
+
+    private func info(num: Int) {
+        switch num {
+        case 1:
+            self.info.stringValue = "Got index from Execute and listing logs for one configuration..."
+        default:
+            self.info.stringValue = ""
+        }
     }
 }
 
