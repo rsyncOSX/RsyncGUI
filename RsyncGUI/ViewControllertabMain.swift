@@ -57,6 +57,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, De
     var batchtasks: ExecuteBatch?
     var executetasknow: ExecuteTaskNow?
     var tcpconnections: TCPconnections?
+
     // Main tableview
     @IBOutlet weak var mainTableView: NSTableView!
     // Progressbar indicating work
