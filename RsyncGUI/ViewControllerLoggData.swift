@@ -320,3 +320,9 @@ extension ViewControllerLoggData: NewProfile {
         //
     }
 }
+
+extension ViewControllerLoggData: DismissViewController {
+    func dismiss_view(viewcontroller: NSViewController) {
+        self.dismiss(viewcontroller)
+    }
+}
