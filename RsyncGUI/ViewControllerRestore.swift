@@ -10,7 +10,7 @@
 import Foundation
 import Cocoa
 
-class ViewControllerRestore: NSViewController, SetConfigurations, SetDismisser, Index, Abort {
+class ViewControllerRestore: NSViewController, SetConfigurations, SetDismisser, Index, Abort, Setcolor, Connected {
 
     @IBOutlet weak var localCatalog: NSTextField!
     @IBOutlet weak var offsiteCatalog: NSTextField!
@@ -60,9 +60,11 @@ class ViewControllerRestore: NSViewController, SetConfigurations, SetDismisser, 
             self.sendprocess?.sendoutputprocessreference(outputprocess: self.outputprocess)
             switch self.selecttmptorestore.state {
             case .on:
-                _ = RestoreTask(index: index, outputprocess: self.outputprocess, dryrun: true, tmprestore: true)
+                _ = RestoreTask(index: index, outputprocess: self.outputprocess, dryrun: true,
+                                tmprestore: true, updateprogress: self)
             case .off:
-                _ = RestoreTask(index: index, outputprocess: self.outputprocess, dryrun: true, tmprestore: false)
+                _ = RestoreTask(index: index, outputprocess: self.outputprocess, dryrun: true,
+                                tmprestore: false, updateprogress: self)
             default:
                 return
             }
@@ -84,9 +86,11 @@ class ViewControllerRestore: NSViewController, SetConfigurations, SetDismisser, 
                 self.sendprocess?.sendoutputprocessreference(outputprocess: self.outputprocess)
                 switch self.selecttmptorestore.state {
                 case .on:
-                    _ = RestoreTask(index: index, outputprocess: self.outputprocess, dryrun: false, tmprestore: true)
+                    _ = RestoreTask(index: index, outputprocess: self.outputprocess, dryrun: false,
+                                    tmprestore: true, updateprogress: self)
                 case .off:
-                    _ = RestoreTask(index: index, outputprocess: self.outputprocess, dryrun: false, tmprestore: false)
+                    _ = RestoreTask(index: index, outputprocess: self.outputprocess, dryrun: false,
+                                    tmprestore: false, updateprogress: self)
                 default:
                     return
                 }
@@ -130,11 +134,16 @@ class ViewControllerRestore: NSViewController, SetConfigurations, SetDismisser, 
             self.sendprocess?.sendoutputprocessreference(outputprocess: self.outputprocess)
             if ViewControllerReference.shared.restorePath != nil {
                 self.selecttmptorestore.state = .on
-                _ = RestoreTask(index: index, outputprocess: self.outputprocess, dryrun: true, tmprestore: true)
+                _ = RestoreTask(index: index, outputprocess: self.outputprocess, dryrun: true,
+                                tmprestore: true, updateprogress: self)
             } else {
                 self.selecttmptorestore.state = .off
-                _ = RestoreTask(index: index, outputprocess: self.outputprocess, dryrun: true, tmprestore: false)
+                _ = RestoreTask(index: index, outputprocess: self.outputprocess, dryrun: true,
+                                tmprestore: false, updateprogress: self)
             }
+        } else {
+            self.gotit.stringValue = "Seems not to be connected..."
+            self.gotit.textColor = self.setcolor(nsviewcontroller: self, color: .green)
         }
     }
 
@@ -155,7 +164,7 @@ class ViewControllerRestore: NSViewController, SetConfigurations, SetDismisser, 
             self.deletefiles.stringValue = infotask.deletefiles!
             self.working.stopAnimation(nil)
             self.restorebutton.isEnabled = true
-            self.gotit.textColor = .green
+            self.gotit.textColor = self.setcolor(nsviewcontroller: self, color: .green)
             self.gotit.stringValue = "Got it..."
         })
     }
@@ -186,8 +195,9 @@ extension ViewControllerRestore: UpdateProgress {
             guard ViewControllerReference.shared.restorePath != nil else { return }
             self.selecttmptorestore.isEnabled = true
         } else {
-            self.gotit.textColor = .green
-            self.gotit.stringValue = "Restore is completed..."
+            self.gotit.textColor = setcolor(nsviewcontroller: self, color: .green)
+            let gotit: String = "Restore is completed..."
+            self.gotit.stringValue = gotit
             self.restoreprogress.isHidden = true
             self.restorecompleted = true
         }
@@ -195,7 +205,12 @@ extension ViewControllerRestore: UpdateProgress {
 
     func fileHandler() {
         if self.estimationcompleted == true {
-             self.updateProgressbar(Double(self.outputprocess!.count()))
+            self.updateProgressbar(Double(self.outputprocess!.count()))
+        }
+        weak var outputeverythingDelegate: ViewOutputDetails?
+        outputeverythingDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
+        if outputeverythingDelegate?.appendnow() ?? false {
+            outputeverythingDelegate?.reloadtable()
         }
     }
 }

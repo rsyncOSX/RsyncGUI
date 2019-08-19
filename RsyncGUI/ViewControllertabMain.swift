@@ -92,14 +92,14 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, De
     var process: Process?
     // Index to selected row, index is set when row is selected
     var index: Int?
-    // Getting output from rsync 
+    // Getting output from rsync
     var outputprocess: OutputProcess?
     // Dynamic view of output
     var dynamicappend: Bool = false
     // HiddenID task, set when row is selected
     var hiddenID: Int?
     // Ready for execute again
-    var readyforexecution: Bool = true
+    // var readyforexecution: Bool = true
     // Can load profiles
     // Load profiles only when testing for connections are done.
     // Application crash if not
@@ -367,7 +367,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, De
         }
         self.rsyncischanged()
         self.displayProfile()
-        self.readyforexecution = true
         self.info(num: 0)
     }
 
@@ -447,9 +446,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, De
         self.seterrorinfo(info: "")
         // If change row during estimation
         if self.process != nil { self.abortOperations() }
-        // If change row after estimation, force new estimation
-        if self.readyforexecution == false { self.abortOperations() }
-        self.readyforexecution = true
         self.backupdryrun.state = .on
         self.info(num: 0)
         let myTableViewFromNotification = (notification.object as? NSTableView)!
