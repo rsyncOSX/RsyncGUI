@@ -18,7 +18,7 @@ protocol SaveSequrityScopedURL: class {
     func savesequrityscopedurl(urlpath: URL)
 }
 
-class ViewControllerSsh: NSViewController, SetConfigurations, VcExecute {
+class ViewControllerSsh: NSViewController, SetConfigurations, VcMain {
 
     var sshcmd: Ssh?
     var hiddenID: Int?
@@ -41,12 +41,17 @@ class ViewControllerSsh: NSViewController, SetConfigurations, VcExecute {
     @IBOutlet weak var terminalappbutton: NSButton!
     @IBOutlet weak var SequrityScopedTable: NSTableView!
 
+    // self.presentViewControllerAsSheet(self.ViewControllerAbout)
+    lazy var viewControllerSource: NSViewController = {
+        return (self.storyboard!.instantiateController(withIdentifier: "CopyFilesID")
+            as? NSViewController)!
+    }()
+
     @IBAction func totinfo(_ sender: NSButton) {
         guard ViewControllerReference.shared.norsync == false else {
             _ = Norsync()
             return
         }
-        self.configurations!.processtermination = .remoteinfotask
         globalMainQueue.async(execute: { () -> Void in
             self.presentAsSheet(self.viewControllerRemoteInfo!)
         })
@@ -61,16 +66,22 @@ class ViewControllerSsh: NSViewController, SetConfigurations, VcExecute {
     }
 
     @IBAction func automaticbackup(_ sender: NSButton) {
-        self.configurations!.processtermination = .automaticbackup
-        self.configurations?.remoteinfotaskworkqueue = RemoteInfoTaskWorkQueue(inbatch: false)
         self.presentAsSheet(self.viewControllerEstimating!)
     }
 
-    // self.presentViewControllerAsSheet(self.ViewControllerAbout)
-    lazy var viewControllerSource: NSViewController = {
-        return (self.storyboard!.instantiateController(withIdentifier: "CopyFilesID")
-            as? NSViewController)!
-    }()
+    // Selecting profiles
+    @IBAction func profiles(_ sender: NSButton) {
+        globalMainQueue.async(execute: { () -> Void in
+            self.presentAsSheet(self.viewControllerProfile!)
+        })
+    }
+
+    // Userconfiguration button
+    @IBAction func userconfiguration(_ sender: NSButton) {
+        globalMainQueue.async(execute: { () -> Void in
+            self.presentAsSheet(self.viewControllerUserconfiguration!)
+        })
+    }
 
     @IBAction func resetsequrityscoped(_ sender: NSButton) {
         let answer = Alerts.dialogOrCancel(question: "You are about to reset RsynGUI access to your files", text: "Please close and start RsyncGUI again", dialog: "Reset")
@@ -179,7 +190,6 @@ class ViewControllerSsh: NSViewController, SetConfigurations, VcExecute {
 
     override func viewDidAppear() {
         super.viewDidAppear()
-        ViewControllerReference.shared.activetab = .vcssh
         self.checkDsaPubKeyButton.isEnabled = false
         self.checkRsaPubKeyButton.isEnabled = false
         self.createKeys.isEnabled = false
@@ -310,7 +320,6 @@ extension ViewControllerSsh: UpdateProgress {
 
 extension ViewControllerSsh: OpenQuickBackup {
     func openquickbackup() {
-        self.configurations!.processtermination = .quicktask
         globalMainQueue.async(execute: { () -> Void in
             self.presentAsSheet(self.viewControllerQuickBackup!)
         })

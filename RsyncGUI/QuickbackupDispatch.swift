@@ -12,17 +12,27 @@ class QuickbackupDispatch: SetSchedules {
 
     private var workitem: DispatchWorkItem?
 
-    private func dispatchtask(_ seconds: Int) {
-        let work = DispatchWorkItem { () -> Void in
+    private func dispatchtask(seconds: Int) {
+        let work = DispatchWorkItem {  () -> Void in
             _ = ExecuteQuickbackupTask()
         }
         self.workitem = work
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(seconds), execute: work)
     }
 
-    init(seconds: Int) {
-        self.dispatchtask(seconds)
-        // Set reference to schedule for later cancel if any
-        ViewControllerReference.shared.dispatchTaskWaiting = self.workitem
+    private func dispatchtask(seconds: Int, updateprogress: UpdateProgress?) {
+        let work = DispatchWorkItem {  () -> Void in
+            _ = ExecuteQuickbackupTask(updateprogress: updateprogress)
+        }
+        self.workitem = work
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(seconds), execute: work)
+    }
+
+    init() {
+        self.dispatchtask(seconds: 0)
+    }
+
+    init(updateprogress: UpdateProgress?) {
+        self.dispatchtask(seconds: 0, updateprogress: updateprogress)
     }
 }

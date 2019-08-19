@@ -10,7 +10,7 @@
 import Foundation
 import Cocoa
 
-class ViewControllerVerify: NSViewController, SetConfigurations, Index, Connected, VcExecute {
+class ViewControllerVerify: NSViewController, SetConfigurations, Index, Connected, VcMain {
 
     @IBOutlet weak var outputtable: NSTableView!
     var outputprocess: OutputProcess?
@@ -52,7 +52,6 @@ class ViewControllerVerify: NSViewController, SetConfigurations, Index, Connecte
             _ = Norsync()
             return
         }
-        self.configurations!.processtermination = .remoteinfotask
         globalMainQueue.async(execute: { () -> Void in
             self.presentAsSheet(self.viewControllerRemoteInfo!)
         })
@@ -67,9 +66,21 @@ class ViewControllerVerify: NSViewController, SetConfigurations, Index, Connecte
     }
 
     @IBAction func automaticbackup(_ sender: NSButton) {
-        self.configurations!.processtermination = .automaticbackup
-        self.configurations?.remoteinfotaskworkqueue = RemoteInfoTaskWorkQueue(inbatch: false)
         self.presentAsSheet(self.viewControllerEstimating!)
+    }
+
+    // Selecting profiles
+    @IBAction func profiles(_ sender: NSButton) {
+        globalMainQueue.async(execute: { () -> Void in
+            self.presentAsSheet(self.viewControllerProfile!)
+        })
+    }
+
+    // Userconfiguration button
+    @IBAction func userconfiguration(_ sender: NSButton) {
+        globalMainQueue.async(execute: { () -> Void in
+            self.presentAsSheet(self.viewControllerUserconfiguration!)
+        })
     }
 
     @IBAction func verify(_ sender: NSButton) {
@@ -145,7 +156,6 @@ class ViewControllerVerify: NSViewController, SetConfigurations, Index, Connecte
 
     override func viewDidAppear() {
         super.viewDidAppear()
-        ViewControllerReference.shared.activetab = .vcverify
         self.index = self.index()
         if let index = self.index {
             let config = self.configurations!.getConfigurations()[index]
@@ -207,7 +217,7 @@ class ViewControllerVerify: NSViewController, SetConfigurations, Index, Connecte
 
     private func publishnumbers(outputprocess: OutputProcess?, local: Bool) {
         globalMainQueue.async(execute: { () -> Void in
-            let infotask = RemoteInfoTask(outputprocess: outputprocess)
+            let infotask = RemoteinfonumbersOnetask(outputprocess: outputprocess)
             if local {
                 self.localtotalNumber.stringValue = infotask.totalNumber!
                 self.localtotalNumberSizebytes.stringValue = infotask.totalNumberSizebytes!
@@ -314,7 +324,6 @@ extension ViewControllerVerify: UpdateProgress {
 
 extension ViewControllerVerify: OpenQuickBackup {
     func openquickbackup() {
-        self.configurations!.processtermination = .quicktask
         globalMainQueue.async(execute: { () -> Void in
             self.presentAsSheet(self.viewControllerQuickBackup!)
         })

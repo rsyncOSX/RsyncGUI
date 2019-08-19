@@ -62,7 +62,6 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, VcSc
             _ = Norsync()
             return
         }
-        self.configurations!.processtermination = .remoteinfotask
         globalMainQueue.async(execute: { () -> Void in
             self.presentAsSheet(self.viewControllerRemoteInfo!)
         })
@@ -77,9 +76,21 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, VcSc
     }
 
     @IBAction func automaticbackup(_ sender: NSButton) {
-        self.configurations!.processtermination = .automaticbackup
-        self.configurations?.remoteinfotaskworkqueue = RemoteInfoTaskWorkQueue(inbatch: false)
         self.presentAsSheet(self.viewControllerEstimating!)
+    }
+
+    // Selecting profiles
+    @IBAction func profiles(_ sender: NSButton) {
+        globalMainQueue.async(execute: { () -> Void in
+            self.presentAsSheet(self.viewControllerProfile!)
+        })
+    }
+
+    // Userconfiguration button
+    @IBAction func userconfiguration(_ sender: NSButton) {
+        globalMainQueue.async(execute: { () -> Void in
+            self.presentAsSheet(self.viewControllerUserconfiguration!)
+        })
     }
 
     func filemanager() {
@@ -126,13 +137,6 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, VcSc
         })
     }
 
-    // Userconfiguration button
-    @IBAction func userconfiguration(_ sender: NSButton) {
-        globalMainQueue.async(execute: { () -> Void in
-            self.presentAsSheet(self.viewControllerUserconfiguration!)
-        })
-    }
-
     @IBAction func setbackuptype(_ sender: NSComboBox) {
         switch self.backuptype.indexOfSelectedItem {
         case 0:
@@ -163,7 +167,6 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, VcSc
 
     override func viewDidAppear() {
         super.viewDidAppear()
-        ViewControllerReference.shared.activetab = .vcnewconfigurations
         self.backuptypeselected = .synchronize
         self.backuptype.selectItem(at: 0)
         self.useGUIbutton.state = .off
@@ -338,7 +341,6 @@ extension ViewControllerNewConfigurations: NSTextFieldDelegate {
 
 extension ViewControllerNewConfigurations: OpenQuickBackup {
     func openquickbackup() {
-        self.configurations!.processtermination = .quicktask
         globalMainQueue.async(execute: { () -> Void in
             self.presentAsSheet(self.viewControllerQuickBackup!)
         })

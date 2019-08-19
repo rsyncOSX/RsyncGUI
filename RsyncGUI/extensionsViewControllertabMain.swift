@@ -5,7 +5,7 @@
 //  Created by Thomas Evensen on 31.05.2018.
 //  Copyright © 2018 Thomas Evensen. All rights reserved.
 //
-//  swiftlint:disable file_length line_length cyclomatic_complexity function_body_length
+//  swiftlint:disable file_length line_length 
 
 import Foundation
 import Cocoa
@@ -148,8 +148,7 @@ extension ViewControllertabMain: RsyncIsChanged {
 extension ViewControllertabMain: Connections {
     // Remote servers offline are marked with red line in mainTableView
     func displayConnections() {
-        // Only do a reload if we are in the main view
-        guard Activetab(viewcontroller: .vctabmain).isactive == true else { return }
+        guard (self.presentingViewController as? ViewControllertabMain) != nil else { return }
         self.loadProfileMenu = true
         globalMainQueue.async(execute: { () -> Void in
             self.mainTableView.reloadData()
@@ -169,162 +168,6 @@ extension ViewControllertabMain: DismissViewController {
             self.displayProfile()
         })
         self.setinfoaboutrsync()
-    }
-}
-
-extension ViewControllertabMain: DismissViewEstimating {
-    func dismissestimating(viewcontroller: NSViewController) {
-        self.dismiss(viewcontroller)
-    }
-}
-
-// Called when either a terminatopn of Process is
-// discovered or data is availiable in the filehandler
-// See file rsyncProcess.swift.
-extension ViewControllertabMain: UpdateProgress {
-
-    // Delegate functions called from the Process object
-    // Protocol UpdateProgress two functions, ProcessTermination() and FileHandler()
-    func processTermination() {
-        self.readyforexecution = true
-        if self.configurations!.processtermination == nil {
-            self.configurations!.processtermination = .singlequicktask
-        }
-        switch self.configurations!.processtermination! {
-        case .singletask:
-            guard self.singletask != nil else { return }
-            self.outputprocess = self.singletask!.outputprocess
-            self.process = self.singletask!.process
-            self.singletask!.processTermination()
-        case .batchtask:
-            self.batchtasksDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcbatch) as? ViewControllerBatch
-            self.batchtasks = self.batchtasksDelegate?.getbatchtaskObject()
-            self.outputprocess = self.batchtasks?.outputprocess
-            self.process = self.batchtasks?.process
-            self.batchtasks?.processTermination()
-        case .quicktask:
-            guard ViewControllerReference.shared.completeoperation != nil else { return }
-            ViewControllerReference.shared.completeoperation!.finalizeScheduledJob(outputprocess: self.outputprocess)
-            // After logging is done set reference to object = nil
-            ViewControllerReference.shared.completeoperation = nil
-            weak var processterminationDelegate: UpdateProgress?
-            processterminationDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcquickbackup) as? ViewControllerQuickBackup
-            processterminationDelegate?.processTermination()
-        case .singlequicktask:
-            guard self.index != nil else { return }
-            self.seterrorinfo(info: "")
-            self.working.stopAnimation(nil)
-            self.configurations!.setCurrentDateonConfiguration(index: self.index!, outputprocess: self.outputprocess)
-        case .remoteinfotask:
-            guard self.configurations!.remoteinfotaskworkqueue != nil else { return }
-            self.configurations!.remoteinfotaskworkqueue?.processTermination()
-        case .infosingletask:
-            weak var processterminationDelegate: UpdateProgress?
-            processterminationDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcinfolocalremote) as? ViewControllerInformationLocalRemote
-            processterminationDelegate?.processTermination()
-        case .automaticbackup:
-            guard self.configurations!.remoteinfotaskworkqueue != nil else { return }
-            weak var estimateupdateDelegate: Updateestimating?
-            estimateupdateDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcestimatingtasks) as? ViewControllerEstimatingTasks
-            // compute alle estimates
-            if self.configurations!.remoteinfotaskworkqueue!.stackoftasktobeestimated != nil {
-                self.configurations!.remoteinfotaskworkqueue?.processTermination()
-                estimateupdateDelegate?.updateProgressbar()
-            } else {
-                estimateupdateDelegate?.dismissview()
-                self.configurations!.remoteinfotaskworkqueue?.processTermination()
-                self.configurations!.remoteinfotaskworkqueue?.selectalltaskswithnumbers(deselect: false)
-                self.configurations!.remoteinfotaskworkqueue?.setbackuplist()
-                weak var openDelegate: OpenQuickBackup?
-                switch ViewControllerReference.shared.activetab ?? .vctabmain {
-                case .vcnewconfigurations:
-                    openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcnewconfigurations) as? ViewControllerNewConfigurations
-                case .vctabmain:
-                    openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
-                case .vccopyfiles:
-                    openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vccopyfiles) as? ViewControllerCopyFiles
-                case .vcverify:
-                    openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcverify) as? ViewControllerVerify
-                case .vcssh:
-                    openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcssh) as? ViewControllerSsh
-                case .vcloggdata:
-                    openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcloggdata) as? ViewControllerLoggData
-                default:
-                    openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
-                }
-                openDelegate?.openquickbackup()
-            }
-        case .restore:
-            weak var processterminationDelegate: UpdateProgress?
-            processterminationDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcrestore) as? ViewControllerRestore
-            processterminationDelegate?.processTermination()
-        case .estimatebatchtask:
-            guard self.configurations!.remoteinfotaskworkqueue != nil else { return }
-            weak var estimateupdateDelegate: Updateestimating?
-            estimateupdateDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcestimatingtasks) as? ViewControllerEstimatingTasks
-            // compute alle estimates
-            if self.configurations!.remoteinfotaskworkqueue!.stackoftasktobeestimated != nil {
-                self.configurations!.remoteinfotaskworkqueue?.processTermination()
-                estimateupdateDelegate?.updateProgressbar()
-            } else {
-                self.configurations!.remoteinfotaskworkqueue?.processTermination()
-                self.configurations!.processtermination = .batchtask
-            }
-        }
-    }
-
-    // Function is triggered when Process outputs data in filehandler
-    // Process is either in singleRun or batchRun
-    func fileHandler() {
-        weak var outputeverythingDelegate: ViewOutputDetails?
-        if self.configurations!.processtermination == nil {
-            self.configurations!.processtermination = .singlequicktask
-        }
-        switch self.configurations!.processtermination! {
-        case .singletask:
-            guard self.singletask != nil else { return }
-            weak var localprocessupdateDelegate: UpdateProgress?
-            localprocessupdateDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcprogressview) as? ViewControllerProgressProcess
-            self.outputprocess = self.singletask!.outputprocess
-            self.process = self.singletask!.process
-            localprocessupdateDelegate?.fileHandler()
-            outputeverythingDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
-            if outputeverythingDelegate?.appendnow() ?? false {
-                outputeverythingDelegate?.reloadtable()
-            }
-        case .batchtask:
-            weak var localprocessupdateDelegate: UpdateProgress?
-            localprocessupdateDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcbatch) as? ViewControllerBatch
-            localprocessupdateDelegate?.fileHandler()
-        case .quicktask:
-            weak var localprocessupdateDelegate: UpdateProgress?
-            localprocessupdateDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcquickbackup) as? ViewControllerQuickBackup
-            localprocessupdateDelegate?.fileHandler()
-        case .singlequicktask:
-            outputeverythingDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
-            if outputeverythingDelegate?.appendnow() ?? false {
-                outputeverythingDelegate?.reloadtable()
-            }
-        case .remoteinfotask:
-            outputeverythingDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
-            if outputeverythingDelegate?.appendnow() ?? false {
-                outputeverythingDelegate?.reloadtable()
-            }
-        case .infosingletask:
-            return
-        case .automaticbackup:
-            return
-        case .restore:
-            weak var localprocessupdateDelegate: UpdateProgress?
-            localprocessupdateDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcrestore) as? ViewControllerRestore
-            localprocessupdateDelegate?.fileHandler()
-            outputeverythingDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
-            if outputeverythingDelegate?.appendnow() ?? false {
-                outputeverythingDelegate?.reloadtable()
-            }
-        case .estimatebatchtask:
-            return
-        }
     }
 }
 
@@ -391,11 +234,8 @@ extension ViewControllertabMain: Abort {
             // Create workqueu and add abort
             self.seterrorinfo(info: "Abort")
             self.rsyncCommand.stringValue = ""
-            if self.configurations!.remoteinfotaskworkqueue != nil && self.configurations?.estimatedlist != nil {
-                weak var localestimateupdateDelegate: Updateestimating?
-                localestimateupdateDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcestimatingtasks) as? ViewControllerEstimatingTasks
-                localestimateupdateDelegate?.dismissview()
-                self.configurations!.remoteinfotaskworkqueue = nil
+            if self.configurations!.remoteinfoestimation != nil && self.configurations?.estimatedlist != nil {
+                self.configurations!.remoteinfoestimation = nil
             }
         } else {
             self.working.stopAnimation(nil)
@@ -422,9 +262,6 @@ extension ViewControllertabMain: StartStopProgressIndicatorSingleTask {
 }
 
 extension ViewControllertabMain: SingleTaskProgress {
-    func getProcessReference(process: Process) {
-        self.process = process
-    }
 
     func presentViewProgress() {
         globalMainQueue.async(execute: { () -> Void in
@@ -475,7 +312,7 @@ extension ViewControllertabMain: SingleTaskProgress {
                 self.deletefiles.stringValue = ""
                 return
             }
-            let remoteinfotask = RemoteInfoTask(outputprocess: outputprocess)
+            let remoteinfotask = RemoteinfonumbersOnetask(outputprocess: outputprocess)
             self.transferredNumber.stringValue = remoteinfotask.transferredNumber!
             self.transferredNumberSizebytes.stringValue = remoteinfotask.transferredNumberSizebytes!
             self.totalNumber.stringValue = remoteinfotask.totalNumber!
@@ -512,7 +349,6 @@ extension ViewControllertabMain: GetConfigurationsObject {
     // After a write, a reload is forced.
     func reloadconfigurationsobject() {
         // If batchtask keep configuration object
-        self.batchtasks = self.batchtasksDelegate?.getbatchtaskObject()
         guard self.batchtasks == nil else {
             // Batchtask, check if task is completed
             guard self.configurations!.getbatchQueue()?.batchruniscompleted() == false else {
@@ -587,18 +423,17 @@ extension ViewControllertabMain: SendProcessreference {
 }
 
 extension ViewControllertabMain: SetRemoteInfo {
-    func getremoteinfo() -> RemoteInfoTaskWorkQueue? {
-        return self.configurations!.remoteinfotaskworkqueue
+    func getremoteinfo() -> RemoteinfoEstimation? {
+        return self.configurations!.remoteinfoestimation
     }
 
-    func setremoteinfo(remoteinfotask: RemoteInfoTaskWorkQueue?) {
-        self.configurations!.remoteinfotaskworkqueue = remoteinfotask
+    func setremoteinfo(remoteinfotask: RemoteinfoEstimation?) {
+        self.configurations!.remoteinfoestimation = remoteinfotask
     }
 }
 
 extension ViewControllertabMain: OpenQuickBackup {
     func openquickbackup() {
-        self.configurations!.processtermination = .quicktask
         globalMainQueue.async(execute: { () -> Void in
             self.presentAsSheet(self.viewControllerQuickBackup!)
         })
@@ -626,11 +461,10 @@ extension ViewControllertabMain: Reloadsortedandrefresh {
 }
 
 extension ViewControllertabMain: SetLocalRemoteInfo {
-    func getlocalremoteinfo(index: Int) -> NSDictionary? {
+    func getlocalremoteinfo(index: Int) -> [NSDictionary]? {
         guard self.configurations?.localremote != nil else { return nil }
         if let info = self.configurations?.localremote?.filter({($0.value(forKey: "index") as? Int)! == index}) {
-            guard info.count > 0 else { return nil }
-            return info[0]
+            return info
         } else {
             return nil
         }

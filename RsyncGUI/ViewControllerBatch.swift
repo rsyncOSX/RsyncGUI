@@ -10,14 +10,9 @@
 import Foundation
 import Cocoa
 
-// Return the created batchobject
-protocol GetNewBatchTask: class {
-    func getbatchtaskObject() -> BatchTask?
-}
-
 // Dismiss view when rsync error
-protocol CloseViewError: class {
-    func closeerror()
+protocol ReportonandhaltonError: class {
+    func reportandhaltonerror()
 }
 
 protocol Attributedestring: class {
@@ -34,12 +29,12 @@ extension Attributedestring {
     }
 }
 
-class ViewControllerBatch: NSViewController, SetDismisser, Abort, SetConfigurations {
+class ViewControllerBatch: NSViewController, SetDismisser, Abort, SetConfigurations, Setcolor {
 
     var row: Int?
-    var batchTask: BatchTask?
+    var executebatch: ExecuteBatch?
     var diddissappear: Bool = false
-    private var remoteinfotask: RemoteInfoTaskWorkQueue?
+    private var remoteinfotask: RemoteinfoEstimation?
     weak var remoteinfotaskDelegate: SetRemoteInfo?
     weak var inprogresscountDelegate: Count?
     var indexinitiated: Int = -1
@@ -57,16 +52,28 @@ class ViewControllerBatch: NSViewController, SetDismisser, Abort, SetConfigurati
         if self.batchisrunning == true || self.remoteinfotask?.stackoftasktobeestimated != nil {
             self.abort()
         }
-        self.batchTask!.closeOperation()
-        self.batchTask = nil
-        self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
+        self.executebatch!.closeOperation()
+        self.executebatch = nil
+        if (self.presentingViewController as? ViewControllertabMain) != nil {
+            self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
+        } else if (self.presentingViewController as? ViewControllerNewConfigurations) != nil {
+            self.dismissview(viewcontroller: self, vcontroller: .vcnewconfigurations)
+        } else if (self.presentingViewController as? ViewControllerCopyFiles) != nil {
+            self.dismissview(viewcontroller: self, vcontroller: .vccopyfiles)
+        } else if (self.presentingViewController as? ViewControllerSsh) != nil {
+            self.dismissview(viewcontroller: self, vcontroller: .vcssh)
+        } else if (self.presentingViewController as? ViewControllerVerify) != nil {
+            self.dismissview(viewcontroller: self, vcontroller: .vcverify)
+        } else if (self.presentingViewController as? ViewControllerLoggData) != nil {
+            self.dismissview(viewcontroller: self, vcontroller: .vcloggdata)
+        }
     }
 
     // Execute batch
     @IBAction func execute(_ sender: NSButton) {
         self.batchisrunning = true
         self.estimatingbatchlabel.isHidden = true
-        self.batchTask!.executeBatch()
+        self.executebatch!.executebatch()
         self.executeButton.isEnabled = false
     }
 
@@ -75,7 +82,7 @@ class ViewControllerBatch: NSViewController, SetDismisser, Abort, SetConfigurati
         ViewControllerReference.shared.setvcref(viewcontroller: .vcbatch, nsviewcontroller: self)
         self.mainTableView.delegate = self
         self.mainTableView.dataSource = self
-        self.batchTask = BatchTask()
+        self.executebatch = ExecuteBatch()
         self.batchisrunning = false
         self.executeButton.isEnabled = true
         self.estimatingbatch.usesThreadedAnimation = true
@@ -94,7 +101,7 @@ class ViewControllerBatch: NSViewController, SetDismisser, Abort, SetConfigurati
             self.mainTableView.reloadData()
         })
         self.remoteinfotaskDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
-        self.remoteinfotask = RemoteInfoTaskWorkQueue(inbatch: true)
+        self.remoteinfotask = RemoteinfoEstimation(viewvcontroller: self)
         self.remoteinfotaskDelegate?.setremoteinfo(remoteinfotask: self.remoteinfotask)
         self.initiateProgressbar()
     }
@@ -106,7 +113,7 @@ class ViewControllerBatch: NSViewController, SetDismisser, Abort, SetConfigurati
 
     private func initiateProgressbar(progress: NSProgressIndicator, hiddenID: Int) {
         progress.isHidden = false
-        if let calculatedNumberOfFiles = self.batchTask?.maxcountintask(hiddenID: hiddenID) {
+        if let calculatedNumberOfFiles = self.executebatch?.maxcountintask(hiddenID: hiddenID) {
             progress.maxValue = Double(calculatedNumberOfFiles)
             self.max = Double(calculatedNumberOfFiles)
         }
@@ -116,7 +123,7 @@ class ViewControllerBatch: NSViewController, SetDismisser, Abort, SetConfigurati
     }
 
     private func updateProgressbar(progress: NSProgressIndicator) {
-        let value = Double(self.batchTask?.incount() ?? 0)
+        let value = Double(self.executebatch?.incount() ?? 0)
         progress.doubleValue = value
     }
 
@@ -142,23 +149,23 @@ class ViewControllerBatch: NSViewController, SetDismisser, Abort, SetConfigurati
 }
 
 extension ViewControllerBatch: NSTableViewDataSource {
-        // Delegate for size of table
-        func numberOfRows(in tableView: NSTableView) -> Int {
-            return self.batchTask?.configurations?.getbatchlist()?.count ?? 0
+    // Delegate for size of table
+    func numberOfRows(in tableView: NSTableView) -> Int {
+        return self.executebatch?.configurations?.getbatchlist()?.count ?? 0
     }
 }
 
 extension ViewControllerBatch: NSTableViewDelegate {
 
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        guard  self.batchTask?.configurations?.getbatchlist() != nil else { return nil }
-        guard row < self.batchTask!.configurations!.getbatchlist()!.count else { return nil }
-        let object: NSMutableDictionary = (self.batchTask?.configurations!.getbatchlist()![row])!
+        guard  self.executebatch?.configurations?.getbatchlist() != nil else { return nil }
+        guard row < self.executebatch!.configurations!.getbatchlist()!.count else { return nil }
+        let object: NSMutableDictionary = (self.executebatch?.configurations!.getbatchlist()![row])!
         let hiddenID = object.value(forKey: "hiddenID") as? Int
         let cellIdentifier: String = tableColumn!.identifier.rawValue
         if cellIdentifier == "percentCellID" {
             if let cell: NSProgressIndicator = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: cellIdentifier), owner: self) as? NSProgressIndicator {
-                if hiddenID == self.batchTask?.hiddenID {
+                if hiddenID == self.executebatch?.hiddenID {
                     if row > self.indexinitiated {
                         self.indexinitiated = row
                         self.initiateProgressbar(progress: cell, hiddenID: hiddenID!)
@@ -187,8 +194,8 @@ extension ViewControllerBatch: StartStopProgressIndicator {
         self.executeButton.isEnabled = true
         self.estimatingbatch.stopAnimation(nil)
         self.estimatingbatch.isHidden = true
-        self.estimatingbatchlabel.stringValue = "Estimation completed, you can start batch..."
-        self.estimatingbatchlabel.textColor = .green
+        self.estimatingbatchlabel.stringValue = NSLocalizedString("Estimation completed, you can start batch...", comment: "Batch")
+        self.estimatingbatchlabel.textColor = setcolor(nsviewcontroller: self, color: .green)
     }
 
     func start() {
@@ -198,8 +205,8 @@ extension ViewControllerBatch: StartStopProgressIndicator {
     func complete() {
         self.executeButton.isEnabled = false
         self.estimatingbatchlabel.isHidden = false
-        self.estimatingbatchlabel.stringValue = "Batchtasks completed, close view..."
-        self.estimatingbatchlabel.textColor = .green
+        self.estimatingbatchlabel.stringValue = NSLocalizedString("Batchtasks completed, close view...", comment: "Batch")
+        self.estimatingbatchlabel.textColor = setcolor(nsviewcontroller: self, color: .green)
         self.batchisrunning = false
         globalMainQueue.async(execute: { () -> Void in
             self.mainTableView.reloadData()
@@ -207,19 +214,13 @@ extension ViewControllerBatch: StartStopProgressIndicator {
     }
 }
 
-extension ViewControllerBatch: GetNewBatchTask {
-
-    func getbatchtaskObject() -> BatchTask? {
-        return self.batchTask
-    }
-}
-
-extension ViewControllerBatch: CloseViewError {
-    func closeerror() {
+extension ViewControllerBatch: ReportonandhaltonError {
+    func reportandhaltonerror() {
         self.abort()
-        self.batchTask?.closeOperation()
-        self.batchTask = nil
-        self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
+        self.executebatch?.closeOperation()
+        self.executebatch = nil
+        self.estimatingbatchlabel.stringValue = "Error"
+        self.estimatingbatchlabel.textColor = setcolor(nsviewcontroller: self, color: .red)
     }
 }
 

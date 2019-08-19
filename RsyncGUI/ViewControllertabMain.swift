@@ -52,13 +52,11 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, De
     // Configurations object
     var configurations: Configurations?
     var schedules: Schedules?
-    // Reference to the single taskobject
+    // Reference to the taskobjects
     var singletask: SingleTask?
-    // Reference to batch taskobject
-    var batchtasks: BatchTask?
+    var batchtasks: ExecuteBatch?
+    var executetasknow: ExecuteTaskNow?
     var tcpconnections: TCPconnections?
-    // Delegate function getting batchTaskObject
-    weak var batchtasksDelegate: GetNewBatchTask?
     // Main tableview
     @IBOutlet weak var mainTableView: NSTableView!
     // Progressbar indicating work
@@ -128,7 +126,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, De
             self.info(num: 7)
             return
         }
-        self.configurations!.processtermination = .restore
         self.presentAsSheet(self.restoreViewController!)
     }
 
@@ -168,7 +165,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, De
             self.info(num: 7)
             return
         }
-        self.configurations!.processtermination = .infosingletask
         self.presentAsSheet(self.viewControllerInformationLocalRemote!)
     }
 
@@ -177,7 +173,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, De
             _ = Norsync()
             return
         }
-        self.configurations!.processtermination = .remoteinfotask
         globalMainQueue.async(execute: { () -> Void in
             self.presentAsSheet(self.viewControllerRemoteInfo!)
         })
@@ -300,7 +295,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, De
     }
 
     @IBAction func executetasknow(_ sender: NSButton) {
-        self.configurations!.processtermination = .singlequicktask
         guard ViewControllerReference.shared.norsync == false else {
             _ = Norsync()
             return
@@ -315,17 +309,10 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, De
         }
         guard self.configurations!.getConfigurations()[self.index!].task == ViewControllerReference.shared.synchronize
             else { return }
-        self.working.startAnimation(nil)
-        let arguments = self.configurations!.arguments4rsync(index: self.index!, argtype: .arg)
-        self.outputprocess = OutputProcess()
-        let process = Rsync(arguments: arguments)
-        process.executeProcess(outputprocess: self.outputprocess)
-        self.process = process.getProcess()
+        self.executetasknow = ExecuteTaskNow(index: self.index!)
     }
 
     func automaticbackup() {
-        self.configurations!.processtermination = .automaticbackup
-        self.configurations?.remoteinfotaskworkqueue = RemoteInfoTaskWorkQueue(inbatch: false)
         self.presentAsSheet(self.viewControllerEstimating!)
     }
 
@@ -373,7 +360,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, De
             self.view.window?.center()
             ViewControllerReference.shared.initialstart = 1
         }
-        ViewControllerReference.shared.activetab = .vctabmain
         if self.configurations!.configurationsDataSourcecount() > 0 {
             globalMainQueue.async(execute: { () -> Void in
                 self.mainTableView.reloadData()
@@ -393,15 +379,11 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, De
 
     // Execute tasks by double click in table
     @objc(tableViewDoubleClick:) func tableViewDoubleClick(sender: AnyObject) {
-        if self.readyforexecution {
-            self.executeSingleTask()
-        }
-        self.readyforexecution = false
+        self.executeSingleTask()
     }
 
     // Single task can be activated by double click from table
     func executeSingleTask() {
-        self.configurations!.processtermination = .singletask
         guard ViewControllerReference.shared.norsync == false else {
             _ = Norsync()
             return
@@ -412,7 +394,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, De
                 self.info(num: 6)
                 return
         }
-        self.batchtasks = nil
         guard self.singletask != nil else {
             // Dry run
             self.singletask = SingleTask(index: self.index!)
@@ -425,7 +406,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, De
 
     // Execute BATCH TASKS only
     @IBAction func executeBatch(_ sender: NSButton) {
-        self.configurations!.processtermination = .estimatebatchtask
         guard ViewControllerReference.shared.norsync == false else {
             _ = Norsync()
             return
