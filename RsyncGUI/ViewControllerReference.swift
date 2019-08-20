@@ -39,8 +39,6 @@ class ViewControllerReference {
         return Singleton.instance
     }
 
-    // Reference to waiting tasks, required for cancel task
-    var dispatchTaskWaiting: DispatchWorkItem?
     // Temporary storage of the first scheduled task
     var quickbackuptask: NSDictionary?
     // Download URL if new version is avaliable
@@ -111,7 +109,7 @@ class ViewControllerReference {
     // Alloutput
     private var viewControllerAlloutput: NSViewController?
 
-    // Initial start
+    // Initial start, center RsyncGUI when started first time
     var initialstart: Int = 0
 
     func getvcref(viewcontroller: ViewController) -> NSViewController? {

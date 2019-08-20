@@ -12,11 +12,10 @@ import Cocoa
 
 enum Typebackup {
     case synchronize
-    case snapshots
     case singlefile
 }
 
-class ViewControllerNewConfigurations: NSViewController, SetConfigurations, VcSchedule, Delay, Index, VcExecute {
+class ViewControllerNewConfigurations: NSViewController, SetConfigurations, Delay, Index, VcMain {
 
     var storageapi: PersistentStorageAPI?
     var newconfigurations: NewConfigurations?
@@ -142,8 +141,6 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, VcSc
         case 0:
             self.backuptypeselected = .synchronize
         case 1:
-            self.backuptypeselected = .snapshots
-        case 2:
             self.backuptypeselected = .singlefile
         default:
             self.backuptypeselected = .synchronize
