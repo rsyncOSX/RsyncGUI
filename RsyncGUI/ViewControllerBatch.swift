@@ -194,7 +194,7 @@ extension ViewControllerBatch: StartStopProgressIndicator {
         self.executeButton.isEnabled = true
         self.estimatingbatch.stopAnimation(nil)
         self.estimatingbatch.isHidden = true
-        self.estimatingbatchlabel.stringValue = NSLocalizedString("Estimation completed, you can start batch...", comment: "Batch")
+        self.estimatingbatchlabel.stringValue = "Estimation completed, you can start batch..."
         self.estimatingbatchlabel.textColor = setcolor(nsviewcontroller: self, color: .green)
     }
 
@@ -205,7 +205,7 @@ extension ViewControllerBatch: StartStopProgressIndicator {
     func complete() {
         self.executeButton.isEnabled = false
         self.estimatingbatchlabel.isHidden = false
-        self.estimatingbatchlabel.stringValue = NSLocalizedString("Batchtasks completed, close view...", comment: "Batch")
+        self.estimatingbatchlabel.stringValue = "Batchtasks completed, close view..."
         self.estimatingbatchlabel.textColor = setcolor(nsviewcontroller: self, color: .green)
         self.batchisrunning = false
         globalMainQueue.async(execute: { () -> Void in
