@@ -65,12 +65,14 @@ final class RemoteinfoEstimation: SetConfigurations {
             self.configurations?.quickbackuplist!.append((list[i].value(forKey: "hiddenID") as? Int)!)
         }
     }
-
+    
     func setbackuplist() {
         guard self.records != nil else { return }
-        self.configurations?.quickbackuplist = [Int]()
         for i in 0 ..< self.records!.count {
             if self.records![i].value( forKey: "select") as? Int == 1 {
+                if self.configurations?.quickbackuplist == nil {
+                    self.configurations?.quickbackuplist = [Int]()
+                }
                 self.configurations?.quickbackuplist!.append((self.records![i].value(forKey: "hiddenID") as? Int)!)
             }
         }
