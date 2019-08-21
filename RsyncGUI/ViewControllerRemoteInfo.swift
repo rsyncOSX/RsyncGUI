@@ -141,10 +141,10 @@ class ViewControllerRemoteInfo: NSViewController, SetDismisser, Abort, Setcolor 
 
     private func number() -> String {
         if self.loaded {
-            return NSLocalizedString("Loaded cached data...", comment: "Remote info")
+            return "Loaded cached data..."
         } else {
             let max = self.remoteinfotask?.maxCount() ?? 0
-            return NSLocalizedString("Number of tasks to estimate:", comment: "Remote info") + " " + String(describing: max)
+            return "Number of tasks to estimate:" + " " + String(describing: max)
         }
     }
 
