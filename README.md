@@ -6,7 +6,9 @@ This repository is the source code for the macOS app RsyncGUI. RsyncGUI is a san
 
 Rsync is a file-based synchronization and backup tool. There is no custom solution for the backup archive. You can quit utilizing RsyncGUI (and rsync) at any time and still have access to all synchronized files.
 
-The app was [released](https://itunes.apple.com/us/app/rsyncgui/id1449707783?l=nb&ls=1&mt=12) on Apple Mac App Store as version 1.0.0 of `RsyncGUI` 24 January 2019. See the [changelog](https://rsyncosx.github.io/RsyncGUIChangelog) for updates.
+The app was [released](https://itunes.apple.com/us/app/rsyncgui/id1449707783?l=nb&ls=1&mt=12) on Apple Mac App Store as version 1.0.0 of `RsyncGUI` 24 January 2019.
+
+See the [changelog](https://rsyncosx.github.io/RsyncGUIChangelog) for updates.
 
 ### Apple App Sandboxing technology
 
@@ -33,10 +35,6 @@ Some views of RsyncGUI. The last view shows which catalogs are approved for acce
 
 The application icon is created by [Zsolt Sándor](https://github.com/graphis). All rights reserved to Zsolt Sándor.
 
-### Changelog
-
-The [Changelog](https://rsyncosx.github.io/RsyncGUIChangelog).
-
 ### Compile
 
-To compile the code, install Xcode and open the RsyncGUI project file. Before compiling, open in Xcode the `RsyncGUI/General` preference page (after opening the RsyncGUI project file) and replace your own credentials in `Signing`, or disable Signing.
+To compile the code, install Xcode and open the RsyncOSX project file. Before compiling, open in Xcode the `RsyncGUI/General` preference page and replace with your own credentials in `Signing`, or disable Signing.

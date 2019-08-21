@@ -356,16 +356,15 @@ final class Configurations: ReloadTable, SetSchedules {
     /// - parameter none: none
     private func readconfigurations() {
         self.argumentAllConfigurations = [ArgumentsOneConfiguration]()
-        let store: [Configuration]? = self.storageapi!.getConfigurations()
-        guard store != nil else { return }
-        for i in 0 ..< store!.count where  store![i].task == ViewControllerReference.shared.synchronize {
-            self.configurations!.append(store![i])
+        let store: [Configuration]? = self.storageapi?.getConfigurations()
+        for i in 0 ..< (store?.count ?? 0) where  store![i].task == ViewControllerReference.shared.synchronize {
+            self.configurations?.append(store![i])
             let rsyncArgumentsOneConfig = ArgumentsOneConfiguration(config: store![i])
-            self.argumentAllConfigurations!.append(rsyncArgumentsOneConfig)
+            self.argumentAllConfigurations?.append(rsyncArgumentsOneConfig)
         }
         // Then prepare the datasource for use in tableviews as Dictionarys
         var data = [NSMutableDictionary]()
-        for i in 0 ..< self.configurations!.count {
+        for i in 0 ..< (self.configurations?.count ?? 0) {
             data.append(ConvertOneConfig(config: self.configurations![i]).dict)
             // Sandbox
             self.appendsequrityscopedurls(config: self.configurations![i])
