@@ -224,8 +224,8 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, Dela
             "parameter6": self.ssh,
             "dryrun": self.dryrun,
             "dateRun": "",
-            "singleFile": 0]
-        dict.setValue("no", forKey: "batch")
+            "singleFile": 0,
+            "batch": 0]
         if self.backuptypeselected == .singlefile {
             dict.setValue(1, forKey: "singleFile")
         }
