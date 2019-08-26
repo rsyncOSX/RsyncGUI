@@ -18,7 +18,7 @@ class ViewControllerCopyFilesSource: NSViewController, SetConfigurations, SetDis
     private var index: Int?
 
     private func dismissview() {
-        if (self.presentingViewController as? ViewControllertabMain) != nil {
+        if (self.presentingViewController as? ViewControllerMain) != nil {
             self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
         } else if (self.presentingViewController as? ViewControllerNewConfigurations) != nil {
             self.dismissview(viewcontroller: self, vcontroller: .vcnewconfigurations)

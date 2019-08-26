@@ -25,7 +25,7 @@ class ViewControllerProgressProcess: NSViewController, SetConfigurations, SetDis
 
     @IBAction func abort(_ sender: NSButton) {
         switch self.countDelegate {
-        case is ViewControllertabMain:
+        case is ViewControllerMain:
             self.abort()
         case is ViewControllerCopyFiles:
             self.dismissview(viewcontroller: self, vcontroller: .vccopyfiles)
@@ -37,8 +37,8 @@ class ViewControllerProgressProcess: NSViewController, SetConfigurations, SetDis
     override func viewDidAppear() {
         super.viewDidAppear()
         ViewControllerReference.shared.setvcref(viewcontroller: .vcprogressview, nsviewcontroller: self)
-        if (self.presentingViewController as? ViewControllertabMain) != nil {
-            if let pvc = (self.presentingViewController as? ViewControllertabMain)?.singletask {
+        if (self.presentingViewController as? ViewControllerMain) != nil {
+            if let pvc = (self.presentingViewController as? ViewControllerMain)?.singletask {
                 self.countDelegate = pvc
             }
         } else if (self.presentingViewController as? ViewControllerCopyFiles) != nil {
@@ -77,7 +77,7 @@ extension ViewControllerProgressProcess: UpdateProgress {
     func processTermination() {
         self.stopProgressbar()
         switch self.countDelegate {
-        case is ViewControllertabMain:
+        case is ViewControllerMain:
             self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
         case is ViewControllerCopyFiles:
             self.dismissview(viewcontroller: self, vcontroller: .vccopyfiles)
