@@ -91,6 +91,8 @@
 		E94D2603205025790026D18F /* ViewControllerAllProfiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94D2602205025790026D18F /* ViewControllerAllProfiles.swift */; };
 		E94D6E3221A5BBA400DDDB61 /* QuickbackupDispatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94D6E2E21A5BBA300DDDB61 /* QuickbackupDispatch.swift */; };
 		E94D6E3321A5BBA400DDDB61 /* ExecuteQuickbackupTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94D6E2F21A5BBA400DDDB61 /* ExecuteQuickbackupTask.swift */; };
+		E94DC3112313E72200E7CE7E /* extensionVCMaintableviewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94DC3102313E72200E7CE7E /* extensionVCMaintableviewDelegate.swift */; };
+		E94DC3132313E79700E7CE7E /* extensionVCMainSingletask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94DC3122313E79700E7CE7E /* extensionVCMainSingletask.swift */; };
 		E94F0708211D8FCC00B2C3D8 /* ViewControllerAllOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F0707211D8FCC00B2C3D8 /* ViewControllerAllOutput.swift */; };
 		E957B1121F5F17220099947A /* ViewControllerReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = E957B1111F5F17220099947A /* ViewControllerReference.swift */; };
 		E958CDDF1FA4CEBD00EA37A5 /* ViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E958CDDE1FA4CEBD00EA37A5 /* ViewControllerExtensions.swift */; };
@@ -230,6 +232,8 @@
 		E94D2602205025790026D18F /* ViewControllerAllProfiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerAllProfiles.swift; sourceTree = "<group>"; };
 		E94D6E2E21A5BBA300DDDB61 /* QuickbackupDispatch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickbackupDispatch.swift; sourceTree = "<group>"; };
 		E94D6E2F21A5BBA400DDDB61 /* ExecuteQuickbackupTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecuteQuickbackupTask.swift; sourceTree = "<group>"; };
+		E94DC3102313E72200E7CE7E /* extensionVCMaintableviewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensionVCMaintableviewDelegate.swift; sourceTree = "<group>"; };
+		E94DC3122313E79700E7CE7E /* extensionVCMainSingletask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensionVCMainSingletask.swift; sourceTree = "<group>"; };
 		E94F0707211D8FCC00B2C3D8 /* ViewControllerAllOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerAllOutput.swift; sourceTree = "<group>"; };
 		E957B1111F5F17220099947A /* ViewControllerReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerReference.swift; sourceTree = "<group>"; };
 		E958CDDE1FA4CEBD00EA37A5 /* ViewControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerExtensions.swift; sourceTree = "<group>"; };
@@ -418,7 +422,7 @@
 				A0A403501D76BD2E00A30017 /* ViewControllerRsyncParameters.swift */,
 				A004D8191D9586580016914F /* ViewControllerLoggData.swift */,
 				A0B340B11D67077A00C6DAC3 /* ViewControllerMain.swift */,
-				E939EC4920C048A000C47F91 /* extensionsViewControllertabMain.swift */,
+				E94DC30F2313E6E300E7CE7E /* extensionVCMain */,
 				A054F1A81D6D773E00D27688 /* ViewControllerInformation.swift */,
 				A08110661D6DA7D8009444D3 /* ViewControllerProgressProcess.swift */,
 				A00FE1A71D6A19CF00012089 /* ViewControllerNewConfigurations.swift */,
@@ -590,6 +594,16 @@
 				E94BCEF321C63F0800DB8EA2 /* RemoteCapacity.swift */,
 			);
 			name = RemoteCapacity;
+			sourceTree = "<group>";
+		};
+		E94DC30F2313E6E300E7CE7E /* extensionVCMain */ = {
+			isa = PBXGroup;
+			children = (
+				E939EC4920C048A000C47F91 /* extensionsViewControllertabMain.swift */,
+				E94DC3102313E72200E7CE7E /* extensionVCMaintableviewDelegate.swift */,
+				E94DC3122313E79700E7CE7E /* extensionVCMainSingletask.swift */,
+			);
+			name = extensionVCMain;
 			sourceTree = "<group>";
 		};
 		E957B1131F5F2A3A0099947A /* ViewControllerReference */ = {
@@ -871,6 +885,7 @@
 				E9764F60204BEE970018C0D7 /* AllConfigurations.swift in Sources */,
 				E92755A62130539400B1F781 /* Dispatchqueues.swift in Sources */,
 				A0EE98991D8948310034F1A4 /* ViewControllerInformationCopyFiles.swift in Sources */,
+				E94DC3112313E72200E7CE7E /* extensionVCMaintableviewDelegate.swift in Sources */,
 				A04492B71D658F2100B3CE17 /* PersistentStorageAPI.swift in Sources */,
 				E989CE961EF948D0000CB7C2 /* ChmodPubKey.swift in Sources */,
 				E9E70A3C1FF3BCB30099554D /* RsyncVersionString.swift in Sources */,
@@ -901,6 +916,7 @@
 				E9282DB322C0AE38004AA0E5 /* Norsync.swift in Sources */,
 				E9282DB522C0AF99004AA0E5 /* Displayrsyncpath.swift in Sources */,
 				E982BA2820CEB59F00E71918 /* RestoreTask.swift in Sources */,
+				E94DC3132313E79700E7CE7E /* extensionVCMainSingletask.swift in Sources */,
 				E945D61420B736E9000E787B /* ViewControllerInformationLocalRemote.swift in Sources */,
 				E9FFA02F1E728C6E00B7AB2B /* Rsync.swift in Sources */,
 				E9234FFB1EB068AE00A4C550 /* Files.swift in Sources */,
