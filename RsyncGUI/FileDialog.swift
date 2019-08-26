@@ -17,7 +17,7 @@ final class FileDialog {
 
     private func saveSequrityScopedURL() {
         weak var sequrityscopedsavepathDelegate: SaveSequrityScopedURL?
-        sequrityscopedsavepathDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
+        sequrityscopedsavepathDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllerMain
         sequrityscopedsavepathDelegate?.savesequrityscopedurl(urlpath: self.urlpath!)
     }
 

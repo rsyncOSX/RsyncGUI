@@ -59,7 +59,7 @@ class ViewControllerProfile: NSViewController, SetConfigurations, SetDismisser, 
     }
 
     private func dismissView() {
-        if (self.presentingViewController as? ViewControllertabMain) != nil {
+        if (self.presentingViewController as? ViewControllerMain) != nil {
             self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
         } else if (self.presentingViewController as? ViewControllerNewConfigurations) != nil {
             self.dismissview(viewcontroller: self, vcontroller: .vcnewconfigurations)

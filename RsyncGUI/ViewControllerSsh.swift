@@ -87,7 +87,7 @@ class ViewControllerSsh: NSViewController, SetConfigurations, VcMain {
         let answer = Alerts.dialogOrCancel(question: "You are about to reset RsynGUI access to your files", text: "Please close and start RsyncGUI again", dialog: "Reset")
         if answer {
             weak var resetsequrityscopedDelegate: ResetSequrityScopedURL?
-            resetsequrityscopedDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
+            resetsequrityscopedDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllerMain
             resetsequrityscopedDelegate?.resetsequrityscopedurl()
         }
     }

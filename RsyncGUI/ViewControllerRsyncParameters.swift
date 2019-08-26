@@ -182,7 +182,7 @@ class ViewControllerRsyncParameters: NSViewController, SetConfigurations, SetDis
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.userparamsupdatedDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
+        self.userparamsupdatedDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllerMain
     }
 
     override func viewDidAppear() {

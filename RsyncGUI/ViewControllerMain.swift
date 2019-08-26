@@ -11,43 +11,7 @@
 import Foundation
 import Cocoa
 
-// Protocol for start,stop, complete progressviewindicator
-protocol StartStopProgressIndicator: class {
-    func start()
-    func stop()
-    func complete()
-}
-
-// Protocol for either completion of work or update progress when Process discovers a
-// process termination and when filehandler discover data
-protocol UpdateProgress: class {
-    func processTermination()
-    func fileHandler()
-}
-
-protocol ViewOutputDetails: class {
-    func reloadtable()
-    func appendnow() -> Bool
-    func getalloutput() -> [String]
-    func enableappend()
-    func disableappend()
-}
-
-protocol SetProfileinfo: class {
-    func setprofile(profile: String, color: NSColor)
-}
-
-// Protocol for getting the hiddenID for a configuration
-protocol GetHiddenID: class {
-    func gethiddenID() -> Int?
-}
-
-protocol AllProfileDetails: class {
-    func enablereloadallprofiles()
-    func disablereloadallprofiles()
-}
-
-class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, Delay, Fileerrormessage, Setcolor {
+class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay, Fileerrormessage, Setcolor {
 
     // Configurations object
     var configurations: Configurations?
@@ -346,7 +310,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, De
         ViewControllerReference.shared.setvcref(viewcontroller: .vctabmain, nsviewcontroller: self)
         _ = RsyncVersionString()
         self.mainTableView.target = self
-        self.mainTableView.doubleAction = #selector(ViewControllertabMain.tableViewDoubleClick(sender:))
+        self.mainTableView.doubleAction = #selector(ViewControllerMain.tableViewDoubleClick(sender:))
         self.backupdryrun.state = .on
         self.loadProfileMenu = true
         // configurations and schedules
@@ -497,53 +461,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, De
         })
         if self.allprofilesview {
             self.allprofiledetailsDelegate?.reloadtable()
-        }
-    }
-}
-
-enum Color {
-    case red
-    case white
-    case green
-    case black
-}
-
-protocol Setcolor: class {
-    func setcolor(nsviewcontroller: NSViewController, color: Color) -> NSColor
-}
-
-extension Setcolor {
-
-    private func isDarkMode(view: NSView) -> Bool {
-        if #available(OSX 10.14, *) {
-            return view.effectiveAppearance.bestMatch(from: [.darkAqua, .aqua]) == .darkAqua
-        }
-        return false
-    }
-
-    func setcolor(nsviewcontroller: NSViewController, color: Color) -> NSColor {
-        let darkmode = isDarkMode(view: nsviewcontroller.view)
-        switch color {
-        case .red:
-            return .red
-        case .white:
-            if darkmode {
-                return .white
-            } else {
-                return .black
-            }
-        case .green:
-            if darkmode {
-                return .green
-            } else {
-                return .blue
-            }
-        case .black:
-            if darkmode {
-                return .white
-            } else {
-                return .black
-            }
         }
     }
 }
