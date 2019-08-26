@@ -13,15 +13,6 @@ import Cocoa
 
 class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay, Fileerrormessage, Setcolor {
 
-    // Configurations object
-    var configurations: Configurations?
-    var schedules: Schedules?
-    // Reference to the taskobjects
-    var singletask: SingleTask?
-    var batchtasks: ExecuteBatch?
-    var executetasknow: ExecuteTaskNow?
-    var tcpconnections: TCPconnections?
-
     // Main tableview
     @IBOutlet weak var mainTableView: NSTableView!
     // Progressbar indicating work
@@ -52,7 +43,17 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
     @IBOutlet weak var backupdryrun: NSButton!
     @IBOutlet weak var restoredryrun: NSButton!
     @IBOutlet weak var verifydryrun: NSButton!
+    // Delegate for refresh allprofiles if changes in profiles
+    weak var allprofiledetailsDelegate: ReloadTableAllProfiles?
 
+    // Configurations object
+    var configurations: Configurations?
+    var schedules: Schedules?
+    // Reference to the taskobjects
+    var singletask: SingleTask?
+    var batchtasks: ExecuteBatch?
+    var executetasknow: ExecuteTaskNow?
+    var tcpconnections: TCPconnections?
     // Reference to Process task
     var process: Process?
     // Index to selected row, index is set when row is selected
@@ -63,8 +64,6 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
     var dynamicappend: Bool = false
     // HiddenID task, set when row is selected
     var hiddenID: Int?
-    // Ready for execute again
-    // var readyforexecution: Bool = true
     // Can load profiles
     // Load profiles only when testing for connections are done.
     // Application crash if not
@@ -73,8 +72,6 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
     var outputerrors: OutputErrors?
     // Allprofiles view presented
     var allprofilesview: Bool = false
-    // Delegate for refresh allprofiles if changes in profiles
-    weak var allprofiledetailsDelegate: ReloadTableAllProfiles?
 
     @IBOutlet weak var info: NSTextField!
 
