@@ -62,7 +62,7 @@ extension ViewControllerMain: NSTableViewDelegate, Attributedestring {
             self.abortOperations()
         }
         if self.configurations!.getConfigurations()[row].task == ViewControllerReference.shared.synchronize {
-            self.configurations!.enabledisablebatch(row)
+            self.configurations!.togglebatch(row)
         }
     }
 }
