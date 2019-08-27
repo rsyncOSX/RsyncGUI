@@ -190,6 +190,10 @@ extension ViewControllerMain: Abort {
 // Extensions from here are used in either newSingleTask or newBatchTask
 
 extension ViewControllerMain: StartStopProgressIndicatorSingleTask {
+    func startIndicatorExecuteTaskNow() {
+        self.working.startAnimation(nil)
+    }
+
     func startIndicator() {
         self.working.startAnimation(nil)
         self.workinglabel.isHidden = false
