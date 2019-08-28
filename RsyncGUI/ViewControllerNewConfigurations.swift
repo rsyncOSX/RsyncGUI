@@ -92,7 +92,7 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, Dela
         })
     }
 
-    func filemanager() {
+    @IBAction func useGUI(_ sender: NSButton) {
         guard self.useGUIbutton.state == .on else { return }
         let filepath = FileDialog()
         let path = filepath.urlpath?.path ?? ""
@@ -101,10 +101,6 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, Dela
         } else {
             self.offsiteCatalog.stringValue = path
         }
-    }
-
-    @IBAction func useGUI(_ sender: NSButton) {
-        self.filemanager()
     }
 
     @IBAction func remotecapacity(_ sender: NSButton) {
