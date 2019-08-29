@@ -20,7 +20,7 @@ protocol Updateremotefilelist: class {
 
 class ViewControllerCopyFiles: NSViewController, SetConfigurations, Delay, Connected, VcMain {
 
-    var copysinglefiles: CopyFiles?
+    var copyfiles: CopyFiles?
     var remotefilelist: Remotefilelist?
     var rsyncindex: Int?
     var estimated: Bool = false
@@ -81,9 +81,9 @@ class ViewControllerCopyFiles: NSViewController, SetConfigurations, Delay, Conne
     // Abort button
     @IBAction func abort(_ sender: NSButton) {
         self.working.stopAnimation(nil)
-        guard self.copysinglefiles != nil else { return }
+        guard self.copyfiles != nil else { return }
         self.restorebutton.isEnabled = true
-        self.copysinglefiles!.abort()
+        self.copyfiles!.abort()
     }
 
     private func info(num: Int) {
@@ -107,16 +107,16 @@ class ViewControllerCopyFiles: NSViewController, SetConfigurations, Delay, Conne
             self.info(num: 3)
             return
         }
-        guard self.copysinglefiles != nil else { return }
+        guard self.copyfiles != nil else { return }
         self.restorebutton.isEnabled = false
         if self.estimated == false {
             self.working.startAnimation(nil)
-            self.copysinglefiles!.executecopyfiles(remotefile: self.remoteCatalog!.stringValue, localCatalog: self.restorecatalog!.stringValue, dryrun: true, updateprogress: self)
+            self.copyfiles!.executecopyfiles(remotefile: self.remoteCatalog!.stringValue, localCatalog: self.restorecatalog!.stringValue, dryrun: true, updateprogress: self)
             self.estimated = true
-            self.outputprocess = self.copysinglefiles?.outputprocess
+            self.outputprocess = self.copyfiles?.outputprocess
         } else {
             self.presentAsSheet(self.viewControllerProgress!)
-            self.copysinglefiles!.executecopyfiles(remotefile: self.remoteCatalog!.stringValue, localCatalog: self.restorecatalog!.stringValue, dryrun: false, updateprogress: self)
+            self.copyfiles!.executecopyfiles(remotefile: self.remoteCatalog!.stringValue, localCatalog: self.restorecatalog!.stringValue, dryrun: false, updateprogress: self)
             self.estimated = false
         }
     }
@@ -182,7 +182,7 @@ class ViewControllerCopyFiles: NSViewController, SetConfigurations, Delay, Conne
         if answer {
             self.restorebutton.isEnabled = false
             self.working.startAnimation(nil)
-            self.copysinglefiles!.executecopyfiles(remotefile: remoteCatalog!.stringValue, localCatalog: restorecatalog!.stringValue, dryrun: false, updateprogress: self)
+            self.copyfiles!.executecopyfiles(remotefile: remoteCatalog!.stringValue, localCatalog: restorecatalog!.stringValue, dryrun: false, updateprogress: self)
         }
     }
 
@@ -196,8 +196,8 @@ class ViewControllerCopyFiles: NSViewController, SetConfigurations, Delay, Conne
     }
 
     private func inprogress() -> Bool {
-        guard self.copysinglefiles != nil else { return false }
-        if self.copysinglefiles?.process != nil {
+        guard self.copyfiles != nil else { return false }
+        if self.copyfiles?.process != nil {
             return true
         } else {
             return false
@@ -216,7 +216,7 @@ class ViewControllerCopyFiles: NSViewController, SetConfigurations, Delay, Conne
                     self.info(num: 3)
                     return
                 }
-                self.commandString.stringValue = self.copysinglefiles!.getCommandDisplayinView(remotefile: self.remoteCatalog.stringValue, localCatalog: self.restorecatalog.stringValue)
+                self.commandString.stringValue = self.copyfiles!.getCommandDisplayinView(remotefile: self.remoteCatalog.stringValue, localCatalog: self.restorecatalog.stringValue)
                 self.estimated = false
                 self.restorebutton.title = "Estimate"
                 self.restorebutton.isEnabled = true
@@ -227,9 +227,9 @@ class ViewControllerCopyFiles: NSViewController, SetConfigurations, Delay, Conne
             if let index = indexes.first {
                 guard self.inprogress() == false else {
                     self.working.stopAnimation(nil)
-                    guard self.copysinglefiles != nil else { return }
+                    guard self.copyfiles != nil else { return }
                     self.restorebutton.isEnabled = true
-                    self.copysinglefiles!.abort()
+                    self.copyfiles!.abort()
                     return
                 }
                 let config = self.configurations!.getConfigurations()[index]
@@ -244,7 +244,7 @@ class ViewControllerCopyFiles: NSViewController, SetConfigurations, Delay, Conne
                 self.remoteCatalog.stringValue = ""
                 self.rsyncindex = index
                 let hiddenID = self.configurations!.getConfigurationsDataSourceSynchronize()![index].value(forKey: "hiddenID") as? Int ?? -1
-                self.copysinglefiles = CopyFiles(hiddenID: hiddenID)
+                self.copyfiles = CopyFiles(hiddenID: hiddenID)
                 self.remotefilelist = Remotefilelist(hiddenID: hiddenID)
                 self.working.startAnimation(nil)
                 self.displayRemoteserver(index: index)
@@ -287,7 +287,7 @@ extension ViewControllerCopyFiles: NSSearchFieldDelegate {
                 self.restorebutton.isEnabled = true
                 self.estimated = false
                 guard self.remoteCatalog.stringValue.count > 0 else { return }
-                self.commandString.stringValue = self.copysinglefiles?.getCommandDisplayinView(remotefile: self.remoteCatalog.stringValue, localCatalog: self.restorecatalog.stringValue) ?? ""
+                self.commandString.stringValue = self.copyfiles?.getCommandDisplayinView(remotefile: self.remoteCatalog.stringValue, localCatalog: self.restorecatalog.stringValue) ?? ""
             }
         }
     }
@@ -368,8 +368,8 @@ extension ViewControllerCopyFiles: Count {
     }
 
     func inprogressCount() -> Int {
-        guard self.copysinglefiles?.outputprocess != nil else { return 0 }
-        return self.copysinglefiles!.outputprocess!.count()
+        guard self.copyfiles?.outputprocess != nil else { return 0 }
+        return self.copyfiles!.outputprocess!.count()
     }
 }
 
@@ -381,7 +381,7 @@ extension ViewControllerCopyFiles: DismissViewController {
 
 extension ViewControllerCopyFiles: GetOutput {
     func getoutput() -> [String] {
-        return self.copysinglefiles!.getOutput()
+        return self.copyfiles!.getOutput()
     }
 }
 
