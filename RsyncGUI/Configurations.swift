@@ -264,7 +264,7 @@ final class Configurations: ReloadTable, SetSchedules {
         switch resource {
         case .localCatalog:
             return result[0].localCatalog
-        case .remoteCatalog:
+        case .offsiteCatalog:
             return result[0].offsiteCatalog
         case .offsiteServer:
             if result[0].offsiteServer.isEmpty {

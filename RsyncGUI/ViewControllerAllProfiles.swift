@@ -160,15 +160,15 @@ extension ViewControllerAllProfiles: NSTableViewDelegate, Attributedestring {
         switch column {
         case 0:
             self.filterby = .profile
-        case 3:
+        case 1:
             self.filterby = .task
-        case 4:
+        case 2:
             self.filterby = .localcatalog
-        case 5:
-            self.filterby = .remotecatalog
-        case 6:
-            self.filterby = .remoteserver
-        case 10, 11:
+        case 3:
+            self.filterby = .offsitecatalog
+        case 4:
+            self.filterby = .offsiteserver
+        case 8, 9:
             sortbystring = false
             self.filterby = .executedate
         default:
