@@ -241,7 +241,7 @@ class ViewControllerVerify: NSViewController, SetConfigurations, Index, Connecte
         guard hiddenID > -1 else { return }
         self.localcatalog.stringValue = self.configurations!.getResourceConfiguration(hiddenID, resource: .localCatalog)
         self.remoteserver.stringValue = self.configurations!.getResourceConfiguration(hiddenID, resource: .offsiteServer)
-        self.remotecatalog.stringValue = self.configurations!.getResourceConfiguration(hiddenID, resource: .remoteCatalog)
+        self.remotecatalog.stringValue = self.configurations!.getResourceConfiguration(hiddenID, resource: .offsiteCatalog)
     }
 
     private func resetinfo() {

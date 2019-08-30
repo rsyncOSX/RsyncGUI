@@ -112,7 +112,7 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, Dela
         guard self.index != nil else { return }
         let hiddenID = self.configurations!.gethiddenID(index: self.index!)
         self.localCatalog.stringValue = self.configurations!.getResourceConfiguration(hiddenID, resource: .localCatalog)
-        self.offsiteCatalog.stringValue = self.configurations!.getResourceConfiguration(hiddenID, resource: .remoteCatalog)
+        self.offsiteCatalog.stringValue = self.configurations!.getResourceConfiguration(hiddenID, resource: .offsiteCatalog)
         self.offsiteUsername.stringValue = self.configurations!.getResourceConfiguration(hiddenID, resource: .offsiteusername)
         self.backupID.stringValue = "copy of " + self.configurations!.getResourceConfiguration(hiddenID, resource: .backupid)
         if self.configurations!.getResourceConfiguration(hiddenID, resource: .offsiteServer) != "localhost" {
