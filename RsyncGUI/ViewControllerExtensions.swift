@@ -24,28 +24,28 @@ extension VcMain {
     // self.presentViewControllerAsSheet(self.ViewControllerInformation)
     var viewControllerInformation: NSViewController? {
         return (self.storyboard!.instantiateController(withIdentifier: "StoryboardInformationID")
-            as? NSViewController)!
+            as? NSViewController)
     }
 
     // Progressbar process
     // self.presentViewControllerAsSheet(self.viewControllerProgress)
     var viewControllerProgress: NSViewController? {
         return (self.storyboard!.instantiateController(withIdentifier: "StoryboardProgressID")
-            as? NSViewController)!
+            as? NSViewController)
     }
 
     // Batch process
     // self.presentViewControllerAsSheet(self.ViewControllerBatch)
     var viewControllerBatch: NSViewController? {
         return (self.storyboard!.instantiateController(withIdentifier: "StoryboardBatchID")
-            as? NSViewController)!
+            as? NSViewController)
     }
 
     // Userconfiguration
     // self.presentViewControllerAsSheet(self.ViewControllerUserconfiguration)
     var viewControllerUserconfiguration: NSViewController? {
         return (self.storyboard!.instantiateController(withIdentifier: "StoryboardUserconfigID")
-            as? NSViewController)!
+            as? NSViewController)
     }
 
     // Rsync userparams
@@ -59,70 +59,70 @@ extension VcMain {
     // self.presentViewControllerAsSheet(self.newVersionViewController)
     var newVersionViewController: NSViewController? {
         return (self.storyboard!.instantiateController(withIdentifier: "StoryboardnewVersionID")
-            as? NSViewController)!
+            as? NSViewController)
     }
 
     // Edit
     // self.presentViewControllerAsSheet(self.editViewController)
     var editViewController: NSViewController? {
         return (self.storyboard!.instantiateController(withIdentifier: "StoryboardEditID")
-            as? NSViewController)!
+            as? NSViewController)
     }
 
     // Restore
     // self.presentViewControllerAsSheet(self.restoreViewController)
     var restoreViewController: NSViewController? {
         return (self.storyboard!.instantiateController(withIdentifier: "StoryboardRestoreID")
-            as? NSViewController)!
+            as? NSViewController)
     }
 
     // Profile
     // self.presentViewControllerAsSheet(self.viewControllerProfile)
     var viewControllerProfile: NSViewController? {
         return (self.storyboard!.instantiateController(withIdentifier: "ProfileID")
-            as? NSViewController)!
+            as? NSViewController)
     }
 
     // About
     // self.presentViewControllerAsSheet(self.viewControllerAbout)
     var viewControllerAbout: NSViewController? {
         return (self.storyboard!.instantiateController(withIdentifier: "AboutID")
-            as? NSViewController)!
+            as? NSViewController)
     }
 
     // Information Schedule details
     // self.presentViewControllerAsSheet(self.viewControllerScheduleDetails)
     var viewControllerScheduleDetails: NSViewController? {
         return (self.storyboard!.instantiateController(withIdentifier: "StoryboardScheduleID")
-            as? NSViewController)!
+            as? NSViewController)
     }
 
     // Quick backup process
     // self.presentViewControllerAsSheet(self.viewControllerQuickBackup)
     var viewControllerQuickBackup: NSViewController? {
         return (self.storyboard!.instantiateController(withIdentifier: "StoryboardQuickBackupID")
-            as? NSViewController)!
+            as? NSViewController)
     }
 
     // Remote Info
     // self.presentViewControllerAsSheet(self.viewControllerQuickBackup)
     var viewControllerRemoteInfo: NSViewController? {
         return (self.storyboard!.instantiateController(withIdentifier: "StoryboardRemoteInfoID")
-            as? NSViewController)!
+            as? NSViewController)
     }
 
     // Estimating
     // self.presentViewControllerAsSheet(self.viewControllerEstimating)
     var viewControllerEstimating: NSViewController? {
         return (self.storyboard!.instantiateController(withIdentifier: "StoryboardEstimatingID")
-            as? NSViewController)!
+            as? NSViewController)
     }
 
     // local and remote info
     // self.presentViewControllerAsSheet(self.viewControllerInformationLocalRemote)
     var viewControllerInformationLocalRemote: NSViewController? {
         return (self.storyboard!.instantiateController(withIdentifier: "StoryboardLocalRemoteID")
-            as? NSViewController)!
+            as? NSViewController)
     }
 
 }
