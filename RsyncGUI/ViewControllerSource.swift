@@ -10,13 +10,13 @@ import Foundation
 import Cocoa
 
 class ViewControllerSource: NSViewController, SetConfigurations, SetDismisser {
-    
+
     @IBOutlet weak var mainTableView: NSTableView!
     @IBOutlet weak var selectButton: NSButton!
-    
+
     weak var getSourceDelegateSsh: ViewControllerSsh?
     private var index: Int?
-    
+
     private func dismissview() {
         if (self.presentingViewController as? ViewControllerMain) != nil {
             self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
@@ -32,7 +32,7 @@ class ViewControllerSource: NSViewController, SetConfigurations, SetDismisser {
             self.dismissview(viewcontroller: self, vcontroller: .vcloggdata)
         }
     }
-    
+
     private func select() {
         if let pvc = self.presentingViewController as? ViewControllerSsh {
             self.getSourceDelegateSsh = pvc
@@ -41,16 +41,16 @@ class ViewControllerSource: NSViewController, SetConfigurations, SetDismisser {
             }
         }
     }
-    
+
     @IBAction func close(_ sender: NSButton) {
         self.dismissview()
     }
-    
+
     @IBAction func select(_ sender: NSButton) {
         self.select()
         self.dismissview()
     }
-    
+
     // Initial functions viewDidLoad and viewDidAppear
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,19 +58,19 @@ class ViewControllerSource: NSViewController, SetConfigurations, SetDismisser {
         self.mainTableView.dataSource = self
         self.mainTableView.doubleAction = #selector(ViewControllerSource.tableViewDoubleClick(sender:))
     }
-    
+
     override func viewDidAppear() {
         self.selectButton.isEnabled = false
         globalMainQueue.async(execute: { () -> Void in
             self.mainTableView.reloadData()
         })
     }
-    
+
     @objc(tableViewDoubleClick:) func tableViewDoubleClick(sender: AnyObject) {
         self.select()
         self.dismissview()
     }
-    
+
     // when row is selected, setting which table row is selected
     func tableViewSelectionDidChange(_ notification: Notification) {
         let myTableViewFromNotification = (notification.object as? NSTableView)!
@@ -98,4 +98,3 @@ extension ViewControllerSource: NSTableViewDelegate {
         return object[tableColumn!.identifier] as? String
     }
 }
-
