@@ -119,6 +119,7 @@
 		E98D6C2F21DFAF9400F4BB67 /* FileDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98D6C2E21DFAF9400F4BB67 /* FileDialog.swift */; };
 		E98DA4C220EC12F4007CBDEF /* OutputErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98DA4C120EC12F4007CBDEF /* OutputErrors.swift */; };
 		E98FA9E522C5F78300D6D103 /* RsyncGUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98FA9E422C5F78300D6D103 /* RsyncGUITests.swift */; };
+		E996431E231AF0EF00E05B40 /* ViewControllerSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E996431D231AF0EF00E05B40 /* ViewControllerSource.swift */; };
 		E9A8D81C1ED20AEB009648DE /* GetRemoteFileListingsArguments.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A8D81B1ED20AEB009648DE /* GetRemoteFileListingsArguments.swift */; };
 		E9B9CCA621BC46B00042D5CE /* extensionDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B9CCA521BC46B00042D5CE /* extensionDate.swift */; };
 		E9BBE8C32273131F00404D7A /* ConvertConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BBE8C02273131F00404D7A /* ConvertConfigurations.swift */; };
@@ -260,6 +261,7 @@
 		E98FA9E222C5F78300D6D103 /* RsyncGUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RsyncGUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E98FA9E422C5F78300D6D103 /* RsyncGUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RsyncGUITests.swift; sourceTree = "<group>"; };
 		E98FA9E622C5F78300D6D103 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E996431D231AF0EF00E05B40 /* ViewControllerSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerSource.swift; sourceTree = "<group>"; };
 		E9A8D81B1ED20AEB009648DE /* GetRemoteFileListingsArguments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetRemoteFileListingsArguments.swift; sourceTree = "<group>"; };
 		E9AE2E90217E3270003486E0 /* RsyncGUI.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RsyncGUI.entitlements; sourceTree = "<group>"; };
 		E9B9CCA521BC46B00042D5CE /* extensionDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensionDate.swift; sourceTree = "<group>"; };
@@ -650,6 +652,7 @@
 				E94F0707211D8FCC00B2C3D8 /* ViewControllerAllOutput.swift */,
 				E94D2602205025790026D18F /* ViewControllerAllProfiles.swift */,
 				A054F1A81D6D773E00D27688 /* ViewControllerInformation.swift */,
+				E996431D231AF0EF00E05B40 /* ViewControllerSource.swift */,
 			);
 			name = Sheetviews;
 			sourceTree = "<group>";
@@ -977,6 +980,7 @@
 				E9FFA02D1E7287E100B7AB2B /* ProcessCmd.swift in Sources */,
 				A0CACFD41DA2738500C5997A /* RsyncParameters.swift in Sources */,
 				E9BBE8C52273131F00404D7A /* ConvertUserconfiguration.swift in Sources */,
+				E996431E231AF0EF00E05B40 /* ViewControllerSource.swift in Sources */,
 				E82473A32309BAD700355CEA /* ExecuteBatch.swift in Sources */,
 				A04492AC1D658F2100B3CE17 /* Configuration.swift in Sources */,
 				A04492861D658EE800B3CE17 /* AppDelegate.swift in Sources */,
