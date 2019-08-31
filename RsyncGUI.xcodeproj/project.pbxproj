@@ -412,27 +412,13 @@
 		A04492C31D658FF900B3CE17 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				E958CDDE1FA4CEBD00EA37A5 /* ViewControllerExtensions.swift */,
+				E996431A231AEAB200E05B40 /* Tabviews */,
+				E9964319231AEAA000E05B40 /* Sheetviews */,
 				E82473992309B0C500355CEA /* RemoteEstimation */,
 				E975284420CEAADB0029B027 /* ViewControllerRestore.swift */,
 				A0A403501D76BD2E00A30017 /* ViewControllerRsyncParameters.swift */,
-				A004D8191D9586580016914F /* ViewControllerLoggData.swift */,
-				A0B340B11D67077A00C6DAC3 /* ViewControllerMain.swift */,
 				E94DC30F2313E6E300E7CE7E /* extensionVCMain */,
-				A054F1A81D6D773E00D27688 /* ViewControllerInformation.swift */,
-				A08110661D6DA7D8009444D3 /* ViewControllerProgressProcess.swift */,
-				A00FE1A71D6A19CF00012089 /* ViewControllerNewConfigurations.swift */,
-				A0B3D9731D758E20001E190E /* ViewControllerUserconfiguration.swift */,
-				A017E29F1D7D3242003016F5 /* ViewControllerEdit.swift */,
-				A091C6571D86A0A800278E74 /* ViewControllerCopyFiles.swift */,
-				A03876E01DB4FD9D00C14AEA /* ViewControllerProfile.swift */,
-				A0FAF5CE1DDF2E5F0009FE7A /* ViewControllerAbout.swift */,
-				E905DC101EACF7550003BF37 /* ViewControllerSsh.swift */,
-				E958CDDE1FA4CEBD00EA37A5 /* ViewControllerExtensions.swift */,
-				E942FF281FED41D0004191B5 /* ViewControllerQuickBackup.swift */,
-				E94D2602205025790026D18F /* ViewControllerAllProfiles.swift */,
-				E945D61320B736E9000E787B /* ViewControllerInformationLocalRemote.swift */,
-				E96059A92109B63D00DFA08E /* ViewControllerVerify.swift */,
-				E94F0707211D8FCC00B2C3D8 /* ViewControllerAllOutput.swift */,
 				E957B1131F5F2A3A0099947A /* ViewControllerReference */,
 			);
 			name = View;
@@ -649,6 +635,36 @@
 				E98FA9E622C5F78300D6D103 /* Info.plist */,
 			);
 			path = RsyncGUITests;
+			sourceTree = "<group>";
+		};
+		E9964319231AEAA000E05B40 /* Sheetviews */ = {
+			isa = PBXGroup;
+			children = (
+				A08110661D6DA7D8009444D3 /* ViewControllerProgressProcess.swift */,
+				A0B3D9731D758E20001E190E /* ViewControllerUserconfiguration.swift */,
+				A03876E01DB4FD9D00C14AEA /* ViewControllerProfile.swift */,
+				E942FF281FED41D0004191B5 /* ViewControllerQuickBackup.swift */,
+				A0FAF5CE1DDF2E5F0009FE7A /* ViewControllerAbout.swift */,
+				A017E29F1D7D3242003016F5 /* ViewControllerEdit.swift */,
+				E945D61320B736E9000E787B /* ViewControllerInformationLocalRemote.swift */,
+				E94F0707211D8FCC00B2C3D8 /* ViewControllerAllOutput.swift */,
+				E94D2602205025790026D18F /* ViewControllerAllProfiles.swift */,
+				A054F1A81D6D773E00D27688 /* ViewControllerInformation.swift */,
+			);
+			name = Sheetviews;
+			sourceTree = "<group>";
+		};
+		E996431A231AEAB200E05B40 /* Tabviews */ = {
+			isa = PBXGroup;
+			children = (
+				A091C6571D86A0A800278E74 /* ViewControllerCopyFiles.swift */,
+				E905DC101EACF7550003BF37 /* ViewControllerSsh.swift */,
+				A00FE1A71D6A19CF00012089 /* ViewControllerNewConfigurations.swift */,
+				A004D8191D9586580016914F /* ViewControllerLoggData.swift */,
+				A0B340B11D67077A00C6DAC3 /* ViewControllerMain.swift */,
+				E96059A92109B63D00DFA08E /* ViewControllerVerify.swift */,
+			);
+			name = Tabviews;
 			sourceTree = "<group>";
 		};
 		E99AEC701FF8BBA40004992B /* Userconfiguration */ = {
