@@ -338,7 +338,6 @@
 			isa = PBXGroup;
 			children = (
 				E9BBE8BF227312C800404D7A /* Convert */,
-				E957B1131F5F2A3A0099947A /* ViewControllerReference */,
 				E91A688E1EA7771B0056BCFC /* Loggdata */,
 				A0BAA5F31D70C349003BE69F /* Schedules */,
 				A0BAA5F21D70C33A003BE69F /* Configurations */,
@@ -434,6 +433,7 @@
 				E945D61320B736E9000E787B /* ViewControllerInformationLocalRemote.swift */,
 				E96059A92109B63D00DFA08E /* ViewControllerVerify.swift */,
 				E94F0707211D8FCC00B2C3D8 /* ViewControllerAllOutput.swift */,
+				E957B1131F5F2A3A0099947A /* ViewControllerReference */,
 			);
 			name = View;
 			sourceTree = "<group>";
