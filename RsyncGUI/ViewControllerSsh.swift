@@ -41,11 +41,10 @@ class ViewControllerSsh: NSViewController, SetConfigurations, VcMain {
     @IBOutlet weak var terminalappbutton: NSButton!
     @IBOutlet weak var SequrityScopedTable: NSTableView!
 
-    // self.presentViewControllerAsSheet(self.ViewControllerAbout)
-    lazy var viewControllerSource: NSViewController = {
-        return (self.storyboard!.instantiateController(withIdentifier: "CopyFilesID")
-            as? NSViewController)!
-    }()
+    var viewControllerSource: NSViewController? {
+        return (self.storyboard?.instantiateController(withIdentifier: "CopyFilesID")
+            as? NSViewController)
+    }
 
     @IBAction func totinfo(_ sender: NSButton) {
         guard ViewControllerReference.shared.norsync == false else {
@@ -128,7 +127,7 @@ class ViewControllerSsh: NSViewController, SetConfigurations, VcMain {
             })
             return
         }
-        self.presentAsSheet(self.viewControllerSource)
+        self.presentAsSheet(self.viewControllerSource!)
     }
 
     func createRemoteSshDirectory() {

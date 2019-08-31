@@ -5078,10 +5078,10 @@ DQ
             </objects>
             <point key="canvasLocation" x="128" y="2667.5"/>
         </scene>
-        <!--View Controller Copy Files Source-->
+        <!--View Controller Source-->
         <scene sceneID="54O-4C-Jot">
             <objects>
-                <viewController storyboardIdentifier="CopyFilesID" id="EOK-1X-FQE" customClass="ViewControllerCopyFilesSource" customModule="RsyncGUI" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CopyFilesID" id="EOK-1X-FQE" customClass="ViewControllerSource" customModule="RsyncGUI" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="Kzb-MX-sbu">
                         <rect key="frame" x="0.0" y="0.0" width="494" height="322"/>
                         <autoresizingMask key="autoresizingMask"/>
