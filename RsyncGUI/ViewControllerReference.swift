@@ -76,6 +76,9 @@ final class ViewControllerReference {
     var logfilesize: Int = 100000
     // Mac serialnumer
     var macserialnumber: String?
+    // Initial start, center RsyncGUI when started first time
+    var initialstart: Int = 0
+
     // Reference to main View
     private var viewControllertabMain: NSViewController?
     // Reference to Copy files
@@ -108,9 +111,6 @@ final class ViewControllerReference {
     private var viewControllerVerify: NSViewController?
     // Alloutput
     private var viewControllerAlloutput: NSViewController?
-
-    // Initial start, center RsyncGUI when started first time
-    var initialstart: Int = 0
 
     func getvcref(viewcontroller: ViewController) -> NSViewController? {
         switch viewcontroller {
