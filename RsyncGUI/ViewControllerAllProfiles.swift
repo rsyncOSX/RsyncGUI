@@ -187,7 +187,7 @@ extension ViewControllerAllProfiles: NSTableViewDelegate, Attributedestring {
 
 extension ViewControllerAllProfiles: NSSearchFieldDelegate {
 
-    func controlTextDidBeginEditing(_ obj: Notification) {
+    func controlTextDidChange(_ obj: Notification) {
         self.delayWithSeconds(0.25) {
             guard self.column != nil else { return }
             let filterstring = self.search.stringValue
@@ -198,7 +198,7 @@ extension ViewControllerAllProfiles: NSSearchFieldDelegate {
                 })
             } else {
                 globalMainQueue.async(execute: { () -> Void in
-                    self.allprofiles?.filter(search: filterstring, column: self.column!, filterby: self.filterby)
+                    self.allprofiles?.filter(search: filterstring, filterby: self.filterby)
                     self.mainTableView.reloadData()
                 })
             }
