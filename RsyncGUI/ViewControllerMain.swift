@@ -11,7 +11,7 @@
 import Foundation
 import Cocoa
 
-class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay, Fileerrormessage, Setcolor {
+class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay, Fileerrormessage, Setcolor, Checkforrsync {
 
     // Main tableview
     @IBOutlet weak var mainTableView: NSTableView!
@@ -75,10 +75,7 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
             self.info(num: 1)
             return
         }
-        guard ViewControllerReference.shared.norsync == false else {
-            _ = Norsync()
-            return
-        }
+        guard self.checkforrsync() == false else { return }
         guard self.configurations!.getConfigurations()[self.index!].task == ViewControllerReference.shared.synchronize else {
             self.info(num: 7)
             return
@@ -114,10 +111,7 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
             self.info(num: 1)
             return
         }
-        guard ViewControllerReference.shared.norsync == false else {
-            _ = Norsync()
-            return
-        }
+        guard self.checkforrsync() == false else { return }
         guard self.configurations!.getConfigurations()[self.index!].task == ViewControllerReference.shared.synchronize else {
             self.info(num: 7)
             return
@@ -126,20 +120,14 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
     }
 
     @IBAction func totinfo(_ sender: NSButton) {
-        guard ViewControllerReference.shared.norsync == false else {
-            _ = Norsync()
-            return
-        }
+        guard self.checkforrsync() == false else { return }
         globalMainQueue.async(execute: { () -> Void in
             self.presentAsSheet(self.viewControllerRemoteInfo!)
         })
     }
 
     @IBAction func quickbackup(_ sender: NSButton) {
-        guard ViewControllerReference.shared.norsync == false else {
-            _ = Norsync()
-            return
-        }
+        guard self.checkforrsync() == false else { return }
         self.openquickbackup()
     }
 
@@ -251,10 +239,7 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
     }
 
     @IBAction func executetasknow(_ sender: NSButton) {
-        guard ViewControllerReference.shared.norsync == false else {
-            _ = Norsync()
-            return
-        }
+        guard self.checkforrsync() == false else { return }
         guard self.hiddenID != nil else {
             self.info(num: 1)
             return
@@ -338,10 +323,7 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
 
     // Single task can be activated by double click from table
     func executeSingleTask() {
-        guard ViewControllerReference.shared.norsync == false else {
-            _ = Norsync()
-            return
-        }
+        guard self.checkforrsync() == false else { return }
         guard self.index != nil else { return }
         guard self.configurations!.getConfigurations()[self.index!].task == ViewControllerReference.shared.synchronize
             else {
@@ -360,10 +342,7 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
 
     // Execute BATCH TASKS only
     @IBAction func executeBatch(_ sender: NSButton) {
-        guard ViewControllerReference.shared.norsync == false else {
-            _ = Norsync()
-            return
-        }
+        guard self.checkforrsync() == false else { return }
         self.singletask = nil
         self.setNumbers(outputprocess: nil)
         self.deselect()

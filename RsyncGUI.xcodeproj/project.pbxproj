@@ -415,11 +415,9 @@
 			isa = PBXGroup;
 			children = (
 				E996431A231AEAB200E05B40 /* Tabviews */,
+				E94DC30F2313E6E300E7CE7E /* extensionVCMain */,
 				E9964319231AEAA000E05B40 /* Sheetviews */,
 				E82473992309B0C500355CEA /* RemoteEstimation */,
-				E975284420CEAADB0029B027 /* ViewControllerRestore.swift */,
-				A0A403501D76BD2E00A30017 /* ViewControllerRsyncParameters.swift */,
-				E94DC30F2313E6E300E7CE7E /* extensionVCMain */,
 				E957B1131F5F2A3A0099947A /* ViewControllerReference */,
 			);
 			name = View;
@@ -642,6 +640,8 @@
 		E9964319231AEAA000E05B40 /* Sheetviews */ = {
 			isa = PBXGroup;
 			children = (
+				E975284420CEAADB0029B027 /* ViewControllerRestore.swift */,
+				A0A403501D76BD2E00A30017 /* ViewControllerRsyncParameters.swift */,
 				A08110661D6DA7D8009444D3 /* ViewControllerProgressProcess.swift */,
 				A0B3D9731D758E20001E190E /* ViewControllerUserconfiguration.swift */,
 				A03876E01DB4FD9D00C14AEA /* ViewControllerProfile.swift */,
