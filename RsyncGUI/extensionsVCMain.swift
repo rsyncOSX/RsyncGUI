@@ -461,6 +461,21 @@ protocol Setcolor: class {
     func setcolor(nsviewcontroller: NSViewController, color: Color) -> NSColor
 }
 
+protocol Checkforrsync: class {
+    func checkforrsync() -> Bool
+}
+
+extension Checkforrsync {
+    func checkforrsync() -> Bool {
+        if ViewControllerReference.shared.norsync == true {
+            _ = Norsync()
+            return true
+        } else {
+            return false
+        }
+    }
+}
+
 extension Setcolor {
 
     private func isDarkMode(view: NSView) -> Bool {

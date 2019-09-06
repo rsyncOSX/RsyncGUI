@@ -18,7 +18,7 @@ protocol SaveSequrityScopedURL: class {
     func savesequrityscopedurl(urlpath: URL)
 }
 
-class ViewControllerSsh: NSViewController, SetConfigurations, VcMain {
+class ViewControllerSsh: NSViewController, SetConfigurations, VcMain, Checkforrsync {
 
     var sshcmd: Ssh?
     var hiddenID: Int?
@@ -47,20 +47,14 @@ class ViewControllerSsh: NSViewController, SetConfigurations, VcMain {
     }
 
     @IBAction func totinfo(_ sender: NSButton) {
-        guard ViewControllerReference.shared.norsync == false else {
-            _ = Norsync()
-            return
-        }
+        guard self.checkforrsync() == false else { return }
         globalMainQueue.async(execute: { () -> Void in
             self.presentAsSheet(self.viewControllerRemoteInfo!)
         })
     }
 
     @IBAction func quickbackup(_ sender: NSButton) {
-        guard ViewControllerReference.shared.norsync == false else {
-            _ = Norsync()
-            return
-        }
+        guard self.checkforrsync() == false else { return }
         self.openquickbackup()
     }
 
