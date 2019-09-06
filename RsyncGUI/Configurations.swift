@@ -41,6 +41,8 @@ final class Configurations: ReloadTable, SetSchedules {
     var remoteinfoestimation: RemoteinfoEstimation?
     // Array for holding sequrity scoped urls
     var SequrityScopedURLs: [NSDictionary]?
+    // Reference to check TCP-connections
+    var tcpconnections: TCPconnections?
 
     /// Function for getting the profile
     func getProfile() -> String? {

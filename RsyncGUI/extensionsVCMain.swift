@@ -50,7 +50,6 @@ extension ViewControllerMain: NewProfile {
         self.process = nil
         self.outputprocess = nil
         self.singletask = nil
-        self.tcpconnections = nil
         self.setNumbers(outputprocess: nil)
         self.showrsynccommandmainview()
         self.deselect()
@@ -58,14 +57,12 @@ extension ViewControllerMain: NewProfile {
         self.configurations = self.createconfigurationsobject(profile: profile)
         self.schedules = self.createschedulesobject(profile: profile)
         // Make sure loading profile
-        self.loadProfileMenu = true
         self.displayProfile()
         self.reloadtabledata()
         self.deselectrowtable()
     }
 
-    func enableProfileMenu() {
-        self.loadProfileMenu = true
+    func enableselectprofile() {
         globalMainQueue.async(execute: { () -> Void in
             self.displayProfile()
         })
@@ -88,8 +85,6 @@ extension ViewControllerMain: RsyncIsChanged {
 extension ViewControllerMain: Connections {
     // Remote servers offline are marked with red line in mainTableView
     func displayConnections() {
-        guard (self.presentingViewController as? ViewControllerMain) != nil else { return }
-        self.loadProfileMenu = true
         globalMainQueue.async(execute: { () -> Void in
             self.mainTableView.reloadData()
         })
@@ -102,7 +97,6 @@ extension ViewControllerMain: DismissViewController {
     func dismiss_view(viewcontroller: NSViewController) {
         self.dismiss(viewcontroller)
         // Reset radiobuttons
-        self.loadProfileMenu = true
         globalMainQueue.async(execute: { () -> Void in
             self.mainTableView.reloadData()
             self.displayProfile()
