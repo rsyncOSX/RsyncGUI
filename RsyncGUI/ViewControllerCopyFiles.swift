@@ -398,7 +398,7 @@ extension ViewControllerCopyFiles: NewProfile {
         })
     }
 
-    func enableProfileMenu() {
+    func enableselectprofile() {
         //
     }
 }
