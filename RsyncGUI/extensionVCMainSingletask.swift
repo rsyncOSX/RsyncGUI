@@ -37,7 +37,7 @@ extension ViewControllerMain: SingleTaskProcess {
     }
 
     func seterrorinfo(info: String) {
-        guard info != "" else {
+        guard info.isEmpty == false else {
             self.dryRunOrRealRun.isHidden = true
             return
         }
