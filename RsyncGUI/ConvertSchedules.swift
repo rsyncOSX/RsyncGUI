@@ -26,10 +26,8 @@ final class ConvertSchedules: SetSchedules {
                 if schedule.dateStop != nil {
                     dict.setValue(schedule.dateStop, forKey: "dateStop")
                 }
-                if let delete = schedule.delete {
-                    if delete == false {
-                        array.append(dict)
-                    }
+                if schedule.delete ?? false == false  {
+                    array.append(dict)
                 } else {
                     if schedule.logrecords.isEmpty == false {
                         array.append(dict)
