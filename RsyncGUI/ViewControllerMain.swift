@@ -57,8 +57,6 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
     var index: Int?
     // Getting output from rsync
     var outputprocess: OutputProcess?
-    // Dynamic view of output
-    var dynamicappend: Bool = false
     // HiddenID task, set when row is selected
     var hiddenID: Int?
     // Keep track of all errors
@@ -308,8 +306,6 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
 
     override func viewDidDisappear() {
         super.viewDidDisappear()
-        // Do not allow notify in Main
-        self.dynamicappend = false
     }
 
     // Execute tasks by double click in table
