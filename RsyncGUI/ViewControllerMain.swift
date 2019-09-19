@@ -51,7 +51,7 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
     var schedules: Schedules?
     // Reference to the taskobjects
     var singletask: SingleTask?
-    var batchtasks: ExecuteBatch?
+    var executebatch: ExecuteBatch?
     var executetasknow: ExecuteTaskNow?
     // Reference to Process task
     var process: Process?
@@ -174,10 +174,10 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
     }
 
     func reset() {
-        self.outputprocess = nil
         self.setNumbers(outputprocess: nil)
         self.process = nil
         self.singletask = nil
+        self.executebatch = nil
     }
 
     @IBOutlet weak var TCPButton: NSButton!
@@ -343,7 +343,6 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
     // Execute BATCH TASKS only
     @IBAction func executeBatch(_ sender: NSButton) {
         guard self.checkforrsync() == false else { return }
-        self.singletask = nil
         self.setNumbers(outputprocess: nil)
         self.deselect()
         globalMainQueue.async(execute: { () -> Void in
@@ -387,13 +386,10 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
         if let index = indexes.first {
             self.index = index
             self.hiddenID = self.configurations!.gethiddenID(index: index)
-            self.outputprocess = nil
-            self.setNumbers(outputprocess: nil)
         } else {
             self.index = nil
         }
-        self.process = nil
-        self.singletask = nil
+        self.reset()
         self.showrsynccommandmainview()
         self.reloadtabledata()
     }
