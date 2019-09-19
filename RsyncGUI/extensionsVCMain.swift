@@ -47,10 +47,7 @@ extension ViewControllerMain: GetSelecetedIndex {
 extension ViewControllerMain: NewProfile {
     // Function is called from profiles when new or default profiles is seleceted
     func newProfile(profile: String?) {
-        self.process = nil
-        self.outputprocess = nil
-        self.singletask = nil
-        self.setNumbers(outputprocess: nil)
+        self.reset()
         self.showrsynccommandmainview()
         self.deselect()
         // Read configurations and Scheduledata
@@ -131,8 +128,8 @@ extension ViewControllerMain: RsyncError {
             if self.singletask != nil {
                 self.singletask!.error()
             }
-            if self.batchtasks != nil {
-                self.batchtasks!.error()
+            if self.executebatch != nil {
+                self.executebatch!.error()
             }
         })
     }
@@ -214,7 +211,7 @@ extension ViewControllerMain: GetConfigurationsObject {
     // After a write, a reload is forced.
     func reloadconfigurationsobject() {
         // If batchtask keep configuration object
-        guard self.batchtasks == nil else {
+        guard self.executebatch == nil else {
             // Batchtask, check if task is completed
             guard self.configurations!.getbatchQueue()?.batchruniscompleted() == false else {
                 self.createandreloadconfigurations()
@@ -229,7 +226,7 @@ extension ViewControllerMain: GetConfigurationsObject {
 extension ViewControllerMain: GetSchedulesObject {
     func reloadschedulesobject() {
         // If batchtask scedules object
-        guard self.batchtasks == nil else {
+        guard self.executebatch == nil else {
             // Batchtask, check if task is completed
             guard self.configurations!.getbatchQueue()?.batchruniscompleted() == false else {
                 self.createandreloadschedules()
