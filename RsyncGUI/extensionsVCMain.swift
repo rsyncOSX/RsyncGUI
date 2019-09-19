@@ -400,17 +400,6 @@ extension ViewControllerMain: SaveSequrityScopedURL {
     }
 }
 
-extension ViewControllerMain: AllProfileDetails {
-    func disablereloadallprofiles() {
-        self.allprofilesview = false
-    }
-
-    func enablereloadallprofiles() {
-        self.allprofilesview = true
-        self.allprofiledetailsDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcallprofiles) as? ViewControllerAllProfiles
-    }
-}
-
 // Protocol for start,stop, complete progressviewindicator
 protocol StartStopProgressIndicator: class {
     func start()
@@ -440,11 +429,6 @@ protocol SetProfileinfo: class {
 // Protocol for getting the hiddenID for a configuration
 protocol GetHiddenID: class {
     func gethiddenID() -> Int?
-}
-
-protocol AllProfileDetails: class {
-    func enablereloadallprofiles()
-    func disablereloadallprofiles()
 }
 
 enum Color {
