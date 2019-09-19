@@ -43,8 +43,6 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
     @IBOutlet weak var backupdryrun: NSButton!
     @IBOutlet weak var restoredryrun: NSButton!
     @IBOutlet weak var verifydryrun: NSButton!
-    // Delegate for refresh allprofiles if changes in profiles
-    weak var allprofiledetailsDelegate: ReloadTableAllProfiles?
 
     // Configurations object
     var configurations: Configurations?
@@ -65,8 +63,6 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
     var hiddenID: Int?
     // Keep track of all errors
     var outputerrors: OutputErrors?
-    // Allprofiles view presented
-    var allprofilesview: Bool = false
 
     @IBOutlet weak var info: NSTextField!
 
@@ -424,8 +420,8 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
         globalMainQueue.async(execute: { () -> Void in
             self.mainTableView.reloadData()
         })
-        if self.allprofilesview {
-            self.allprofiledetailsDelegate?.reloadtable()
+        if let reloadDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcallprofiles) as? ViewControllerAllProfiles {
+            reloadDelegate.reloadtable()
         }
     }
 }
