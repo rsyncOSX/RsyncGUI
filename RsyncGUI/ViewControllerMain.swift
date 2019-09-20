@@ -1,8 +1,7 @@
-//
 //  Created by Thomas Evensen on 19/08/2016.
 //  Copyright © 2016 Thomas Evensen. All rights reserved.
 //
-//  swiftlint:disable file_length type_body_length line_length
+//  swiftlint:disable type_body_length line_length
 
 import Foundation
 import Cocoa
@@ -53,8 +52,6 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
     var index: Int?
     // Getting output from rsync
     var outputprocess: OutputProcess?
-    // HiddenID task, set when row is selected
-    var hiddenID: Int?
     // Keep track of all errors
     var outputerrors: OutputErrors?
 
@@ -144,23 +141,22 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
     }
 
     @IBAction func delete(_ sender: NSButton) {
-        self.reset()
-        guard self.hiddenID != nil else {
+        guard self.index != nil else {
             self.info(num: 1)
             return
         }
-        let answer = Alerts.dialogOrCancel(question: "Delete selected task?", text: "Cancel or Delete", dialog: "Delete")
-        if answer {
-            if self.hiddenID != nil {
+        if let hiddenID = self.configurations?.gethiddenID(index: self.index!) {
+            let answer = Alerts.dialogOrCancel(question: "Delete selected task?", text: "Cancel or Delete", dialog: "Delete")
+            if answer {
                 // Delete Configurations and Schedules by hiddenID
-                self.configurations!.deleteConfigurationsByhiddenID(hiddenID: self.hiddenID!)
-                self.schedules!.deletescheduleonetask(hiddenID: self.hiddenID!)
+                self.configurations!.deleteConfigurationsByhiddenID(hiddenID: hiddenID)
+                self.schedules!.deletescheduleonetask(hiddenID: hiddenID)
                 self.deselect()
-                self.hiddenID = nil
                 self.index = nil
                 self.reloadtabledata()
             }
         }
+        self.reset()
     }
 
     func reset() {
@@ -230,11 +226,7 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
 
     @IBAction func executetasknow(_ sender: NSButton) {
         guard self.checkforrsync() == false else { return }
-        guard self.hiddenID != nil else {
-            self.info(num: 1)
-            return
-        }
-        guard self.index != nil else {
+         guard self.index != nil else {
             self.info(num: 1)
             return
         }
@@ -359,27 +351,6 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
         localprofileinfoadd?.setprofile(profile: self.profilInfo.stringValue, color: self.profilInfo.textColor!)
         self.TCPButton.isEnabled = true
         self.showrsynccommandmainview()
-    }
-
-    // when row is selected
-    // setting which table row is selected, force new estimation
-    func tableViewSelectionDidChange(_ notification: Notification) {
-        self.seterrorinfo(info: "")
-        // If change row during estimation
-        if self.process != nil { self.abortOperations() }
-        self.backupdryrun.state = .on
-        self.info(num: 0)
-        let myTableViewFromNotification = (notification.object as? NSTableView)!
-        let indexes = myTableViewFromNotification.selectedRowIndexes
-        if let index = indexes.first {
-            self.index = index
-            self.hiddenID = self.configurations!.gethiddenID(index: index)
-        } else {
-            self.index = nil
-        }
-        self.reset()
-        self.showrsynccommandmainview()
-        self.reloadtabledata()
     }
 
     func createandreloadschedules() {
