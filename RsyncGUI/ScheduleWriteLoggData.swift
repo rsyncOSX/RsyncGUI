@@ -14,8 +14,8 @@ class ScheduleWriteLoggData: SetConfigurations, ReloadTable, Deselect {
 
     var storageapi: PersistentStorageAPI?
     var schedules: [ConfigurationSchedule]?
-
     typealias Row = (Int, Int)
+
     func deleteselectedrows(scheduleloggdata: ScheduleLoggData?) {
         guard scheduleloggdata?.loggdata != nil else { return }
         var deletes = [Row]()
