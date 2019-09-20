@@ -250,7 +250,12 @@ extension ViewControllerMain: GetSchedulesObject {
 
 extension  ViewControllerMain: GetHiddenID {
     func gethiddenID() -> Int? {
-        return self.hiddenID
+        guard self.index != nil else { return -1 }
+        if let hiddenID = self.configurations?.gethiddenID(index: self.index!) {
+                return hiddenID
+        } else {
+                return -1
+        }
     }
 }
 
