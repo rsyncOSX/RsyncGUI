@@ -5967,7 +5967,7 @@ DQ
                                 <rect key="frame" x="794" y="129" width="278" height="187"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <view key="contentView" id="K2F-eh-veQ">
-                                    <rect key="frame" x="3" y="4" width="272" height="168"/>
+                                    <rect key="frame" x="3" y="3" width="272" height="169"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
                             </box>
@@ -6037,7 +6037,7 @@ DQ
                                                     </textFieldCell>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                 </tableColumn>
-                                                <tableColumn identifier="backupIDCellID" width="156" minWidth="10" maxWidth="3.4028234663852886e+38" id="qAx-ly-o8b" userLabel="ID">
+                                                <tableColumn identifier="backupIDCellID" width="155" minWidth="10" maxWidth="3.4028234663852886e+38" id="qAx-ly-o8b" userLabel="ID">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="ID">
                                                         <font key="font" metaFont="message" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -6067,31 +6067,15 @@ DQ
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableHeaderView>
                             </scrollView>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="arX-rt-ksO">
-                                <rect key="frame" x="1008" y="366" width="64" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="Restore" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="S6e-hI-4ZX">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                            </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rdy-Ho-OoL">
-                                <rect key="frame" x="933" y="366" width="70" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="Estimate" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Flx-43-AFg">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                            </button>
                             <box fixedFrame="YES" title="Restore to tmp catalog" translatesAutoresizingMaskIntoConstraints="NO" id="V7W-Vg-Xhg">
                                 <rect key="frame" x="794" y="63" width="278" height="49"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <view key="contentView" id="8cb-yY-0od">
-                                    <rect key="frame" x="3" y="4" width="272" height="30"/>
+                                    <rect key="frame" x="3" y="3" width="272" height="31"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="edx-PN-qmQ">
-                                            <rect key="frame" x="20" y="3" width="249" height="22"/>
+                                            <rect key="frame" x="20" y="4" width="249" height="22"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" bezelStyle="round" id="Rsa-xn-5cY">
                                                 <font key="font" metaFont="system"/>
@@ -6109,6 +6093,9 @@ DQ
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" size="13" name="HelveticaNeue"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="toggletmprestore:" target="LPL-36-14W" id="BNC-sn-TEp"/>
+                                </connections>
                             </button>
                             <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="ulj-cJ-ygJ">
                                 <rect key="frame" x="807" y="324" width="16" height="16"/>
@@ -6123,12 +6110,50 @@ DQ
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bME-oV-P7y">
+                                <rect key="frame" x="905" y="361" width="86" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="push" title="Estimate" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="hie-kA-ipD">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="prepareforrestore:" target="LPL-36-14W" id="08N-ux-PK6"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hFW-PL-saI">
+                                <rect key="frame" x="991" y="361" width="84" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="push" title="Restore" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="fy9-yw-4Ui">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="restore:" target="LPL-36-14W" id="Fnv-ue-8MX"/>
+                                </connections>
+                            </button>
                         </subviews>
                     </view>
+                    <connections>
+                        <outlet property="deletefiles" destination="rCf-Qr-XYy" id="Knv-fH-234"/>
+                        <outlet property="estimatebutton" destination="bME-oV-P7y" id="46D-XD-UBt"/>
+                        <outlet property="gotit" destination="FVY-4Q-N8k" id="En2-a9-ee6"/>
+                        <outlet property="newfiles" destination="D7I-rt-ug1" id="4bY-yO-r76"/>
+                        <outlet property="restorebutton" destination="hFW-PL-saI" id="C0K-Fk-RrP"/>
+                        <outlet property="restoretable" destination="va0-Vn-z17" id="meV-L6-hi2"/>
+                        <outlet property="selecttmptorestore" destination="NlK-XQ-Ozc" id="38N-6d-thO"/>
+                        <outlet property="tmprestore" destination="edx-PN-qmQ" id="B11-05-cHX"/>
+                        <outlet property="totalDirs" destination="VYh-lp-l2f" id="WIw-j9-BZW"/>
+                        <outlet property="totalNumber" destination="OLZ-JP-IS4" id="4Qw-0m-LQN"/>
+                        <outlet property="totalNumberSizebytes" destination="J30-0z-f2J" id="bUt-zT-SXj"/>
+                        <outlet property="transferredNumber" destination="KwY-lO-Tpb" id="75q-i4-EOZ"/>
+                        <outlet property="transferredNumberSizebytes" destination="jhm-dI-48r" id="72h-0b-GCR"/>
+                        <outlet property="working" destination="ulj-cJ-ygJ" id="5gf-rH-ZHs"/>
+                    </connections>
                 </viewController>
                 <customObject id="gxo-zs-Tkh" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="614" y="-13"/>
+            <point key="canvasLocation" x="614" y="-13.5"/>
         </scene>
     </scenes>
     <resources>
