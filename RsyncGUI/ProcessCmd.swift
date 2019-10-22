@@ -15,8 +15,6 @@ protocol ErrorOutput: class {
 
 class ProcessCmd: Delay {
 
-    // Number of calculated files to be copied
-    var calculatedNumberOfFiles: Int = 0
     // Variable for reference to Process
     var processReference: Process?
     // Message to calling class
@@ -37,14 +35,14 @@ class ProcessCmd: Delay {
         self.updateDelegate = object
     }
 
-    func executeProcess (outputprocess: OutputProcess?) {
+    func executeProcess(outputprocess: OutputProcess?) {
         // Process
         let task = Process()
         // If self.command != nil either alternativ path for rsync or other command than rsync to be executed
         if let command = self.command {
             task.launchPath = command
         } else {
-           task.launchPath = Getrsyncpath().rsyncpath
+            task.launchPath = Getrsyncpath().rsyncpath
         }
         task.arguments = self.arguments
         // Pipe for reading output from Process
@@ -55,32 +53,30 @@ class ProcessCmd: Delay {
         outHandle.waitForDataInBackgroundAndNotify()
         // Observator for reading data from pipe, observer is removed when Process terminates
         self.notifications_datahandle = NotificationCenter.default.addObserver(forName: NSNotification.Name.NSFileHandleDataAvailable,
-                            object: nil, queue: nil) { _ in
+                                object: nil, queue: nil) { [weak self] _ in
             let data = outHandle.availableData
             if data.count > 0 {
                 if let str = NSString(data: data, encoding: String.Encoding.utf8.rawValue) {
-                    if outputprocess != nil {
-                        outputprocess!.addlinefromoutput(str as String)
-                        self.calculatedNumberOfFiles = outputprocess!.count()
-                        // Send message about files
-                        self.updateDelegate?.fileHandler()
-                        if self.termination {
-                            self.possibleerrorDelegate?.erroroutput()
-                        }
+                    outputprocess?.addlinefromoutput(str: str as String)
+                    // Send message about files
+                    self?.updateDelegate?.fileHandler()
+                    if self?.termination ?? false {
+                        self?.possibleerrorDelegate?.erroroutput()
                     }
                 }
-                outHandle.waitForDataInBackgroundAndNotify()
+            outHandle.waitForDataInBackgroundAndNotify()
             }
         }
         // Observator Process termination, observer is removed when Process terminates
         self.notifications_termination = NotificationCenter.default.addObserver(forName: Process.didTerminateNotification,
-                                                                    object: task, queue: nil) { _ in
-            self.delayWithSeconds(0.5) {
-                self.termination = true
-                self.updateDelegate?.processTermination()
-                NotificationCenter.default.removeObserver(self.notifications_datahandle as Any)
-                NotificationCenter.default.removeObserver(self.notifications_termination as Any)
-            }
+                                object: nil, queue: nil) { _ in
+                self.delayWithSeconds(0.5) {
+                    self.termination = true
+                    self.updateDelegate?.processTermination()
+                    // Must remove for deallocation
+                    NotificationCenter.default.removeObserver(self.notifications_datahandle as Any)
+                    NotificationCenter.default.removeObserver(self.notifications_termination as Any)
+                }
         }
         self.processReference = task
         task.launch()
