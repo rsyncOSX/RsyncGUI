@@ -43,6 +43,8 @@ class ViewControllerProgressProcess: NSViewController, SetConfigurations, SetDis
             }
         } else if (self.presentingViewController as? ViewControllerCopyFiles) != nil {
             self.countDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vccopyfiles) as? ViewControllerCopyFiles
+        } else if (self.presentingViewController as? ViewControllerRestore) != nil {
+            self.countDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcrestore) as? ViewControllerRestore
         }
         self.initiateProgressbar()
         self.abort.isEnabled = true

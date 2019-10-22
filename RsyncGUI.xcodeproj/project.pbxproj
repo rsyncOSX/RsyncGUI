@@ -35,7 +35,6 @@
 		A04492AA1D658F2100B3CE17 /* yudpsocket.c in Sources */ = {isa = PBXBuildFile; fileRef = A04492961D658F2100B3CE17 /* yudpsocket.c */; };
 		A04492AC1D658F2100B3CE17 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04492981D658F2100B3CE17 /* Configuration.swift */; };
 		A04492B01D658F2100B3CE17 /* PersistentStorageScheduling.swift in Sources */ = {isa = PBXBuildFile; fileRef = A044929C1D658F2100B3CE17 /* PersistentStorageScheduling.swift */; };
-		A04492B21D658F2100B3CE17 /* RsyncParametersProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = A044929E1D658F2100B3CE17 /* RsyncParametersProcess.swift */; };
 		A04492B41D658F2100B3CE17 /* CopyFilesArguments.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04492A01D658F2100B3CE17 /* CopyFilesArguments.swift */; };
 		A04492B71D658F2100B3CE17 /* PersistentStorageAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04492A31D658F2100B3CE17 /* PersistentStorageAPI.swift */; };
 		A04492BB1D658F2100B3CE17 /* ytcpsocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04492A71D658F2100B3CE17 /* ytcpsocket.swift */; };
@@ -58,6 +57,13 @@
 		E824739B2309B18100355CEA /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = E824739A2309B18100355CEA /* Result.swift */; };
 		E824739D2309B20900355CEA /* Socket.swift in Sources */ = {isa = PBXBuildFile; fileRef = E824739C2309B20900355CEA /* Socket.swift */; };
 		E82473A32309BAD700355CEA /* ExecuteBatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82473A22309BAD700355CEA /* ExecuteBatch.swift */; };
+		E83B446E235F3C6700BBC793 /* ArgumentsRestore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B4467235F3C6700BBC793 /* ArgumentsRestore.swift */; };
+		E83B446F235F3C6700BBC793 /* SetrsyncParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B4468235F3C6700BBC793 /* SetrsyncParameter.swift */; };
+		E83B4470235F3C6700BBC793 /* SuffixstringsRsyncParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B4469235F3C6700BBC793 /* SuffixstringsRsyncParameters.swift */; };
+		E83B4471235F3C6700BBC793 /* ArgumentsSynchronize.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B446A235F3C6700BBC793 /* ArgumentsSynchronize.swift */; };
+		E83B4472235F3C6700BBC793 /* ComboboxRsyncParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B446B235F3C6700BBC793 /* ComboboxRsyncParameters.swift */; };
+		E83B4473235F3C6700BBC793 /* ArgumentsLocalcatalogInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B446C235F3C6700BBC793 /* ArgumentsLocalcatalogInfo.swift */; };
+		E83B4474235F3C6700BBC793 /* ArgumentsVerify.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B446D235F3C6700BBC793 /* ArgumentsVerify.swift */; };
 		E840ED1B22D0BDC900CF62FF /* RootcatalogSequrityscopedURLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E840ED1A22D0BDC900CF62FF /* RootcatalogSequrityscopedURLs.swift */; };
 		E840ED1F22D0CD3C00CF62FF /* AppendSequrityscopedURLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E840ED1E22D0CD3C00CF62FF /* AppendSequrityscopedURLs.swift */; };
 		E905DC111EACF7550003BF37 /* ViewControllerSsh.swift in Sources */ = {isa = PBXBuildFile; fileRef = E905DC101EACF7550003BF37 /* ViewControllerSsh.swift */; };
@@ -175,7 +181,6 @@
 		A04492961D658F2100B3CE17 /* yudpsocket.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = yudpsocket.c; sourceTree = "<group>"; };
 		A04492981D658F2100B3CE17 /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		A044929C1D658F2100B3CE17 /* PersistentStorageScheduling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistentStorageScheduling.swift; sourceTree = "<group>"; };
-		A044929E1D658F2100B3CE17 /* RsyncParametersProcess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RsyncParametersProcess.swift; sourceTree = "<group>"; };
 		A04492A01D658F2100B3CE17 /* CopyFilesArguments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CopyFilesArguments.swift; sourceTree = "<group>"; };
 		A04492A31D658F2100B3CE17 /* PersistentStorageAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistentStorageAPI.swift; sourceTree = "<group>"; };
 		A04492A71D658F2100B3CE17 /* ytcpsocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ytcpsocket.swift; sourceTree = "<group>"; };
@@ -198,6 +203,13 @@
 		E824739A2309B18100355CEA /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		E824739C2309B20900355CEA /* Socket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Socket.swift; sourceTree = "<group>"; };
 		E82473A22309BAD700355CEA /* ExecuteBatch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecuteBatch.swift; sourceTree = "<group>"; };
+		E83B4467235F3C6700BBC793 /* ArgumentsRestore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArgumentsRestore.swift; sourceTree = "<group>"; };
+		E83B4468235F3C6700BBC793 /* SetrsyncParameter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetrsyncParameter.swift; sourceTree = "<group>"; };
+		E83B4469235F3C6700BBC793 /* SuffixstringsRsyncParameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuffixstringsRsyncParameters.swift; sourceTree = "<group>"; };
+		E83B446A235F3C6700BBC793 /* ArgumentsSynchronize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArgumentsSynchronize.swift; sourceTree = "<group>"; };
+		E83B446B235F3C6700BBC793 /* ComboboxRsyncParameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComboboxRsyncParameters.swift; sourceTree = "<group>"; };
+		E83B446C235F3C6700BBC793 /* ArgumentsLocalcatalogInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArgumentsLocalcatalogInfo.swift; sourceTree = "<group>"; };
+		E83B446D235F3C6700BBC793 /* ArgumentsVerify.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArgumentsVerify.swift; sourceTree = "<group>"; };
 		E840ED1A22D0BDC900CF62FF /* RootcatalogSequrityscopedURLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootcatalogSequrityscopedURLs.swift; sourceTree = "<group>"; };
 		E840ED1E22D0CD3C00CF62FF /* AppendSequrityscopedURLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppendSequrityscopedURLs.swift; sourceTree = "<group>"; };
 		E905DC101EACF7550003BF37 /* ViewControllerSsh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerSsh.swift; sourceTree = "<group>"; };
@@ -640,7 +652,6 @@
 		E9964319231AEAA000E05B40 /* Sheetviews */ = {
 			isa = PBXGroup;
 			children = (
-				E975284420CEAADB0029B027 /* ViewControllerRestore.swift */,
 				A0A403501D76BD2E00A30017 /* ViewControllerRsyncParameters.swift */,
 				A08110661D6DA7D8009444D3 /* ViewControllerProgressProcess.swift */,
 				A0B3D9731D758E20001E190E /* ViewControllerUserconfiguration.swift */,
@@ -660,6 +671,7 @@
 		E996431A231AEAB200E05B40 /* Tabviews */ = {
 			isa = PBXGroup;
 			children = (
+				E975284420CEAADB0029B027 /* ViewControllerRestore.swift */,
 				A091C6571D86A0A800278E74 /* ViewControllerCopyFiles.swift */,
 				E905DC101EACF7550003BF37 /* ViewControllerSsh.swift */,
 				A00FE1A71D6A19CF00012089 /* ViewControllerNewConfigurations.swift */,
@@ -681,7 +693,13 @@
 		E99D50781EE16241003621D3 /* RsyncParameters */ = {
 			isa = PBXGroup;
 			children = (
-				A044929E1D658F2100B3CE17 /* RsyncParametersProcess.swift */,
+				E83B446C235F3C6700BBC793 /* ArgumentsLocalcatalogInfo.swift */,
+				E83B4467235F3C6700BBC793 /* ArgumentsRestore.swift */,
+				E83B446A235F3C6700BBC793 /* ArgumentsSynchronize.swift */,
+				E83B446D235F3C6700BBC793 /* ArgumentsVerify.swift */,
+				E83B446B235F3C6700BBC793 /* ComboboxRsyncParameters.swift */,
+				E83B4468235F3C6700BBC793 /* SetrsyncParameter.swift */,
+				E83B4469235F3C6700BBC793 /* SuffixstringsRsyncParameters.swift */,
 				A0CACFD31DA2738500C5997A /* RsyncParameters.swift */,
 			);
 			name = RsyncParameters;
@@ -886,6 +904,7 @@
 				A04972511D6595B200086EFD /* OutputProcess.swift in Sources */,
 				E943DC6A1FF9141D00E6B8B7 /* RemoteinfoEstimation.swift in Sources */,
 				E9BBE8C32273131F00404D7A /* ConvertConfigurations.swift in Sources */,
+				E83B4471235F3C6700BBC793 /* ArgumentsSynchronize.swift in Sources */,
 				E939EC4A20C048A000C47F91 /* extensionsVCMain.swift in Sources */,
 				E942FF291FED41D0004191B5 /* ViewControllerQuickBackup.swift in Sources */,
 				E9231AFB1F6E3D270055000C /* NewConfigurations.swift in Sources */,
@@ -893,6 +912,8 @@
 				E9A8D81C1ED20AEB009648DE /* GetRemoteFileListingsArguments.swift in Sources */,
 				E94D6E3221A5BBA400DDDB61 /* QuickbackupDispatch.swift in Sources */,
 				E9F941651FC5FCC3005F2439 /* Logging.swift in Sources */,
+				E83B446F235F3C6700BBC793 /* SetrsyncParameter.swift in Sources */,
+				E83B4470235F3C6700BBC793 /* SuffixstringsRsyncParameters.swift in Sources */,
 				E92F368D22B4022800B9C3AB /* Remotefilelist.swift in Sources */,
 				E97E3BA71F6256DB00411D0E /* Configurations.swift in Sources */,
 				E9764F60204BEE970018C0D7 /* AllConfigurations.swift in Sources */,
@@ -908,7 +929,6 @@
 				E98DA4C220EC12F4007CBDEF /* OutputErrors.swift in Sources */,
 				A04492AA1D658F2100B3CE17 /* yudpsocket.c in Sources */,
 				E96CA1FE1E094C3000CD1D03 /* Resources.swift in Sources */,
-				A04492B21D658F2100B3CE17 /* RsyncParametersProcess.swift in Sources */,
 				E9230C0E1E6DDC57001D9954 /* RsyncParametersSingleFilesArguments.swift in Sources */,
 				E97AB382210B6E7E002EB9A1 /* VerifyTask.swift in Sources */,
 				A05275DA1D6F6E0000D8ECBE /* BatchTaskWorkQueu.swift in Sources */,
@@ -941,6 +961,7 @@
 				E9BBE8C42273131F00404D7A /* ConvertSchedules.swift in Sources */,
 				A00FE1A81D6A19CF00012089 /* ViewControllerNewConfigurations.swift in Sources */,
 				E9374D2E1E329A5800CD3945 /* CompleteQuickbackupTask.swift in Sources */,
+				E83B4474235F3C6700BBC793 /* ArgumentsVerify.swift in Sources */,
 				E914B7722131197B00FFE398 /* extensionsSchedules.swift in Sources */,
 				E98997F521E265F300B5D5A3 /* PermissionManager.swift in Sources */,
 				E957B1121F5F17220099947A /* ViewControllerReference.swift in Sources */,
@@ -961,6 +982,7 @@
 				E96A95922195D5F3000326F2 /* DuArgumentsSsh.swift in Sources */,
 				E94F0708211D8FCC00B2C3D8 /* ViewControllerAllOutput.swift in Sources */,
 				E98997F621E265F300B5D5A3 /* OpenPanelDelegate.swift in Sources */,
+				E83B446E235F3C6700BBC793 /* ArgumentsRestore.swift in Sources */,
 				E9F068F21F27B9C100DDF1A1 /* ArgumentsOneConfiguration.swift in Sources */,
 				A091C65B1D86A59500278E74 /* CopyFiles.swift in Sources */,
 				E943DC661FF90A6600E6B8B7 /* RemoteinfonumbersOnetask.swift in Sources */,
@@ -976,6 +998,7 @@
 				E9EC78711EACE082001EED9B /* Ssh.swift in Sources */,
 				E958CDDF1FA4CEBD00EA37A5 /* ViewControllerExtensions.swift in Sources */,
 				E905DC111EACF7550003BF37 /* ViewControllerSsh.swift in Sources */,
+				E83B4472235F3C6700BBC793 /* ComboboxRsyncParameters.swift in Sources */,
 				E91A68901EA777690056BCFC /* ScheduleWriteLoggData.swift in Sources */,
 				E9FFA02D1E7287E100B7AB2B /* ProcessCmd.swift in Sources */,
 				A0CACFD41DA2738500C5997A /* RsyncParameters.swift in Sources */,
@@ -993,6 +1016,7 @@
 				E95AE70721A5B88B00B2420B /* OperationFactory.swift in Sources */,
 				A091C6581D86A0A800278E74 /* ViewControllerCopyFiles.swift in Sources */,
 				E97C05F8229FBBA30044EAF6 /* ConvertOneConfig.swift in Sources */,
+				E83B4473235F3C6700BBC793 /* ArgumentsLocalcatalogInfo.swift in Sources */,
 				E840ED1B22D0BDC900CF62FF /* RootcatalogSequrityscopedURLs.swift in Sources */,
 				E824739D2309B20900355CEA /* Socket.swift in Sources */,
 				A08110671D6DA7D8009444D3 /* ViewControllerProgressProcess.swift in Sources */,

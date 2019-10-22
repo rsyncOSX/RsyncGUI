@@ -57,19 +57,6 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
 
     @IBOutlet weak var info: NSTextField!
 
-    @IBAction func restore(_ sender: NSButton) {
-        guard self.index != nil else {
-            self.info(num: 1)
-            return
-        }
-        guard self.checkforrsync() == false else { return }
-        guard self.configurations!.getConfigurations()[self.index!].task == ViewControllerReference.shared.synchronize else {
-            self.info(num: 7)
-            return
-        }
-        self.presentAsSheet(self.restoreViewController!)
-    }
-
     func info(num: Int) {
         switch num {
         case 1:

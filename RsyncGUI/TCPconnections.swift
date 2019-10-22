@@ -43,7 +43,7 @@ class TCPconnections: SetConfigurations, Delay {
     // Adding connection true or false in array[bool]
     // Do the check in background que, reload table in global main queue
     func testAllremoteserverConnections () {
-        self.indexBoolremoteserverOff = nil
+       self.indexBoolremoteserverOff = nil
         self.indexBoolremoteserverOff = [Bool]()
         guard self.configurations!.configurationsDataSourcecount() > 0 else {
             // Tell main view profile menu might presented
@@ -53,10 +53,10 @@ class TCPconnections: SetConfigurations, Delay {
         globalDefaultQueue.async(execute: { () -> Void in
             var port: Int = 22
             for i in 0 ..< self.configurations!.configurationsDataSourcecount() {
-                if let record = self.configurations?.getargumentAllConfigurations()[i] {
-                    if record.config!.offsiteServer.isEmpty == false {
-                        if let sshport: Int = record.config!.sshport { port = sshport }
-                        let success = self.testTCPconnection(record.config!.offsiteServer, port: port, timeout: 1)
+                if let config = self.configurations?.getConfigurations()[i] {
+                    if config.offsiteServer.isEmpty == false {
+                        if let sshport: Int = config.sshport { port = sshport }
+                        let success = self.testTCPconnection(config.offsiteServer, port: port, timeout: 1)
                         if success {
                             self.indexBoolremoteserverOff!.append(false)
                         } else {
@@ -67,8 +67,7 @@ class TCPconnections: SetConfigurations, Delay {
                     }
                     // Reload table when all remote servers are checked
                     if i == (self.configurations!.configurationsDataSourcecount() - 1) {
-                        // Send message to do a refresh
-                        // Update table in main view
+                        // Send message to do a refresh table in main view
                         self.testconnectionsDelegate?.displayConnections()
                         // Tell main view profile menu might presented
                         self.newprofileDelegate?.enableselectprofile()

@@ -51,6 +51,8 @@ class ViewControllerRemoteInfo: NSViewController, SetDismisser, Abort, Setcolor 
                     openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcverify) as? ViewControllerVerify
                 } else if (self.presentingViewController as? ViewControllerLoggData) != nil {
                     openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcloggdata) as? ViewControllerLoggData
+                } else if (self.presentingViewController as? ViewControllerRestore) != nil {
+                    self.dismissview(viewcontroller: self, vcontroller: .vcrestore)
                 }
                 openDelegate?.openquickbackup()
             }
