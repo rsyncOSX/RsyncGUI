@@ -640,7 +640,6 @@
 		E9964319231AEAA000E05B40 /* Sheetviews */ = {
 			isa = PBXGroup;
 			children = (
-				E975284420CEAADB0029B027 /* ViewControllerRestore.swift */,
 				A0A403501D76BD2E00A30017 /* ViewControllerRsyncParameters.swift */,
 				A08110661D6DA7D8009444D3 /* ViewControllerProgressProcess.swift */,
 				A0B3D9731D758E20001E190E /* ViewControllerUserconfiguration.swift */,
@@ -660,6 +659,7 @@
 		E996431A231AEAB200E05B40 /* Tabviews */ = {
 			isa = PBXGroup;
 			children = (
+				E975284420CEAADB0029B027 /* ViewControllerRestore.swift */,
 				A091C6571D86A0A800278E74 /* ViewControllerCopyFiles.swift */,
 				E905DC101EACF7550003BF37 /* ViewControllerSsh.swift */,
 				A00FE1A71D6A19CF00012089 /* ViewControllerNewConfigurations.swift */,
