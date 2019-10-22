@@ -148,6 +148,9 @@ extension SetDismisser {
     var dismissDelegateLoggData: DismissViewController? {
         return ViewControllerReference.shared.getvcref(viewcontroller: .vcloggdata) as? ViewControllerLoggData
     }
+    var dismissDelegateRestore: DismissViewController? {
+        return ViewControllerReference.shared.getvcref(viewcontroller: .vcrestore) as? ViewControllerRestore
+    }
 
     func dismissview(viewcontroller: NSViewController, vcontroller: ViewController) {
         if vcontroller == .vctabmain {
@@ -162,6 +165,8 @@ extension SetDismisser {
             self.dismissDelegateVerify?.dismiss_view(viewcontroller: (self as? NSViewController)!)
         } else if vcontroller == .vcloggdata {
             self.dismissDelegateLoggData?.dismiss_view(viewcontroller: (self as? NSViewController)!)
+        } else if vcontroller == .vcrestore {
+            self.dismissDelegateRestore?.dismiss_view(viewcontroller: (self as? NSViewController)!)
         }
     }
 }
@@ -277,7 +282,6 @@ protocol ChangeTemporaryRestorePath {
     func changetemporaryrestorepath()
 }
 
-
 extension ChangeTemporaryRestorePath {
     func changetemporaryrestorepath() {
         let view = ViewControllerReference.shared.getvcref(viewcontroller: .vccopyfiles) as? ViewControllerCopyFiles
@@ -286,7 +290,6 @@ extension ChangeTemporaryRestorePath {
         view2?.temporaryrestorepath()
     }
 }
-
 
 protocol Createandreloadconfigurations: class {
     func createandreloadconfigurations()

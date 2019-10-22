@@ -1,6 +1,6 @@
 //
 //  rsyncArguments.swift
-//  RsyncGUI
+//  RsyncOSX
 //
 //  Created by Thomas Evensen on 06.03.2017.
 //  Copyright © 2017 Thomas Evensen. All rights reserved.
@@ -21,7 +21,6 @@ final class RsyncParametersSingleFilesArguments: ProcessArguments {
 
     private var config: Configuration?
     private var args: [String]?
-    private var command: String?
     private var argDisplay: String?
 
     // Set parameters for rsync
@@ -85,7 +84,7 @@ final class RsyncParametersSingleFilesArguments: ProcessArguments {
     }
 
     func getCommand() -> String? {
-        return self.command
+        return nil
     }
 
     init(config: Configuration, remoteFile: String?, localCatalog: String?, drynrun: Bool?) {

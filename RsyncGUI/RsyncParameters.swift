@@ -1,201 +1,236 @@
 //
-//  RsyncParameters.swift
-//  RsyncGUI
+//  RsyncParametersProcess.swift
 //
-//  Created by Thomas Evensen on 03/10/2016.
+//  Created by Thomas Evensen on 08/02/16.
 //  Copyright © 2016 Thomas Evensen. All rights reserved.
 //
+// swiftlint:disable cyclomatic_complexity
 
 import Foundation
 
-final class RsyncParameters {
+class RsyncParameters {
 
-    // Tuple for rsync argument and value
-    typealias Argument = (String, Int)
-    // Static initial arguments, DO NOT change order
-    private let rsyncArguments: [Argument] = [
-        ("user", 1),
-        ("delete", 0),
-        ("--backup", 0),
-        ("--backup-dir", 1),
-        ("--exclude-from", 1),
-        ("--include-from", 1),
-        ("--files-from", 1),
-        ("--max-size", 1),
-        ("--suffix", 1),
-        ("--max-delete", 1)]
+    var stats: Bool?
+    var arguments: [String]?
+    var localCatalog: String?
+    var offsiteCatalog: String?
+    var offsiteUsername: String?
+    var offsiteServer: String?
+    var remoteargs: String?
+    var linkdestparam: String?
 
-    // Array storing combobox values
-    private var comboBoxValues: [String]?
-
-    // Preselected parameters for storing a backup of deleted or changed files before
-    // rsync synchronises the directories
-    private let backupstrings = ["--backup", "--backup-dir=../backup"]
-    private let suffixstringfreebsd = "--suffix=_`date +'%Y-%m-%d.%H.%M'`"
-    private let suffixstringlinux = "--suffix=_$(date +%Y-%m-%d.%H.%M)"
-
-    // Reference to config
-    private var config: Configuration?
-
-    /// Function for getting string for backup parameters
-    /// - parameter none: none
-    /// - return : array of String
-    func getBackupstrings() -> [String] {
-        return self.backupstrings
-    }
-
-    /// Function for getting string for suffix parameter
-    /// - parameter none: none
-    /// - return : array of String
-    func getSuffixString() -> String {
-        return self.suffixstringfreebsd
-    }
-
-    /// Function for getting string for alternative suffix parameter
-    /// - parameter none: none
-    /// - return : array of String
-    func getSuffixString2() -> String {
-        return self.suffixstringlinux
-    }
-
-    /// Function for getting for rsync arguments to use in ComboBoxes in ViewControllerRsyncParameters
-    /// - parameter none: none
-    /// - return : array of String
-    func getComboBoxValues() -> [String] {
-        guard self.comboBoxValues != nil else { return [""] }
-        return self.comboBoxValues!
-    }
-
-    // Computes the raw argument for rsync to save in configuration
-    /// Function for computing the raw argument for rsync to save in configuration
-    /// - parameter indexComboBox: index of selected ComboBox
-    /// - parameter value: the value of rsync parameter
-    /// - return: array of String
-    func getRsyncParameter (indexComboBox: Int, value: String?) -> String {
-        guard  indexComboBox < self.rsyncArguments.count && indexComboBox > -1 else { return "" }
-        switch self.rsyncArguments[indexComboBox].1 {
-        case 0:
-            // Predefined rsync argument from combobox
-            // Must check if DELETE is selected
-            if self.rsyncArguments[indexComboBox].0 == self.rsyncArguments[1].0 {
-                return ""
-            } else {
-                return  self.rsyncArguments[indexComboBox].0
-            }
-        case 1:
-            // If value == nil value is deleted and return empty string
-            guard value != nil else {
-                return ""
-            }
-            if self.rsyncArguments[indexComboBox].0 != self.rsyncArguments[0].0 {
-                return self.rsyncArguments[indexComboBox].0 + "=" + value!
-            } else {
-                // Userselected argument and value
-                return value!
-            }
-        default:
-            return  ""
-        }
-    }
-
-    // Returns Int value of argument
-    private func indexofrsyncparameter (_ argument: String) -> Int {
-        var index: Int = -1
-        loop : for i in 0 ..< self.rsyncArguments.count where argument == self.rsyncArguments[i].0 {
-            index = i
-            break loop
-        }
-        return index
-    }
-
-    // Split an Rsync argument into argument and value
-    private func split (_ str: String) -> [String] {
-        let argument: String?
-        let value: String?
-        var split = str.components(separatedBy: "=")
-        argument = String(split[0])
-        if split.count > 1 {
-            if split.count > 2 {
-                split.remove(at: 0)
-                value = split.joined(separator: "=")
-            } else {
-                value = String(split[1])
-            }
+    func setParameters1To6(config: Configuration, dryRun: Bool, forDisplay: Bool, verify: Bool) {
+        var parameter1: String?
+        if verify {
+            parameter1 = "--checksum"
         } else {
-            value = argument
+            parameter1 = config.parameter1
         }
-        return [argument!, value!]
-    }
-
-    /// Function returns index and value of rsync argument to set the corrospending
-    /// value in combobox when rsync parameters are presented and stored in configuration
-    func indexandvaluersyncparameter(_ parameter: String?) -> (Int, String) {
-        guard parameter != nil else { return (0, "")}
-        let splitstr: [String] = self.split(parameter!)
-        guard splitstr.count > 1 else { return (0, "")}
-        let argument = splitstr[0]
-        let value = splitstr[1]
-        var returnvalue: String?
-        var returnindex: Int?
-        if argument != value && self.indexofrsyncparameter(argument) >= 0 {
-            returnvalue = value
-            returnindex =  self.indexofrsyncparameter(argument)
+        let parameter2: String = config.parameter2
+        let parameter3: String = config.parameter3
+        let parameter4: String = config.parameter4
+        let parameter5: String = config.parameter5
+        let offsiteServer: String = config.offsiteServer
+        self.arguments!.append(parameter1 ?? "")
+        if verify {
+            if forDisplay {self.arguments!.append(" ")}
+            self.arguments!.append("--recursive")
+        }
+        if forDisplay {self.arguments!.append(" ")}
+        self.arguments!.append(parameter2)
+        if forDisplay {self.arguments!.append(" ")}
+        if offsiteServer.isEmpty  == false {
+            if parameter3.isEmpty == false {
+                self.arguments!.append(parameter3)
+                if forDisplay {self.arguments!.append(" ")}
+            }
+        }
+        if parameter4.isEmpty == false {
+            self.arguments!.append(parameter4)
+            if forDisplay {self.arguments!.append(" ")}
+        }
+        if offsiteServer.isEmpty {
+            // nothing
         } else {
-            if self.indexofrsyncparameter(splitstr[0]) >= 0 {
-                returnvalue = "\"" + argument + "\" " + "no arguments"
-            } else {
-                if argument == value {
-                    returnvalue = value
-                } else {
-                    returnvalue = argument + "=" + value
-                }
-            }
-            if argument != value && self.indexofrsyncparameter(argument) >= 0 {
-                returnindex =  self.indexofrsyncparameter(argument)
-            } else {
-                if self.indexofrsyncparameter(splitstr[0]) >= 0 {
-                    returnindex = self.indexofrsyncparameter(argument)
-                } else {
-                    returnindex = 0
-                }
+            if parameter5.isEmpty == false {
+                self.sshportparameter(config: config, forDisplay: forDisplay)
             }
         }
-        return (returnindex!, returnvalue!)
     }
 
-    /// Function returns value of rsync a touple to set the corrosponding
-    /// value in combobox and the corrosponding rsync value when rsync parameters are presented
-    /// - parameter rsyncparameternumber : which stored rsync parameter, integer 8 - 14
-    /// - returns : touple with index for combobox and corresponding rsync value
-    func getParameter (rsyncparameternumber: Int) -> (Int, String) {
-        var indexandvalue: (Int, String)?
-        guard self.config != nil else { return (0, "")}
-        switch rsyncparameternumber {
-        case 8:
-            indexandvalue = self.indexandvaluersyncparameter(self.config!.parameter8)
-        case 9:
-            indexandvalue = self.indexandvaluersyncparameter(self.config!.parameter9)
-        case 10:
-            indexandvalue = self.indexandvaluersyncparameter(self.config!.parameter10)
-        case 11:
-            indexandvalue = self.indexandvaluersyncparameter(self.config!.parameter11)
-        case 12:
-            indexandvalue = self.indexandvaluersyncparameter(self.config!.parameter12)
-        case 13:
-            indexandvalue = self.indexandvaluersyncparameter(self.config!.parameter13)
-        case 14:
-            indexandvalue = self.indexandvaluersyncparameter(self.config!.parameter14)
-        default:
-            return (0, "")
+    // Compute user selected parameters parameter8 ... parameter14
+    // Brute force, check every parameter, not special elegant, but it works
+    func setParameters8To14(config: Configuration, dryRun: Bool, forDisplay: Bool) {
+        self.stats = false
+        if config.parameter8 != nil {
+            self.appendParameter(parameter: config.parameter8!, forDisplay: forDisplay)
         }
-        return indexandvalue!
+        if config.parameter9 != nil {
+            self.appendParameter(parameter: config.parameter9!, forDisplay: forDisplay)
+        }
+        if config.parameter10 != nil {
+            self.appendParameter(parameter: config.parameter10!, forDisplay: forDisplay)
+        }
+        if config.parameter11 != nil {
+            self.appendParameter(parameter: config.parameter11!, forDisplay: forDisplay)
+        }
+        if config.parameter12 != nil {
+            self.appendParameter(parameter: config.parameter12!, forDisplay: forDisplay)
+        }
+        if config.parameter13 != nil {
+            self.appendParameter(parameter: config.parameter13!, forDisplay: forDisplay)
+        }
+        if config.parameter14 != nil {
+            if config.offsiteServer.isEmpty == true {
+                if config.parameter14! == SuffixstringsRsyncParameters().suffixstringfreebsd ||
+                config.parameter14! == SuffixstringsRsyncParameters().suffixstringlinux {
+                    self.appendParameter(parameter: self.setdatesuffixlocalhost(), forDisplay: forDisplay)
+                }
+            } else {
+                self.appendParameter(parameter: config.parameter14!, forDisplay: forDisplay)
+            }
+        }
+        // Append --stats parameter to collect info about run
+        if dryRun {
+            self.dryrunparameter(config: config, forDisplay: forDisplay)
+        } else {
+            if self.stats == false {
+                self.appendParameter(parameter: "--stats", forDisplay: forDisplay)
+            }
+        }
     }
 
-    init(config: Configuration) {
-        self.config = config
-        self.comboBoxValues = [String]()
-        for i in 0 ..< self.rsyncArguments.count {
-            self.comboBoxValues!.append(self.rsyncArguments[i].0)
+    func sshportparameter(config: Configuration, forDisplay: Bool) {
+        let parameter5: String = config.parameter5
+        let parameter6: String = config.parameter6
+        // -e
+        self.arguments!.append(parameter5)
+        if forDisplay {self.arguments!.append(" ")}
+        if let sshport = config.sshport {
+            // "ssh -p xxx"
+            if forDisplay {self.arguments!.append(" \"")}
+            self.arguments!.append("ssh -p " + String(sshport))
+            if forDisplay {self.arguments!.append("\" ")}
+        } else {
+            // ssh
+            self.arguments!.append(parameter6)
         }
+        if forDisplay {self.arguments!.append(" ")}
+    }
+
+    func setdatesuffixlocalhost() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "-yyyy-MM-dd"
+        return  "--suffix=" + formatter.string(from: Date())
+    }
+
+    func dryrunparameter(config: Configuration, forDisplay: Bool) {
+        let dryrun = "--dry-run"
+        self.arguments!.append(dryrun)
+        if forDisplay {self.arguments!.append(" ")}
+        if self.stats! == false {
+            self.arguments!.append("--stats")
+            if forDisplay {self.arguments!.append(" ")}
+        }
+    }
+
+    func appendParameter (parameter: String, forDisplay: Bool) {
+        if parameter.count > 1 {
+            if parameter == "--stats" {
+                self.stats = true
+            }
+            self.arguments!.append(parameter)
+            if forDisplay {
+                self.arguments!.append(" ")
+            }
+        }
+    }
+
+    func remoteargs(config: Configuration) {
+        self.offsiteCatalog = config.offsiteCatalog
+        self.offsiteUsername = config.offsiteUsername
+        self.offsiteServer = config.offsiteServer
+        if self.offsiteServer!.isEmpty == false {
+            if config.rsyncdaemon != nil {
+                if config.rsyncdaemon == 1 {
+                    self.remoteargs = self.offsiteUsername! + "@" + self.offsiteServer! + "::" + self.offsiteCatalog!
+                } else {
+                    self.remoteargs = self.offsiteUsername! + "@" + self.offsiteServer! + ":" + self.offsiteCatalog!
+                }
+            } else {
+                self.remoteargs = self.offsiteUsername! + "@" + self.offsiteServer! + ":" + self.offsiteCatalog!
+            }
+        }
+    }
+
+    func remoteargssnapshot(config: Configuration) {
+        self.offsiteCatalog = config.offsiteCatalog + "/"
+        self.offsiteUsername = config.offsiteUsername
+        self.offsiteServer = config.offsiteServer
+        if self.offsiteServer!.isEmpty == false {
+            if config.rsyncdaemon != nil {
+                if config.rsyncdaemon == 1 {
+                    self.remoteargs = self.offsiteUsername! + "@" + self.offsiteServer! + "::" + self.offsiteCatalog!
+                } else {
+                    self.remoteargs = self.offsiteUsername! + "@" + self.offsiteServer! + ":" + self.offsiteCatalog!
+                }
+            } else {
+                self.remoteargs = self.offsiteUsername! + "@" + self.offsiteServer! + ":" + self.offsiteCatalog!
+            }
+        }
+    }
+
+    func argumentsforsynchronize(dryRun: Bool, forDisplay: Bool) {
+        self.arguments!.append(self.localCatalog!)
+        guard self.offsiteCatalog != nil else { return }
+        if self.offsiteServer!.isEmpty {
+            if forDisplay {self.arguments!.append(" ")}
+            self.arguments!.append(self.offsiteCatalog!)
+            if forDisplay {self.arguments!.append(" ")}
+        } else {
+            if forDisplay {self.arguments!.append(" ")}
+            self.arguments!.append(remoteargs!)
+            if forDisplay {self.arguments!.append(" ")}
+        }
+    }
+
+    func argumentsforsynchronizesnapshot(dryRun: Bool, forDisplay: Bool) {
+        guard self.linkdestparam != nil else {
+            self.arguments!.append(self.localCatalog!)
+            return
+        }
+        self.arguments!.append(self.linkdestparam!)
+        if forDisplay {self.arguments!.append(" ")}
+        self.arguments!.append(self.localCatalog!)
+        if self.offsiteServer!.isEmpty {
+            if forDisplay {self.arguments!.append(" ")}
+            self.arguments!.append(self.offsiteCatalog!)
+            if forDisplay {self.arguments!.append(" ")}
+        } else {
+            if forDisplay {self.arguments!.append(" ")}
+            self.arguments!.append(remoteargs!)
+            if forDisplay {self.arguments!.append(" ")}
+        }
+    }
+
+    func argumentsforrestore(dryRun: Bool, forDisplay: Bool, tmprestore: Bool) {
+        if self.offsiteServer!.isEmpty {
+            self.arguments!.append(self.offsiteCatalog!)
+            if forDisplay {self.arguments!.append(" ")}
+        } else {
+            if forDisplay {self.arguments!.append(" ")}
+            self.arguments!.append(remoteargs!)
+            if forDisplay {self.arguments!.append(" ")}
+        }
+        if tmprestore {
+            let restorepath = ""
+            self.arguments!.append(restorepath)
+        } else {
+            self.arguments!.append(self.localCatalog!)
+        }
+    }
+
+    init () {
+        self.arguments = [String]()
     }
 }

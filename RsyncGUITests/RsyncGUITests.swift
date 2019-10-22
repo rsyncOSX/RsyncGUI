@@ -47,6 +47,23 @@ class RsyncGUITests: XCTestCase, SetConfigurations {
                        "Arguments should be equal")
     }
 
+    func testargumentsrestore() {
+        let arguments = ["--archive", "--verbose", "--compress", "--delete", "-e", "ssh -p 22", "--exclude=.git",
+                         "--backup", "--backup-dir=../backup_XCTest", "--suffix=_$(date +%Y-%m-%d.%H.%M)",
+                         "--stats", "thomas@web:~/XCTest/", "/Users/thomas/XCTest/"]
+        XCTAssertEqual(arguments, self.configurations?.arguments4restore(index: 1, argtype: .arg),
+                       "Arguments should be equal")
+    }
+
+    func testargumentsverify() {
+        let arguments = ["--checksum", "--recursive", "--verbose", "--compress", "--delete", "-e", "ssh -p 22",
+                         "--exclude=.git", "--backup", "--backup-dir=../backup_XCTest",
+                         "--suffix=_$(date +%Y-%m-%d.%H.%M)", "--dry-run", "--stats", "/Users/thomas/XCTest/",
+                         "thomas@web:~/XCTest/"]
+        XCTAssertEqual(arguments, self.configurations?.arguments4verify(index: 1),
+                       "Arguments should be equal")
+    }
+
     func testalllogs() {
         let schedules = ScheduleLoggData(sortascending: true)
         XCTAssertEqual(1, schedules.loggdata?.count, "Should be one")
