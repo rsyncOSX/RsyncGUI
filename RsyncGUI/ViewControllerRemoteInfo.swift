@@ -52,7 +52,7 @@ class ViewControllerRemoteInfo: NSViewController, SetDismisser, Abort, Setcolor 
                 } else if (self.presentingViewController as? ViewControllerLoggData) != nil {
                     openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcloggdata) as? ViewControllerLoggData
                 } else if (self.presentingViewController as? ViewControllerRestore) != nil {
-                    self.dismissview(viewcontroller: self, vcontroller: .vcrestore)
+                    openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcrestore) as? ViewControllerRestore
                 }
                 openDelegate?.openquickbackup()
             }
@@ -82,6 +82,8 @@ class ViewControllerRemoteInfo: NSViewController, SetDismisser, Abort, Setcolor 
             self.dismissview(viewcontroller: self, vcontroller: .vcverify)
         } else if (self.presentingViewController as? ViewControllerLoggData) != nil {
             self.dismissview(viewcontroller: self, vcontroller: .vcloggdata)
+        } else if (self.presentingViewController as? ViewControllerRestore) != nil {
+            self.dismissview(viewcontroller: self, vcontroller: .vcrestore)
         }
     }
 
