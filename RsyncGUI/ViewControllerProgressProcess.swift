@@ -26,12 +26,15 @@ class ViewControllerProgressProcess: NSViewController, SetConfigurations, SetDis
     @IBAction func abort(_ sender: NSButton) {
         switch self.countDelegate {
         case is ViewControllerMain:
-            self.abort()
+            self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
         case is ViewControllerCopyFiles:
             self.dismissview(viewcontroller: self, vcontroller: .vccopyfiles)
+        case is ViewControllerRestore:
+            self.dismissview(viewcontroller: self, vcontroller: .vcrestore)
         default:
             return
         }
+        self.abort()
     }
 
     override func viewDidAppear() {
