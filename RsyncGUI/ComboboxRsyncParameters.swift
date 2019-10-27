@@ -26,8 +26,8 @@ struct ComboboxRsyncParameters {
          var index: Int = -1
          loop : for i in 0 ..< SuffixstringsRsyncParameters().rsyncArguments.count where
             argument == SuffixstringsRsyncParameters().rsyncArguments[i].0 {
-             index = i
-             break loop
+            index = i
+            break loop
          }
          return index
      }
@@ -91,7 +91,7 @@ struct ComboboxRsyncParameters {
      // value in combobox and the corrosponding rsync value when rsync parameters are presented
      // - parameter rsyncparameternumber : which stored rsync parameter, integer 8 - 14
      // - returns : touple with index for combobox and corresponding rsync value
-     func getParameter (rsyncparameternumber: Int) -> (Int, String) {
+     func getParameter(rsyncparameternumber: Int) -> (Int, String) {
          guard self.config != nil else { return (0, "")}
          switch rsyncparameternumber {
          case 8:
