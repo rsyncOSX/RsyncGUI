@@ -1,6 +1,5 @@
 //
-//  ViewControllerEdit.swift
-//  RsyncGUIver30
+//  ViewControllerRestore.swift
 //
 //  Created by Thomas Evensen on 05/09/2016.
 //  Copyright © 2016 Thomas Evensen. All rights reserved.
@@ -10,7 +9,7 @@
 import Foundation
 import Cocoa
 
-class ViewControllerRestore: NSViewController, SetConfigurations, Abort, Connected, Setcolor, VcMain, Checkforrsync {
+class ViewControllerRestore: NSViewController, SetConfigurations, Connected, Setcolor, VcMain, Checkforrsync {
 
     @IBOutlet weak var restoretable: NSTableView!
     @IBOutlet weak var working: NSProgressIndicator!
@@ -66,15 +65,14 @@ class ViewControllerRestore: NSViewController, SetConfigurations, Abort, Connect
 
     @IBAction func restore(_ sender: NSButton) {
         guard self.checkforrsync() == false else { return }
-        let question: String = NSLocalizedString("Do you REALLY want to start a RESTORE ?", comment: "Restore")
-        let text: String = NSLocalizedString("Cancel or Restore", comment: "Restore")
-        let dialog: String = NSLocalizedString("Restore", comment: "Restore")
+        let question = "Do you REALLY want to start a RESTORE ?"
+        let text = "Cancel or Restore"
+        let dialog = "Restore"
         let answer = Alerts.dialogOrCancel(question: question, text: text, dialog: dialog)
         if answer {
             if let index = self.index {
                 self.gotit.textColor = setcolor(nsviewcontroller: self, color: .white)
-                let gotit: String = NSLocalizedString("Executing restore...", comment: "Restore")
-                self.gotit.stringValue = gotit
+                self.gotit.stringValue = "Executing restore..."
                 self.gotit.isHidden = false
                 self.restorebutton.isEnabled = false
                 self.outputprocess = OutputProcess()
@@ -150,8 +148,7 @@ class ViewControllerRestore: NSViewController, SetConfigurations, Abort, Connect
         if let index = self.index {
             if self.connected(config: self.configurations!.getConfigurations()[index]) == true {
                 self.gotit.textColor = setcolor(nsviewcontroller: self, color: .white)
-                let gotit: String = NSLocalizedString("Getting info, please wait...", comment: "Restore")
-                self.gotit.stringValue = gotit
+                self.gotit.stringValue = "Getting info, please wait..."
                 self.gotit.isHidden = false
                 self.estimatebutton.isEnabled = false
                 self.working.startAnimation(nil)
