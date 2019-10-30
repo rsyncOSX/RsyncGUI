@@ -3869,14 +3869,13 @@ DQ
                         <rect key="frame" x="0.0" y="0.0" width="802" height="407"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <scrollView fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JxY-5V-aG6">
+                            <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JxY-5V-aG6">
                                 <rect key="frame" x="20" y="20" width="762" height="367"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <clipView key="contentView" ambiguous="YES" id="9de-ez-sUR">
+                                <clipView key="contentView" id="9de-ez-sUR">
                                     <rect key="frame" x="1" y="0.0" width="760" height="366"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <tableView verticalHuggingPriority="750" ambiguous="YES" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="C3F-Rb-k7G" viewBased="YES" id="Jq5-FS-rlQ">
+                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="C3F-Rb-k7G" viewBased="YES" id="Jq5-FS-rlQ">
                                             <rect key="frame" x="0.0" y="0.0" width="760" height="343"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
@@ -3934,6 +3933,12 @@ DQ
                                 </tableHeaderView>
                             </scrollView>
                         </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="JxY-5V-aG6" secondAttribute="trailing" constant="20" id="TPs-hT-aom"/>
+                            <constraint firstItem="JxY-5V-aG6" firstAttribute="top" secondItem="sfF-Cw-fbW" secondAttribute="top" constant="20" id="Um4-cy-ZAc"/>
+                            <constraint firstAttribute="bottom" secondItem="JxY-5V-aG6" secondAttribute="bottom" constant="20" id="Vjj-h2-yLb"/>
+                            <constraint firstItem="JxY-5V-aG6" firstAttribute="leading" secondItem="sfF-Cw-fbW" secondAttribute="leading" constant="20" id="XHQ-F1-aH0"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="outputtable" destination="Jq5-FS-rlQ" id="wiR-Kv-YLb"/>
