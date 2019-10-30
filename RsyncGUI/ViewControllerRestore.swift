@@ -9,7 +9,7 @@
 import Foundation
 import Cocoa
 
-class ViewControllerRestore: NSViewController, SetConfigurations, Connected, Setcolor, VcMain, Checkforrsync {
+class ViewControllerRestore: NSViewController, SetConfigurations, Connected, Setcolor, VcMain, Checkforrsync, Abort {
 
     @IBOutlet weak var restoretable: NSTableView!
     @IBOutlet weak var working: NSProgressIndicator!
@@ -62,6 +62,14 @@ class ViewControllerRestore: NSViewController, SetConfigurations, Connected, Set
             self.presentAsSheet(self.viewControllerUserconfiguration!)
         })
     }
+    
+    // Abort button
+       @IBAction func abort(_ sender: NSButton) {
+           self.working.stopAnimation(nil)
+           self.estimatebutton.isEnabled = true
+           self.restorebutton.isEnabled = false
+           self.abort()
+       }
 
     @IBAction func restore(_ sender: NSButton) {
         guard self.checkforrsync() == false else { return }
