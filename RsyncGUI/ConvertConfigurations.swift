@@ -12,7 +12,7 @@ import Foundation
 struct ConvertConfigurations: SetConfigurations {
 
     var configuration: NSMutableDictionary?
-    
+
     private func checkparameter(param: String?) -> String? {
           if let parameter = param {
               guard parameter.isEmpty == false else { return nil }
@@ -21,7 +21,7 @@ struct ConvertConfigurations: SetConfigurations {
               return nil
           }
       }
-    
+
     // Function for returning a NSMutabledictionary from a configuration record
     init(index: Int) {
         var config: Configuration = self.configurations!.getConfigurations()[index]
