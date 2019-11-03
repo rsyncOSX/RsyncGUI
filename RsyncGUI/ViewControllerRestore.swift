@@ -62,7 +62,7 @@ class ViewControllerRestore: NSViewController, SetConfigurations, Connected, Set
             self.presentAsSheet(self.viewControllerUserconfiguration!)
         })
     }
-    
+
     // Abort button
        @IBAction func abort(_ sender: NSButton) {
            self.working.stopAnimation(nil)

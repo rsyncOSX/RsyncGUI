@@ -12,13 +12,11 @@ import Cocoa
 class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-
-        var storage: PersistentStorageAPI?
-        // Insert code here to initialize your application
         // Read user configuration
-        storage = PersistentStorageAPI(profile: nil)
-        if let userConfiguration =  storage?.getUserconfiguration(readfromstorage: true) {
-            _ = Userconfiguration(userconfigRsyncGUI: userConfiguration)
+        if let userconfiguration =  PersistentStorageUserconfiguration().readuserconfiguration() {
+            _ = Userconfiguration(userconfigRsyncGUI: userconfiguration)
+        } else {
+            _ = RsyncVersionString()
         }
     }
 
