@@ -12,7 +12,6 @@ import Cocoa
 
 class ViewControllerUserconfiguration: NSViewController, NewRsync, SetDismisser, Delay, ChangeTemporaryRestorePath {
 
-    var storageapi: PersistentStorageAPI?
     var dirty: Bool = false
     weak var reloadconfigurationsDelegate: Createandreloadconfigurations?
     var oldmarknumberofdayssince: Double?
@@ -67,7 +66,7 @@ class ViewControllerUserconfiguration: NSViewController, NewRsync, SetDismisser,
             self.setRsyncPath()
             self.setRestorePath()
             self.setmarknumberofdayssince()
-            _ = self.storageapi!.saveUserconfiguration()
+            _ = PersistentStorageUserconfiguration().saveuserconfiguration()
             if self.reload {
                 self.reloadconfigurationsDelegate?.createandreloadconfigurations()
             }
@@ -197,7 +196,6 @@ class ViewControllerUserconfiguration: NSViewController, NewRsync, SetDismisser,
         self.rsyncPath.delegate = self
         self.restorePath.delegate = self
         self.marknumberofdayssince.delegate = self
-        self.storageapi = PersistentStorageAPI(profile: nil)
         self.nologging.state = .on
         self.reloadconfigurationsDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllerMain
         // Sandbox constraints

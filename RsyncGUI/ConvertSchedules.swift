@@ -8,10 +8,11 @@
 
 import Foundation
 
-final class ConvertSchedules: SetSchedules {
+struct ConvertSchedules: SetSchedules {
 
-    // Converting Schedules from MEMORY to array of NSDictionary
-    func convertschedules() -> [NSDictionary] {
+    var schedules: [NSDictionary]?
+
+    init() {
         var array = [NSDictionary]()
         // Reading Schedules from memory
         if let schedules = self.schedules?.getSchedule() {
@@ -30,11 +31,11 @@ final class ConvertSchedules: SetSchedules {
                     array.append(dict)
                 } else {
                     if schedule.logrecords.isEmpty == false {
-                        array.append(dict)
+                         array.append(dict)
                     }
                 }
             }
         }
-        return array
+        self.schedules = array
     }
 }

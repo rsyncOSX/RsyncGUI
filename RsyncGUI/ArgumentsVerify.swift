@@ -18,8 +18,8 @@ final class ArgumentsVerify: RsyncParameters {
         self.setParameters1To6(config: self.config!, dryRun: true, forDisplay: forDisplay, verify: true)
         self.setParameters8To14(config: self.config!, dryRun: true, forDisplay: forDisplay)
         switch self.config!.task {
-           case ViewControllerReference.shared.synchronize:
-        self.argumentsforsynchronize(dryRun: true, forDisplay: forDisplay)
+        case ViewControllerReference.shared.synchronize:
+            self.argumentsforsynchronize(dryRun: true, forDisplay: forDisplay)
         default:
             break
         }

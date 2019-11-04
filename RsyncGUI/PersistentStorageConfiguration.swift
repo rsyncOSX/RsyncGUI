@@ -33,34 +33,48 @@ final class PersistentStorageConfiguration: ReadWriteDictionary, SetConfiguratio
         }
     }
 
+    // Read configurations from persisten store
+      func getConfigurations() -> [Configuration]? {
+          let read = PersistentStorageConfiguration(profile: self.profile)
+          guard read.configurationsasdictionary != nil else { return nil}
+          var Configurations = [Configuration]()
+          for dict in read.configurationsasdictionary! {
+              let conf = Configuration(dictionary: dict)
+              Configurations.append(conf)
+          }
+          return Configurations
+      }
+
     // Saving Configuration from MEMORY to persistent store
     // Reads Configurations from MEMORY and saves to persistent Store
     func saveconfigInMemoryToPersistentStore() {
         var array = [NSDictionary]()
         let configs: [Configuration] = self.configurations!.getConfigurations()
         for i in 0 ..< configs.count {
-            let dict: NSMutableDictionary = ConvertConfigurations().convertconfiguration(index: i)
-            array.append(dict)
+            if let dict: NSMutableDictionary = ConvertConfigurations(index: i).configuration {
+                array.append(dict)
+            }
         }
         self.writeToStore(array: array)
     }
 
     // Add new configuration in memory to permanent storage
-    // NB : Function does NOT store Configurations to persistent store
     func newConfigurations(dict: NSMutableDictionary) {
         var array = [NSDictionary]()
         // Get existing configurations from memory
         let configs: [Configuration] = self.configurations!.getConfigurations()
         // copy existing backups before adding
         for i in 0 ..< configs.count {
-            let dict: NSMutableDictionary = ConvertConfigurations().convertconfiguration(index: i)
-            array.append(dict)
+            if let dict: NSMutableDictionary = ConvertConfigurations(index: i).configuration {
+                array.append(dict)
+            }
         }
         // backup part
         dict.setObject(self.maxhiddenID + 1, forKey: "hiddenID" as NSCopying)
         dict.removeObject(forKey: "singleFile")
         array.append(dict)
         self.configurations!.appendconfigurationstomemory(dict: array[array.count - 1])
+        self.saveconfigInMemoryToPersistentStore()
     }
 
     // Writing configuration to persistent store
