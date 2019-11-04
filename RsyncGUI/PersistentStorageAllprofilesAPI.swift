@@ -8,11 +8,12 @@
 
 import Foundation
 
-class PersistentStorageAllprofilesAPI: PersistentStorageAPI {
+class PersistentStorageAllprofilesAPI: SetConfigurations, SetSchedules {
 
-    // CONFIGURATIONS
+    var profile: String?
+
     // Read configurations from persisten store
-    override func getConfigurations() -> [Configuration]? {
+    func getConfigurations() -> [Configuration]? {
         let read = PersistentStorageConfiguration(profile: self.profile, allprofiles: true)
         guard read.configurationsasdictionary != nil else { return nil}
         var Configurations = [Configuration]()
@@ -41,7 +42,7 @@ class PersistentStorageAllprofilesAPI: PersistentStorageAPI {
         return schedule
     }
 
-    override init(profile: String?) {
-        super.init(profile: profile)
+    init(profile: String?) {
+        self.profile = profile
     }
 }

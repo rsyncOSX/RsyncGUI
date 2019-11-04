@@ -24,7 +24,6 @@ protocol GetSelecetedIndex {
 
 class ViewControllerRsyncParameters: NSViewController, SetConfigurations, SetDismisser, Index {
 
-    var storageapi: PersistentStorageAPI?
     var parameters: RsyncParameters?
     weak var userparamsupdatedDelegate: RsyncUserParams?
     var comboBoxValues = [String]()
@@ -200,12 +199,7 @@ class ViewControllerRsyncParameters: NSViewController, SetConfigurations, SetDis
 
     override func viewDidAppear() {
         super.viewDidAppear()
-       guard self.diddissappear == false else { return }
-        if let profile = self.configurations!.getProfile() {
-            self.storageapi = PersistentStorageAPI(profile: profile)
-        } else {
-            self.storageapi = PersistentStorageAPI(profile: nil)
-        }
+        guard self.diddissappear == false else { return }
         if let index = self.index() {
             let configurations: [Configuration] = self.configurations!.getConfigurations()
             let param = ComboboxRsyncParameters(config: configurations[index])

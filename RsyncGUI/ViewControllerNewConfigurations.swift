@@ -17,7 +17,6 @@ enum Typebackup {
 
 class ViewControllerNewConfigurations: NSViewController, SetConfigurations, Delay, Index, VcMain, Checkforrsync {
 
-    var storageapi: PersistentStorageAPI?
     var newconfigurations: NewConfigurations?
     var tabledata: [NSMutableDictionary]?
     let archive: String = "--archive"
@@ -163,11 +162,6 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, Dela
             self.copyconfigbutton.isEnabled = true
         } else {
             self.copyconfigbutton.isEnabled = false
-        }
-        if let profile = self.configurations!.getProfile() {
-            self.storageapi = PersistentStorageAPI(profile: profile)
-        } else {
-            self.storageapi = PersistentStorageAPI(profile: nil)
         }
         guard self.diddissappear == false else { return }
         self.resetinputfields()

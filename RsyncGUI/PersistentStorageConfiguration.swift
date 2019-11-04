@@ -33,6 +33,25 @@ final class PersistentStorageConfiguration: ReadWriteDictionary, SetConfiguratio
         }
     }
 
+    // Read configurations from persisten store
+      func getConfigurations() -> [Configuration]? {
+          let read = PersistentStorageConfiguration(profile: self.profile)
+          guard read.configurationsasdictionary != nil else { return nil}
+          var Configurations = [Configuration]()
+          for dict in read.configurationsasdictionary! {
+              let conf = Configuration(dictionary: dict)
+              Configurations.append(conf)
+          }
+          return Configurations
+      }
+
+      // Saving added configuration
+      func addandsaveNewConfigurations(dict: NSMutableDictionary) {
+          let save = PersistentStorageConfiguration(profile: self.profile)
+          save.newConfigurations(dict: dict)
+          save.saveconfigInMemoryToPersistentStore()
+      }
+
     // Saving Configuration from MEMORY to persistent store
     // Reads Configurations from MEMORY and saves to persistent Store
     func saveconfigInMemoryToPersistentStore() {
