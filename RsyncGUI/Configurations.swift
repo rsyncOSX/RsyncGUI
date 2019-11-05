@@ -28,7 +28,7 @@ final class Configurations: ReloadTable, SetSchedules {
     // Datasource for NSTableViews
     private var configurationsDataSource: [NSMutableDictionary]?
     // Object for batchQueue data and operations
-    private var batchQueue: BatchTaskWorkQueu?
+    var batchQueue: BatchTaskWorkQueu?
     // backup list from remote info view
     var quickbackuplist: [Int]?
     // Estimated backup list, all backups
@@ -195,7 +195,7 @@ final class Configurations: ReloadTable, SetSchedules {
     /// Function computes index by hiddenID.
     /// - parameter hiddenID: hiddenID which is unique for every Configuration
     func deleteConfigurationsByhiddenID (hiddenID: Int) {
-        let index = self.getIndex(hiddenID)
+        let index = self.getIndex(hiddenID: hiddenID)
         self.configurations!.remove(at: index)
         _ = PersistentStorageConfiguration(profile: self.profile).saveconfigInMemoryToPersistentStore()
     }
@@ -219,7 +219,9 @@ final class Configurations: ReloadTable, SetSchedules {
     /// for batch execution of Configurations.
     /// - returns : reference to to object holding data and methods
     func getbatchQueue() -> BatchTaskWorkQueu? {
-        self.batchQueue = BatchTaskWorkQueu(configurations: self)
+        if self.batchQueue == nil {
+            self.batchQueue = BatchTaskWorkQueu(configurations: self)
+        }
         return self.batchQueue
     }
 
@@ -234,11 +236,11 @@ final class Configurations: ReloadTable, SetSchedules {
     }
 
     // Add new configurations
-    func addNewConfigurations(_ dict: NSMutableDictionary) {
+    func addNewConfigurations(dict: NSMutableDictionary) {
         _ = PersistentStorageConfiguration(profile: self.profile).newConfigurations(dict: dict)
     }
 
-    func getResourceConfiguration(_ hiddenID: Int, resource: ResourceInConfiguration) -> String {
+    func getResourceConfiguration(hiddenID: Int, resource: ResourceInConfiguration) -> String {
         let result = self.configurations!.filter({return ($0.hiddenID == hiddenID)})
         guard result.count > 0 else { return "" }
         switch resource {
@@ -267,7 +269,7 @@ final class Configurations: ReloadTable, SetSchedules {
         }
     }
 
-    func getIndex(_ hiddenID: Int) -> Int {
+    func getIndex(hiddenID: Int) -> Int {
         var index: Int = -1
         loop: for i in 0 ..< self.configurations!.count where self.configurations![i].hiddenID == hiddenID {
             index = i

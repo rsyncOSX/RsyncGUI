@@ -47,11 +47,11 @@ final class ScheduleLoggData: SetConfigurations, SetSchedules, Sorting {
                 let dict = input[i].logrecords[j]
                 let date = dict.value(forKey: "dateExecuted") as? String ?? ""
                 let logdetail: NSMutableDictionary = [
-                    "localCatalog": self.configurations!.getResourceConfiguration(hiddenID, resource: .localCatalog),
-                    "offsiteCatalog": self.configurations!.getResourceConfiguration(hiddenID, resource: .offsiteCatalog),
-                    "offsiteServer": self.configurations!.getResourceConfiguration(hiddenID, resource: .offsiteServer),
-                    "task": self.configurations!.getResourceConfiguration(hiddenID, resource: .task),
-                    "backupID": self.configurations!.getResourceConfiguration(hiddenID, resource: .backupid),
+                    "localCatalog": self.configurations!.getResourceConfiguration(hiddenID: hiddenID, resource: .localCatalog),
+                    "offsiteCatalog": self.configurations!.getResourceConfiguration(hiddenID: hiddenID, resource: .offsiteCatalog),
+                    "offsiteServer": self.configurations!.getResourceConfiguration(hiddenID: hiddenID, resource: .offsiteServer),
+                    "task": self.configurations!.getResourceConfiguration(hiddenID: hiddenID, resource: .task),
+                    "backupID": self.configurations!.getResourceConfiguration(hiddenID: hiddenID, resource: .backupid),
                     "dateExecuted": date,
                     "resultExecuted": dict.value(forKey: "resultExecuted") as? String ?? "",
                     "deleteCellID": dict.value(forKey: "deleteCellID") as? Int ?? 0,

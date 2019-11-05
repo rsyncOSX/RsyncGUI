@@ -104,16 +104,16 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, Dela
     @IBAction func copyconfiguration(_ sender: NSButton) {
         guard self.index != nil else { return }
         let hiddenID = self.configurations!.gethiddenID(index: self.index!)
-        self.localCatalog.stringValue = self.configurations!.getResourceConfiguration(hiddenID, resource: .localCatalog)
-        self.offsiteCatalog.stringValue = self.configurations!.getResourceConfiguration(hiddenID, resource: .offsiteCatalog)
-        self.offsiteUsername.stringValue = self.configurations!.getResourceConfiguration(hiddenID, resource: .offsiteusername)
-        self.backupID.stringValue = "copy of " + self.configurations!.getResourceConfiguration(hiddenID, resource: .backupid)
-        if self.configurations!.getResourceConfiguration(hiddenID, resource: .offsiteServer) != "localhost" {
-            self.offsiteServer.stringValue = self.configurations!.getResourceConfiguration(hiddenID, resource: .offsiteServer)
+        self.localCatalog.stringValue = self.configurations!.getResourceConfiguration(hiddenID: hiddenID, resource: .localCatalog)
+        self.offsiteCatalog.stringValue = self.configurations!.getResourceConfiguration(hiddenID: hiddenID, resource: .offsiteCatalog)
+        self.offsiteUsername.stringValue = self.configurations!.getResourceConfiguration(hiddenID: hiddenID, resource: .offsiteusername)
+        self.backupID.stringValue = "copy of " + self.configurations!.getResourceConfiguration(hiddenID: hiddenID, resource: .backupid)
+        if self.configurations!.getResourceConfiguration(hiddenID: hiddenID, resource: .offsiteServer) != "localhost" {
+            self.offsiteServer.stringValue = self.configurations!.getResourceConfiguration(hiddenID: hiddenID, resource: .offsiteServer)
         } else {
             self.offsiteServer.stringValue = ""
         }
-        self.sshport.stringValue = self.configurations!.getResourceConfiguration(hiddenID, resource: .sshport)
+        self.sshport.stringValue = self.configurations!.getResourceConfiguration(hiddenID: hiddenID, resource: .sshport)
     }
 
     @IBAction func cleartable(_ sender: NSButton) {
@@ -238,7 +238,7 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, Dela
             return
         }
 
-        self.configurations!.addNewConfigurations(dict)
+        self.configurations!.addNewConfigurations(dict: dict)
         self.newconfigurations?.appendnewConfigurations(dict: dict)
         self.tabledata = self.newconfigurations!.getnewConfigurations()
         globalMainQueue.async(execute: { () -> Void in
