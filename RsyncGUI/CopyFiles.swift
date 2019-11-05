@@ -47,7 +47,7 @@ final class CopyFiles: SetConfigurations {
 
     init (hiddenID: Int) {
         self.sendprocess = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllerMain
-        self.index = self.configurations?.getIndex(hiddenID)
+        self.index = self.configurations?.getIndex(hiddenID: hiddenID)
         self.config = self.configurations!.getConfigurations()[self.index!]
     }
   }

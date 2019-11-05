@@ -44,7 +44,6 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
     var schedules: Schedules?
     // Reference to the taskobjects
     var singletask: SingleTask?
-    var executebatch: ExecuteBatch?
     var executetasknow: ExecuteTaskNow?
     // Reference to Process task
     var process: Process?
@@ -150,7 +149,6 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
         self.setNumbers(outputprocess: nil)
         self.process = nil
         self.singletask = nil
-        self.executebatch = nil
     }
 
     @IBOutlet weak var TCPButton: NSButton!
