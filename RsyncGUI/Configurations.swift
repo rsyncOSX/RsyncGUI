@@ -215,15 +215,11 @@ final class Configurations: ReloadTable, SetSchedules {
         self.reloadtable(vcontroller: .vctabmain)
     }
 
-    // Create batchQueue
-    func createbatchQueue() {
-        self.batchQueue = BatchTaskWorkQueu(configurations: self)
-    }
-
     /// Function return the reference to object holding data and methods
     /// for batch execution of Configurations.
     /// - returns : reference to to object holding data and methods
     func getbatchQueue() -> BatchTaskWorkQueu? {
+        self.batchQueue = BatchTaskWorkQueu(configurations: self)
         return self.batchQueue
     }
 
@@ -366,8 +362,8 @@ final class Configurations: ReloadTable, SetSchedules {
         self.configurations = [Configuration]()
         self.argumentAllConfigurations = nil
         self.configurationsDataSource = nil
+        self.batchQueue = nil
         self.profile = profile
         self.readconfigurations()
-        self.createbatchQueue()
     }
 }
