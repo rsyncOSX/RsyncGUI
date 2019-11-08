@@ -10,7 +10,7 @@
 import Foundation
 
 // Reading userconfiguration from file into RsyncGUI
-final class Userconfiguration {
+struct Userconfiguration {
 
     weak var rsyncchangedDelegate: RsyncIsChanged?
 
