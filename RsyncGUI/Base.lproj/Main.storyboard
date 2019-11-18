@@ -70,12 +70,6 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="w7S-mK-okW"/>
-                                        <menuItem title="Logs" keyEquivalent="l" id="qit-95-flM" userLabel="Logs">
-                                            <connections>
-                                                <action selector="loggrecords:" target="Ady-hI-5gd" id="80A-2l-5VP"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="AJ7-HA-XHf"/>
                                         <menuItem title="Edit" keyEquivalent="e" id="x4K-TO-hhc">
                                             <connections>
                                                 <action selector="edit:" target="Ady-hI-5gd" id="pYa-aM-iIM"/>

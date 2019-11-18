@@ -83,13 +83,6 @@ extension VcMain {
             as? NSViewController)
     }
 
-    // Information Schedule details
-    // self.presentViewControllerAsSheet(self.viewControllerScheduleDetails)
-    var viewControllerScheduleDetails: NSViewController? {
-        return (self.storyboard?.instantiateController(withIdentifier: "StoryboardScheduleID")
-            as? NSViewController)
-    }
-
     // Quick backup process
     // self.presentViewControllerAsSheet(self.viewControllerQuickBackup)
     var viewControllerQuickBackup: NSViewController? {
