@@ -24,18 +24,17 @@ enum Sortandfilter {
 }
 
 final class ScheduleLoggData: SetConfigurations, SetSchedules, Sorting {
-
     var loggdata: [NSMutableDictionary]?
     private var scheduleConfiguration: [ConfigurationSchedule]?
 
     func myownfilter(search: String?, filterby: Sortandfilter?) {
-        guard search != nil && self.loggdata != nil && filterby != nil else { return }
-        globalDefaultQueue.async(execute: {() -> Void in
+        guard search != nil, self.loggdata != nil, filterby != nil else { return }
+        globalDefaultQueue.async { () -> Void in
             let valueforkey = self.filterbystring(filterby: filterby!)
-            self.loggdata = self.loggdata?.filter({
+            self.loggdata = self.loggdata?.filter {
                 ($0.value(forKey: valueforkey) as? String)!.contains(search!)
-            })
-        })
+            }
+        }
     }
 
     private func readAndSortAllLoggdata(hiddenID: Int?, sortascending: Bool) {
@@ -58,12 +57,13 @@ final class ScheduleLoggData: SetConfigurations, SetSchedules, Sorting {
                     "hiddenID": hiddenID,
                     "snapCellID": 0,
                     "parent": i,
-                    "sibling": j]
+                    "sibling": j,
+                ]
                 data.append(logdetail)
             }
         }
         if hiddenID != nil {
-            data = data.filter({($0.value(forKey: "hiddenID") as? Int)! == hiddenID!})
+            data = data.filter { ($0.value(forKey: "hiddenID") as? Int)! == hiddenID! }
         }
         self.loggdata = self.sortbydate(notsortedlist: data, sortdirection: sortascending)
     }
@@ -83,8 +83,8 @@ final class ScheduleLoggData: SetConfigurations, SetSchedules, Sorting {
         self.loggdata = self.sortbydate(notsortedlist: data, sortdirection: true)
     }
 
-    let compare: (NSMutableDictionary, NSMutableDictionary) -> Bool = { (number1, number2) in
-        if number1.value(forKey: "sibling") as? Int == number2.value(forKey: "sibling") as? Int &&
+    let compare: (NSMutableDictionary, NSMutableDictionary) -> Bool = { number1, number2 in
+        if number1.value(forKey: "sibling") as? Int == number2.value(forKey: "sibling") as? Int,
             number1.value(forKey: "parent") as? Int == number2.value(forKey: "parent") as? Int {
             return true
         } else {
@@ -92,19 +92,19 @@ final class ScheduleLoggData: SetConfigurations, SetSchedules, Sorting {
         }
     }
 
-    init (sortascending: Bool) {
+    init(sortascending: Bool) {
         if self.loggdata == nil {
             self.readAndSortAllLoggdata(hiddenID: nil, sortascending: sortascending)
         }
     }
 
-    init (hiddenID: Int, sortascending: Bool) {
+    init(hiddenID: Int, sortascending: Bool) {
         if self.loggdata == nil {
             self.readAndSortAllLoggdata(hiddenID: hiddenID, sortascending: sortascending)
         }
     }
 
-    init (allschedules: Allschedules?) {
+    init(allschedules: Allschedules?) {
         guard allschedules != nil else { return }
         self.scheduleConfiguration = allschedules!.getallschedules()
         self.allreadAndSortAllLoggdata()

@@ -23,7 +23,7 @@ struct Resources {
     private var introduction: String = "https://rsyncosx.github.io/RsyncGUIIntro"
     private var verify: String = "https://rsyncosx.github.io/Verify"
     // Get the resource.
-    func getResource (resource: ResourceType) -> String {
+    func getResource(resource: ResourceType) -> String {
         switch resource {
         case .changelog:
             return self.changelog

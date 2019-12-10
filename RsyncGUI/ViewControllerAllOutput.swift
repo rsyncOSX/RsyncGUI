@@ -7,12 +7,11 @@
 //
 //  swiftlint:disable line_length
 
-import Foundation
 import Cocoa
+import Foundation
 
 class ViewControllerAllOutput: NSViewController, Delay {
-
-    @IBOutlet weak var outputtable: NSTableView!
+    @IBOutlet var outputtable: NSTableView!
     weak var getoutputDelegate: ViewOutputDetails?
 
     override func viewDidLoad() {
@@ -25,9 +24,9 @@ class ViewControllerAllOutput: NSViewController, Delay {
 
     override func viewDidAppear() {
         super.viewDidAppear()
-        globalMainQueue.async(execute: { () -> Void in
+        globalMainQueue.async { () -> Void in
             self.outputtable.reloadData()
-        })
+        }
     }
 
     override func viewDidDisappear() {
@@ -37,13 +36,13 @@ class ViewControllerAllOutput: NSViewController, Delay {
 }
 
 extension ViewControllerAllOutput: NSTableViewDataSource {
-    func numberOfRows(in aTableView: NSTableView) -> Int {
+    func numberOfRows(in _: NSTableView) -> Int {
         return self.getoutputDelegate?.getalloutput().count ?? 0
     }
 }
 
 extension ViewControllerAllOutput: NSTableViewDelegate {
-    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+    func tableView(_ tableView: NSTableView, viewFor _: NSTableColumn?, row: Int) -> NSView? {
         if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "outputID"), owner: nil) as? NSTableCellView {
             cell.textField?.stringValue = self.getoutputDelegate?.getalloutput()[row] ?? ""
             return cell
@@ -55,8 +54,8 @@ extension ViewControllerAllOutput: NSTableViewDelegate {
 
 extension ViewControllerAllOutput: Reloadandrefresh {
     func reloadtabledata() {
-        globalMainQueue.async(execute: { () -> Void in
+        globalMainQueue.async { () -> Void in
             self.outputtable.reloadData()
-        })
+        }
     }
 }

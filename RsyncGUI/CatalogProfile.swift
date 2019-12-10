@@ -10,7 +10,6 @@
 import Foundation
 
 final class CatalogProfile: Files {
-
     // Function for creating new profile directory
     func createProfileDirectory(profileName: String) -> Bool {
         let fileManager = FileManager.default
@@ -53,7 +52,7 @@ final class CatalogProfile: Files {
         }
     }
 
-    init () {
+    init() {
         super.init(whatroot: .profileRoot, configpath: ViewControllerReference.shared.configpath)
     }
 }

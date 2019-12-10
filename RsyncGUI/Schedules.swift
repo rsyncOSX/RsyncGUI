@@ -7,11 +7,10 @@
 //  Copyright © 2016 Thomas Evensen. All rights reserved.
 //
 
-import Foundation
 import Cocoa
+import Foundation
 
 class Schedules: ScheduleWriteLoggData {
-
     // Return reference to Schedule data
     // self.Schedule is privat data
     func getSchedule() -> [ConfigurationSchedule] {
@@ -31,7 +30,7 @@ class Schedules: ScheduleWriteLoggData {
             delete = true
         }
         if delete {
-             _ = PersistentStorageScheduling(profile: self.profile).savescheduleInMemoryToPersistentStore()
+            _ = PersistentStorageScheduling(profile: self.profile).savescheduleInMemoryToPersistentStore()
             // Send message about refresh tableView
             self.reloadtable(vcontroller: .vctabmain)
         }

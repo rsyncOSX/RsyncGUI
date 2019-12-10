@@ -9,11 +9,10 @@
 import Foundation
 
 final class ArgumentsRestore: RsyncParameters {
-
     var config: Configuration?
 
     func argumentsrestore(dryRun: Bool, forDisplay: Bool, tmprestore: Bool) -> [String] {
-        self.localCatalog =  self.config!.localCatalog
+        self.localCatalog = self.config!.localCatalog
         self.remoteargs(config: self.config!)
         self.setParameters1To6(config: self.config!, dryRun: dryRun, forDisplay: forDisplay, verify: false)
         self.setParameters8To14(config: self.config!, dryRun: dryRun, forDisplay: forDisplay)

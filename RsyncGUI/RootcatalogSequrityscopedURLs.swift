@@ -10,7 +10,6 @@
 import Foundation
 
 struct RootcatalogSequrityscopedURLs {
-
     var dictionary: NSMutableDictionary?
 
     init(suffix: String?) {
@@ -18,7 +17,7 @@ struct RootcatalogSequrityscopedURLs {
         let append = AppendSequrityscopedURLs(path: rootcatalog + (suffix ?? ""))
         self.dictionary = [
             "rootcatalog": append.urlpath!,
-            "SecurityScoped": append.success
+            "SecurityScoped": append.success,
         ]
     }
 }

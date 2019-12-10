@@ -7,11 +7,10 @@
 //
 // swiftlint:disable line_length
 
-import Foundation
 import Cocoa
+import Foundation
 
 class ScheduleWriteLoggData: SetConfigurations, ReloadTable, Deselect {
-
     var schedules: [ConfigurationSchedule]?
     var profile: String?
 
@@ -19,7 +18,7 @@ class ScheduleWriteLoggData: SetConfigurations, ReloadTable, Deselect {
     func deleteselectedrows(scheduleloggdata: ScheduleLoggData?) {
         guard scheduleloggdata?.loggdata != nil else { return }
         var deletes = [Row]()
-        let selectdeletes = scheduleloggdata!.loggdata!.filter({($0.value(forKey: "deleteCellID") as? Int)! == 1}).sorted { (dict1, dict2) -> Bool in
+        let selectdeletes = scheduleloggdata!.loggdata!.filter { ($0.value(forKey: "deleteCellID") as? Int)! == 1 }.sorted { (dict1, dict2) -> Bool in
             if (dict1.value(forKey: "parent") as? Int) ?? 0 > (dict2.value(forKey: "parent") as? Int) ?? 0 {
                 return true
             } else {
@@ -31,8 +30,8 @@ class ScheduleWriteLoggData: SetConfigurations, ReloadTable, Deselect {
             let sibling = selectdeletes[i].value(forKey: "sibling") as? Int ?? 0
             deletes.append((parent, sibling))
         }
-        deletes.sort(by: {(obj1, obj2) -> Bool in
-            if obj1.0 == obj2.0 && obj1.1 > obj2.1 {
+        deletes.sort(by: { (obj1, obj2) -> Bool in
+            if obj1.0 == obj2.0, obj1.1 > obj2.1 {
                 return obj1 > obj2
             }
             return obj1 > obj2
@@ -73,16 +72,16 @@ class ScheduleWriteLoggData: SetConfigurations, ReloadTable, Deselect {
         var loggadded: Bool = false
         for i in 0 ..< self.schedules!.count where
             self.configurations!.getResourceConfiguration(hiddenID: hiddenID, resource: .task) == ViewControllerReference.shared.synchronize {
-                if self.schedules![i].hiddenID == hiddenID  &&
-                    self.schedules![i].schedule == "manuel" &&
-                    self.schedules![i].dateStop == nil {
-                    let dict = NSMutableDictionary()
-                    dict.setObject(date, forKey: "dateExecuted" as NSCopying)
-                    dict.setObject(result, forKey: "resultExecuted" as NSCopying)
-                    self.schedules![i].logrecords.append(dict)
-                    loggadded = true
-                }
+            if self.schedules![i].hiddenID == hiddenID,
+                self.schedules![i].schedule == "manuel",
+                self.schedules![i].dateStop == nil {
+                let dict = NSMutableDictionary()
+                dict.setObject(date, forKey: "dateExecuted" as NSCopying)
+                dict.setObject(result, forKey: "resultExecuted" as NSCopying)
+                self.schedules![i].logrecords.append(dict)
+                loggadded = true
             }
+        }
         return loggadded
     }
 

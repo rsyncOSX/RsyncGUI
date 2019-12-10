@@ -23,7 +23,8 @@ struct ConvertOneConfig {
             "runDateCellID": self.config!.dateRun ?? "",
             "daysID": self.config!.dayssincelastbackup ?? "",
             "markdays": self.config!.markdays,
-            "selectCellID": 0]
+            "selectCellID": 0,
+        ]
         return row
     }
 

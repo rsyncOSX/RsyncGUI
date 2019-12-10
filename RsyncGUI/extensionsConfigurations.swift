@@ -6,8 +6,8 @@
 //  Copyright © 2018 Thomas Evensen. All rights reserved.
 //
 
-import Foundation
 import Cocoa
+import Foundation
 
 // Protocol for returning object Configurations
 protocol GetConfigurationsObject: class {
@@ -24,6 +24,7 @@ extension SetConfigurations {
     var configurationsDelegate: GetConfigurationsObject? {
         return ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllerMain
     }
+
     var configurations: Configurations? {
         return self.configurationsDelegate?.getconfigurationsobject()
     }

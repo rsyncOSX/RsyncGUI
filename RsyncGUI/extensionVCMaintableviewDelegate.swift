@@ -7,21 +7,20 @@
 //
 // swiftlint:disable cyclomatic_complexity
 
-import Foundation
 import Cocoa
+import Foundation
 
 extension ViewControllerMain: NSTableViewDataSource {
     // Delegate for size of table
-    func numberOfRows(in tableView: NSTableView) -> Int {
+    func numberOfRows(in _: NSTableView) -> Int {
         return self.configurations?.configurationsDataSourcecount() ?? 0
     }
 }
 
 extension ViewControllerMain: NSTableViewDelegate, Attributedestring {
-
     // TableView delegates
-    func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
-        guard self.configurations != nil else { return nil}
+    func tableView(_: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
+        guard self.configurations != nil else { return nil }
         if row > self.configurations!.configurationsDataSourcecount() - 1 { return nil }
         let object: NSDictionary = self.configurations!.getConfigurationsDataSource()![row]
         let markdays: Bool = self.configurations!.getConfigurations()[row].markdays
@@ -48,7 +47,7 @@ extension ViewControllerMain: NSTableViewDelegate, Attributedestring {
                 return object[tableColumn!.identifier] as? Int
             } // Check if test for connections is selected
             if self.configurations?.tcpconnections?.connectionscheckcompleted ?? false == true {
-                if (self.configurations?.tcpconnections?.gettestAllremoteserverConnections()?[row]) ?? false &&
+                if (self.configurations?.tcpconnections?.gettestAllremoteserverConnections()?[row]) ?? false,
                     tableColumn!.identifier.rawValue == "offsiteServerCellID" {
                     return self.attributedstring(str: celltext ?? "", color: NSColor.red, align: .left)
                 } else {
@@ -62,7 +61,7 @@ extension ViewControllerMain: NSTableViewDelegate, Attributedestring {
     }
 
     // Toggling batch
-    func tableView(_ tableView: NSTableView, setObjectValue object: Any?, for tableColumn: NSTableColumn?, row: Int) {
+    func tableView(_: NSTableView, setObjectValue _: Any?, for _: NSTableColumn?, row: Int) {
         if self.process != nil {
             self.abortOperations()
         }
@@ -72,22 +71,22 @@ extension ViewControllerMain: NSTableViewDelegate, Attributedestring {
     }
 
     // when row is selected
-     // setting which table row is selected, force new estimation
-     func tableViewSelectionDidChange(_ notification: Notification) {
-         self.seterrorinfo(info: "")
-         // If change row during estimation
-         if self.process != nil { self.abortOperations() }
-         self.backupdryrun.state = .on
-         self.info(num: 0)
-         let myTableViewFromNotification = (notification.object as? NSTableView)!
-         let indexes = myTableViewFromNotification.selectedRowIndexes
-         if let index = indexes.first {
-             self.index = index
-         } else {
-             self.index = nil
-         }
-         self.reset()
-         self.showrsynccommandmainview()
-         self.reloadtabledata()
-     }
+    // setting which table row is selected, force new estimation
+    func tableViewSelectionDidChange(_ notification: Notification) {
+        self.seterrorinfo(info: "")
+        // If change row during estimation
+        if self.process != nil { self.abortOperations() }
+        self.backupdryrun.state = .on
+        self.info(num: 0)
+        let myTableViewFromNotification = (notification.object as? NSTableView)!
+        let indexes = myTableViewFromNotification.selectedRowIndexes
+        if let index = indexes.first {
+            self.index = index
+        } else {
+            self.index = nil
+        }
+        self.reset()
+        self.showrsynccommandmainview()
+        self.reloadtabledata()
+    }
 }

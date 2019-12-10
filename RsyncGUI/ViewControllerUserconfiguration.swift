@@ -7,31 +7,30 @@
 //
 // swiftlint:disable line_length
 
-import Foundation
 import Cocoa
+import Foundation
 
 class ViewControllerUserconfiguration: NSViewController, NewRsync, SetDismisser, Delay, ChangeTemporaryRestorePath {
-
     var dirty: Bool = false
     weak var reloadconfigurationsDelegate: Createandreloadconfigurations?
     var oldmarknumberofdayssince: Double?
     var reload: Bool = false
 
-    @IBOutlet weak var rsyncPath: NSTextField!
-    @IBOutlet weak var version3rsync: NSButton!
-    @IBOutlet weak var detailedlogging: NSButton!
-    @IBOutlet weak var noRsync: NSTextField!
-    @IBOutlet weak var restorePath: NSTextField!
-    @IBOutlet weak var fulllogging: NSButton!
-    @IBOutlet weak var minimumlogging: NSButton!
-    @IBOutlet weak var nologging: NSButton!
-    @IBOutlet weak var marknumberofdayssince: NSTextField!
-    @IBOutlet weak var statuslightpathrsync: NSImageView!
-    @IBOutlet weak var statuslighttemppath: NSImageView!
-    @IBOutlet weak var savebutton: NSButton!
-    @IBOutlet weak var useGUIbutton: NSButton!
+    @IBOutlet var rsyncPath: NSTextField!
+    @IBOutlet var version3rsync: NSButton!
+    @IBOutlet var detailedlogging: NSButton!
+    @IBOutlet var noRsync: NSTextField!
+    @IBOutlet var restorePath: NSTextField!
+    @IBOutlet var fulllogging: NSButton!
+    @IBOutlet var minimumlogging: NSButton!
+    @IBOutlet var nologging: NSButton!
+    @IBOutlet var marknumberofdayssince: NSTextField!
+    @IBOutlet var statuslightpathrsync: NSImageView!
+    @IBOutlet var statuslighttemppath: NSImageView!
+    @IBOutlet var savebutton: NSButton!
+    @IBOutlet var useGUIbutton: NSButton!
 
-    @IBAction func toggleversion3rsync(_ sender: NSButton) {
+    @IBAction func toggleversion3rsync(_: NSButton) {
         if self.version3rsync.state == .on {
             ViewControllerReference.shared.rsyncVer3 = true
             if self.rsyncPath.stringValue == "" {
@@ -47,7 +46,7 @@ class ViewControllerUserconfiguration: NSViewController, NewRsync, SetDismisser,
         self.verifyrsync()
     }
 
-    @IBAction func toggleDetailedlogging(_ sender: NSButton) {
+    @IBAction func toggleDetailedlogging(_: NSButton) {
         if self.detailedlogging.state == .on {
             ViewControllerReference.shared.detailedlogging = true
         } else {
@@ -56,11 +55,11 @@ class ViewControllerUserconfiguration: NSViewController, NewRsync, SetDismisser,
         self.setdirty()
     }
 
-    @IBAction func togglerestorepath(_ sender: NSButton) {
+    @IBAction func togglerestorepath(_: NSButton) {
         self.filemanager()
     }
 
-    @IBAction func close(_ sender: NSButton) {
+    @IBAction func close(_: NSButton) {
         if self.dirty {
             // Before closing save changed configuration
             self.setRsyncPath()
@@ -84,7 +83,7 @@ class ViewControllerUserconfiguration: NSViewController, NewRsync, SetDismisser,
         _ = RsyncVersionString()
     }
 
-    @IBAction func logging(_ sender: NSButton) {
+    @IBAction func logging(_: NSButton) {
         if self.fulllogging.state == .on {
             ViewControllerReference.shared.fulllogging = true
             ViewControllerReference.shared.minimumlogging = false
@@ -95,7 +94,7 @@ class ViewControllerUserconfiguration: NSViewController, NewRsync, SetDismisser,
             ViewControllerReference.shared.fulllogging = false
             ViewControllerReference.shared.minimumlogging = false
         }
-         self.setdirty()
+        self.setdirty()
     }
 
     private func setdirty() {
@@ -185,7 +184,7 @@ class ViewControllerUserconfiguration: NSViewController, NewRsync, SetDismisser,
         guard self.useGUIbutton.state == .on else { return }
         self.useGUIbutton.state = .off
         let filepath = FileDialog()
-        if let  path = filepath.urlpath?.path {
+        if let path = filepath.urlpath?.path {
             self.restorePath.stringValue = path
             self.setdirty()
         }
@@ -247,7 +246,6 @@ class ViewControllerUserconfiguration: NSViewController, NewRsync, SetDismisser,
 }
 
 extension ViewControllerUserconfiguration: NSTextFieldDelegate {
-
     func controlTextDidBeginEditing(_ notification: Notification) {
         delayWithSeconds(0.5) {
             self.setdirty()

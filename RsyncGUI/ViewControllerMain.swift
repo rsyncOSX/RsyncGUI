@@ -3,41 +3,40 @@
 //
 //  swiftlint:disable type_body_length line_length
 
-import Foundation
 import Cocoa
+import Foundation
 
 class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay, Fileerrormessage, Setcolor, Checkforrsync {
-
     // Main tableview
-    @IBOutlet weak var mainTableView: NSTableView!
+    @IBOutlet var mainTableView: NSTableView!
     // Progressbar indicating work
-    @IBOutlet weak var working: NSProgressIndicator!
-    @IBOutlet weak var workinglabel: NSTextField!
+    @IBOutlet var working: NSProgressIndicator!
+    @IBOutlet var workinglabel: NSTextField!
     // Displays the rsyncCommand
-    @IBOutlet weak var rsyncCommand: NSTextField!
+    @IBOutlet var rsyncCommand: NSTextField!
     // If On result of Dryrun is presented before
     // executing the real run
-    @IBOutlet weak var dryRunOrRealRun: NSTextField!
+    @IBOutlet var dryRunOrRealRun: NSTextField!
     // number of files to be transferred
-    @IBOutlet weak var transferredNumber: NSTextField!
+    @IBOutlet var transferredNumber: NSTextField!
     // size of files to be transferred
-    @IBOutlet weak var transferredNumberSizebytes: NSTextField!
+    @IBOutlet var transferredNumberSizebytes: NSTextField!
     // total number of files in remote volume
-    @IBOutlet weak var totalNumber: NSTextField!
+    @IBOutlet var totalNumber: NSTextField!
     // total size of files in remote volume
-    @IBOutlet weak var totalNumberSizebytes: NSTextField!
+    @IBOutlet var totalNumberSizebytes: NSTextField!
     // total number of directories remote volume
-    @IBOutlet weak var totalDirs: NSTextField!
+    @IBOutlet var totalDirs: NSTextField!
     // Showing info about profile
-    @IBOutlet weak var profilInfo: NSTextField!
+    @IBOutlet var profilInfo: NSTextField!
     // New files
-    @IBOutlet weak var newfiles: NSTextField!
+    @IBOutlet var newfiles: NSTextField!
     // Delete files
-    @IBOutlet weak var deletefiles: NSTextField!
-    @IBOutlet weak var rsyncversionshort: NSTextField!
-    @IBOutlet weak var backupdryrun: NSButton!
-    @IBOutlet weak var restoredryrun: NSButton!
-    @IBOutlet weak var verifydryrun: NSButton!
+    @IBOutlet var deletefiles: NSTextField!
+    @IBOutlet var rsyncversionshort: NSTextField!
+    @IBOutlet var backupdryrun: NSButton!
+    @IBOutlet var restoredryrun: NSButton!
+    @IBOutlet var verifydryrun: NSButton!
 
     // Configurations object
     var configurations: Configurations?
@@ -54,7 +53,7 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
     // Keep track of all errors
     var outputerrors: OutputErrors?
 
-    @IBOutlet weak var info: NSTextField!
+    @IBOutlet var info: NSTextField!
 
     func info(num: Int) {
         switch num {
@@ -67,7 +66,7 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
         case 4:
             self.info.stringValue = "⌘A to abort or wait..."
         case 5:
-             self.info.stringValue = "Menu app is running..."
+            self.info.stringValue = "Menu app is running..."
         case 6:
             self.info.stringValue = "This is a combined task, execute by ⌘R..."
         case 7:
@@ -79,7 +78,7 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
         }
     }
 
-    @IBAction func infoonetask(_ sender: NSButton) {
+    @IBAction func infoonetask(_: NSButton) {
         guard self.index != nil else {
             self.info(num: 1)
             return
@@ -92,41 +91,41 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
         self.presentAsSheet(self.viewControllerInformationLocalRemote!)
     }
 
-    @IBAction func totinfo(_ sender: NSButton) {
+    @IBAction func totinfo(_: NSButton) {
         guard self.checkforrsync() == false else { return }
-        globalMainQueue.async(execute: { () -> Void in
+        globalMainQueue.async { () -> Void in
             self.presentAsSheet(self.viewControllerRemoteInfo!)
-        })
+        }
     }
 
-    @IBAction func quickbackup(_ sender: NSButton) {
+    @IBAction func quickbackup(_: NSButton) {
         guard self.checkforrsync() == false else { return }
         self.openquickbackup()
     }
 
-    @IBAction func edit(_ sender: NSButton) {
+    @IBAction func edit(_: NSButton) {
         self.reset()
         guard self.index != nil else {
             self.info(num: 1)
             return
         }
-        globalMainQueue.async(execute: { () -> Void in
+        globalMainQueue.async { () -> Void in
             self.presentAsSheet(self.editViewController!)
-        })
+        }
     }
 
-    @IBAction func rsyncparams(_ sender: NSButton) {
+    @IBAction func rsyncparams(_: NSButton) {
         self.reset()
         guard self.index != nil else {
             self.info(num: 1)
             return
         }
-        globalMainQueue.async(execute: { () -> Void in
+        globalMainQueue.async { () -> Void in
             self.presentAsSheet(self.viewControllerRsyncParams!)
-        })
+        }
     }
 
-    @IBAction func delete(_ sender: NSButton) {
+    @IBAction func delete(_: NSButton) {
         guard self.index != nil else {
             self.info(num: 1)
             return
@@ -151,8 +150,8 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
         self.singletask = nil
     }
 
-    @IBOutlet weak var TCPButton: NSButton!
-    @IBAction func TCP(_ sender: NSButton) {
+    @IBOutlet var TCPButton: NSButton!
+    @IBAction func TCP(_: NSButton) {
         self.TCPButton.isEnabled = false
         self.configurations?.tcpconnections = TCPconnections()
         self.configurations?.tcpconnections?.testAllremoteserverConnections()
@@ -160,56 +159,56 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
     }
 
     // Presenting Information from Rsync
-    @IBAction func information(_ sender: NSButton) {
-        globalMainQueue.async(execute: { () -> Void in
+    @IBAction func information(_: NSButton) {
+        globalMainQueue.async { () -> Void in
             self.presentAsSheet(self.viewControllerInformation!)
-        })
+        }
     }
 
     // Abort button
-    @IBAction func abort(_ sender: NSButton) {
-        globalMainQueue.async(execute: { () -> Void in
+    @IBAction func abort(_: NSButton) {
+        globalMainQueue.async { () -> Void in
             self.abortOperations()
             self.process = nil
-        })
+        }
     }
 
     // Userconfiguration button
-    @IBAction func userconfiguration(_ sender: NSButton) {
-        globalMainQueue.async(execute: { () -> Void in
+    @IBAction func userconfiguration(_: NSButton) {
+        globalMainQueue.async { () -> Void in
             self.presentAsSheet(self.viewControllerUserconfiguration!)
-        })
+        }
     }
 
     // Selecting profiles
-    @IBAction func profiles(_ sender: NSButton) {
-        if  self.configurations?.tcpconnections?.connectionscheckcompleted ?? true {
-            globalMainQueue.async(execute: { () -> Void in
+    @IBAction func profiles(_: NSButton) {
+        if self.configurations?.tcpconnections?.connectionscheckcompleted ?? true {
+            globalMainQueue.async { () -> Void in
                 self.presentAsSheet(self.viewControllerProfile!)
-            })
+            }
         } else {
             self.displayProfile()
         }
     }
 
     // Selecting About
-    @IBAction func about (_ sender: NSButton) {
+    @IBAction func about(_: NSButton) {
         self.presentAsModalWindow(self.viewControllerAbout!)
     }
 
     // Selecting automatic backup
-    @IBAction func automaticbackup (_ sender: NSButton) {
+    @IBAction func automaticbackup(_: NSButton) {
         self.automaticbackup()
     }
 
-    @IBAction func executetasknow(_ sender: NSButton) {
+    @IBAction func executetasknow(_: NSButton) {
         guard self.checkforrsync() == false else { return }
-         guard self.index != nil else {
+        guard self.index != nil else {
             self.info(num: 1)
             return
         }
         guard self.configurations!.getConfigurations()[self.index!].task == ViewControllerReference.shared.synchronize
-            else { return }
+        else { return }
         self.executetasknow = ExecuteTaskNow(index: self.index!)
     }
 
@@ -218,7 +217,7 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
     }
 
     // Function for display rsync command
-    @IBAction func showrsynccommand(_ sender: NSButton) {
+    @IBAction func showrsynccommand(_: NSButton) {
         self.showrsynccommandmainview()
     }
 
@@ -251,7 +250,7 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
         // configurations and schedules
         self.createandreloadconfigurations()
         self.createandreloadschedules()
-        // 
+        //
     }
 
     override func viewDidAppear() {
@@ -261,9 +260,9 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
             ViewControllerReference.shared.initialstart = 1
         }
         if self.configurations!.configurationsDataSourcecount() > 0 {
-            globalMainQueue.async(execute: { () -> Void in
+            globalMainQueue.async { () -> Void in
                 self.mainTableView.reloadData()
-            })
+            }
         }
         self.rsyncischanged()
         self.displayProfile()
@@ -275,7 +274,7 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
     }
 
     // Execute tasks by double click in table
-    @objc(tableViewDoubleClick:) func tableViewDoubleClick(sender: AnyObject) {
+    @objc(tableViewDoubleClick:) func tableViewDoubleClick(sender _: AnyObject) {
         self.executeSingleTask()
     }
 
@@ -284,9 +283,9 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
         guard self.checkforrsync() == false else { return }
         guard self.index != nil else { return }
         guard self.configurations!.getConfigurations()[self.index!].task == ViewControllerReference.shared.synchronize
-            else {
-                self.info(num: 6)
-                return
+        else {
+            self.info(num: 6)
+            return
         }
         guard self.singletask != nil else {
             // Dry run
@@ -299,13 +298,13 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
     }
 
     // Execute BATCH TASKS only
-    @IBAction func executeBatch(_ sender: NSButton) {
+    @IBAction func executeBatch(_: NSButton) {
         guard self.checkforrsync() == false else { return }
         self.setNumbers(outputprocess: nil)
         self.deselect()
-        globalMainQueue.async(execute: { () -> Void in
+        globalMainQueue.async { () -> Void in
             self.presentAsSheet(self.viewControllerBatch!)
-        })
+        }
     }
 
     // Function for setting profile
@@ -324,7 +323,7 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
             self.profilInfo.stringValue = "Profile: default"
             self.profilInfo.textColor = setcolor(nsviewcontroller: self, color: .green)
         }
-        localprofileinfoadd = ViewControllerReference.shared.getvcref(viewcontroller: .vcnewconfigurations ) as? ViewControllerNewConfigurations
+        localprofileinfoadd = ViewControllerReference.shared.getvcref(viewcontroller: .vcnewconfigurations) as? ViewControllerNewConfigurations
         localprofileinfomain?.setprofile(profile: self.profilInfo.stringValue, color: self.profilInfo.textColor!)
         localprofileinfoadd?.setprofile(profile: self.profilInfo.stringValue, color: self.profilInfo.textColor!)
         self.TCPButton.isEnabled = true
@@ -358,9 +357,9 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
             self.configurations = nil
             self.configurations = Configurations(profile: nil)
         }
-        globalMainQueue.async(execute: { () -> Void in
+        globalMainQueue.async { () -> Void in
             self.mainTableView.reloadData()
-        })
+        }
         if let reloadDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcallprofiles) as? ViewControllerAllProfiles {
             reloadDelegate.reloadtable()
         }
