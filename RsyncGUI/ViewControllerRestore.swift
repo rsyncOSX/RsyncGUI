@@ -6,26 +6,25 @@
 //
 // swiftlint:disable line_length
 
-import Foundation
 import Cocoa
+import Foundation
 
 class ViewControllerRestore: NSViewController, SetConfigurations, Connected, Setcolor, VcMain, Checkforrsync, Abort {
+    @IBOutlet var restoretable: NSTableView!
+    @IBOutlet var working: NSProgressIndicator!
+    @IBOutlet var gotit: NSTextField!
 
-    @IBOutlet weak var restoretable: NSTableView!
-    @IBOutlet weak var working: NSProgressIndicator!
-    @IBOutlet weak var gotit: NSTextField!
-
-    @IBOutlet weak var transferredNumber: NSTextField!
-    @IBOutlet weak var transferredNumberSizebytes: NSTextField!
-    @IBOutlet weak var newfiles: NSTextField!
-    @IBOutlet weak var deletefiles: NSTextField!
-    @IBOutlet weak var totalNumber: NSTextField!
-    @IBOutlet weak var totalDirs: NSTextField!
-    @IBOutlet weak var totalNumberSizebytes: NSTextField!
-    @IBOutlet weak var restorebutton: NSButton!
-    @IBOutlet weak var tmprestore: NSTextField!
-    @IBOutlet weak var selecttmptorestore: NSButton!
-    @IBOutlet weak var estimatebutton: NSButton!
+    @IBOutlet var transferredNumber: NSTextField!
+    @IBOutlet var transferredNumberSizebytes: NSTextField!
+    @IBOutlet var newfiles: NSTextField!
+    @IBOutlet var deletefiles: NSTextField!
+    @IBOutlet var totalNumber: NSTextField!
+    @IBOutlet var totalDirs: NSTextField!
+    @IBOutlet var totalNumberSizebytes: NSTextField!
+    @IBOutlet var restorebutton: NSButton!
+    @IBOutlet var tmprestore: NSTextField!
+    @IBOutlet var selecttmptorestore: NSButton!
+    @IBOutlet var estimatebutton: NSButton!
 
     var index: Int?
     var maxcount: Int = 0
@@ -33,45 +32,45 @@ class ViewControllerRestore: NSViewController, SetConfigurations, Connected, Set
     var diddissappear: Bool = false
     weak var sendprocess: SendProcessreference?
 
-    @IBAction func totinfo(_ sender: NSButton) {
+    @IBAction func totinfo(_: NSButton) {
         guard self.checkforrsync() == false else { return }
-        globalMainQueue.async(execute: { () -> Void in
+        globalMainQueue.async { () -> Void in
             self.presentAsSheet(self.viewControllerRemoteInfo!)
-        })
+        }
     }
 
-    @IBAction func quickbackup(_ sender: NSButton) {
+    @IBAction func quickbackup(_: NSButton) {
         guard self.checkforrsync() == false else { return }
         self.openquickbackup()
     }
 
-    @IBAction func automaticbackup(_ sender: NSButton) {
+    @IBAction func automaticbackup(_: NSButton) {
         self.presentAsSheet(self.viewControllerEstimating!)
     }
 
     // Selecting profiles
-    @IBAction func profiles(_ sender: NSButton) {
-        globalMainQueue.async(execute: { () -> Void in
+    @IBAction func profiles(_: NSButton) {
+        globalMainQueue.async { () -> Void in
             self.presentAsSheet(self.viewControllerProfile!)
-        })
+        }
     }
 
     // Userconfiguration button
-    @IBAction func userconfiguration(_ sender: NSButton) {
-        globalMainQueue.async(execute: { () -> Void in
+    @IBAction func userconfiguration(_: NSButton) {
+        globalMainQueue.async { () -> Void in
             self.presentAsSheet(self.viewControllerUserconfiguration!)
-        })
+        }
     }
 
     // Abort button
-       @IBAction func abort(_ sender: NSButton) {
-           self.working.stopAnimation(nil)
-           self.estimatebutton.isEnabled = true
-           self.restorebutton.isEnabled = false
-           self.abort()
-       }
+    @IBAction func abort(_: NSButton) {
+        self.working.stopAnimation(nil)
+        self.estimatebutton.isEnabled = true
+        self.restorebutton.isEnabled = false
+        self.abort()
+    }
 
-    @IBAction func restore(_ sender: NSButton) {
+    @IBAction func restore(_: NSButton) {
         guard self.checkforrsync() == false else { return }
         let question = "Do you REALLY want to start a RESTORE ?"
         let text = "Cancel or Restore"
@@ -84,9 +83,9 @@ class ViewControllerRestore: NSViewController, SetConfigurations, Connected, Set
                 self.gotit.isHidden = false
                 self.restorebutton.isEnabled = false
                 self.outputprocess = OutputProcess()
-                globalMainQueue.async(execute: { () -> Void in
+                globalMainQueue.async { () -> Void in
                     self.presentAsSheet(self.viewControllerProgress!)
-                })
+                }
                 switch self.selecttmptorestore.state {
                 case .on:
                     _ = RestoreTask(index: index, outputprocess: self.outputprocess, dryrun: false,
@@ -129,12 +128,12 @@ class ViewControllerRestore: NSViewController, SetConfigurations, Connected, Set
         if (ViewControllerReference.shared.restorePath ?? "").isEmpty == true {
             self.selecttmptorestore.state = .off
         } else {
-             self.selecttmptorestore.state = .on
+            self.selecttmptorestore.state = .on
         }
     }
 
     private func setNumbers(outputprocess: OutputProcess?) {
-        globalMainQueue.async(execute: { () -> Void in
+        globalMainQueue.async { () -> Void in
             let infotask = RemoteinfonumbersOnetask(outputprocess: outputprocess)
             self.transferredNumber.stringValue = infotask.transferredNumber!
             self.transferredNumberSizebytes.stringValue = infotask.transferredNumberSizebytes!
@@ -149,10 +148,10 @@ class ViewControllerRestore: NSViewController, SetConfigurations, Connected, Set
             let gotit: String = NSLocalizedString("Got it...", comment: "Restore")
             self.gotit.stringValue = gotit
             self.gotit.isHidden = false
-        })
+        }
     }
 
-    @IBAction func prepareforrestore(_ sender: NSButton) {
+    @IBAction func prepareforrestore(_: NSButton) {
         if let index = self.index {
             if self.connected(config: self.configurations!.getConfigurations()[index]) == true {
                 self.gotit.textColor = setcolor(nsviewcontroller: self, color: .white)
@@ -178,7 +177,7 @@ class ViewControllerRestore: NSViewController, SetConfigurations, Connected, Set
         }
     }
 
-    @IBAction func toggletmprestore(_ sender: NSButton) {
+    @IBAction func toggletmprestore(_: NSButton) {
         self.estimatebutton.isEnabled = true
         self.restorebutton.isEnabled = false
     }
@@ -199,16 +198,14 @@ class ViewControllerRestore: NSViewController, SetConfigurations, Connected, Set
 }
 
 extension ViewControllerRestore: NSTableViewDataSource {
-
-    func numberOfRows(in tableView: NSTableView) -> Int {
+    func numberOfRows(in _: NSTableView) -> Int {
         return self.configurations?.getConfigurationsDataSourceSynchronize()?.count ?? 0
     }
 }
 
 extension ViewControllerRestore: NSTableViewDelegate {
-
-   func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
-        guard row < self.configurations!.getConfigurationsDataSourceSynchronize()!.count  else { return nil }
+    func tableView(_: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
+        guard row < self.configurations!.getConfigurationsDataSourceSynchronize()!.count else { return nil }
         let object: NSDictionary = self.configurations!.getConfigurationsDataSourceSynchronize()![row]
         switch tableColumn!.identifier.rawValue {
         case "offsiteServerCellID":
@@ -246,18 +243,18 @@ extension ViewControllerRestore: UpdateProgress {
 
 extension ViewControllerRestore: OpenQuickBackup {
     func openquickbackup() {
-        globalMainQueue.async(execute: { () -> Void in
+        globalMainQueue.async { () -> Void in
             self.presentAsSheet(self.viewControllerQuickBackup!)
-        })
+        }
     }
 }
 
 extension ViewControllerRestore: DismissViewController {
     func dismiss_view(viewcontroller: NSViewController) {
         self.dismiss(viewcontroller)
-        globalMainQueue.async(execute: { () -> Void in
+        globalMainQueue.async { () -> Void in
             self.restoretable.reloadData()
-        })
+        }
     }
 }
 

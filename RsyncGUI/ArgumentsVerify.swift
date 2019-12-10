@@ -9,10 +9,9 @@
 import Foundation
 
 final class ArgumentsVerify: RsyncParameters {
-
     var config: Configuration?
 
-     func argumentsverify(forDisplay: Bool) -> [String] {
+    func argumentsverify(forDisplay: Bool) -> [String] {
         self.localCatalog = self.config!.localCatalog
         self.remoteargs(config: self.config!)
         self.setParameters1To6(config: self.config!, dryRun: true, forDisplay: forDisplay, verify: true)

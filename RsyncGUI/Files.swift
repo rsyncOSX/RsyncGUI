@@ -73,7 +73,6 @@ extension Fileerrormessage {
 }
 
 class Files: Reportfileerror {
-
     var whatroot: WhatRoot?
     var realrootpath: String?
     var sandboxedrootpath: String?
@@ -100,7 +99,7 @@ class Files: Reportfileerror {
             self.realrootpath = self.userHomeDirectoryPath
             self.sshrealrootpath = self.userHomeDirectoryPath + "/.ssh/"
         case .sandboxedRoot:
-             self.sandboxedrootpath = NSHomeDirectory()
+            self.sandboxedrootpath = NSHomeDirectory()
         }
     }
 
@@ -112,15 +111,15 @@ class Files: Reportfileerror {
             var isDir: ObjCBool = false
             if fileManager.fileExists(atPath: filePath, isDirectory: &isDir) {
                 guard isDir.boolValue else { return nil }
-                } else { return nil }
-                if let fileURLs = self.getfileURLs(path: filePath) {
-                    array = [URL]()
-                    for i in 0 ..< fileURLs.count where fileURLs[i].isFileURL {
-                        array!.append(fileURLs[i])
-                    }
-                    return array
+            } else { return nil }
+            if let fileURLs = self.getfileURLs(path: filePath) {
+                array = [URL]()
+                for i in 0 ..< fileURLs.count where fileURLs[i].isFileURL {
+                    array!.append(fileURLs[i])
                 }
+                return array
             }
+        }
         return nil
     }
 
@@ -132,15 +131,15 @@ class Files: Reportfileerror {
             var isDir: ObjCBool = false
             if fileManager.fileExists(atPath: filePath, isDirectory: &isDir) {
                 guard isDir.boolValue else { return nil }
-                } else { return nil }
-                if let fileURLs = self.getfileURLs(path: filePath) {
-                    array = [String]()
-                    for i in 0 ..< fileURLs.count where fileURLs[i].isFileURL {
-                        array!.append(fileURLs[i].path)
-                    }
-                    return array
+            } else { return nil }
+            if let fileURLs = self.getfileURLs(path: filePath) {
+                array = [String]()
+                for i in 0 ..< fileURLs.count where fileURLs[i].isFileURL {
+                    array!.append(fileURLs[i].path)
                 }
+                return array
             }
+        }
         return nil
     }
 
@@ -152,7 +151,7 @@ class Files: Reportfileerror {
                 for i in 0 ..< fileURLs.count where fileURLs[i].hasDirectoryPath {
                     let path = fileURLs[i].pathComponents
                     let i = path.count
-                    array.append(path[i-1])
+                    array.append(path[i - 1])
                 }
                 return array
             }
@@ -177,9 +176,9 @@ class Files: Reportfileerror {
     }
 
     // Function for getting fileURLs for a given path
-    func getfileURLs (path: String) -> [URL]? {
+    func getfileURLs(path: String) -> [URL]? {
         let fileManager = FileManager.default
-        if let filepath = URL.init(string: path) {
+        if let filepath = URL(string: path) {
             do {
                 let files = try fileManager.contentsOfDirectory(at: filepath, includingPropertiesForKeys: nil, options: .skipsHiddenFiles)
                 return files
@@ -193,7 +192,7 @@ class Files: Reportfileerror {
         }
     }
 
-    init (whatroot: WhatRoot, configpath: String) {
+    init(whatroot: WhatRoot, configpath: String) {
         self.configpath = configpath
         self.whatroot = whatroot
         self.setrootpath()

@@ -9,11 +9,11 @@
 import Foundation
 
 struct Norsync {
-   init() {
-    if let rsync = ViewControllerReference.shared.rsyncPath {
-        Alerts.showInfo(info: "ERROR: no rsync in " + rsync)
-    } else {
-        Alerts.showInfo(info: "ERROR: no rsync in /usr/local/bin")
+    init() {
+        if let rsync = ViewControllerReference.shared.rsyncPath {
+            Alerts.showInfo(info: "ERROR: no rsync in " + rsync)
+        } else {
+            Alerts.showInfo(info: "ERROR: no rsync in /usr/local/bin")
+        }
     }
-}
 }

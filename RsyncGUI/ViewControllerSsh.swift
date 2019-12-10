@@ -7,8 +7,8 @@
 //
 //  swiftlint:disable  line_length
 
-import Foundation
 import Cocoa
+import Foundation
 
 protocol ResetSequrityScopedURL: class {
     func resetsequrityscopedurl()
@@ -19,64 +19,63 @@ protocol SaveSequrityScopedURL: class {
 }
 
 class ViewControllerSsh: NSViewController, SetConfigurations, VcMain, Checkforrsync {
-
     var sshcmd: Ssh?
     var hiddenID: Int?
     var data: [String]?
     var outputprocess: OutputProcess?
     var execute: Bool = false
 
-    @IBOutlet weak var dsaCheck: NSButton!
-    @IBOutlet weak var rsaCheck: NSButton!
-    @IBOutlet weak var detailsTable: NSTableView!
-    @IBOutlet weak var checkRsaPubKeyButton: NSButton!
-    @IBOutlet weak var checkDsaPubKeyButton: NSButton!
-    @IBOutlet weak var createRsaKey: NSButton!
-    @IBOutlet weak var createDsaKey: NSButton!
-    @IBOutlet weak var createKeys: NSButton!
-    @IBOutlet weak var scpRsaCopyPasteCommand: NSTextField!
-    @IBOutlet weak var scpDsaCopyPasteCommand: NSTextField!
-    @IBOutlet weak var sshCreateRemoteCatalog: NSTextField!
-    @IBOutlet weak var remoteserverbutton: NSButton!
-    @IBOutlet weak var terminalappbutton: NSButton!
-    @IBOutlet weak var SequrityScopedTable: NSTableView!
+    @IBOutlet var dsaCheck: NSButton!
+    @IBOutlet var rsaCheck: NSButton!
+    @IBOutlet var detailsTable: NSTableView!
+    @IBOutlet var checkRsaPubKeyButton: NSButton!
+    @IBOutlet var checkDsaPubKeyButton: NSButton!
+    @IBOutlet var createRsaKey: NSButton!
+    @IBOutlet var createDsaKey: NSButton!
+    @IBOutlet var createKeys: NSButton!
+    @IBOutlet var scpRsaCopyPasteCommand: NSTextField!
+    @IBOutlet var scpDsaCopyPasteCommand: NSTextField!
+    @IBOutlet var sshCreateRemoteCatalog: NSTextField!
+    @IBOutlet var remoteserverbutton: NSButton!
+    @IBOutlet var terminalappbutton: NSButton!
+    @IBOutlet var SequrityScopedTable: NSTableView!
 
     var viewControllerSource: NSViewController? {
         return (self.storyboard?.instantiateController(withIdentifier: "CopyFilesID")
             as? NSViewController)
     }
 
-    @IBAction func totinfo(_ sender: NSButton) {
+    @IBAction func totinfo(_: NSButton) {
         guard self.checkforrsync() == false else { return }
-        globalMainQueue.async(execute: { () -> Void in
+        globalMainQueue.async { () -> Void in
             self.presentAsSheet(self.viewControllerRemoteInfo!)
-        })
+        }
     }
 
-    @IBAction func quickbackup(_ sender: NSButton) {
+    @IBAction func quickbackup(_: NSButton) {
         guard self.checkforrsync() == false else { return }
         self.openquickbackup()
     }
 
-    @IBAction func automaticbackup(_ sender: NSButton) {
+    @IBAction func automaticbackup(_: NSButton) {
         self.presentAsSheet(self.viewControllerEstimating!)
     }
 
     // Selecting profiles
-    @IBAction func profiles(_ sender: NSButton) {
-        globalMainQueue.async(execute: { () -> Void in
+    @IBAction func profiles(_: NSButton) {
+        globalMainQueue.async { () -> Void in
             self.presentAsSheet(self.viewControllerProfile!)
-        })
+        }
     }
 
     // Userconfiguration button
-    @IBAction func userconfiguration(_ sender: NSButton) {
-        globalMainQueue.async(execute: { () -> Void in
+    @IBAction func userconfiguration(_: NSButton) {
+        globalMainQueue.async { () -> Void in
             self.presentAsSheet(self.viewControllerUserconfiguration!)
-        })
+        }
     }
 
-    @IBAction func resetsequrityscoped(_ sender: NSButton) {
+    @IBAction func resetsequrityscoped(_: NSButton) {
         let answer = Alerts.dialogOrCancel(question: "You are about to reset RsynGUI access to your files", text: "Please close and start RsyncGUI again", dialog: "Reset")
         if answer {
             weak var resetsequrityscopedDelegate: ResetSequrityScopedURL?
@@ -85,23 +84,23 @@ class ViewControllerSsh: NSViewController, SetConfigurations, VcMain, Checkforrs
         }
     }
 
-    @IBAction func terminalApp(_ sender: NSButton) {
+    @IBAction func terminalApp(_: NSButton) {
         guard self.sshcmd != nil else {
             self.data = ["Press the \"Check\" button before this action..."]
-            globalMainQueue.async(execute: { () -> Void in
+            globalMainQueue.async { () -> Void in
                 self.detailsTable.reloadData()
-            })
+            }
             return
         }
         self.sshcmd!.openTerminal()
     }
 
     // Just for grouping rsa and dsa radiobuttons
-    @IBAction func radioButtonsCreateKeyPair(_ sender: NSButton) {
+    @IBAction func radioButtonsCreateKeyPair(_: NSButton) {
         // For selecting either of them
     }
 
-    @IBAction func createPublicPrivateKeyPair(_ sender: NSButton) {
+    @IBAction func createPublicPrivateKeyPair(_: NSButton) {
         self.outputprocess = OutputProcess()
         self.sshcmd = Ssh(outputprocess: self.outputprocess)
         guard self.sshcmd != nil else { return }
@@ -113,12 +112,12 @@ class ViewControllerSsh: NSViewController, SetConfigurations, VcMain, Checkforrs
         }
     }
 
-    @IBAction func source(_ sender: NSButton) {
+    @IBAction func source(_: NSButton) {
         guard self.sshcmd != nil else {
             self.data = ["Press the \"Check\" button before this action..."]
-            globalMainQueue.async(execute: { () -> Void in
+            globalMainQueue.async { () -> Void in
                 self.detailsTable.reloadData()
-            })
+            }
             return
         }
         self.presentAsSheet(self.viewControllerSource!)
@@ -151,7 +150,7 @@ class ViewControllerSsh: NSViewController, SetConfigurations, VcMain, Checkforrs
         self.scpDsaCopyPasteCommand.stringValue = sshcmd!.commandCopyPasteTermninal!
     }
 
-    @IBAction func checkRsaPubKey(_ sender: NSButton) {
+    @IBAction func checkRsaPubKey(_: NSButton) {
         self.outputprocess = OutputProcess()
         self.sshcmd = Ssh(outputprocess: self.outputprocess)
         guard self.execute else { return }
@@ -161,7 +160,7 @@ class ViewControllerSsh: NSViewController, SetConfigurations, VcMain, Checkforrs
         self.sshcmd!.executeSshCommand()
     }
 
-    @IBAction func checkDsaPubKey(_ sender: NSButton) {
+    @IBAction func checkDsaPubKey(_: NSButton) {
         self.outputprocess = OutputProcess()
         self.sshcmd = Ssh(outputprocess: self.outputprocess)
         guard self.execute else { return }
@@ -186,9 +185,9 @@ class ViewControllerSsh: NSViewController, SetConfigurations, VcMain, Checkforrs
         self.checkDsaPubKeyButton.isEnabled = false
         self.checkRsaPubKeyButton.isEnabled = false
         self.createKeys.isEnabled = false
-        globalMainQueue.async(execute: { () -> Void in
+        globalMainQueue.async { () -> Void in
             self.SequrityScopedTable.reloadData()
-        })
+        }
     }
 
     override func viewDidDisappear() {
@@ -198,7 +197,7 @@ class ViewControllerSsh: NSViewController, SetConfigurations, VcMain, Checkforrs
         self.sshCreateRemoteCatalog.stringValue = ""
     }
 
-    @IBAction func commencecheck(_ sender: NSButton) {
+    @IBAction func commencecheck(_: NSButton) {
         self.checkPrivatePublicKey()
     }
 
@@ -265,7 +264,7 @@ extension ViewControllerSsh: NSTableViewDelegate {
                 return nil
             }
         } else {
-            guard self.configurations!.SequrityScopedURLs != nil else { return nil}
+            guard self.configurations!.SequrityScopedURLs != nil else { return nil }
             guard row < self.configurations!.SequrityScopedURLs!.count else { return nil }
             let object: NSDictionary = self.configurations!.SequrityScopedURLs![row]
             let cellIdentifier: String = tableColumn!.identifier.rawValue
@@ -285,9 +284,9 @@ extension ViewControllerSsh: NSTableViewDelegate {
 
 extension ViewControllerSsh: UpdateProgress {
     func processTermination() {
-        globalMainQueue.async(execute: { () -> Void in
+        globalMainQueue.async { () -> Void in
             self.checkPrivatePublicKey()
-        })
+        }
         guard self.sshcmd != nil else { return }
         guard self.sshcmd!.chmod != nil else { return }
         guard self.hiddenID != nil else { return }
@@ -305,16 +304,16 @@ extension ViewControllerSsh: UpdateProgress {
 
     func fileHandler() {
         self.data = self.outputprocess!.getOutput()
-        globalMainQueue.async(execute: { () -> Void in
+        globalMainQueue.async { () -> Void in
             self.detailsTable.reloadData()
-        })
+        }
     }
 }
 
 extension ViewControllerSsh: OpenQuickBackup {
     func openquickbackup() {
-        globalMainQueue.async(execute: { () -> Void in
+        globalMainQueue.async { () -> Void in
             self.presentAsSheet(self.viewControllerQuickBackup!)
-        })
+        }
     }
 }

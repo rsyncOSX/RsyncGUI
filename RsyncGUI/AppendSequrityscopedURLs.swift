@@ -9,7 +9,6 @@
 import Foundation
 
 struct AppendSequrityscopedURLs {
-
     var success: Bool = false
     var urlpath: URL?
 

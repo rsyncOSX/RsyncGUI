@@ -7,8 +7,8 @@
 //
 // swiftlint:disable cyclomatic_complexity
 
-import Foundation
 import Cocoa
+import Foundation
 
 enum ViewController {
     case vctabmain
@@ -30,9 +30,8 @@ enum ViewController {
 }
 
 final class ViewControllerReference {
-
     // Creates a singelton of this class
-    class var  shared: ViewControllerReference {
+    class var shared: ViewControllerReference {
         struct Singleton {
             static let instance = ViewControllerReference()
         }
@@ -73,7 +72,7 @@ final class ViewControllerReference {
     // rsync short version
     var rsyncversionshort: String?
     // filsize logfile warning
-    var logfilesize: Int = 100000
+    var logfilesize: Int = 100_000
     // Mac serialnumer
     var macserialnumber: String?
     // Initial start, center RsyncGUI when started first time

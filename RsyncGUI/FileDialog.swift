@@ -7,11 +7,10 @@
 //
 // swiftlint:disable line_length
 
-import Foundation
 import Cocoa
+import Foundation
 
 final class FileDialog {
-
     var urlpath: URL?
     var modal: Bool = true
 
@@ -21,7 +20,7 @@ final class FileDialog {
         sequrityscopedsavepathDelegate?.savesequrityscopedurl(urlpath: self.urlpath!)
     }
 
-    private func openfiledlg (title: String, message: String) {
+    private func openfiledlg(title: String, message: String) {
         let openPanel = NSOpenPanel()
         openPanel.prompt = "Select"
         openPanel.allowsMultipleSelection = false

@@ -9,7 +9,6 @@
 import Foundation
 
 final class PersistentStorageConfiguration: ReadWriteDictionary, SetConfigurations {
-
     /// Variable holds all configuration data from persisten storage
     var configurationsasdictionary: [NSDictionary]?
 
@@ -26,7 +25,7 @@ final class PersistentStorageConfiguration: ReadWriteDictionary, SetConfiguratio
                     return false
                 }
             }
-            let index = store.count-1
+            let index = store.count - 1
             return store[index].hiddenID
         } else {
             return 0
@@ -34,16 +33,16 @@ final class PersistentStorageConfiguration: ReadWriteDictionary, SetConfiguratio
     }
 
     // Read configurations from persisten store
-      func getConfigurations() -> [Configuration]? {
-          let read = PersistentStorageConfiguration(profile: self.profile)
-          guard read.configurationsasdictionary != nil else { return nil}
-          var Configurations = [Configuration]()
-          for dict in read.configurationsasdictionary! {
-              let conf = Configuration(dictionary: dict)
-              Configurations.append(conf)
-          }
-          return Configurations
-      }
+    func getConfigurations() -> [Configuration]? {
+        let read = PersistentStorageConfiguration(profile: self.profile)
+        guard read.configurationsasdictionary != nil else { return nil }
+        var Configurations = [Configuration]()
+        for dict in read.configurationsasdictionary! {
+            let conf = Configuration(dictionary: dict)
+            Configurations.append(conf)
+        }
+        return Configurations
+    }
 
     // Saving Configuration from MEMORY to persistent store
     // Reads Configurations from MEMORY and saves to persistent Store
@@ -85,7 +84,7 @@ final class PersistentStorageConfiguration: ReadWriteDictionary, SetConfiguratio
         }
     }
 
-    init (profile: String?) {
+    init(profile: String?) {
         super.init(whattoreadwrite: .configuration, profile: profile,
                    configpath: ViewControllerReference.shared.configpath)
         if self.configurations == nil {
@@ -93,7 +92,7 @@ final class PersistentStorageConfiguration: ReadWriteDictionary, SetConfiguratio
         }
     }
 
-    init (profile: String?, allprofiles: Bool) {
+    init(profile: String?, allprofiles _: Bool) {
         super.init(whattoreadwrite: .configuration, profile: profile,
                    configpath: ViewControllerReference.shared.configpath)
         self.configurationsasdictionary = self.readNSDictionaryFromPersistentStore()

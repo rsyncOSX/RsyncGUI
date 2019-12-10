@@ -7,15 +7,14 @@
 //
 // swiftlint:disable line_length
 
-import Foundation
 import Cocoa
+import Foundation
 
 protocol VcMain {
     var storyboard: NSStoryboard? { get }
 }
 
 extension VcMain {
-
     var storyboard: NSStoryboard? {
         return NSStoryboard(name: "Main", bundle: nil)
     }
@@ -110,7 +109,6 @@ extension VcMain {
         return (self.storyboard?.instantiateController(withIdentifier: "StoryboardLocalRemoteID")
             as? NSViewController)
     }
-
 }
 
 // Protocol for dismissing a viewcontroller
@@ -126,26 +124,32 @@ extension SetDismisser {
     var dismissDelegateMain: DismissViewController? {
         return ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllerMain
     }
+
     var dismissDelegateCopyFiles: DismissViewController? {
         return ViewControllerReference.shared.getvcref(viewcontroller: .vccopyfiles) as? ViewControllerCopyFiles
     }
+
     var dismissDelegateNewConfigurations: DismissViewController? {
         return ViewControllerReference.shared.getvcref(viewcontroller: .vcnewconfigurations) as? ViewControllerNewConfigurations
     }
+
     var dismissDelegateSsh: DismissViewController? {
         return ViewControllerReference.shared.getvcref(viewcontroller: .vcssh) as? ViewControllerSsh
     }
+
     var dismissDelegateVerify: DismissViewController? {
         return ViewControllerReference.shared.getvcref(viewcontroller: .vcverify) as? ViewControllerVerify
     }
+
     var dismissDelegateLoggData: DismissViewController? {
         return ViewControllerReference.shared.getvcref(viewcontroller: .vcloggdata) as? ViewControllerLoggData
     }
+
     var dismissDelegateRestore: DismissViewController? {
         return ViewControllerReference.shared.getvcref(viewcontroller: .vcrestore) as? ViewControllerRestore
     }
 
-    func dismissview(viewcontroller: NSViewController, vcontroller: ViewController) {
+    func dismissview(viewcontroller _: NSViewController, vcontroller: ViewController) {
         if vcontroller == .vctabmain {
             self.dismissDelegateMain?.dismiss_view(viewcontroller: (self as? NSViewController)!)
         } else if vcontroller == .vccopyfiles {
@@ -170,7 +174,7 @@ protocol DeselectRowTable: class {
 }
 
 protocol Deselect {
-    var deselectDelegateMain: DeselectRowTable? {get}
+    var deselectDelegateMain: DeselectRowTable? { get }
 }
 
 extension Deselect {
@@ -179,7 +183,7 @@ extension Deselect {
     }
 
     func deselectrowtable() {
-       self.deselectDelegateMain?.deselect()
+        self.deselectDelegateMain?.deselect()
     }
 }
 
@@ -235,7 +239,7 @@ extension Abort {
 }
 
 protocol GetOutput: class {
-    func getoutput () -> [String]
+    func getoutput() -> [String]
 }
 
 protocol OutPut {

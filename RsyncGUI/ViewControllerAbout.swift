@@ -6,15 +6,14 @@
 //  Copyright © 2016 Thomas Evensen. All rights reserved.
 //
 
-import Foundation
 import Cocoa
+import Foundation
 
 class ViewControllerAbout: NSViewController, SetDismisser, Delay {
-
-    @IBOutlet weak var version: NSTextField!
-    @IBOutlet weak var rsyncversionstring: NSTextField!
-    @IBOutlet weak var copyright: NSTextField!
-    @IBOutlet weak var iconby: NSTextField!
+    @IBOutlet var version: NSTextField!
+    @IBOutlet var rsyncversionstring: NSTextField!
+    @IBOutlet var copyright: NSTextField!
+    @IBOutlet var iconby: NSTextField!
 
     var copyrigthstring: String = "Copyright ©2019 Thomas Evensen"
     var iconbystring: String = "Icon by: Zsolt Sándor"
@@ -22,7 +21,7 @@ class ViewControllerAbout: NSViewController, SetDismisser, Delay {
     private var resource: Resources?
     var outputprocess: OutputProcess?
 
-    @IBAction func dismiss(_ sender: NSButton) {
+    @IBAction func dismiss(_: NSButton) {
         if (self.presentingViewController as? ViewControllerMain) != nil {
             self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
         } else if (self.presentingViewController as? ViewControllerNewConfigurations) != nil {
@@ -40,28 +39,28 @@ class ViewControllerAbout: NSViewController, SetDismisser, Delay {
         }
     }
 
-    @IBAction func changelog(_ sender: NSButton) {
+    @IBAction func changelog(_: NSButton) {
         if let resource = self.resource {
             NSWorkspace.shared.open(URL(string: resource.getResource(resource: .changelog))!)
         }
         self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
     }
 
-    @IBAction func documentation(_ sender: NSButton) {
+    @IBAction func documentation(_: NSButton) {
         if let resource = self.resource {
             NSWorkspace.shared.open(URL(string: resource.getResource(resource: .documents))!)
         }
         self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
     }
 
-    @IBAction func introduction(_ sender: NSButton) {
+    @IBAction func introduction(_: NSButton) {
         if let resource = self.resource {
             NSWorkspace.shared.open(URL(string: resource.getResource(resource: .introduction))!)
         }
         self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
     }
 
-    @IBAction func download(_ sender: NSButton) {
+    @IBAction func download(_: NSButton) {
         guard ViewControllerReference.shared.URLnewVersion != nil else {
             self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
             return

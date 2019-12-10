@@ -10,7 +10,6 @@
 import Foundation
 
 final class Selectprofile {
-
     var profile: String?
     weak var newProfileDelegate: NewProfile?
     weak var copyfilesnewProfileDelegate: NewProfile?
@@ -29,5 +28,4 @@ final class Selectprofile {
         self.copyfilesnewProfileDelegate?.newProfile(profile: nil)
         self.loggdataProfileDelegate?.newProfile(profile: nil)
     }
-
 }

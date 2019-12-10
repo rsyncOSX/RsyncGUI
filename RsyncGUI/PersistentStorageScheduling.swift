@@ -13,7 +13,6 @@
 import Foundation
 
 final class PersistentStorageScheduling: ReadWriteDictionary, SetSchedules {
-
     var schedulesasdictionary: [NSDictionary]?
 
     // Read schedules and history
@@ -48,14 +47,14 @@ final class PersistentStorageScheduling: ReadWriteDictionary, SetSchedules {
         }
     }
 
-    init (profile: String?) {
+    init(profile: String?) {
         super.init(whattoreadwrite: .schedule, profile: profile, configpath: ViewControllerReference.shared.configpath)
         if self.schedules == nil {
             self.schedulesasdictionary = self.readNSDictionaryFromPersistentStore()
         }
     }
 
-    init (profile: String?, allprofiles: Bool) {
+    init(profile: String?, allprofiles _: Bool) {
         super.init(whattoreadwrite: .schedule, profile: profile, configpath: ViewControllerReference.shared.configpath)
         self.schedulesasdictionary = self.readNSDictionaryFromPersistentStore()
     }

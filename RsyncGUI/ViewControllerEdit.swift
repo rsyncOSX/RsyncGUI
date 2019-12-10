@@ -6,30 +6,29 @@
 //  Copyright © 2016 Thomas Evensen. All rights reserved.
 //
 
-import Foundation
 import Cocoa
+import Foundation
 
 class ViewControllerEdit: NSViewController, SetConfigurations, SetDismisser, Index, Delay {
-
-    @IBOutlet weak var localCatalog: NSTextField!
-    @IBOutlet weak var offsiteCatalog: NSTextField!
-    @IBOutlet weak var offsiteUsername: NSTextField!
-    @IBOutlet weak var offsiteServer: NSTextField!
-    @IBOutlet weak var backupID: NSTextField!
-    @IBOutlet weak var sshport: NSTextField!
+    @IBOutlet var localCatalog: NSTextField!
+    @IBOutlet var offsiteCatalog: NSTextField!
+    @IBOutlet var offsiteUsername: NSTextField!
+    @IBOutlet var offsiteServer: NSTextField!
+    @IBOutlet var backupID: NSTextField!
+    @IBOutlet var sshport: NSTextField!
 
     var index: Int?
     var singleFile: Bool = false
 
     // Close and dismiss view
-    @IBAction func close(_ sender: NSButton) {
+    @IBAction func close(_: NSButton) {
         self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
     }
 
     // Update configuration, save and dismiss view
-    @IBAction func update(_ sender: NSButton) {
+    @IBAction func update(_: NSButton) {
         var config: [Configuration] = self.configurations!.getConfigurations()
-        if self.localCatalog.stringValue.hasSuffix("/") == false && self.singleFile == false {
+        if self.localCatalog.stringValue.hasSuffix("/") == false, self.singleFile == false {
             self.localCatalog.stringValue += "/"
         }
         config[self.index!].localCatalog = self.localCatalog.stringValue

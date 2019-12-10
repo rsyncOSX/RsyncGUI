@@ -6,11 +6,10 @@
 //  Copyright © 2019 Thomas Evensen. All rights reserved.
 //
 
-import XCTest
 @testable import RsyncGUI
+import XCTest
 
 class RsyncGUITests: XCTestCase, SetConfigurations {
-
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -67,8 +66,8 @@ class RsyncGUITests: XCTestCase, SetConfigurations {
 
     func testargumentsrestore0() {
         let arguments = ["--archive", "--verbose", "--compress", "--delete", "-e", "ssh -p 22", "--exclude=.git",
-        "--backup", "--backup-dir=../backup_XCTest", "--suffix=_$(date +%Y-%m-%d.%H.%M)",
-        "--stats", "thomas@10.0.0.57:/backup2/RsyncOSX/XCTest/", "/Users/thomas/XCTest/"]
+                         "--backup", "--backup-dir=../backup_XCTest", "--suffix=_$(date +%Y-%m-%d.%H.%M)",
+                         "--stats", "thomas@10.0.0.57:/backup2/RsyncOSX/XCTest/", "/Users/thomas/XCTest/"]
         XCTAssertEqual(arguments, self.configurations?.arguments4restore(index: 0, argtype: .arg),
                        "Arguments should be equal")
     }
@@ -77,8 +76,8 @@ class RsyncGUITests: XCTestCase, SetConfigurations {
         let arguments = ["--archive", "--verbose", "--compress", "--delete", "-e", "ssh -p 22", "--exclude=.git",
                          "--backup", "--backup-dir=../backup_XCTest", "--suffix=_$(date +%Y-%m-%d.%H.%M)",
                          "--stats", "thomas@10.0.0.57:/backup2/RsyncOSX/XCTest/", "/temporaryrestore"]
-      XCTAssertEqual(arguments, self.configurations?.arguments4tmprestore(index: 0, argtype: .arg),
-                             "Arguments should be equal")
+        XCTAssertEqual(arguments, self.configurations?.arguments4tmprestore(index: 0, argtype: .arg),
+                       "Arguments should be equal")
     }
 
     func testalllogs() {

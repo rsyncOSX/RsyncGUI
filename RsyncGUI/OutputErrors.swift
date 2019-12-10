@@ -9,10 +9,9 @@
 import Foundation
 
 class OutputErrors {
-
     var output: [String]?
 
-    func getOutput () -> [String]? {
+    func getOutput() -> [String]? {
         return self.output
     }
 
@@ -24,6 +23,6 @@ class OutputErrors {
     }
 
     init() {
-         self.output = [String]()
+        self.output = [String]()
     }
 }

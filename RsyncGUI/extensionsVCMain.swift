@@ -5,10 +5,10 @@
 //  Created by Thomas Evensen on 31.05.2018.
 //  Copyright © 2018 Thomas Evensen. All rights reserved.
 //
-//  swiftlint:disable file_length line_length 
+//  swiftlint:disable file_length line_length
 
-import Foundation
 import Cocoa
+import Foundation
 
 // Get output from rsync command
 extension ViewControllerMain: GetOutput {
@@ -22,9 +22,9 @@ extension ViewControllerMain: GetOutput {
 extension ViewControllerMain: Reloadandrefresh {
     // Refresh tableView in main
     func reloadtabledata() {
-        globalMainQueue.async(execute: { () -> Void in
+        globalMainQueue.async { () -> Void in
             self.mainTableView.reloadData()
-        })
+        }
     }
 }
 
@@ -60,9 +60,9 @@ extension ViewControllerMain: NewProfile {
     }
 
     func enableselectprofile() {
-        globalMainQueue.async(execute: { () -> Void in
+        globalMainQueue.async { () -> Void in
             self.displayProfile()
-        })
+        }
     }
 }
 
@@ -82,9 +82,9 @@ extension ViewControllerMain: RsyncIsChanged {
 extension ViewControllerMain: Connections {
     // Remote servers offline are marked with red line in mainTableView
     func displayConnections() {
-        globalMainQueue.async(execute: { () -> Void in
+        globalMainQueue.async { () -> Void in
             self.mainTableView.reloadData()
-        })
+        }
     }
 }
 
@@ -94,10 +94,10 @@ extension ViewControllerMain: DismissViewController {
     func dismiss_view(viewcontroller: NSViewController) {
         self.dismiss(viewcontroller)
         // Reset radiobuttons
-        globalMainQueue.async(execute: { () -> Void in
+        globalMainQueue.async { () -> Void in
             self.mainTableView.reloadData()
             self.displayProfile()
-        })
+        }
         self.setinfoaboutrsync()
     }
 }
@@ -115,7 +115,7 @@ extension ViewControllerMain: DeselectRowTable {
 extension ViewControllerMain: RsyncError {
     func rsyncerror() {
         // Set on or off in user configuration
-        globalMainQueue.async(execute: { () -> Void in
+        globalMainQueue.async { () -> Void in
             self.seterrorinfo(info: "Error")
             self.showrsynccommandmainview()
             self.deselect()
@@ -126,14 +126,14 @@ extension ViewControllerMain: RsyncError {
             }
             // Either error in single task or batch task
             self.singletask?.error()
-        })
+        }
     }
 }
 
 // If, for any reason, handling files or directory throws an error
 extension ViewControllerMain: Fileerror {
-    func errormessage(errorstr: String, errortype: Fileerrortype ) {
-        globalMainQueue.async(execute: { () -> Void in
+    func errormessage(errorstr: String, errortype: Fileerrortype) {
+        globalMainQueue.async { () -> Void in
             if errortype == .openlogfile {
                 self.rsyncCommand.stringValue = self.errordescription(errortype: errortype)
             } else if errortype == .filesize {
@@ -142,7 +142,7 @@ extension ViewControllerMain: Fileerror {
                 self.seterrorinfo(info: "Error")
                 self.rsyncCommand.stringValue = self.errordescription(errortype: errortype) + "\n" + errorstr
             }
-        })
+        }
     }
 }
 
@@ -160,7 +160,7 @@ extension ViewControllerMain: Abort {
             // Create workqueu and add abort
             self.seterrorinfo(info: "Abort")
             self.rsyncCommand.stringValue = ""
-            if self.configurations!.remoteinfoestimation != nil && self.configurations?.estimatedlist != nil {
+            if self.configurations!.remoteinfoestimation != nil, self.configurations?.estimatedlist != nil {
                 self.configurations!.remoteinfoestimation = nil
             }
         } else {
@@ -242,13 +242,13 @@ extension ViewControllerMain: GetSchedulesObject {
     }
 }
 
-extension  ViewControllerMain: GetHiddenID {
+extension ViewControllerMain: GetHiddenID {
     func gethiddenID() -> Int? {
         guard self.index != nil else { return -1 }
         if let hiddenID = self.configurations?.gethiddenID(index: self.index!) {
-                return hiddenID
+            return hiddenID
         } else {
-                return -1
+            return -1
         }
     }
 }
@@ -295,9 +295,9 @@ extension ViewControllerMain: SetRemoteInfo {
 
 extension ViewControllerMain: OpenQuickBackup {
     func openquickbackup() {
-        globalMainQueue.async(execute: { () -> Void in
+        globalMainQueue.async { () -> Void in
             self.presentAsSheet(self.viewControllerQuickBackup!)
-        })
+        }
     }
 }
 
@@ -313,16 +313,16 @@ extension ViewControllerMain: Count {
 
 extension ViewControllerMain: Reloadsortedandrefresh {
     func reloadsortedandrefreshtabledata() {
-        globalMainQueue.async(execute: { () -> Void in
+        globalMainQueue.async { () -> Void in
             self.mainTableView.reloadData()
-        })
+        }
     }
 }
 
 extension ViewControllerMain: SetLocalRemoteInfo {
     func getlocalremoteinfo(index: Int) -> [NSDictionary]? {
         guard self.configurations?.localremote != nil else { return nil }
-        if let info = self.configurations?.localremote?.filter({($0.value(forKey: "index") as? Int)! == index}) {
+        if let info = self.configurations?.localremote?.filter({ ($0.value(forKey: "index") as? Int)! == index }) {
             return info
         } else {
             return nil
@@ -342,9 +342,9 @@ extension ViewControllerMain: SetLocalRemoteInfo {
 
 extension ViewControllerMain: Allerrors {
     func allerrors(outputprocess: OutputProcess?) {
-        globalMainQueue.async(execute: { () -> Void in
+        globalMainQueue.async { () -> Void in
             self.seterrorinfo(info: "Error")
-        })
+        }
         self.outputprocess = nil
         if self.outputerrors == nil {
             self.outputerrors = OutputErrors()
@@ -361,7 +361,6 @@ extension ViewControllerMain: Allerrors {
 }
 
 extension ViewControllerMain: ViewOutputDetails {
-
     func getalloutput() -> [String] {
         return self.outputprocess?.getrawOutput() ?? []
     }
@@ -451,7 +450,6 @@ extension Checkforrsync {
 }
 
 extension Setcolor {
-
     private func isDarkMode(view: NSView) -> Bool {
         if #available(OSX 10.14, *) {
             return view.effectiveAppearance.bestMatch(from: [.darkAqua, .aqua]) == .darkAqua

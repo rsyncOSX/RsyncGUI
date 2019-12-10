@@ -11,7 +11,6 @@ import Foundation
 
 // Reading userconfiguration from file into RsyncGUI
 struct Userconfiguration {
-
     weak var rsyncchangedDelegate: RsyncIsChanged?
 
     private func readUserconfiguration(dict: NSDictionary) {
@@ -75,7 +74,7 @@ struct Userconfiguration {
         }
     }
 
-    init (userconfigRsyncGUI: [NSDictionary]) {
+    init(userconfigRsyncGUI: [NSDictionary]) {
         if userconfigRsyncGUI.count > 0 {
             self.readUserconfiguration(dict: userconfigRsyncGUI[0])
         }

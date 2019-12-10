@@ -9,10 +9,9 @@
 import Foundation
 
 final class RsyncVersionString: ProcessCmd {
-
     var outputprocess: OutputProcess?
 
-    init () {
+    init() {
         super.init(command: nil, arguments: ["--version"])
         self.outputprocess = OutputProcess()
         if ViewControllerReference.shared.norsync == false {
@@ -24,7 +23,7 @@ final class RsyncVersionString: ProcessCmd {
 
 extension RsyncVersionString: UpdateProgress {
     func processTermination() {
-        guard self.outputprocess?.getOutput()?.count ?? 0 > 0  else { return }
+        guard self.outputprocess?.getOutput()?.count ?? 0 > 0 else { return }
         ViewControllerReference.shared.rsyncversionshort = self.outputprocess!.getOutput()![0]
         ViewControllerReference.shared.rsyncversionstring = self.outputprocess!.getOutput()!.joined(separator: "\n")
         weak var shortstringDelegate: RsyncIsChanged?
