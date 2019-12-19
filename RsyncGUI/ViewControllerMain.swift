@@ -25,14 +25,8 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
     @IBOutlet var totalNumber: NSTextField!
     // total size of files in remote volume
     @IBOutlet var totalNumberSizebytes: NSTextField!
-    // total number of directories remote volume
-    @IBOutlet var totalDirs: NSTextField!
     // Showing info about profile
     @IBOutlet var profilInfo: NSTextField!
-    // New files
-    @IBOutlet var newfiles: NSTextField!
-    // Delete files
-    @IBOutlet var deletefiles: NSTextField!
     @IBOutlet var rsyncversionshort: NSTextField!
     @IBOutlet var backupdryrun: NSButton!
     @IBOutlet var restoredryrun: NSButton!
@@ -150,9 +144,7 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
         self.singletask = nil
     }
 
-    @IBOutlet var TCPButton: NSButton!
     @IBAction func TCP(_: NSButton) {
-        self.TCPButton.isEnabled = false
         self.configurations?.tcpconnections = TCPconnections()
         self.configurations?.tcpconnections?.testAllremoteserverConnections()
         self.displayProfile()
@@ -326,7 +318,6 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
         localprofileinfoadd = ViewControllerReference.shared.getvcref(viewcontroller: .vcnewconfigurations) as? ViewControllerNewConfigurations
         localprofileinfomain?.setprofile(profile: self.profilInfo.stringValue, color: self.profilInfo.textColor!)
         localprofileinfoadd?.setprofile(profile: self.profilInfo.stringValue, color: self.profilInfo.textColor!)
-        self.TCPButton.isEnabled = true
         self.showrsynccommandmainview()
     }
 
