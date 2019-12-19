@@ -23,13 +23,9 @@ class ViewControllerInformationLocalRemote: NSViewController, SetDismisser, Inde
     weak var localremoteinfoDelegate: SetLocalRemoteInfo?
     @IBOutlet var transferredNumber: NSTextField!
     @IBOutlet var transferredNumberSizebytes: NSTextField!
-    @IBOutlet var newfiles: NSTextField!
-    @IBOutlet var deletefiles: NSTextField!
     @IBOutlet var totalNumber: NSTextField!
-    @IBOutlet var totalDirs: NSTextField!
     @IBOutlet var totalNumberSizebytes: NSTextField!
     @IBOutlet var localtotalNumber: NSTextField!
-    @IBOutlet var localtotalDirs: NSTextField!
     @IBOutlet var localtotalNumberSizebytes: NSTextField!
     @IBOutlet var working: NSProgressIndicator!
     @IBOutlet var gotit: NSTextField!
@@ -83,16 +79,12 @@ class ViewControllerInformationLocalRemote: NSViewController, SetDismisser, Inde
             if local {
                 self.localtotalNumber.stringValue = infotask.totalNumber!
                 self.localtotalNumberSizebytes.stringValue = infotask.totalNumberSizebytes!
-                self.localtotalDirs.stringValue = infotask.totalDirs!
                 self.localremoteinfoDelegate!.setlocalremoteinfo(info: infotask.recordremotenumbers(index: self.index ?? -1))
             } else {
                 self.transferredNumber.stringValue = infotask.transferredNumber!
                 self.transferredNumberSizebytes.stringValue = infotask.transferredNumberSizebytes!
                 self.totalNumber.stringValue = infotask.totalNumber!
                 self.totalNumberSizebytes.stringValue = infotask.totalNumberSizebytes!
-                self.totalDirs.stringValue = infotask.totalDirs!
-                self.newfiles.stringValue = infotask.newfiles!
-                self.deletefiles.stringValue = infotask.deletefiles!
                 self.localremoteinfoDelegate!.setlocalremoteinfo(info: infotask.recordremotenumbers(index: self.index ?? -1))
                 self.working.stopAnimation(nil)
                 self.gotit.stringValue = NSLocalizedString("Got it...", comment: "Remote Info")
@@ -106,14 +98,10 @@ class ViewControllerInformationLocalRemote: NSViewController, SetDismisser, Inde
             guard infodictes.count == 2 else { return }
             self.localtotalNumber.stringValue = (infodictes[0].value(forKey: "totalNumber") as? String) ?? ""
             self.localtotalNumberSizebytes.stringValue = (infodictes[0].value(forKey: "totalNumberSizebytes") as? String) ?? ""
-            self.localtotalDirs.stringValue = (infodictes[0].value(forKey: "totalDirs") as? String) ?? ""
             self.transferredNumber.stringValue = (infodictes[1].value(forKey: "transferredNumber") as? String) ?? ""
             self.transferredNumberSizebytes.stringValue = (infodictes[1].value(forKey: "transferredNumberSizebytes") as? String) ?? ""
             self.totalNumber.stringValue = (infodictes[1].value(forKey: "totalNumber") as? String) ?? ""
             self.totalNumberSizebytes.stringValue = (infodictes[1].value(forKey: "totalNumberSizebytes") as? String) ?? ""
-            self.totalDirs.stringValue = (infodictes[1].value(forKey: "totalDirs") as? String) ?? ""
-            self.newfiles.stringValue = (infodictes[1].value(forKey: "newfiles") as? String) ?? ""
-            self.deletefiles.stringValue = (infodictes[1].value(forKey: "deletefiles") as? String) ?? ""
             self.gotit.stringValue = NSLocalizedString("Loaded cached data...", comment: "Remote Info")
             self.gotit.textColor = self.setcolor(nsviewcontroller: self, color: .green)
         }
