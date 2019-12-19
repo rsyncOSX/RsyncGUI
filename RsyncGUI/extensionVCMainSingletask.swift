@@ -54,9 +54,6 @@ extension ViewControllerMain: SingleTaskProcess {
                 self.transferredNumberSizebytes.stringValue = ""
                 self.totalNumber.stringValue = ""
                 self.totalNumberSizebytes.stringValue = ""
-                self.totalDirs.stringValue = ""
-                self.newfiles.stringValue = ""
-                self.deletefiles.stringValue = ""
                 return
             }
             let remoteinfotask = RemoteinfonumbersOnetask(outputprocess: outputprocess)
@@ -64,9 +61,6 @@ extension ViewControllerMain: SingleTaskProcess {
             self.transferredNumberSizebytes.stringValue = remoteinfotask.transferredNumberSizebytes!
             self.totalNumber.stringValue = remoteinfotask.totalNumber!
             self.totalNumberSizebytes.stringValue = remoteinfotask.totalNumberSizebytes!
-            self.totalDirs.stringValue = remoteinfotask.totalDirs!
-            self.newfiles.stringValue = remoteinfotask.newfiles!
-            self.deletefiles.stringValue = remoteinfotask.deletefiles!
         }
     }
 
