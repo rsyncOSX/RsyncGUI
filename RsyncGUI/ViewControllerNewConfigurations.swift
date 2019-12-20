@@ -5,13 +5,14 @@
 //  Created by Thomas Evensen on 13/02/16.
 //  Copyright © 2016 Thomas Evensen. All rights reserved.
 //
-//  swiftlint:disable function_body_length line_length
+//  swiftlint:disable function_body_length line_length trailing_comma
 
 import Cocoa
 import Foundation
 
 enum Typebackup {
     case synchronize
+    case syncremote
     case singlefile
 }
 
@@ -29,6 +30,7 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, Dela
     var index: Int?
     // Reference to rsync parameters to use in combox
     var comboBoxValues = [ViewControllerReference.shared.synchronize,
+                          ViewControllerReference.shared.syncremote,
                           "single file"]
     var backuptypeselected: Typebackup = .synchronize
     var remote: RemoteCapacity?
@@ -129,6 +131,8 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, Dela
         case 0:
             self.backuptypeselected = .synchronize
         case 1:
+            self.backuptypeselected = .syncremote
+        case 2:
             self.backuptypeselected = .singlefile
         default:
             self.backuptypeselected = .synchronize
@@ -210,7 +214,10 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, Dela
             "singleFile": 0,
             "batch": 0,
         ]
-        if self.backuptypeselected == .singlefile {
+        if self.backuptypeselected == .syncremote {
+            guard self.offsiteServer.stringValue.isEmpty == false else { return }
+            dict.setValue(ViewControllerReference.shared.syncremote, forKey: "task")
+        } else if self.backuptypeselected == .singlefile {
             dict.setValue(1, forKey: "singleFile")
         }
         if !self.localCatalog.stringValue.hasSuffix("/"), self.backuptypeselected != .singlefile {

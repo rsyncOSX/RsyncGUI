@@ -78,7 +78,8 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
             return
         }
         guard self.checkforrsync() == false else { return }
-        guard self.configurations!.getConfigurations()[self.index!].task == ViewControllerReference.shared.synchronize else {
+        let task = self.configurations!.getConfigurations()[self.index!].task
+        guard ViewControllerReference.shared.synctasks.contains(task) else {
             self.info(num: 7)
             return
         }
@@ -199,8 +200,10 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
             self.info(num: 1)
             return
         }
-        guard self.configurations!.getConfigurations()[self.index!].task == ViewControllerReference.shared.synchronize
-        else { return }
+        let task = self.configurations!.getConfigurations()[self.index!].task
+        guard ViewControllerReference.shared.synctasks.contains(task) else {
+            return
+        }
         self.executetasknow = ExecuteTaskNow(index: self.index!)
     }
 
@@ -274,8 +277,8 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
     func executeSingleTask() {
         guard self.checkforrsync() == false else { return }
         guard self.index != nil else { return }
-        guard self.configurations!.getConfigurations()[self.index!].task == ViewControllerReference.shared.synchronize
-        else {
+        let task = self.configurations!.getConfigurations()[self.index!].task
+        guard ViewControllerReference.shared.synctasks.contains(task) else {
             self.info(num: 6)
             return
         }

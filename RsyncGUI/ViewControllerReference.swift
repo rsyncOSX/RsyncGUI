@@ -65,6 +65,8 @@ final class ViewControllerReference {
     var fileURL: URL?
     // String tasks
     var synchronize: String = "synchronize"
+    var syncremote: String = "syncremote"
+    var synctasks: Set<String>
     // Mark number of days since last backup
     var marknumberofdayssince: Double = 5
     // rsync version string
@@ -183,5 +185,10 @@ final class ViewControllerReference {
         case .vcalloutput:
             self.viewControllerAlloutput = nsviewcontroller
         }
+    }
+
+    init() {
+        self.synctasks = Set<String>()
+        self.synctasks = [self.synchronize, self.syncremote]
     }
 }

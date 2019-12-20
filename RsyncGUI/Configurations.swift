@@ -10,22 +10,22 @@
 //  Created by Thomas Evensen on 08/02/16.
 //  Copyright © 2016 Thomas Evensen. All rights reserved.
 //
-//  swiftlint:disable line_length
+//  swiftlint:disable line_length trailing_comma
 
 import Cocoa
 import Foundation
 
-final class Configurations: ReloadTable, SetSchedules {
+class Configurations: ReloadTable, SetSchedules {
     // reference to Process, used for kill in executing task
     var process: Process?
-    private var profile: String?
+    var profile: String?
     // The main structure storing all Configurations for tasks
-    private var configurations: [Configuration]?
+    var configurations: [Configuration]?
     // Array to store argumenst for all tasks.
     // Initialized during startup
-    private var argumentAllConfigurations: [ArgumentsOneConfiguration]?
+    var argumentAllConfigurations: [ArgumentsOneConfiguration]?
     // Datasource for NSTableViews
-    private var configurationsDataSource: [NSMutableDictionary]?
+    var configurationsDataSource: [NSMutableDictionary]?
     // Object for batchQueue data and operations
     var batchQueue: BatchTaskWorkQueu?
     // backup list from remote info view
@@ -335,21 +335,23 @@ final class Configurations: ReloadTable, SetSchedules {
     /// variable within object.
     /// Function is destroying any previous Configurations before loading new and computing new arguments.
     /// - parameter none: none
-    private func readconfigurations() {
+    func readconfigurations() {
         self.argumentAllConfigurations = [ArgumentsOneConfiguration]()
         let store: [Configuration]? = PersistentStorageConfiguration(profile: self.profile).getConfigurations()
-        for i in 0 ..< (store?.count ?? 0) where store![i].task == ViewControllerReference.shared.synchronize {
-            self.configurations?.append(store![i])
-            let rsyncArgumentsOneConfig = ArgumentsOneConfiguration(config: store![i])
-            self.argumentAllConfigurations?.append(rsyncArgumentsOneConfig)
+        for i in 0 ..< (store?.count ?? 0) {
+            if ViewControllerReference.shared.synctasks.contains(store![i].task) {
+                self.configurations?.append(store![i])
+                let rsyncArgumentsOneConfig = ArgumentsOneConfiguration(config: store![i])
+                self.argumentAllConfigurations!.append(rsyncArgumentsOneConfig)
+            }
         }
         // Then prepare the datasource for use in tableviews as Dictionarys
         var data = [NSMutableDictionary]()
         for i in 0 ..< (self.configurations?.count ?? 0) {
-            data.append(ConvertOneConfig(config: self.configurations![i]).dict)
-            // Sandbox
-            self.appendsequrityscopedurls(config: self.configurations![i])
-            // Sandbox
+            let task = self.configurations?[i].task
+            if ViewControllerReference.shared.synctasks.contains(task ?? "") {
+                data.append(ConvertOneConfig(config: self.configurations![i]).dict)
+            }
         }
         self.configurationsDataSource = data
     }

@@ -169,6 +169,24 @@ class RsyncParameters {
         }
     }
 
+    func remoteargssyncremote(config: Configuration) {
+        self.offsiteCatalog = config.offsiteCatalog
+        self.localCatalog = config.localCatalog
+        self.offsiteUsername = config.offsiteUsername
+        self.offsiteServer = config.offsiteServer
+        if self.offsiteServer!.isEmpty == false {
+            if config.rsyncdaemon != nil {
+                if config.rsyncdaemon == 1 {
+                    self.remoteargs = self.offsiteUsername! + "@" + self.offsiteServer! + "::" + self.localCatalog!
+                } else {
+                    self.remoteargs = self.offsiteUsername! + "@" + self.offsiteServer! + ":" + self.localCatalog!
+                }
+            } else {
+                self.remoteargs = self.offsiteUsername! + "@" + self.offsiteServer! + ":" + self.localCatalog!
+            }
+        }
+    }
+
     func remoteargssnapshot(config: Configuration) {
         self.offsiteCatalog = config.offsiteCatalog + "/"
         self.offsiteUsername = config.offsiteUsername
@@ -184,6 +202,15 @@ class RsyncParameters {
                 self.remoteargs = self.offsiteUsername! + "@" + self.offsiteServer! + ":" + self.offsiteCatalog!
             }
         }
+    }
+
+    func argumentsforsynchronizeremote(dryRun _: Bool, forDisplay: Bool) {
+        guard self.offsiteCatalog != nil else { return }
+        if forDisplay { self.arguments!.append(" ") }
+        self.arguments!.append(remoteargs!)
+        if forDisplay { self.arguments!.append(" ") }
+        self.arguments!.append(self.offsiteCatalog!)
+        if forDisplay { self.arguments!.append(" ") }
     }
 
     func argumentsforsynchronize(dryRun _: Bool, forDisplay: Bool) {
