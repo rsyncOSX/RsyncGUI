@@ -55,6 +55,8 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, Dela
     @IBOutlet var backuptype: NSComboBox!
     @IBOutlet var remotecapacitybutton: NSButton!
     @IBOutlet var useGUIbutton: NSButton!
+    @IBOutlet var stringlocalcatalog: NSTextField!
+    @IBOutlet var stringremotecatalog: NSTextField!
 
     @IBAction func totinfo(_: NSButton) {
         guard self.checkforrsync() == false else { return }
@@ -126,6 +128,17 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, Dela
         }
     }
 
+    private func changelabels() {
+        switch self.backuptype.indexOfSelectedItem {
+        case 1:
+            self.stringlocalcatalog.stringValue = "Source catalog:"
+            self.stringremotecatalog.stringValue = "Destination catalog:"
+        default:
+            self.stringlocalcatalog.stringValue = "Local catalog:"
+            self.stringremotecatalog.stringValue = "Remote catalog:"
+        }
+    }
+
     @IBAction func setbackuptype(_: NSComboBox) {
         switch self.backuptype.indexOfSelectedItem {
         case 0:
@@ -137,6 +150,7 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, Dela
         default:
             self.backuptypeselected = .synchronize
         }
+         self.changelabels()
     }
 
     override func viewDidLoad() {
@@ -168,6 +182,7 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, Dela
         }
         guard self.diddissappear == false else { return }
         self.resetinputfields()
+        self.changelabels()
     }
 
     override func viewDidDisappear() {
