@@ -28,7 +28,7 @@ class RsyncGUITests: XCTestCase, SetConfigurations {
 
     func testnumberofconfigurations() {
         let count = self.configurations?.getConfigurations().count
-        XCTAssertEqual(count, 2, "Should be equal to 2")
+        XCTAssertEqual(count, 3, "Should be equal to 3")
     }
 
     func testargumentsdryrun() {

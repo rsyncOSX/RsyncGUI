@@ -10,7 +10,7 @@
 //  Created by Thomas Evensen on 08/02/16.
 //  Copyright © 2016 Thomas Evensen. All rights reserved.
 //
-//  swiftlint:disable line_length
+//  swiftlint:disable line_length trailing_comma
 
 import Cocoa
 import Foundation
@@ -338,18 +338,20 @@ class Configurations: ReloadTable, SetSchedules {
     func readconfigurations() {
         self.argumentAllConfigurations = [ArgumentsOneConfiguration]()
         let store: [Configuration]? = PersistentStorageConfiguration(profile: self.profile).getConfigurations()
-        for i in 0 ..< (store?.count ?? 0) where store![i].task == ViewControllerReference.shared.synchronize {
-            self.configurations?.append(store![i])
-            let rsyncArgumentsOneConfig = ArgumentsOneConfiguration(config: store![i])
-            self.argumentAllConfigurations?.append(rsyncArgumentsOneConfig)
+        for i in 0 ..< (store?.count ?? 0) {
+            if ViewControllerReference.shared.synctasks.contains(store![i].task) {
+                self.configurations?.append(store![i])
+                let rsyncArgumentsOneConfig = ArgumentsOneConfiguration(config: store![i])
+                self.argumentAllConfigurations!.append(rsyncArgumentsOneConfig)
+            }
         }
         // Then prepare the datasource for use in tableviews as Dictionarys
         var data = [NSMutableDictionary]()
         for i in 0 ..< (self.configurations?.count ?? 0) {
-            data.append(ConvertOneConfig(config: self.configurations![i]).dict)
-            // Sandbox
-            self.appendsequrityscopedurls(config: self.configurations![i])
-            // Sandbox
+            let task = self.configurations?[i].task
+            if ViewControllerReference.shared.synctasks.contains(task ?? "") {
+                data.append(ConvertOneConfig(config: self.configurations![i]).dict)
+            }
         }
         self.configurationsDataSource = data
     }
