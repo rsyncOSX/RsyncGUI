@@ -2454,18 +2454,18 @@
         <scene sceneID="GIT-ED-d2h">
             <objects>
                 <viewController title="Details about files" storyboardIdentifier="StoryboardInformationID" id="ceM-Kt-SJU" customClass="ViewControllerInformation" customModule="RsyncGUI" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" misplaced="YES" id="KBL-J8-CuF">
+                    <view key="view" id="KBL-J8-CuF">
                         <rect key="frame" x="0.0" y="0.0" width="696" height="276"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <scrollView autohidesScrollers="YES" horizontalLineScroll="21" horizontalPageScroll="10" verticalLineScroll="21" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vKB-vU-qrp">
-                                <rect key="frame" x="20" y="64" width="656" height="77"/>
+                                <rect key="frame" x="20" y="64" width="656" height="192"/>
                                 <clipView key="contentView" id="fsy-MR-0hH">
-                                    <rect key="frame" x="1" y="0.0" width="654" height="76"/>
+                                    <rect key="frame" x="1" y="0.0" width="654" height="191"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="19" rowSizeStyle="automatic" headerView="miE-cF-Mpr" viewBased="YES" id="Iah-yC-nuy">
-                                            <rect key="frame" x="0.0" y="0.0" width="654" height="53"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="654" height="168"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -3237,6 +3237,8 @@ DQ
                         <outlet property="offsiteServer" destination="K4B-RP-RbM" id="tM6-4p-VHp"/>
                         <outlet property="offsiteUsername" destination="jVM-RL-IuU" id="wl3-4L-PcG"/>
                         <outlet property="sshport" destination="xH3-OQ-4hl" id="kiy-q4-Yxt"/>
+                        <outlet property="stringlocalcatalog" destination="ZWj-qH-2I5" id="mhm-n0-cgp"/>
+                        <outlet property="stringremotecatalog" destination="JAl-oI-9Ah" id="k2U-mv-XHb"/>
                     </connections>
                 </viewController>
                 <customObject id="cus-9G-xLk" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -5617,7 +5619,7 @@ DQ
                                 <rect key="frame" x="83" y="38" width="243" height="13"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Finding tasks for automatic backup, please wait..." id="xXy-oY-7zq">
-                                    <font key="font" metaFont="label"/>
+                                    <font key="font" metaFont="menu" size="10"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
