@@ -16,6 +16,8 @@ class ViewControllerEdit: NSViewController, SetConfigurations, SetDismisser, Ind
     @IBOutlet var offsiteServer: NSTextField!
     @IBOutlet var backupID: NSTextField!
     @IBOutlet var sshport: NSTextField!
+    @IBOutlet var stringlocalcatalog: NSTextField!
+    @IBOutlet var stringremotecatalog: NSTextField!
 
     var index: Int?
     var singleFile: Bool = false
@@ -73,6 +75,18 @@ class ViewControllerEdit: NSViewController, SetConfigurations, SetDismisser, Ind
         self.backupID.stringValue = config.backupID
         if let port = config.sshport {
             self.sshport.stringValue = String(port)
+        }
+    }
+
+    private func changelabels() {
+        let config: Configuration = self.configurations!.getConfigurations()[self.index!]
+        switch config.task {
+        case ViewControllerReference.shared.syncremote:
+            self.stringlocalcatalog.stringValue = "Source catalog:"
+            self.stringremotecatalog.stringValue = "Destination catalog:"
+        default:
+            self.stringlocalcatalog.stringValue = "Local catalog:"
+            self.stringremotecatalog.stringValue = "Remote catalog:"
         }
     }
 }
