@@ -21,7 +21,11 @@ final class ArgumentsSynchronize: RsyncParameters {
     /// - returns: Array of Strings
     func argumentssynchronize(dryRun: Bool, forDisplay: Bool) -> [String] {
         self.localCatalog = self.config!.localCatalog
-        self.remoteargs(config: self.config!)
+        if self.config?.task == ViewControllerReference.shared.syncremote {
+            self.remoteargssyncremote(config: self.config!)
+        } else {
+            self.remoteargs(config: self.config!)
+        }
         self.setParameters1To6(config: self.config!, dryRun: dryRun, forDisplay: forDisplay, verify: false)
         self.setParameters8To14(config: self.config!, dryRun: dryRun, forDisplay: forDisplay)
         switch self.config?.task {

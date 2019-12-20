@@ -15,17 +15,17 @@
 import Cocoa
 import Foundation
 
-final class Configurations: ReloadTable, SetSchedules {
+class Configurations: ReloadTable, SetSchedules {
     // reference to Process, used for kill in executing task
     var process: Process?
-    private var profile: String?
+    var profile: String?
     // The main structure storing all Configurations for tasks
-    private var configurations: [Configuration]?
+    var configurations: [Configuration]?
     // Array to store argumenst for all tasks.
     // Initialized during startup
-    private var argumentAllConfigurations: [ArgumentsOneConfiguration]?
+    var argumentAllConfigurations: [ArgumentsOneConfiguration]?
     // Datasource for NSTableViews
-    private var configurationsDataSource: [NSMutableDictionary]?
+    var configurationsDataSource: [NSMutableDictionary]?
     // Object for batchQueue data and operations
     var batchQueue: BatchTaskWorkQueu?
     // backup list from remote info view
@@ -335,7 +335,7 @@ final class Configurations: ReloadTable, SetSchedules {
     /// variable within object.
     /// Function is destroying any previous Configurations before loading new and computing new arguments.
     /// - parameter none: none
-    private func readconfigurations() {
+    func readconfigurations() {
         self.argumentAllConfigurations = [ArgumentsOneConfiguration]()
         let store: [Configuration]? = PersistentStorageConfiguration(profile: self.profile).getConfigurations()
         for i in 0 ..< (store?.count ?? 0) where store![i].task == ViewControllerReference.shared.synchronize {
