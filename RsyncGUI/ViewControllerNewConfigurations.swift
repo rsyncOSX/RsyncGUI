@@ -150,7 +150,7 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, Dela
         default:
             self.backuptypeselected = .synchronize
         }
-         self.changelabels()
+        self.changelabels()
     }
 
     override func viewDidLoad() {
@@ -181,7 +181,11 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, Dela
             self.copyconfigbutton.isEnabled = false
         }
         guard self.diddissappear == false else { return }
-        self.resetinputfields()
+        self.viewParameter1.stringValue = self.archive
+        self.viewParameter2.stringValue = self.verbose
+        self.viewParameter3.stringValue = self.compress
+        self.viewParameter4.stringValue = self.delete
+        self.viewParameter5.stringValue = self.eparam + " " + self.ssh
         self.changelabels()
     }
 
@@ -197,11 +201,6 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, Dela
     }
 
     private func resetinputfields() {
-        self.viewParameter1.stringValue = self.archive
-        self.viewParameter2.stringValue = self.verbose
-        self.viewParameter3.stringValue = self.compress
-        self.viewParameter4.stringValue = self.delete
-        self.viewParameter5.stringValue = self.eparam + " " + self.ssh
         self.localCatalog.stringValue = ""
         self.offsiteCatalog.stringValue = ""
         self.offsiteUsername.stringValue = ""

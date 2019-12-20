@@ -5,15 +5,14 @@
 //  Created by Thomas Evensen on 26.07.2018.
 //  Copyright © 2018 Thomas Evensen. All rights reserved.
 //
-// swiftlint:disable line_length
+// swiftlint:disable line_length type_body_length
 
 import Cocoa
 import Foundation
 
-class ViewControllerVerify: NSViewController, SetConfigurations, Index, Connected, VcMain, Checkforrsync {
+class ViewControllerVerify: NSViewController, SetConfigurations, Index, Connected, VcMain, Setcolor, Checkforrsync {
     @IBOutlet var outputtable: NSTableView!
     var outputprocess: OutputProcess?
-    var index: Int?
     var lastindex: Int?
     var estimatedindex: Int?
     var gotremoteinfo: Bool = false
@@ -77,34 +76,36 @@ class ViewControllerVerify: NSViewController, SetConfigurations, Index, Connecte
     }
 
     @IBAction func verify(_: NSButton) {
-        guard self.index != nil else { return }
-        self.rsynccommanddisplay.stringValue = Displayrsyncpath(index: self.index!, display: .verify).displayrsyncpath ?? ""
-        self.verifyradiobutton.state = .on
-        self.changedradiobutton.state = .off
-        self.gotit.textColor = .white
-        self.gotit.stringValue = "Verifying, please wait..."
-        self.enabledisablebuttons(enable: false)
-        self.working.startAnimation(nil)
-        if let arguments = self.configurations?.arguments4verify(index: self.index!) {
-            self.outputprocess = OutputProcess()
-            self.outputprocess?.addlinefromoutput(str: "*** Verify ***")
-            self.verifyandchanged(arguments: arguments)
+        if let index = self.index() {
+            self.rsynccommanddisplay.stringValue = Displayrsyncpath(index: index, display: .verify).displayrsyncpath ?? ""
+            self.verifyradiobutton.state = .on
+            self.changedradiobutton.state = .off
+            self.gotit.textColor = .white
+            self.gotit.stringValue = "Verifying, please wait..."
+            self.enabledisablebuttons(enable: false)
+            self.working.startAnimation(nil)
+            if let arguments = self.configurations?.arguments4verify(index: index) {
+                self.outputprocess = OutputProcess()
+                self.outputprocess?.addlinefromoutput(str: "*** Verify ***")
+                self.verifyandchanged(arguments: arguments)
+            }
         }
     }
 
     @IBAction func changed(_: NSButton) {
-        guard self.index != nil else { return }
-        self.rsynccommanddisplay.stringValue = Displayrsyncpath(index: self.index!, display: .restore).displayrsyncpath ?? ""
-        self.changedradiobutton.state = .on
-        self.verifyradiobutton.state = .off
-        self.gotit.textColor = .white
-        self.gotit.stringValue = "Computing changed, please wait..."
-        self.enabledisablebuttons(enable: false)
-        self.working.startAnimation(nil)
-        if let arguments = self.configurations?.arguments4restore(index: self.index!, argtype: .argdryRun) {
-            self.outputprocess = OutputProcess()
-            self.outputprocess?.addlinefromoutput(str: "*** Changed ***")
-            self.verifyandchanged(arguments: arguments)
+        if let index = self.index() {
+            self.rsynccommanddisplay.stringValue = Displayrsyncpath(index: index, display: .restore).displayrsyncpath ?? ""
+            self.changedradiobutton.state = .on
+            self.verifyradiobutton.state = .off
+            self.gotit.textColor = .white
+            self.gotit.stringValue = "Computing changed, please wait..."
+            self.enabledisablebuttons(enable: false)
+            self.working.startAnimation(nil)
+            if let arguments = self.configurations?.arguments4restore(index: index, argtype: .argdryRun) {
+                self.outputprocess = OutputProcess()
+                self.outputprocess?.addlinefromoutput(str: "*** Changed ***")
+                self.verifyandchanged(arguments: arguments)
+            }
         }
     }
 
@@ -121,22 +122,20 @@ class ViewControllerVerify: NSViewController, SetConfigurations, Index, Connecte
     }
 
     @IBAction func displayrsynccommand(_: NSButton) {
-        guard self.index != nil else {
-            self.rsynccommanddisplay.stringValue = ""
-            return
-        }
-        if self.verifyradiobutton.state == .on {
-            self.rsynccommanddisplay.stringValue = Displayrsyncpath(index: self.index!, display: .verify).displayrsyncpath ?? ""
+        if let index = self.index() {
+            if self.verifyradiobutton.state == .on {
+                self.rsynccommanddisplay.stringValue = Displayrsyncpath(index: index, display: .verify).displayrsyncpath ?? ""
+            } else {
+                self.rsynccommanddisplay.stringValue = Displayrsyncpath(index: index, display: .restore).displayrsyncpath ?? ""
+            }
         } else {
-            self.rsynccommanddisplay.stringValue = Displayrsyncpath(index: self.index!, display: .restore).displayrsyncpath ?? ""
+            self.rsynccommanddisplay.stringValue = ""
         }
     }
 
     // Abort button
     @IBAction func abort(_: NSButton) {
-        self.lastindex = self.index
-        guard self.processRefererence != nil else { return }
-        self.processRefererence!.abortProcess()
+        self.processRefererence?.abortProcess()
     }
 
     override func viewDidLoad() {
@@ -149,40 +148,64 @@ class ViewControllerVerify: NSViewController, SetConfigurations, Index, Connecte
 
     override func viewDidAppear() {
         super.viewDidAppear()
-        self.index = self.index()
-        if let index = self.index {
-            let config = self.configurations!.getConfigurations()[index]
-            guard self.connected(config: config) == true else {
-                self.gotit.stringValue = "Seems not to be connected..."
-                return
-            }
-            guard index != self.lastindex ?? -1 else { return }
-            guard self.estimatedindex ?? -1 != index else { return }
+        if self.index() != nil, self.reload() {
             self.resetinfo()
             self.setinfo()
             self.enabledisablebuttons(enable: false)
-            self.estimatedindex = index
+            self.estimatedindex = self.index()
             self.gotit.stringValue = "Getting information, please wait ..."
             self.gotremoteinfo = false
             self.complete = false
-            let datelastbackup = self.configurations?.getConfigurations()[index].dateRun ?? "none"
-            let numberlastbackup = self.configurations?.getConfigurations()[index].dayssincelastbackup ?? "none"
+            let datelastbackup = self.configurations?.getConfigurations()[self.index()!].dateRun ?? "none"
+            let numberlastbackup = self.configurations?.getConfigurations()[self.index()!].dayssincelastbackup ?? "none"
             self.datelastbackup.stringValue = "Date last backup: " + datelastbackup
             self.dayslastbackup.stringValue = "Days since last backup: " + numberlastbackup
-            self.estimateremoteinfo(index: index, local: true)
+            self.estimateremoteinfo(index: self.index()!, local: true)
         } else {
-            self.gotit.textColor = .red
-            self.gotit.stringValue = "Please select a task in Execute ..."
+            _ = self.reload()
+        }
+    }
+
+    private func reload() -> Bool {
+        if let index = self.index() {
+            let config = self.configurations!.getConfigurations()[index]
+            guard config.task != ViewControllerReference.shared.syncremote else {
+                self.gotit.textColor = setcolor(nsviewcontroller: self, color: .red)
+                let message: String = "Cannot verify a syncremote task..."
+                self.gotit.stringValue = message
+                self.verifybutton.isEnabled = false
+                self.changedbutton.isEnabled = false
+                self.resetinfo()
+                return false
+            }
+            guard self.connected(config: config) == true else {
+                self.gotit.textColor = setcolor(nsviewcontroller: self, color: .red)
+                let dontgotit: String = "Seems not to be connected..."
+                self.gotit.stringValue = dontgotit
+                self.verifybutton.isEnabled = false
+                self.changedbutton.isEnabled = false
+                self.resetinfo()
+                return false
+            }
+            guard self.index() != self.lastindex ?? -1 else { return false }
+            guard self.estimatedindex ?? -1 != index else { return false }
+        } else {
+            self.gotit.textColor = setcolor(nsviewcontroller: self, color: .green)
+            let task: String = "Please select a task in Execute ..."
+            self.gotit.stringValue = task
             self.outputprocess = nil
+            self.resetinfo()
             globalMainQueue.async { () -> Void in
                 self.outputtable.reloadData()
             }
+            guard self.index() != nil else { return false }
         }
+        return true
     }
 
     override func viewDidDisappear() {
         super.viewDidDisappear()
-        self.lastindex = self.index
+        self.lastindex = self.index()
     }
 
     private func enabledisablebuttons(enable: Bool) {
@@ -230,11 +253,11 @@ class ViewControllerVerify: NSViewController, SetConfigurations, Index, Connecte
     }
 
     private func setinfo() {
-        let hiddenID = self.configurations?.gethiddenID(index: self.index!) ?? 0
-        guard hiddenID > -1 else { return }
-        self.localcatalog.stringValue = self.configurations!.getResourceConfiguration(hiddenID: hiddenID, resource: .localCatalog)
-        self.remoteserver.stringValue = self.configurations!.getResourceConfiguration(hiddenID: hiddenID, resource: .offsiteServer)
-        self.remotecatalog.stringValue = self.configurations!.getResourceConfiguration(hiddenID: hiddenID, resource: .offsiteCatalog)
+        if let hiddenID = self.configurations?.gethiddenID(index: self.index() ?? -1) {
+            self.localcatalog.stringValue = self.configurations!.getResourceConfiguration(hiddenID: hiddenID, resource: .localCatalog)
+            self.remoteserver.stringValue = self.configurations!.getResourceConfiguration(hiddenID: hiddenID, resource: .offsiteServer)
+            self.remotecatalog.stringValue = self.configurations!.getResourceConfiguration(hiddenID: hiddenID, resource: .offsiteCatalog)
+        }
     }
 
     private func resetinfo() {
@@ -287,7 +310,7 @@ extension ViewControllerVerify: UpdateProgress {
                 self.publishnumbers(outputprocess: self.outputprocess, local: false)
                 self.enabledisablebuttons(enable: true)
             }
-            if let index = self.index {
+            if let index = self.index() {
                 if self.complete == false {
                     self.complete = true
                     self.outputprocess = OutputProcess()
