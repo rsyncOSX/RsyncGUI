@@ -63,4 +63,3 @@ class ConfigurationsXCTEST: Configurations {
         self.configurationsDataSource = data
     }
 }
-
