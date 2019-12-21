@@ -80,7 +80,7 @@ class ViewControllerVerify: NSViewController, SetConfigurations, Index, Connecte
             self.rsynccommanddisplay.stringValue = Displayrsyncpath(index: index, display: .verify).displayrsyncpath ?? ""
             self.verifyradiobutton.state = .on
             self.changedradiobutton.state = .off
-            self.gotit.textColor = .white
+           self.gotit.textColor = setcolor(nsviewcontroller: self, color: .white)
             self.gotit.stringValue = "Verifying, please wait..."
             self.enabledisablebuttons(enable: false)
             self.working.startAnimation(nil)
@@ -97,7 +97,7 @@ class ViewControllerVerify: NSViewController, SetConfigurations, Index, Connecte
             self.rsynccommanddisplay.stringValue = Displayrsyncpath(index: index, display: .restore).displayrsyncpath ?? ""
             self.changedradiobutton.state = .on
             self.verifyradiobutton.state = .off
-            self.gotit.textColor = .white
+            self.gotit.textColor = setcolor(nsviewcontroller: self, color: .white)
             self.gotit.stringValue = "Computing changed, please wait..."
             self.enabledisablebuttons(enable: false)
             self.working.startAnimation(nil)
@@ -153,6 +153,7 @@ class ViewControllerVerify: NSViewController, SetConfigurations, Index, Connecte
             self.setinfo()
             self.enabledisablebuttons(enable: false)
             self.estimatedindex = self.index()
+            self.gotit.textColor = setcolor(nsviewcontroller: self, color: .green)
             self.gotit.stringValue = "Getting information, please wait ..."
             self.gotremoteinfo = false
             self.complete = false
@@ -323,7 +324,7 @@ extension ViewControllerVerify: UpdateProgress {
         } else {
             self.working.stopAnimation(nil)
             self.gotit.stringValue = "Completed ..."
-            self.gotit.textColor = .green
+            self.gotit.textColor = setcolor(nsviewcontroller: self, color: .green)
             self.changedbutton.isEnabled = true
             self.verifybutton.isEnabled = true
         }
