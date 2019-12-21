@@ -12,7 +12,7 @@ import Foundation
 class ViewControllerRestore: NSViewController, SetConfigurations, Connected, Setcolor, VcMain, Checkforrsync, Abort {
     @IBOutlet var restoretable: NSTableView!
     @IBOutlet var working: NSProgressIndicator!
-    @IBOutlet var gotit: NSTextField!
+    @IBOutlet var info: NSTextField!
 
     @IBOutlet var transferredNumber: NSTextField!
     @IBOutlet var transferredNumberSizebytes: NSTextField!
@@ -78,9 +78,9 @@ class ViewControllerRestore: NSViewController, SetConfigurations, Connected, Set
         let answer = Alerts.dialogOrCancel(question: question, text: text, dialog: dialog)
         if answer {
             if let index = self.index {
-                self.gotit.textColor = setcolor(nsviewcontroller: self, color: .white)
-                self.gotit.stringValue = "Executing restore..."
-                self.gotit.isHidden = false
+                self.info.textColor = setcolor(nsviewcontroller: self, color: .white)
+                self.info.stringValue = "Executing restore..."
+                self.info.isHidden = false
                 self.restorebutton.isEnabled = false
                 self.outputprocess = OutputProcess()
                 globalMainQueue.async { () -> Void in
@@ -110,7 +110,7 @@ class ViewControllerRestore: NSViewController, SetConfigurations, Connected, Set
 
     override func viewDidAppear() {
         super.viewDidAppear()
-        self.gotit.isHidden = true
+        self.info.isHidden = true
         guard self.diddissappear == false else { return }
         self.restorebutton.isEnabled = false
         self.estimatebutton.isEnabled = false
@@ -144,19 +144,19 @@ class ViewControllerRestore: NSViewController, SetConfigurations, Connected, Set
             self.deletefiles.stringValue = infotask.deletefiles!
             self.working.stopAnimation(nil)
             self.restorebutton.isEnabled = true
-            self.gotit.textColor = self.setcolor(nsviewcontroller: self, color: .green)
+            self.info.textColor = self.setcolor(nsviewcontroller: self, color: .green)
             let gotit: String = NSLocalizedString("Got it...", comment: "Restore")
-            self.gotit.stringValue = gotit
-            self.gotit.isHidden = false
+            self.info.stringValue = gotit
+            self.info.isHidden = false
         }
     }
 
     @IBAction func prepareforrestore(_: NSButton) {
         if let index = self.index {
             if self.connected(config: self.configurations!.getConfigurations()[index]) == true {
-                self.gotit.textColor = setcolor(nsviewcontroller: self, color: .white)
-                self.gotit.stringValue = "Getting info, please wait..."
-                self.gotit.isHidden = false
+                self.info.textColor = setcolor(nsviewcontroller: self, color: .white)
+                self.info.stringValue = "Getting info, please wait..."
+                self.info.isHidden = false
                 self.estimatebutton.isEnabled = false
                 self.working.startAnimation(nil)
                 self.outputprocess = OutputProcess()
@@ -170,9 +170,9 @@ class ViewControllerRestore: NSViewController, SetConfigurations, Connected, Set
                                     tmprestore: false, updateprogress: self)
                 }
             } else {
-                self.gotit.stringValue = NSLocalizedString("Seems not to be connected...", comment: "Remote Info")
-                self.gotit.textColor = self.setcolor(nsviewcontroller: self, color: .red)
-                self.gotit.isHidden = false
+                self.info.stringValue = NSLocalizedString("Seems not to be connected...", comment: "Remote Info")
+                self.info.textColor = self.setcolor(nsviewcontroller: self, color: .red)
+                self.info.isHidden = false
             }
         }
     }
