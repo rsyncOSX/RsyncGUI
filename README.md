@@ -16,6 +16,12 @@ Apple has the [App Sandboxing technology](https://developer.apple.com/app-sandbo
 
 Much of the work on sandbox is based upon [Sandbox code](https://github.com/regexident/Sandbox). The user has to allow the app to read all catalogs and if remote servers is utilized rsync must be allowed to read the private ssh certificates.
 
+### Some words about RsyncGUI
+
+RsyncGUI is not developed to be an easy synchronize and backup tool. The main purpose is to ease the use of `rsync` and synchronize files on your Mac to remote FreeBSD and Linux servers. And of course restore files from remote servers. The UI might also be difficult to understand or complex if you don't know what `rsync` is. It is not required to know `rsync` but it will ease the use and understanding of RsyncGUI. But it is though, possible to use RsyncGUI by just adding a source and remote backup catalog using default parameters.
+
+If your plan is to use RsyncGUI as your main tool for backup of files, please investigate and understand the limits of it. RsyncGUI is quite powerful, but it is might not the primary backup tool for the average user of macOS.
+
 ### --delete parameter
 
 **Caution** about RsyncGUI and the `--delete` parameter. The `--delete` is a [default parameter](https://rsyncosx.github.io/RsyncParameters). The parameter instructs rsync to **delete** all files in the destination which are not present in the source. Every time you add a new task to RsyncGUI, execute an estimation run (`--dry-run` parameter) and inspect the result before executing a real run. If you by accident set an empty catalog as source RsyncGUI will delete all files in the destination. To save deleted and changes files utilize the `--backup` [feature](https://rsyncosx.github.io/Parameters).
