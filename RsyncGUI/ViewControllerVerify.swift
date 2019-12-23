@@ -80,7 +80,7 @@ class ViewControllerVerify: NSViewController, SetConfigurations, Index, Connecte
             self.rsynccommanddisplay.stringValue = Displayrsyncpath(index: index, display: .verify).displayrsyncpath ?? ""
             self.verifyradiobutton.state = .on
             self.changedradiobutton.state = .off
-           self.gotit.textColor = setcolor(nsviewcontroller: self, color: .white)
+            self.gotit.textColor = setcolor(nsviewcontroller: self, color: .white)
             self.gotit.stringValue = "Verifying, please wait..."
             self.enabledisablebuttons(enable: false)
             self.working.startAnimation(nil)
@@ -318,9 +318,9 @@ extension ViewControllerVerify: UpdateProgress {
                     self.estimateremoteinfo(index: index, local: false)
                 }
             }
-            globalMainQueue.async(execute: { () -> Void in
+            globalMainQueue.async { () -> Void in
                 self.outputtable.reloadData()
-            })
+            }
         } else {
             self.working.stopAnimation(nil)
             self.gotit.stringValue = "Completed ..."
