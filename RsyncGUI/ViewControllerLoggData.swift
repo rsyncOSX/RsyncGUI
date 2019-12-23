@@ -72,9 +72,9 @@ class ViewControllerLoggData: NSViewController, SetConfigurations, SetSchedules,
         default:
             self.scheduleloggdata?.loggdata = self.scheduleloggdata!.sortbystring(notsortedlist: self.scheduleloggdata?.loggdata, sortby: self.filterby!, sortdirection: self.sortedascending)
         }
-        globalMainQueue.async(execute: { () -> Void in
+        globalMainQueue.async { () -> Void in
             self.scheduletable.reloadData()
-        })
+        }
     }
 
     @IBAction func selectlogs(_: NSButton) {
@@ -86,10 +86,10 @@ class ViewControllerLoggData: NSViewController, SetConfigurations, SetSchedules,
                 self.scheduleloggdata!.loggdata![i].setValue(1, forKey: "deleteCellID")
             }
         }
-        globalMainQueue.async(execute: { () -> Void in
+        globalMainQueue.async { () -> Void in
             self.selectedrows.stringValue = "Selected logs: " + self.selectednumber()
             self.scheduletable.reloadData()
-        })
+        }
     }
 
     @IBAction func deletealllogs(_: NSButton) {
@@ -251,9 +251,9 @@ extension ViewControllerLoggData: NSTableViewDelegate {
             default:
                 break
             }
-            globalMainQueue.async(execute: { () -> Void in
+            globalMainQueue.async { () -> Void in
                 self.selectedrows.stringValue = "Selected rows: " + self.selectednumber()
-            })
+            }
         }
     }
 }

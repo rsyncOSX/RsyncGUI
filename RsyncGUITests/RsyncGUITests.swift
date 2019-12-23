@@ -82,9 +82,9 @@ class RsyncGUITests: XCTestCase, SetConfigurations {
 
     func testargumentssyncremoterealrun() {
         let arguments = ["--archive", "--verbose", "--compress", "--delete", "-e", "ssh -p 22", "--exclude=.git",
-        "--stats", "thomas@web:~/remotecatalog/", "/Users/thomas/localcatalog/"]
+                         "--stats", "thomas@web:~/remotecatalog/", "/Users/thomas/localcatalog/"]
         XCTAssertEqual(arguments, self.configurations?.arguments4rsync(index: 2, argtype: .arg),
-        "Arguments should be equal")
+                       "Arguments should be equal")
     }
 
     func testalllogs() {
