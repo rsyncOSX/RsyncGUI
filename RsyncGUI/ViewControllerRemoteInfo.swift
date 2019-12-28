@@ -10,11 +10,11 @@
 import Cocoa
 import Foundation
 
-protocol OpenQuickBackup: class {
+protocol OpenQuickBackup: AnyObject {
     func openquickbackup()
 }
 
-protocol EnableQuicbackupButton: class {
+protocol EnableQuicbackupButton: AnyObject {
     func enablequickbackupbutton()
 }
 

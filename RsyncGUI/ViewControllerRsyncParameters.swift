@@ -12,7 +12,7 @@ import Cocoa
 import Foundation
 
 // protocol for returning if userparams is updated or not
-protocol RsyncUserParams: class {
+protocol RsyncUserParams: AnyObject {
     func rsyncuserparamsupdated()
 }
 
