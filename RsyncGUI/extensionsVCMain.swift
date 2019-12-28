@@ -395,7 +395,7 @@ extension ViewControllerMain: SaveSequrityScopedURL {
 }
 
 // Protocol for start,stop, complete progressviewindicator
-protocol StartStopProgressIndicator: class {
+protocol StartStopProgressIndicator: AnyObject {
     func start()
     func stop()
     func complete()
@@ -403,23 +403,23 @@ protocol StartStopProgressIndicator: class {
 
 // Protocol for either completion of work or update progress when Process discovers a
 // process termination and when filehandler discover data
-protocol UpdateProgress: class {
+protocol UpdateProgress: AnyObject {
     func processTermination()
     func fileHandler()
 }
 
-protocol ViewOutputDetails: class {
+protocol ViewOutputDetails: AnyObject {
     func reloadtable()
     func appendnow() -> Bool
     func getalloutput() -> [String]
 }
 
-protocol SetProfileinfo: class {
+protocol SetProfileinfo: AnyObject {
     func setprofile(profile: String, color: NSColor)
 }
 
 // Protocol for getting the hiddenID for a configuration
-protocol GetHiddenID: class {
+protocol GetHiddenID: AnyObject {
     func gethiddenID() -> Int?
 }
 
@@ -430,11 +430,11 @@ enum Color {
     case black
 }
 
-protocol Setcolor: class {
+protocol Setcolor: AnyObject {
     func setcolor(nsviewcontroller: NSViewController, color: Color) -> NSColor
 }
 
-protocol Checkforrsync: class {
+protocol Checkforrsync: AnyObject {
     func checkforrsync() -> Bool
 }
 

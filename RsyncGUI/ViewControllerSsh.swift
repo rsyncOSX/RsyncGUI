@@ -10,11 +10,11 @@
 import Cocoa
 import Foundation
 
-protocol ResetSequrityScopedURL: class {
+protocol ResetSequrityScopedURL: AnyObject {
     func resetsequrityscopedurl()
 }
 
-protocol SaveSequrityScopedURL: class {
+protocol SaveSequrityScopedURL: AnyObject {
     func savesequrityscopedurl(urlpath: URL)
 }
 
