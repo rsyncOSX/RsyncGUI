@@ -5,7 +5,7 @@
 //  Created by Thomas Evensen on 26.07.2018.
 //  Copyright © 2018 Thomas Evensen. All rights reserved.
 //
-// swiftlint:disable line_length type_body_length
+// swiftlint:disable line_length
 
 import Cocoa
 import Foundation
@@ -76,13 +76,12 @@ class ViewControllerVerify: NSViewController, SetConfigurations, Index, Connecte
     }
 
     @IBAction func verify(_: NSButton) {
+        guard self.processRefererence == nil else { return }
         if let index = self.index() {
+            self.estimatedindex = index
             self.rsynccommanddisplay.stringValue = Displayrsyncpath(index: index, display: .verify).displayrsyncpath ?? ""
-            self.verifyradiobutton.state = .on
-            self.changedradiobutton.state = .off
             self.gotit.textColor = setcolor(nsviewcontroller: self, color: .white)
             self.gotit.stringValue = "Verifying, please wait..."
-            self.enabledisablebuttons(enable: false)
             self.working.startAnimation(nil)
             if let arguments = self.configurations?.arguments4verify(index: index) {
                 self.outputprocess = OutputProcess()
@@ -93,13 +92,12 @@ class ViewControllerVerify: NSViewController, SetConfigurations, Index, Connecte
     }
 
     @IBAction func changed(_: NSButton) {
+        guard self.processRefererence == nil else { return }
         if let index = self.index() {
+            self.estimatedindex = index
             self.rsynccommanddisplay.stringValue = Displayrsyncpath(index: index, display: .restore).displayrsyncpath ?? ""
-            self.changedradiobutton.state = .on
-            self.verifyradiobutton.state = .off
             self.gotit.textColor = setcolor(nsviewcontroller: self, color: .white)
             self.gotit.stringValue = "Computing changed, please wait..."
-            self.enabledisablebuttons(enable: false)
             self.working.startAnimation(nil)
             if let arguments = self.configurations?.arguments4restore(index: index, argtype: .argdryRun) {
                 self.outputprocess = OutputProcess()
@@ -151,17 +149,12 @@ class ViewControllerVerify: NSViewController, SetConfigurations, Index, Connecte
         if self.index() != nil, self.reload() {
             self.resetinfo()
             self.setinfo()
-            self.enabledisablebuttons(enable: false)
-            self.estimatedindex = self.index()
-            self.gotit.textColor = setcolor(nsviewcontroller: self, color: .green)
-            self.gotit.stringValue = "Getting information, please wait ..."
             self.gotremoteinfo = false
             self.complete = false
             let datelastbackup = self.configurations?.getConfigurations()[self.index()!].dateRun ?? "none"
             let numberlastbackup = self.configurations?.getConfigurations()[self.index()!].dayssincelastbackup ?? "none"
             self.datelastbackup.stringValue = "Date last backup: " + datelastbackup
             self.dayslastbackup.stringValue = "Days since last backup: " + numberlastbackup
-            self.estimateremoteinfo(index: self.index()!, local: true)
         } else {
             _ = self.reload()
         }
@@ -201,17 +194,13 @@ class ViewControllerVerify: NSViewController, SetConfigurations, Index, Connecte
             }
             guard self.index() != nil else { return false }
         }
+        self.gotit.stringValue = ""
         return true
     }
 
     override func viewDidDisappear() {
         super.viewDidDisappear()
         self.lastindex = self.index()
-    }
-
-    private func enabledisablebuttons(enable: Bool) {
-        self.verifybutton.isEnabled = enable
-        self.changedbutton.isEnabled = enable
     }
 
     private func estimateremoteinfo(index: Int, local: Bool) {
@@ -303,13 +292,13 @@ extension ViewControllerVerify: NSTableViewDelegate {
 
 extension ViewControllerVerify: UpdateProgress {
     func processTermination() {
+        self.processRefererence = nil
         if self.gotremoteinfo == false {
             if self.complete == false {
                 self.publishnumbers(outputprocess: self.outputprocess, local: true)
             } else {
                 self.gotremoteinfo = true
                 self.publishnumbers(outputprocess: self.outputprocess, local: false)
-                self.enabledisablebuttons(enable: true)
             }
             if let index = self.index() {
                 if self.complete == false {
@@ -325,8 +314,6 @@ extension ViewControllerVerify: UpdateProgress {
             self.working.stopAnimation(nil)
             self.gotit.stringValue = "Completed ..."
             self.gotit.textColor = setcolor(nsviewcontroller: self, color: .green)
-            self.changedbutton.isEnabled = true
-            self.verifybutton.isEnabled = true
         }
     }
 
