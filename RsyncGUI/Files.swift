@@ -93,7 +93,10 @@ class Files: Reportfileerror {
         case .profileRoot:
             let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as NSArray
             let docuDir = (paths.firstObject as? String)!
-            let profilePath = docuDir + self.configpath! + Macserialnumber().getMacSerialNumber()!
+            if ViewControllerReference.shared.macserialnumber == nil {
+                ViewControllerReference.shared.macserialnumber = Macserialnumber().getMacSerialNumber() ?? ""
+            }
+            let profilePath = docuDir + self.configpath! + (ViewControllerReference.shared.macserialnumber ?? "")
             self.realrootpath = profilePath
         case .realRoot:
             self.realrootpath = self.userHomeDirectoryPath
