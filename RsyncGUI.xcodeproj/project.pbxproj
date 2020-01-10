@@ -65,6 +65,7 @@
 		E83B4474235F3C6700BBC793 /* ArgumentsVerify.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B446D235F3C6700BBC793 /* ArgumentsVerify.swift */; };
 		E840ED1B22D0BDC900CF62FF /* RootcatalogSequrityscopedURLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E840ED1A22D0BDC900CF62FF /* RootcatalogSequrityscopedURLs.swift */; };
 		E840ED1F22D0CD3C00CF62FF /* AppendSequrityscopedURLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E840ED1E22D0CD3C00CF62FF /* AppendSequrityscopedURLs.swift */; };
+		E8EDD15323C8C0E800806CCD /* Validatenewconfigs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EDD15223C8C0E800806CCD /* Validatenewconfigs.swift */; };
 		E905DC111EACF7550003BF37 /* ViewControllerSsh.swift in Sources */ = {isa = PBXBuildFile; fileRef = E905DC101EACF7550003BF37 /* ViewControllerSsh.swift */; };
 		E905EDB41FED05B10044234E /* QuickBackup.swift in Sources */ = {isa = PBXBuildFile; fileRef = E905EDB31FED05B10044234E /* QuickBackup.swift */; };
 		E914B7722131197B00FFE398 /* extensionsSchedules.swift in Sources */ = {isa = PBXBuildFile; fileRef = E914B7712131197B00FFE398 /* extensionsSchedules.swift */; };
@@ -211,6 +212,7 @@
 		E83B446D235F3C6700BBC793 /* ArgumentsVerify.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArgumentsVerify.swift; sourceTree = "<group>"; };
 		E840ED1A22D0BDC900CF62FF /* RootcatalogSequrityscopedURLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootcatalogSequrityscopedURLs.swift; sourceTree = "<group>"; };
 		E840ED1E22D0CD3C00CF62FF /* AppendSequrityscopedURLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppendSequrityscopedURLs.swift; sourceTree = "<group>"; };
+		E8EDD15223C8C0E800806CCD /* Validatenewconfigs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validatenewconfigs.swift; sourceTree = "<group>"; };
 		E905DC101EACF7550003BF37 /* ViewControllerSsh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerSsh.swift; sourceTree = "<group>"; };
 		E905EDB31FED05B10044234E /* QuickBackup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickBackup.swift; sourceTree = "<group>"; };
 		E914B7712131197B00FFE398 /* extensionsSchedules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensionsSchedules.swift; sourceTree = "<group>"; };
@@ -454,6 +456,7 @@
 				E9282DB622C0B050004AA0E5 /* Getrsyncpath.swift */,
 				E964B56422C0C686004C6A15 /* Setrsyncpath.swift */,
 				E988932322C1E95C0094B15B /* Selectprofile.swift */,
+				E8EDD15223C8C0E800806CCD /* Validatenewconfigs.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -941,6 +944,7 @@
 				A05275DA1D6F6E0000D8ECBE /* BatchTaskWorkQueu.swift in Sources */,
 				E9BC4DE923027F810058CB52 /* ExecuteTaskNow.swift in Sources */,
 				E964B56522C0C686004C6A15 /* Setrsyncpath.swift in Sources */,
+				E8EDD15323C8C0E800806CCD /* Validatenewconfigs.swift in Sources */,
 				E93A64842195E3BD0040B334 /* DuCommandSsh.swift in Sources */,
 				A0EFB4501DC080A9008C21A6 /* PersistentStorageUserconfiguration.swift in Sources */,
 				E943130423ACB4AE008F82B6 /* ConfigurationsXCTEST.swift in Sources */,

@@ -101,4 +101,30 @@ class RsyncGUITests: XCTestCase, SetConfigurations {
         let schedules = ScheduleLoggData(hiddenID: 1, sortascending: true)
         XCTAssertEqual(0, schedules.loggdata?.count, "Should be zero")
     }
+
+    func testaddconfig() {
+        let configurations = ConfigurationsXCTEST(profile: "XCTest")
+        let dict: NSMutableDictionary = [
+            "task": ViewControllerReference.shared.synchronize,
+            "backupID": "backupID",
+            "localCatalog": "localCatalog",
+            "offsiteCatalog": "offsiteCatalog",
+            "offsiteServer": "offsiteServer",
+            "offsiteUsername": "offsiteUsername",
+            "parameter1": "parameter1",
+            "parameter2": "parameter2",
+            "parameter3": "parameter3",
+            "parameter4": "parameter4",
+            "parameter5": "parameter5",
+            "parameter6": "parameter6",
+            "dryrun": "dryrun",
+            "dateRun": "",
+            "singleFile": 0,
+            "batch": 0,
+        ]
+        dict.setValue(1, forKey: "snapshotnum")
+        configurations.addNewConfigurations(dict: dict)
+        let count = configurations.getConfigurations().count
+        XCTAssertEqual(count, 4, "Should be equal to 4")
+    }
 }

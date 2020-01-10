@@ -228,12 +228,6 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, Dela
             "singleFile": 0,
             "batch": 0,
         ]
-        if self.backuptypeselected == .syncremote {
-            guard self.offsiteServer.stringValue.isEmpty == false else { return }
-            dict.setValue(ViewControllerReference.shared.syncremote, forKey: "task")
-        } else if self.backuptypeselected == .singlefile {
-            dict.setValue(1, forKey: "singleFile")
-        }
         if !self.localCatalog.stringValue.hasSuffix("/"), self.backuptypeselected != .singlefile {
             self.localCatalog.stringValue += "/"
             dict.setValue(self.localCatalog.stringValue, forKey: "localCatalog")
@@ -247,18 +241,13 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, Dela
                 dict.setObject(port, forKey: "sshport" as NSCopying)
             }
         }
-        // If add button is selected without any values
-        guard self.localCatalog.stringValue != "/" else {
-            self.offsiteCatalog.stringValue = ""
-            self.localCatalog.stringValue = ""
-            return
+        if self.backuptypeselected == .syncremote {
+            guard self.offsiteServer.stringValue.isEmpty == false else { return }
+            dict.setValue(ViewControllerReference.shared.syncremote, forKey: "task")
+        } else if self.backuptypeselected == .singlefile {
+            dict.setValue(1, forKey: "singleFile")
         }
-        guard self.offsiteCatalog.stringValue != "/" else {
-            self.offsiteCatalog.stringValue = ""
-            self.localCatalog.stringValue = ""
-            return
-        }
-
+        guard Validatenewconfigs(dict: dict).validated == true else { return }
         self.configurations!.addNewConfigurations(dict: dict)
         self.newconfigurations?.appendnewConfigurations(dict: dict)
         self.tabledata = self.newconfigurations!.getnewConfigurations()
