@@ -49,6 +49,8 @@ class ViewControllerEdit: NSViewController, SetConfigurations, SetDismisser, Ind
         } else {
             config[self.index!].sshport = nil
         }
+        let dict = ConvertOneConfig(config: config[self.index!]).dict
+        guard Validatenewconfigs(dict: dict, Edit: true).validated == true else { return }
         self.configurations!.updateConfigurations(config[self.index!], index: self.index!)
         self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
     }
