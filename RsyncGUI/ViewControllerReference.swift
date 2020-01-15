@@ -79,6 +79,8 @@ final class ViewControllerReference {
     var macserialnumber: String?
     // Initial start, center RsyncGUI when started first time
     var initialstart: Int = 0
+    // Halt on error
+    var haltonerror: Bool = false
 
     // Reference to main View
     private var viewControllertabMain: NSViewController?
