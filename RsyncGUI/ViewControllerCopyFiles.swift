@@ -251,11 +251,11 @@ class ViewControllerCopyFiles: NSViewController, SetConfigurations, Delay, Conne
         let config = self.configurations!.getConfigurations()[index]
         guard self.connected(config: config) == true else {
             self.restorebutton.isEnabled = false
-             self.info(num: 4)
+            self.info(num: 4)
             return false
         }
         guard config.task != ViewControllerReference.shared.syncremote else {
-             self.info(num: 5)
+            self.info(num: 5)
             self.restoretabledata = nil
             globalMainQueue.async { () -> Void in
                 self.restoretableView.reloadData()
