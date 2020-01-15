@@ -29,6 +29,18 @@ class ViewControllerUserconfiguration: NSViewController, NewRsync, SetDismisser,
     @IBOutlet var statuslighttemppath: NSImageView!
     @IBOutlet var savebutton: NSButton!
     @IBOutlet var useGUIbutton: NSButton!
+    @IBOutlet var haltonerror: NSButton!
+
+    @IBAction func togglehaltonerror(_: NSButton) {
+        if ViewControllerReference.shared.haltonerror {
+            self.haltonerror.state = .off
+            ViewControllerReference.shared.haltonerror = false
+        } else {
+            self.haltonerror.state = .on
+            ViewControllerReference.shared.haltonerror = true
+        }
+        self.setdirty()
+    }
 
     @IBAction func toggleversion3rsync(_: NSButton) {
         if self.version3rsync.state == .on {
@@ -241,6 +253,11 @@ class ViewControllerUserconfiguration: NSViewController, NewRsync, SetDismisser,
         }
         if ViewControllerReference.shared.fulllogging {
             self.fulllogging.state = .on
+        }
+        if ViewControllerReference.shared.haltonerror {
+            self.haltonerror.state = .on
+        } else {
+            self.haltonerror.state = .off
         }
     }
 }

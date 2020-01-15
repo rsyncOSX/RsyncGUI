@@ -5,7 +5,7 @@
 //  Created by Thomas Evensen on 24/08/2016.
 //  Copyright © 2016 Thomas Evensen. All rights reserved.
 //
-// swiftlint:disable line_length cyclomatic_complexity
+// swiftlint:disable line_length cyclomatic_complexity function_body_length
 
 import Foundation
 
@@ -70,6 +70,13 @@ struct Userconfiguration {
                 ViewControllerReference.shared.fulllogging = true
             } else {
                 ViewControllerReference.shared.fulllogging = false
+            }
+        }
+        if let haltonerror = dict.value(forKey: "haltonerror") as? Int {
+            if haltonerror == 1 {
+                ViewControllerReference.shared.haltonerror = true
+            } else {
+                ViewControllerReference.shared.haltonerror = false
             }
         }
     }
