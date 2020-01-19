@@ -2462,17 +2462,17 @@
             <objects>
                 <viewController title="Details about files" storyboardIdentifier="StoryboardInformationID" id="ceM-Kt-SJU" customClass="ViewControllerInformation" customModule="RsyncGUI" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="KBL-J8-CuF">
-                        <rect key="frame" x="0.0" y="0.0" width="696" height="253"/>
+                        <rect key="frame" x="0.0" y="0.0" width="696" height="314"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <scrollView autohidesScrollers="YES" horizontalLineScroll="21" horizontalPageScroll="10" verticalLineScroll="21" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vKB-vU-qrp">
-                                <rect key="frame" x="20" y="64" width="656" height="169"/>
+                                <rect key="frame" x="20" y="62" width="656" height="232"/>
                                 <clipView key="contentView" id="fsy-MR-0hH">
-                                    <rect key="frame" x="1" y="0.0" width="654" height="168"/>
+                                    <rect key="frame" x="1" y="0.0" width="654" height="231"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="19" rowSizeStyle="automatic" headerView="miE-cF-Mpr" viewBased="YES" id="Iah-yC-nuy">
-                                            <rect key="frame" x="0.0" y="0.0" width="654" height="145"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="654" height="208"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -2536,10 +2536,7 @@
                                 </tableHeaderView>
                             </scrollView>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ju4-SV-jK8">
-                                <rect key="frame" x="617" y="16" width="65" height="32"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="53" id="BsA-g2-dfG"/>
-                                </constraints>
+                                <rect key="frame" x="607" y="13" width="75" height="32"/>
                                 <buttonCell key="cell" type="push" title="Close" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="CUQ-YI-Irs">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -2551,40 +2548,23 @@ DQ
                                     <action selector="close:" target="ceM-Kt-SJU" id="txF-Tu-LUI"/>
                                 </connections>
                             </button>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="YjO-ci-EeW">
-                                <rect key="frame" x="275" y="18" width="181" height="31"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="177" id="Vsz-Qk-giM"/>
-                                    <constraint firstAttribute="height" constant="27" id="xQq-nX-ak0"/>
-                                </constraints>
-                                <buttonCell key="cell" type="check" title="Show error messages..." bezelStyle="regularSquare" imagePosition="left" inset="2" id="39A-da-zAW">
-                                    <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="showerrormessages:" target="ceM-Kt-SJU" id="CIo-1h-xkW"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="vKB-vU-qrp" firstAttribute="top" secondItem="KBL-J8-CuF" secondAttribute="top" constant="20" id="YqE-VE-YwB"/>
-                            <constraint firstAttribute="trailing" secondItem="vKB-vU-qrp" secondAttribute="trailing" constant="20" id="ZUy-rv-zUj"/>
-                            <constraint firstAttribute="bottom" secondItem="YjO-ci-EeW" secondAttribute="bottom" constant="20" symbolic="YES" id="ZoH-Cl-rSZ"/>
-                            <constraint firstAttribute="trailing" secondItem="ju4-SV-jK8" secondAttribute="trailing" constant="20" symbolic="YES" id="hRR-CA-iuH"/>
-                            <constraint firstItem="YjO-ci-EeW" firstAttribute="top" secondItem="vKB-vU-qrp" secondAttribute="bottom" constant="17" id="nPz-MX-D38"/>
-                            <constraint firstItem="vKB-vU-qrp" firstAttribute="leading" secondItem="KBL-J8-CuF" secondAttribute="leading" constant="20" id="oZW-hO-LvB"/>
-                            <constraint firstItem="YjO-ci-EeW" firstAttribute="leading" secondItem="KBL-J8-CuF" secondAttribute="leading" constant="277" id="txZ-2Q-cXe"/>
-                            <constraint firstItem="ju4-SV-jK8" firstAttribute="centerY" secondItem="YjO-ci-EeW" secondAttribute="centerY" id="wfv-4b-t5q"/>
+                            <constraint firstAttribute="trailing" secondItem="vKB-vU-qrp" secondAttribute="trailing" constant="20" id="NIb-x2-LUZ"/>
+                            <constraint firstItem="ju4-SV-jK8" firstAttribute="top" secondItem="vKB-vU-qrp" secondAttribute="bottom" constant="21" id="PT6-uS-tWc"/>
+                            <constraint firstAttribute="bottom" secondItem="ju4-SV-jK8" secondAttribute="bottom" constant="20" id="fku-62-qLd"/>
+                            <constraint firstItem="vKB-vU-qrp" firstAttribute="top" secondItem="KBL-J8-CuF" secondAttribute="top" constant="20" id="sml-Vl-CDN"/>
+                            <constraint firstAttribute="trailing" secondItem="ju4-SV-jK8" secondAttribute="trailing" constant="20" id="vWL-nE-Izt"/>
+                            <constraint firstItem="vKB-vU-qrp" firstAttribute="leading" secondItem="KBL-J8-CuF" secondAttribute="leading" constant="20" id="y71-iy-XmE"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="detailsTable" destination="Iah-yC-nuy" id="dP6-Bq-99w"/>
-                        <outlet property="errormessagesbutton" destination="YjO-ci-EeW" id="sOj-41-ZgB"/>
                     </connections>
                 </viewController>
                 <customObject id="pTw-WO-ehj" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-318" y="1731"/>
+            <point key="canvasLocation" x="-318" y="1726.5"/>
         </scene>
         <!--View Controller Batch-->
         <scene sceneID="Tjd-DJ-9fz">
