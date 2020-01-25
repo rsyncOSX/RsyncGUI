@@ -31,6 +31,7 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
     @IBOutlet var backupdryrun: NSButton!
     @IBOutlet var restoredryrun: NSButton!
     @IBOutlet var verifydryrun: NSButton!
+    @IBOutlet var profilepopupbutton: NSPopUpButton!
 
     // Configurations object
     var configurations: Configurations?
@@ -261,6 +262,7 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
         }
         self.rsyncischanged()
         self.displayProfile()
+        self.initpopupbutton(button: self.profilepopupbutton)
         self.info(num: 0)
     }
 
@@ -357,5 +359,22 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
         if let reloadDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcallprofiles) as? ViewControllerAllProfiles {
             reloadDelegate.reloadtable()
         }
+    }
+
+    private func initpopupbutton(button: NSPopUpButton) {
+        var profilestrings: [String]?
+        profilestrings = CatalogProfile().getDirectorysStrings()
+        profilestrings?.insert("Default profile", at: 0)
+        button.removeAllItems()
+        button.addItems(withTitles: profilestrings ?? [])
+        button.selectItem(at: 0)
+    }
+
+    @IBAction func selectprofile(_: NSButton) {
+        var profile = self.profilepopupbutton.titleOfSelectedItem
+        if profile == "Default profile" {
+            profile = nil
+        }
+        _ = Selectprofile(profile: profile)
     }
 }

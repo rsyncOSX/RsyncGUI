@@ -21,6 +21,7 @@ class ViewControllerAllProfiles: NSViewController, Delay, Abort {
     @IBOutlet var sortdirection: NSButton!
     @IBOutlet var numberOfprofiles: NSTextField!
     @IBOutlet var working: NSProgressIndicator!
+    @IBOutlet var profilepopupbutton: NSPopUpButton!
 
     private var allprofiles: AllConfigurations?
     private var allschedules: Allschedules?
@@ -92,6 +93,7 @@ class ViewControllerAllProfiles: NSViewController, Delay, Abort {
     override func viewDidAppear() {
         super.viewDidAppear()
         self.reloadallprofiles()
+        self.initpopupbutton(button: self.profilepopupbutton)
         ViewControllerReference.shared.setvcref(viewcontroller: .vcallprofiles, nsviewcontroller: self)
     }
 
@@ -174,6 +176,23 @@ extension ViewControllerAllProfiles: NSTableViewDelegate, Attributedestring {
         globalMainQueue.async { () -> Void in
             self.mainTableView.reloadData()
         }
+    }
+
+    private func initpopupbutton(button: NSPopUpButton) {
+        var profilestrings: [String]?
+        profilestrings = CatalogProfile().getDirectorysStrings()
+        profilestrings?.insert(NSLocalizedString("Default profile", comment: "default profile"), at: 0)
+        button.removeAllItems()
+        button.addItems(withTitles: profilestrings ?? [])
+        button.selectItem(at: 0)
+    }
+
+    @IBAction func selectprofile(_: NSButton) {
+        var profile = self.profilepopupbutton.titleOfSelectedItem
+        if profile == NSLocalizedString("Default profile", comment: "default profile") {
+            profile = nil
+        }
+        _ = Selectprofile(profile: profile)
     }
 }
 
