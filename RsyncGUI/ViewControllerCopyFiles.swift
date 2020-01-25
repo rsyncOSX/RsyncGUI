@@ -28,7 +28,6 @@ class ViewControllerCopyFiles: NSViewController, SetConfigurations, Delay, Conne
     var outputprocess: OutputProcess?
     private var maxcount: Int = 0
 
-    @IBOutlet var numberofrows: NSTextField!
     @IBOutlet var server: NSTextField!
     @IBOutlet var rcatalog: NSTextField!
     @IBOutlet var info: NSTextField!
@@ -310,12 +309,12 @@ extension ViewControllerCopyFiles: NSSearchFieldDelegate {
 extension ViewControllerCopyFiles: NSTableViewDataSource {
     func numberOfRows(in tableView: NSTableView) -> Int {
         if tableView == self.restoretableView {
-            let numberofrows: String = NSLocalizedString("Number remote files:", comment: "Copy files")
+            let numberofrows: String = "Number remote files: "
             guard self.restoretabledata != nil else {
-                self.numberofrows.stringValue = numberofrows
+                self.info.stringValue = numberofrows
                 return 0
             }
-            self.numberofrows.stringValue = numberofrows + String(self.restoretabledata!.count)
+            self.info.stringValue = numberofrows + String(self.restoretabledata!.count)
             return self.restoretabledata!.count
         } else {
             return self.configurations?.getConfigurationsDataSourceSynchronize()?.count ?? 0
@@ -354,6 +353,7 @@ extension ViewControllerCopyFiles: UpdateProgress {
         } else {
             self.restorebutton.title = "Restore"
             self.restorebutton.isEnabled = true
+            self.info.stringValue = "Number remote files: " + String(self.maxcount)
         }
         self.working.stopAnimation(nil)
     }
