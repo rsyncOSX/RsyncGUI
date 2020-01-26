@@ -418,7 +418,7 @@
                                             <tableColumns>
                                                 <tableColumn identifier="taskCellID" width="79.703125" minWidth="40" maxWidth="1000" id="AkJ-MA-346">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Task">
-                                                        <font key="font" metaFont="message" size="11"/>
+                                                        <font key="font" metaFont="label" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
@@ -431,7 +431,7 @@
                                                 </tableColumn>
                                                 <tableColumn identifier="statCellID" width="40" minWidth="40" maxWidth="1000" id="LD6-1k-P7V">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="center" title="Stat">
-                                                        <font key="font" metaFont="message" size="11"/>
+                                                        <font key="font" metaFont="label" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
@@ -440,7 +440,7 @@
                                                 </tableColumn>
                                                 <tableColumn identifier="batchCellID" editable="NO" width="40.06640625" minWidth="10" maxWidth="3.4028234663852886e+38" id="Byb-kM-Mpk" userLabel="Batch">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="center" title="Batch">
-                                                        <font key="font" metaFont="message" size="11"/>
+                                                        <font key="font" metaFont="label" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     </tableHeaderCell>
@@ -452,7 +452,7 @@
                                                 </tableColumn>
                                                 <tableColumn identifier="localCatalogCellID" width="220.97265625" minWidth="40" maxWidth="1000" id="35g-px-ZH6">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Local catalog">
-                                                        <font key="font" metaFont="message" size="11"/>
+                                                        <font key="font" metaFont="label" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
@@ -465,7 +465,7 @@
                                                 </tableColumn>
                                                 <tableColumn identifier="offsiteCatalogCellID" width="215.98828125" minWidth="10" maxWidth="3.4028234663852886e+38" id="zzK-ZO-wvj">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Remote catalog">
-                                                        <font key="font" metaFont="message" size="11"/>
+                                                        <font key="font" metaFont="label" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     </tableHeaderCell>
@@ -478,7 +478,7 @@
                                                 </tableColumn>
                                                 <tableColumn identifier="offsiteServerCellID" width="63.3515625" minWidth="10" maxWidth="3.4028234663852886e+38" id="fAL-TO-qxo" userLabel="Offsite server">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Remote server">
-                                                        <font key="font" metaFont="message" size="11"/>
+                                                        <font key="font" metaFont="label" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     </tableHeaderCell>
@@ -491,7 +491,7 @@
                                                 </tableColumn>
                                                 <tableColumn identifier="backupIDCellID" width="64.4453125" minWidth="10" maxWidth="3.4028234663852886e+38" id="pql-cs-AEK" userLabel="ID">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="ID">
-                                                        <font key="font" metaFont="message" size="11"/>
+                                                        <font key="font" metaFont="label" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     </tableHeaderCell>
@@ -504,7 +504,7 @@
                                                 </tableColumn>
                                                 <tableColumn identifier="daysID" width="48.58203125" minWidth="10" maxWidth="3.4028234663852886e+38" id="Aa2-8Q-PPo" userLabel="Days">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="right" title="Days">
-                                                        <font key="font" metaFont="message" size="11"/>
+                                                        <font key="font" metaFont="label" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     </tableHeaderCell>
@@ -517,7 +517,7 @@
                                                 </tableColumn>
                                                 <tableColumn identifier="runDateCellID" width="111.08203125" minWidth="10" maxWidth="3.4028234663852886e+38" id="qvy-yX-V6C">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Last run">
-                                                        <font key="font" metaFont="message" size="11"/>
+                                                        <font key="font" metaFont="label" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     </tableHeaderCell>
@@ -1647,15 +1647,6 @@
                                     <color key="backgroundColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tv7-CS-oe6">
-                                <rect key="frame" x="821" y="374" width="211" height="17"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Number of remote files: 0 " id="SBO-UN-kMy">
-                                    <font key="font" metaFont="message" size="11"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HvM-lg-JjX">
                                 <rect key="frame" x="985" y="367" width="83" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -1676,7 +1667,6 @@
                     <connections>
                         <outlet property="commandString" destination="XwF-K5-R4q" id="wSn-jP-VtU"/>
                         <outlet property="info" destination="gTy-bz-0lk" id="pcJ-f5-nib"/>
-                        <outlet property="numberofrows" destination="tv7-CS-oe6" id="k9b-R6-3QJ"/>
                         <outlet property="rcatalog" destination="zPh-wH-B2h" id="Bhx-Mo-gre"/>
                         <outlet property="remoteCatalog" destination="1ES-5z-SmE" id="WZe-oK-FUr"/>
                         <outlet property="restorebutton" destination="HvM-lg-JjX" id="RIx-1n-Z4j"/>
@@ -2480,18 +2470,18 @@
         <scene sceneID="GIT-ED-d2h">
             <objects>
                 <viewController title="Details about files" storyboardIdentifier="StoryboardInformationID" id="ceM-Kt-SJU" customClass="ViewControllerInformation" customModule="RsyncGUI" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" misplaced="YES" id="KBL-J8-CuF">
-                        <rect key="frame" x="0.0" y="0.0" width="696" height="291"/>
+                    <view key="view" id="KBL-J8-CuF">
+                        <rect key="frame" x="0.0" y="0.0" width="696" height="314"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <scrollView autohidesScrollers="YES" horizontalLineScroll="21" horizontalPageScroll="10" verticalLineScroll="21" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vKB-vU-qrp">
-                                <rect key="frame" x="20" y="62" width="656" height="186"/>
+                                <rect key="frame" x="20" y="62" width="656" height="232"/>
                                 <clipView key="contentView" id="fsy-MR-0hH">
-                                    <rect key="frame" x="1" y="0.0" width="654" height="185"/>
+                                    <rect key="frame" x="1" y="0.0" width="654" height="231"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="19" rowSizeStyle="automatic" headerView="miE-cF-Mpr" viewBased="YES" id="Iah-yC-nuy">
-                                            <rect key="frame" x="0.0" y="0.0" width="654" height="162"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="654" height="208"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -2569,12 +2559,12 @@ DQ
                             </button>
                         </subviews>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="vKB-vU-qrp" secondAttribute="trailing" constant="20" id="NIb-x2-LUZ"/>
-                            <constraint firstItem="ju4-SV-jK8" firstAttribute="top" secondItem="vKB-vU-qrp" secondAttribute="bottom" constant="21" id="PT6-uS-tWc"/>
-                            <constraint firstAttribute="bottom" secondItem="ju4-SV-jK8" secondAttribute="bottom" constant="20" id="fku-62-qLd"/>
-                            <constraint firstItem="vKB-vU-qrp" firstAttribute="top" secondItem="KBL-J8-CuF" secondAttribute="top" constant="20" id="sml-Vl-CDN"/>
-                            <constraint firstAttribute="trailing" secondItem="ju4-SV-jK8" secondAttribute="trailing" constant="20" id="vWL-nE-Izt"/>
-                            <constraint firstItem="vKB-vU-qrp" firstAttribute="leading" secondItem="KBL-J8-CuF" secondAttribute="leading" constant="20" id="y71-iy-XmE"/>
+                            <constraint firstItem="ju4-SV-jK8" firstAttribute="trailing" secondItem="vKB-vU-qrp" secondAttribute="trailing" id="61G-nB-qgF"/>
+                            <constraint firstItem="ju4-SV-jK8" firstAttribute="top" secondItem="vKB-vU-qrp" secondAttribute="bottom" constant="21" id="NtT-eb-Kw5"/>
+                            <constraint firstAttribute="trailing" secondItem="ju4-SV-jK8" secondAttribute="trailing" constant="20" id="rj2-b8-h1V"/>
+                            <constraint firstItem="vKB-vU-qrp" firstAttribute="leading" secondItem="KBL-J8-CuF" secondAttribute="leading" constant="20" symbolic="YES" id="uJH-KH-ORz"/>
+                            <constraint firstAttribute="bottom" secondItem="ju4-SV-jK8" secondAttribute="bottom" constant="20" symbolic="YES" id="v9i-xI-wRn"/>
+                            <constraint firstItem="vKB-vU-qrp" firstAttribute="top" secondItem="KBL-J8-CuF" secondAttribute="top" constant="20" symbolic="YES" id="x76-kc-GLI"/>
                         </constraints>
                     </view>
                     <connections>
@@ -3064,7 +3054,7 @@ DQ
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pzs-pW-MII">
-                                            <rect key="frame" x="9" y="7" width="146" height="18"/>
+                                            <rect key="frame" x="21" y="7" width="146" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="Halt on error" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="yWU-eF-729">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
