@@ -18,7 +18,7 @@ protocol Updateremotefilelist: AnyObject {
     func updateremotefilelist()
 }
 
-class ViewControllerCopyFiles: NSViewController, SetConfigurations, Delay, Connected, VcMain, Checkforrsync {
+class ViewControllerCopyFiles: NSViewController, SetConfigurations, Delay, Connected, VcMain, Checkforrsync, Setcolor {
     var copyfiles: CopyFiles?
     var remotefilelist: Remotefilelist?
     var rsyncindex: Int?
@@ -79,6 +79,7 @@ class ViewControllerCopyFiles: NSViewController, SetConfigurations, Delay, Conne
     }
 
     private func info(num: Int) {
+        self.info.textColor = setcolor(nsviewcontroller: self, color: .red)
         switch num {
         case 1:
             self.info.stringValue = "No such local catalog for restore or set it in user config..."
@@ -314,6 +315,7 @@ extension ViewControllerCopyFiles: NSTableViewDataSource {
                 self.info.stringValue = numberofrows
                 return 0
             }
+            self.info.textColor = setcolor(nsviewcontroller: self, color: .green)
             self.info.stringValue = numberofrows + String(self.restoretabledata!.count)
             return self.restoretabledata!.count
         } else {
@@ -353,6 +355,7 @@ extension ViewControllerCopyFiles: UpdateProgress {
         } else {
             self.restorebutton.title = "Restore"
             self.restorebutton.isEnabled = true
+            self.info.textColor = setcolor(nsviewcontroller: self, color: .green)
             self.info.stringValue = "Number remote files: " + String(self.maxcount)
         }
         self.working.stopAnimation(nil)
