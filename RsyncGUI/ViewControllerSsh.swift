@@ -255,30 +255,33 @@ extension ViewControllerSsh: NSTableViewDataSource {
 }
 
 extension ViewControllerSsh: NSTableViewDelegate {
-    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+    func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
         if tableView == self.detailsTable {
-            if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "outputID"), owner: nil) as? NSTableCellView {
-                cell.textField?.stringValue = self.data?[row] ?? ""
-                return cell
-            } else {
+            switch tableColumn!.identifier.rawValue {
+            case "output":
+                return self.data?[row]
+            default:
                 return nil
             }
         } else {
             guard self.configurations!.SequrityScopedURLs != nil else { return nil }
             guard row < self.configurations!.SequrityScopedURLs!.count else { return nil }
             let object: NSDictionary = self.configurations!.SequrityScopedURLs![row]
-            let cellIdentifier: String = tableColumn!.identifier.rawValue
-            if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: cellIdentifier), owner: self) as? NSTableCellView {
-                if cellIdentifier == "SecurityScoped" {
-                    cell.textField!.stringValue = (object.value(forKey: cellIdentifier) as? Bool)?.description ?? ""
-                    return cell
+            switch tableColumn!.identifier.rawValue {
+            case "SecurityScoped":
+                if (object.value(forKey: "SecurityScoped") as? Bool) == true {
+                    return #imageLiteral(resourceName: "green")
                 } else {
-                    cell.textField!.stringValue = (object.value(forKey: cellIdentifier) as? NSURL)?.absoluteString ?? ""
-                    return cell
+                    return #imageLiteral(resourceName: "red")
                 }
+            case "rootcatalog":
+                return (object.value(forKey: "rootcatalog") as? NSURL)?.absoluteString ?? ""
+            case "localcatalog":
+                return (object.value(forKey: "localcatalog") as? NSURL)?.absoluteString ?? ""
+            default:
+                return nil
             }
         }
-        return nil
     }
 }
 
