@@ -188,6 +188,7 @@ class ViewControllerSsh: NSViewController, SetConfigurations, VcMain, Checkforrs
         globalMainQueue.async { () -> Void in
             self.SequrityScopedTable.reloadData()
         }
+        let test = self.configurations!.SequrityScopedURLs?.unique()
     }
 
     override func viewDidDisappear() {
@@ -249,7 +250,7 @@ extension ViewControllerSsh: NSTableViewDataSource {
         if tableView == self.detailsTable {
             return self.data?.count ?? 0
         } else {
-            return self.configurations?.SequrityScopedURLs?.count ?? 0
+            return self.configurations?.SequrityScopedURLs?.unique().count ?? 0
         }
     }
 }
@@ -264,9 +265,9 @@ extension ViewControllerSsh: NSTableViewDelegate {
                 return nil
             }
         } else {
-            guard self.configurations!.SequrityScopedURLs != nil else { return nil }
-            guard row < self.configurations!.SequrityScopedURLs!.count else { return nil }
-            let object: NSDictionary = self.configurations!.SequrityScopedURLs![row]
+            guard self.configurations?.SequrityScopedURLs?.unique() != nil else { return nil }
+            guard row < (self.configurations?.SequrityScopedURLs?.unique().count ?? -1) else { return nil }
+            let object: NSDictionary = self.configurations!.SequrityScopedURLs!.unique()[row]
             switch tableColumn!.identifier.rawValue {
             case "SecurityScoped":
                 if (object.value(forKey: "SecurityScoped") as? Bool) == true {
