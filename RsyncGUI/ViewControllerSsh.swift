@@ -188,7 +188,6 @@ class ViewControllerSsh: NSViewController, SetConfigurations, VcMain, Checkforrs
         globalMainQueue.async { () -> Void in
             self.SequrityScopedTable.reloadData()
         }
-        let test = self.configurations!.SequrityScopedURLs?.unique()
     }
 
     override func viewDidDisappear() {
