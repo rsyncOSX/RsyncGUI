@@ -21,7 +21,7 @@ extension ViewControllerMain: NSTableViewDelegate, Attributedestring {
     // TableView delegates
     func tableView(_: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
         guard self.configurations != nil else { return nil }
-        if row > self.configurations!.configurationsDataSourcecount() - 1 { return nil }
+        if row > (self.configurations?.configurationsDataSourcecount() ?? 0) - 1 { return nil }
         let object: NSDictionary = self.configurations!.getConfigurationsDataSource()![row]
         let markdays: Bool = self.configurations!.getConfigurations()[row].markdays
         let celltext = object[tableColumn!.identifier] as? String
