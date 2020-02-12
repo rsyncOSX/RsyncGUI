@@ -87,8 +87,6 @@ class ViewControllerUserconfiguration: NSViewController, NewRsync, SetDismisser,
             self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
         } else if (self.presentingViewController as? ViewControllerNewConfigurations) != nil {
             self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
-        } else if (self.presentingViewController as? ViewControllerCopyFiles) != nil {
-            self.dismissview(viewcontroller: self, vcontroller: .vccopyfiles)
         } else if (self.presentingViewController as? ViewControllerRestore) != nil {
             self.dismissview(viewcontroller: self, vcontroller: .vcrestore)
         } else if (self.presentingViewController as? ViewControllerSsh) != nil {
@@ -146,13 +144,13 @@ class ViewControllerUserconfiguration: NSViewController, NewRsync, SetDismisser,
         if self.restorePath.stringValue.isEmpty == false {
             if restorePath.stringValue.hasSuffix("/") == false {
                 restorePath.stringValue += "/"
-                ViewControllerReference.shared.restorePath = self.restorePath.stringValue
+                ViewControllerReference.shared.restorepath = self.restorePath.stringValue
             } else {
-                ViewControllerReference.shared.restorePath = self.restorePath.stringValue
+                ViewControllerReference.shared.restorepath = self.restorePath.stringValue
             }
-            _ = AppendSequrityscopedURLs(path: ViewControllerReference.shared.restorePath!)
+            _ = AppendSequrityscopedURLs(path: ViewControllerReference.shared.restorepath!)
         } else {
-            ViewControllerReference.shared.restorePath = nil
+            ViewControllerReference.shared.restorepath = nil
         }
         self.setdirty()
     }
@@ -249,8 +247,8 @@ class ViewControllerUserconfiguration: NSViewController, NewRsync, SetDismisser,
         } else {
             self.rsyncPath.stringValue = ""
         }
-        if ViewControllerReference.shared.restorePath != nil {
-            self.restorePath.stringValue = ViewControllerReference.shared.restorePath!
+        if ViewControllerReference.shared.restorepath != nil {
+            self.restorePath.stringValue = ViewControllerReference.shared.restorepath!
         } else {
             self.restorePath.stringValue = ""
         }

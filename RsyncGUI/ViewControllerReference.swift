@@ -51,7 +51,7 @@ final class ViewControllerReference {
     // Detailed logging
     var detailedlogging: Bool = true
     // Temporary path for restore
-    var restorePath: String?
+    var restorepath: String?
     var completeoperation: CompleteQuickbackupTask?
     // rsync command
     var rsync: String = "rsync"

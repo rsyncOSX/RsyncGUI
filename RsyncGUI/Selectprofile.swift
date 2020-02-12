@@ -21,7 +21,6 @@ final class Selectprofile {
         guard getprocess?.getprocessreference() == nil else { return }
         self.profile = profile
         self.newProfileDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllerMain
-        self.copyfilesnewProfileDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vccopyfiles) as? ViewControllerCopyFiles
         self.loggdataProfileDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcloggdata) as? ViewControllerLoggData
         if self.profile == "Default profile" {
             newProfileDelegate?.newProfile(profile: nil)
