@@ -87,7 +87,7 @@ class ScheduleWriteLoggData: SetConfigurations, ReloadTable, Deselect {
 
     private func addlognew(_ hiddenID: Int, result: String, date: String) -> Bool {
         var loggadded: Bool = false
-        if self.configurations!.getResourceConfiguration(hiddenID: hiddenID, resource: .task) == ViewControllerReference.shared.synchronize {
+        if ViewControllerReference.shared.synctasks.contains(self.configurations!.getResourceConfiguration(hiddenID: hiddenID, resource: .task)) {
             let masterdict = NSMutableDictionary()
             masterdict.setObject(hiddenID, forKey: "hiddenID" as NSCopying)
             masterdict.setObject("01 Jan 1900 00:00", forKey: "dateStart" as NSCopying)
