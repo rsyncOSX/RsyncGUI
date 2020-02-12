@@ -79,7 +79,9 @@ class Configurations: ReloadTable, SetSchedules {
     // - parameter none: none
     // - returns : Array of NSDictionary
     func getConfigurationsDataSourceSynchronize() -> [NSMutableDictionary]? {
-        var configurations: [Configuration] = self.configurations!.filter { ($0.task == ViewControllerReference.shared.synchronize) }
+        var configurations: [Configuration] = self.configurations!.filter {
+            ViewControllerReference.shared.synctasks.contains($0.task)
+        }
         var data = [NSMutableDictionary]()
         for i in 0 ..< configurations.count {
             if configurations[i].offsiteServer.isEmpty == true {
@@ -100,7 +102,7 @@ class Configurations: ReloadTable, SetSchedules {
     // Function returns all Configurations marked for backup.
     // - returns : array of Configurations
     func getConfigurationsBatch() -> [Configuration] {
-        return self.configurations!.filter { ($0.task == ViewControllerReference.shared.synchronize) && ($0.batch == 1) }
+        return self.configurations!.filter { ViewControllerReference.shared.synctasks.contains($0.task) && ($0.batch == 1) }
     }
 
     // Function computes arguments for rsync, either arguments for
