@@ -79,7 +79,7 @@ class Configurations: ReloadTable, SetSchedules {
     // - parameter none: none
     // - returns : Array of NSDictionary
     func getConfigurationsDataSourceSynchronize() -> [NSMutableDictionary]? {
-        var configurations: [Configuration] = self.configurations!.filter { ($0.task == ViewControllerReference.shared.synchronize) }
+        var configurations: [Configuration] = self.configurations!.filter { ($0.task == ViewControllerReference.shared.synchronize || $0.task == ViewControllerReference.shared.syncremote) }
         var data = [NSMutableDictionary]()
         for i in 0 ..< configurations.count {
             if configurations[i].offsiteServer.isEmpty == true {
