@@ -41,7 +41,7 @@ class ViewControllerProgressProcess: NSViewController, SetConfigurations, SetDis
             if let pvc = (self.presentingViewController as? ViewControllerMain)?.singletask {
                 self.countDelegate = pvc
             }
-        }  else if (self.presentingViewController as? ViewControllerRestore) != nil {
+        } else if (self.presentingViewController as? ViewControllerRestore) != nil {
             self.countDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcrestore) as? ViewControllerRestore
         }
         self.initiateProgressbar()
