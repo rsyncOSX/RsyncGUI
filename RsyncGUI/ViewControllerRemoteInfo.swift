@@ -42,8 +42,6 @@ class ViewControllerRemoteInfo: NSViewController, SetDismisser, Abort, Setcolor 
                     openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllerMain
                 } else if (self.presentingViewController as? ViewControllerNewConfigurations) != nil {
                     openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcnewconfigurations) as? ViewControllerNewConfigurations
-                } else if (self.presentingViewController as? ViewControllerCopyFiles) != nil {
-                    openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vccopyfiles) as? ViewControllerCopyFiles
                 } else if (self.presentingViewController as? ViewControllerSsh) != nil {
                     openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcssh) as? ViewControllerSsh
                 } else if (self.presentingViewController as? ViewControllerVerify) != nil {
@@ -73,9 +71,7 @@ class ViewControllerRemoteInfo: NSViewController, SetDismisser, Abort, Setcolor 
             self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
         } else if (self.presentingViewController as? ViewControllerNewConfigurations) != nil {
             self.dismissview(viewcontroller: self, vcontroller: .vcnewconfigurations)
-        } else if (self.presentingViewController as? ViewControllerCopyFiles) != nil {
-            self.dismissview(viewcontroller: self, vcontroller: .vccopyfiles)
-        } else if (self.presentingViewController as? ViewControllerSsh) != nil {
+        }  else if (self.presentingViewController as? ViewControllerSsh) != nil {
             self.dismissview(viewcontroller: self, vcontroller: .vcssh)
         } else if (self.presentingViewController as? ViewControllerVerify) != nil {
             self.dismissview(viewcontroller: self, vcontroller: .vcverify)

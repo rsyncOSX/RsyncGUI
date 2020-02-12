@@ -15,7 +15,7 @@ class RsyncGUITests: XCTestCase, SetConfigurations {
         // Put setup code here. This method is called before the invocation of each test method in the class.
         // Put setup code here. This method is called before the invocation of each test method in the class.
         _ = Selectprofile(profile: "XCTest")
-        ViewControllerReference.shared.restorePath = "/temporaryrestore"
+        ViewControllerReference.shared.restorepath = "/temporaryrestore"
     }
 
     override func tearDown() {

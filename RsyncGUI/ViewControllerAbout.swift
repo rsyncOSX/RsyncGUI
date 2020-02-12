@@ -26,9 +26,7 @@ class ViewControllerAbout: NSViewController, SetDismisser, Delay {
             self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
         } else if (self.presentingViewController as? ViewControllerNewConfigurations) != nil {
             self.dismissview(viewcontroller: self, vcontroller: .vcnewconfigurations)
-        } else if (self.presentingViewController as? ViewControllerCopyFiles) != nil {
-            self.dismissview(viewcontroller: self, vcontroller: .vccopyfiles)
-        } else if (self.presentingViewController as? ViewControllerSsh) != nil {
+        }  else if (self.presentingViewController as? ViewControllerSsh) != nil {
             self.dismissview(viewcontroller: self, vcontroller: .vcssh)
         } else if (self.presentingViewController as? ViewControllerVerify) != nil {
             self.dismissview(viewcontroller: self, vcontroller: .vcverify)
