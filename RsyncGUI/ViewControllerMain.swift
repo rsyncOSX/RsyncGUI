@@ -45,8 +45,6 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
     var index: Int?
     // Getting output from rsync
     var outputprocess: OutputProcess?
-    // Keep track of all errors
-    var outputerrors: OutputErrors?
 
     @IBOutlet var info: NSTextField!
 
