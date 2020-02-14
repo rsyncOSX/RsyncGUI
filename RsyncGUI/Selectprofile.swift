@@ -11,23 +11,24 @@ import Foundation
 
 final class Selectprofile {
     var profile: String?
-    weak var newProfileDelegate: NewProfile?
-    weak var copyfilesnewProfileDelegate: NewProfile?
-    weak var loggdataProfileDelegate: NewProfile?
+    weak var newprofileDelegate: NewProfile?
+    weak var restoreprofileDelegate: NewProfile?
+    weak var loggdataprofileDelegate: NewProfile?
 
     init(profile: String?) {
         weak var getprocess: GetProcessreference?
         getprocess = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllerMain
         guard getprocess?.getprocessreference() == nil else { return }
         self.profile = profile
-        self.newProfileDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllerMain
-        self.loggdataProfileDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcloggdata) as? ViewControllerLoggData
+        self.newprofileDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllerMain
+        self.loggdataprofileDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcloggdata) as? ViewControllerLoggData
+        self.restoreprofileDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcrestore) as? ViewControllerRestore
         if self.profile == "Default profile" {
-            newProfileDelegate?.newProfile(profile: nil)
+            newprofileDelegate?.newProfile(profile: nil)
         } else {
-            newProfileDelegate?.newProfile(profile: self.profile)
+            newprofileDelegate?.newProfile(profile: self.profile)
         }
-        self.copyfilesnewProfileDelegate?.newProfile(profile: nil)
-        self.loggdataProfileDelegate?.newProfile(profile: nil)
+        self.restoreprofileDelegate?.newProfile(profile: nil)
+        self.loggdataprofileDelegate?.newProfile(profile: nil)
     }
 }
