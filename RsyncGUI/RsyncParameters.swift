@@ -16,7 +16,6 @@ class RsyncParameters {
     var offsiteUsername: String?
     var offsiteServer: String?
     var remoteargs: String?
-    var linkdestparam: String?
 
     func setParameters1To6(config: Configuration, dryRun _: Bool, forDisplay: Bool, verify: Bool) {
         var parameter1: String?
@@ -187,23 +186,6 @@ class RsyncParameters {
         }
     }
 
-    func remoteargssnapshot(config: Configuration) {
-        self.offsiteCatalog = config.offsiteCatalog + "/"
-        self.offsiteUsername = config.offsiteUsername
-        self.offsiteServer = config.offsiteServer
-        if self.offsiteServer!.isEmpty == false {
-            if config.rsyncdaemon != nil {
-                if config.rsyncdaemon == 1 {
-                    self.remoteargs = self.offsiteUsername! + "@" + self.offsiteServer! + "::" + self.offsiteCatalog!
-                } else {
-                    self.remoteargs = self.offsiteUsername! + "@" + self.offsiteServer! + ":" + self.offsiteCatalog!
-                }
-            } else {
-                self.remoteargs = self.offsiteUsername! + "@" + self.offsiteServer! + ":" + self.offsiteCatalog!
-            }
-        }
-    }
-
     func argumentsforsynchronizeremote(dryRun _: Bool, forDisplay: Bool) {
         guard self.offsiteCatalog != nil else { return }
         if forDisplay { self.arguments!.append(" ") }
@@ -216,25 +198,6 @@ class RsyncParameters {
     func argumentsforsynchronize(dryRun _: Bool, forDisplay: Bool) {
         self.arguments!.append(self.localCatalog!)
         guard self.offsiteCatalog != nil else { return }
-        if self.offsiteServer!.isEmpty {
-            if forDisplay { self.arguments!.append(" ") }
-            self.arguments!.append(self.offsiteCatalog!)
-            if forDisplay { self.arguments!.append(" ") }
-        } else {
-            if forDisplay { self.arguments!.append(" ") }
-            self.arguments!.append(remoteargs!)
-            if forDisplay { self.arguments!.append(" ") }
-        }
-    }
-
-    func argumentsforsynchronizesnapshot(dryRun _: Bool, forDisplay: Bool) {
-        guard self.linkdestparam != nil else {
-            self.arguments!.append(self.localCatalog!)
-            return
-        }
-        self.arguments!.append(self.linkdestparam!)
-        if forDisplay { self.arguments!.append(" ") }
-        self.arguments!.append(self.localCatalog!)
         if self.offsiteServer!.isEmpty {
             if forDisplay { self.arguments!.append(" ") }
             self.arguments!.append(self.offsiteCatalog!)
