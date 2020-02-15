@@ -14,10 +14,6 @@ protocol OpenQuickBackup: AnyObject {
     func openquickbackup()
 }
 
-protocol EnableQuicbackupButton: AnyObject {
-    func enablequickbackupbutton()
-}
-
 class ViewControllerRemoteInfo: NSViewController, SetDismisser, Abort, Setcolor {
     @IBOutlet var mainTableView: NSTableView!
     @IBOutlet var progress: NSProgressIndicator!

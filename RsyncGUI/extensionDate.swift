@@ -100,23 +100,6 @@ extension Date {
 }
 
 extension String {
-    var en_us_date_from_string: Date {
-        let dateformatter = DateFormatter()
-        dateformatter.locale = Locale(identifier: "en_US")
-        dateformatter.dateStyle = .medium
-        dateformatter.timeStyle = .short
-        dateformatter.dateFormat = "dd MMM yyyy HH:mm"
-        return dateformatter.date(from: self) ?? Date()
-    }
-
-    var localized_date_from_string: Date {
-        let dateformatter = DateFormatter()
-        dateformatter.formatterBehavior = .behavior10_4
-        dateformatter.dateStyle = .medium
-        dateformatter.timeStyle = .short
-        return dateformatter.date(from: self) ?? Date()
-    }
-
     var setdatesuffixbackupstring: String {
         let formatter = DateFormatter()
         formatter.dateFormat = "-yyyy-MM-dd"

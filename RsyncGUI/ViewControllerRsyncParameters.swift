@@ -23,7 +23,6 @@ protocol GetSelecetedIndex {
 }
 
 class ViewControllerRsyncParameters: NSViewController, SetConfigurations, SetDismisser, Index {
-    var parameters: RsyncParameters?
     weak var userparamsupdatedDelegate: RsyncUserParams?
     var comboBoxValues = [String]()
     var diddissappear: Bool = false
