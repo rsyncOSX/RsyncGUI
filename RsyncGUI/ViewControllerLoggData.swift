@@ -148,7 +148,7 @@ class ViewControllerLoggData: NSViewController, SetConfigurations, SetSchedules,
     private func info(num: Int) {
         switch num {
         case 1:
-            self.info.stringValue = "Got index from Execute and listing logs for one configuration..."
+            self.info.stringValue = "Got index from Synchronize and listing logs for one configuration..."
         default:
             self.info.stringValue = ""
         }
