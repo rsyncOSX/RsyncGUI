@@ -185,7 +185,7 @@ class ViewControllerVerify: NSViewController, SetConfigurations, Index, Connecte
             guard self.estimatedindex ?? -1 != index else { return false }
         } else {
             self.gotit.textColor = setcolor(nsviewcontroller: self, color: .green)
-            let task: String = "Please select a task in Execute ..."
+            let task: String = "Please select a task in Synchronize ..."
             self.gotit.stringValue = task
             self.outputprocess = nil
             self.resetinfo()
