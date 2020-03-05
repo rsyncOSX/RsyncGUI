@@ -25,6 +25,8 @@ class ViewControllerSource: NSViewController, SetConfigurations, SetDismisser {
             self.dismissview(viewcontroller: self, vcontroller: .vcloggdata)
         } else if (self.presentingViewController as? ViewControllerRestore) != nil {
             self.dismissview(viewcontroller: self, vcontroller: .vcrestore)
+        } else if (self.presentingViewController as? ViewControllerSsh) != nil {
+            self.dismissview(viewcontroller: self, vcontroller: .vcssh)
         }
     }
 
@@ -72,24 +74,24 @@ class ViewControllerSource: NSViewController, SetConfigurations, SetDismisser {
         let indexes = myTableViewFromNotification.selectedRowIndexes
         self.selectButton.isEnabled = true
         if let index = indexes.first {
-            let object = self.configurations!.getConfigurationsDataSourceSynchronize()![index]
-            let hiddenID = object.value(forKey: "hiddenID") as? Int
-            guard hiddenID != nil else { return }
-            self.index = hiddenID!
+            if let object = self.configurations?.uniqueserversandlogins()?[index] {
+                if let hiddenID = object.value(forKey: "hiddenID") as? Int {
+                    self.index = hiddenID
+                }
+            }
         }
     }
 }
 
 extension ViewControllerSource: NSTableViewDataSource {
     func numberOfRows(in _: NSTableView) -> Int {
-        guard self.configurations != nil else { return 0 }
-        return self.configurations!.getConfigurationsDataSourceSynchronize()?.count ?? 0
+        return self.configurations?.uniqueserversandlogins()?.count ?? 0
     }
 }
 
 extension ViewControllerSource: NSTableViewDelegate {
     func tableView(_: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
-        let object: NSDictionary = self.configurations!.getConfigurationsDataSourceSynchronize()![row]
+        let object: NSDictionary = self.configurations!.uniqueserversandlogins()![row]
         return object[tableColumn!.identifier] as? String
     }
 }

@@ -37,7 +37,6 @@ class ViewControllerSsh: NSViewController, SetConfigurations, VcMain, Checkforrs
     @IBOutlet var scpDsaCopyPasteCommand: NSTextField!
     @IBOutlet var sshCreateRemoteCatalog: NSTextField!
     @IBOutlet var remoteserverbutton: NSButton!
-    @IBOutlet var terminalappbutton: NSButton!
     @IBOutlet var SequrityScopedTable: NSTableView!
 
     var viewControllerSource: NSViewController? {
@@ -82,17 +81,6 @@ class ViewControllerSsh: NSViewController, SetConfigurations, VcMain, Checkforrs
             resetsequrityscopedDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllerMain
             resetsequrityscopedDelegate?.resetsequrityscopedurl()
         }
-    }
-
-    @IBAction func terminalApp(_: NSButton) {
-        guard self.sshcmd != nil else {
-            self.data = ["Press the \"Check\" button before this action..."]
-            globalMainQueue.async { () -> Void in
-                self.detailsTable.reloadData()
-            }
-            return
-        }
-        self.sshcmd!.openTerminal()
     }
 
     // Just for grouping rsa and dsa radiobuttons

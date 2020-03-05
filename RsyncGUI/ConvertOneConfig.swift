@@ -14,16 +14,17 @@ struct ConvertOneConfig {
 
     var dict: NSMutableDictionary {
         let row: NSMutableDictionary = [
-            "taskCellID": self.config!.task,
-            "batchCellID": self.config!.batch,
-            "hiddenID": self.config!.hiddenID,
-            "localCatalogCellID": self.config!.localCatalog,
-            "offsiteCatalogCellID": self.config!.offsiteCatalog,
-            "offsiteServerCellID": self.config!.offsiteServer,
-            "backupIDCellID": self.config!.backupID,
-            "runDateCellID": self.config!.dateRun ?? "",
-            "daysID": self.config!.dayssincelastbackup ?? "",
-            "markdays": self.config!.markdays,
+            "taskCellID": self.config?.task ?? "",
+            "batchCellID": self.config?.batch ?? "",
+            "hiddenID": self.config?.hiddenID ?? "",
+            "localCatalogCellID": self.config?.localCatalog ?? "",
+            "offsiteCatalogCellID": self.config?.offsiteCatalog ?? "",
+            "offsiteUsernameID": self.config?.offsiteUsername ?? "",
+            "offsiteServerCellID": self.config?.offsiteServer ?? "",
+            "backupIDCellID": self.config?.backupID ?? "",
+            "runDateCellID": self.config?.dateRun ?? "",
+            "daysID": self.config?.dayssincelastbackup ?? "",
+            "markdays": self.config?.markdays ?? "",
             "selectCellID": 0,
         ]
         return row
