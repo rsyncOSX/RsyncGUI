@@ -91,12 +91,11 @@ class ViewControllerSsh: NSViewController, SetConfigurations, VcMain, Checkforrs
     @IBAction func createPublicPrivateKeyPair(_: NSButton) {
         self.outputprocess = OutputProcess()
         self.sshcmd = Ssh(outputprocess: self.outputprocess)
-        guard self.sshcmd != nil else { return }
         if self.createRsaKey.state == .on {
-            self.sshcmd!.createLocalKeysRsa()
+            self.sshcmd?.createLocalKeysRsa()
         }
         if self.createDsaKey.state == .on {
-            self.sshcmd!.createLocalKeysDsa()
+            self.sshcmd?.createLocalKeysDsa()
         }
     }
 
@@ -112,50 +111,48 @@ class ViewControllerSsh: NSViewController, SetConfigurations, VcMain, Checkforrs
     }
 
     func createRemoteSshDirectory() {
-        guard self.hiddenID != nil else { return }
-        guard self.sshcmd != nil else { return }
-        self.sshcmd!.createSshRemoteDirectory(hiddenID: self.hiddenID!)
-        guard sshcmd!.commandCopyPasteTermninal != nil else {
-            self.sshCreateRemoteCatalog.stringValue = " ... no remote server ..."
-            return
+        if let hiddenID = self.hiddenID {
+            self.sshcmd?.createSshRemoteDirectory(hiddenID: hiddenID)
+            guard sshcmd?.commandCopyPasteTermninal != nil else {
+                self.sshCreateRemoteCatalog.stringValue = NSLocalizedString("... no remote server ...", comment: "Ssh")
+                return
+            }
+            self.sshCreateRemoteCatalog.stringValue = sshcmd?.commandCopyPasteTermninal ?? ""
         }
-        self.sshCreateRemoteCatalog.stringValue = sshcmd!.commandCopyPasteTermninal!
     }
 
     func scpRsaPubKey() {
-        guard self.hiddenID != nil else { return }
-        guard self.sshcmd != nil else { return }
-        self.sshcmd!.scpPubKey(key: "rsa", hiddenID: self.hiddenID!)
-        guard sshcmd!.commandCopyPasteTermninal != nil else { return }
-        self.scpRsaCopyPasteCommand.stringValue = sshcmd!.commandCopyPasteTermninal!
+        if let hiddenID = self.hiddenID {
+            self.sshcmd?.scpPubKey(key: "rsa", hiddenID: hiddenID)
+            self.scpRsaCopyPasteCommand.stringValue = sshcmd?.commandCopyPasteTermninal ?? ""
+        }
     }
 
     func scpDsaPubKey() {
-        guard self.hiddenID != nil else { return }
-        guard self.sshcmd != nil else { return }
-        self.sshcmd!.scpPubKey(key: "dsa", hiddenID: self.hiddenID!)
-        guard sshcmd!.commandCopyPasteTermninal != nil else { return }
-        self.scpDsaCopyPasteCommand.stringValue = sshcmd!.commandCopyPasteTermninal!
+        if let hiddenID = self.hiddenID {
+            self.sshcmd?.scpPubKey(key: "dsa", hiddenID: hiddenID)
+            self.scpDsaCopyPasteCommand.stringValue = sshcmd?.commandCopyPasteTermninal ?? ""
+        }
     }
 
     @IBAction func checkRsaPubKey(_: NSButton) {
         self.outputprocess = OutputProcess()
         self.sshcmd = Ssh(outputprocess: self.outputprocess)
-        guard self.execute else { return }
-        guard self.hiddenID != nil else { return }
-        guard self.sshcmd != nil else { return }
-        self.sshcmd!.chmodSsh(key: "rsa", hiddenID: self.hiddenID!)
-        self.sshcmd!.executeSshCommand()
+        guard self.execute == true else { return }
+        if let hiddenID = self.hiddenID {
+            self.sshcmd?.chmodSsh(key: "rsa", hiddenID: hiddenID)
+            self.sshcmd?.executeSshCommand()
+        }
     }
 
     @IBAction func checkDsaPubKey(_: NSButton) {
         self.outputprocess = OutputProcess()
         self.sshcmd = Ssh(outputprocess: self.outputprocess)
-        guard self.execute else { return }
-        guard self.hiddenID != nil else { return }
-        guard self.sshcmd != nil else { return }
-        self.sshcmd!.chmodSsh(key: "dsa", hiddenID: self.hiddenID!)
-        self.sshcmd!.executeSshCommand()
+        guard self.execute == true else { return }
+        if let hiddenID = self.hiddenID {
+            self.sshcmd?.chmodSsh(key: "dsa", hiddenID: hiddenID)
+            self.sshcmd?.executeSshCommand()
+        }
     }
 
     override func viewDidLoad() {
