@@ -163,6 +163,7 @@ class ViewControllerSsh: NSViewController, SetConfigurations, VcMain, Checkforrs
         self.SequrityScopedTable.delegate = self
         self.SequrityScopedTable.dataSource = self
         self.outputprocess = nil
+        self.checkforPrivatePublicKeypair()
     }
 
     override func viewDidAppear() {
@@ -183,20 +184,19 @@ class ViewControllerSsh: NSViewController, SetConfigurations, VcMain, Checkforrs
     }
 
     @IBAction func commencecheck(_: NSButton) {
-        self.checkPrivatePublicKey()
+        self.checkforPrivatePublicKeypair()
     }
 
-    private func checkPrivatePublicKey() {
+    private func checkforPrivatePublicKeypair() {
         self.sshcmd = Ssh(outputprocess: nil)
-        self.sshcmd!.checkForLocalPubKeys()
-        if self.sshcmd!.rsaPubKeyExist {
+        if self.sshcmd?.rsaPubKeyExist ?? false {
             self.rsaCheck.state = .on
             self.createKeys.isEnabled = false
         } else {
             self.rsaCheck.state = .off
             self.createKeys.isEnabled = true
         }
-        if self.sshcmd!.dsaPubKeyExist {
+        if self.sshcmd?.dsaPubKeyExist ?? false {
             self.dsaCheck.state = .on
             self.createKeys.isEnabled = false
         } else {
@@ -273,7 +273,7 @@ extension ViewControllerSsh: NSTableViewDelegate {
 extension ViewControllerSsh: UpdateProgress {
     func processTermination() {
         globalMainQueue.async { () -> Void in
-            self.checkPrivatePublicKey()
+            self.checkforPrivatePublicKeypair()
         }
         guard self.sshcmd != nil else { return }
         guard self.sshcmd!.chmod != nil else { return }
