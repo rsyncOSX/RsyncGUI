@@ -1,6 +1,6 @@
 //
 //  ViewControllerEstimatingTasks.swift
-//  RsyncGUI
+//  RsyncOSX
 //
 //  Created by Thomas Evensen on 21.04.2018.
 //  Copyright © 2018 Thomas Evensen. All rights reserved.
@@ -30,6 +30,7 @@ class ViewControllerEstimatingTasks: NSViewController, Abort, SetConfigurations,
 
     @IBAction func abort(_: NSButton) {
         self.abort()
+        self.closeview()
     }
 
     override func viewDidLoad() {
@@ -41,7 +42,7 @@ class ViewControllerEstimatingTasks: NSViewController, Abort, SetConfigurations,
         super.viewDidAppear()
         guard self.diddissappear == false else { return }
         self.abort.isEnabled = true
-        self.remoteinfotask = RemoteinfoEstimation(viewvcontroller: self)
+        self.remoteinfotask = RemoteinfoEstimation(viewcontroller: self)
         self.initiateProgressbar()
     }
 
@@ -67,14 +68,14 @@ class ViewControllerEstimatingTasks: NSViewController, Abort, SetConfigurations,
             self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
         } else if (self.presentingViewController as? ViewControllerNewConfigurations) != nil {
             self.dismissview(viewcontroller: self, vcontroller: .vcnewconfigurations)
+        } else if (self.presentingViewController as? ViewControllerRestore) != nil {
+            self.dismissview(viewcontroller: self, vcontroller: .vcrestore)
         } else if (self.presentingViewController as? ViewControllerSsh) != nil {
             self.dismissview(viewcontroller: self, vcontroller: .vcssh)
         } else if (self.presentingViewController as? ViewControllerVerify) != nil {
             self.dismissview(viewcontroller: self, vcontroller: .vcverify)
         } else if (self.presentingViewController as? ViewControllerLoggData) != nil {
             self.dismissview(viewcontroller: self, vcontroller: .vcloggdata)
-        } else if (self.presentingViewController as? ViewControllerRestore) != nil {
-            self.dismissview(viewcontroller: self, vcontroller: .vcrestore)
         }
     }
 }
@@ -105,14 +106,14 @@ extension ViewControllerEstimatingTasks: StartStopProgressIndicator {
             openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllerMain
         } else if (self.presentingViewController as? ViewControllerNewConfigurations) != nil {
             openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcnewconfigurations) as? ViewControllerNewConfigurations
+        } else if (self.presentingViewController as? ViewControllerRestore) != nil {
+            openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcrestore) as? ViewControllerRestore
         } else if (self.presentingViewController as? ViewControllerSsh) != nil {
             openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcssh) as? ViewControllerSsh
         } else if (self.presentingViewController as? ViewControllerVerify) != nil {
             openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcverify) as? ViewControllerVerify
         } else if (self.presentingViewController as? ViewControllerLoggData) != nil {
             openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcloggdata) as? ViewControllerLoggData
-        } else if (self.presentingViewController as? ViewControllerRestore) != nil {
-            openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcrestore) as? ViewControllerRestore
         }
         self.closeview()
         openDelegate?.openquickbackup()

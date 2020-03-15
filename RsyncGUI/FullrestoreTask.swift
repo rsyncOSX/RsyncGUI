@@ -14,8 +14,8 @@ final class FullrestoreTask: SetConfigurations {
     var process: ProcessCmd?
     var outputprocess: OutputProcess?
 
-    func abort() {
-        self.process?.abortProcess()
+    func getProcess() -> Process? {
+        return self.process?.getProcess()
     }
 
     init(index: Int, dryrun: Bool, tmprestore: Bool, updateprogress: UpdateProgress) {
@@ -39,11 +39,12 @@ final class FullrestoreTask: SetConfigurations {
                 self.arguments = self.configurations?.arguments4restore(index: index, argtype: .arg)
             }
         }
-        guard self.arguments != nil else { return }
-        self.process = ProcessCmd(command: nil, arguments: self.arguments)
-        self.outputprocess = OutputProcess()
-        self.sendprocess?.sendoutputprocessreference(outputprocess: self.outputprocess)
-        self.process?.setupdateDelegate(object: updateprogress)
-        self.process?.executeProcess(outputprocess: outputprocess)
+        if let arguments = self.arguments {
+            self.process = ProcessCmd(command: nil, arguments: arguments)
+            self.outputprocess = OutputProcess()
+            self.sendprocess?.sendoutputprocessreference(outputprocess: self.outputprocess)
+            self.process?.setupdateDelegate(object: updateprogress)
+            self.process?.executeProcess(outputprocess: outputprocess)
+        }
     }
 }

@@ -28,6 +28,7 @@ class ViewControllerRestore: NSViewController, SetConfigurations, Delay, Connect
     var outputprocess: OutputProcess?
     var maxcount: Int = 0
     weak var outputeverythingDelegate: ViewOutputDetails?
+    var process: Process?
 
     @IBOutlet var info: NSTextField!
     @IBOutlet var restoretableView: NSTableView!
@@ -77,8 +78,7 @@ class ViewControllerRestore: NSViewController, SetConfigurations, Delay, Connect
     // Abort button
     @IBAction func abort(_: NSButton) {
         self.working.stopAnimation(nil)
-        self.restorefilestask?.abort()
-        self.fullrestoretask?.abort()
+        self.process?.terminate()
         self.reset()
     }
 
@@ -145,7 +145,7 @@ class ViewControllerRestore: NSViewController, SetConfigurations, Delay, Connect
         guard self.checkforrsync() == false else { return false }
         guard self.remotefiles.stringValue.isEmpty == false, self.tmprestorepath.stringValue.isEmpty == false else {
             self.info.textColor = setcolor(nsviewcontroller: self, color: .red)
-            self.info.stringValue = "Local or remote catalog cannot be empty..."
+            self.info.stringValue = Inforestore().info(num: 3)
             return false
         }
         guard self.restorefilestask != nil else { return false }
@@ -160,13 +160,13 @@ class ViewControllerRestore: NSViewController, SetConfigurations, Delay, Connect
         let myTableViewFromNotification = (notification.object as? NSTableView)!
         if myTableViewFromNotification == self.restoretableView {
             self.info.textColor = setcolor(nsviewcontroller: self, color: .red)
-            self.info.stringValue = ""
+            self.info.stringValue = Inforestore().info(num: 0)
             let indexes = myTableViewFromNotification.selectedRowIndexes
             if let index = indexes.first {
                 guard self.restoretabledata != nil else { return }
                 self.remotefiles.stringValue = self.restoretabledata![index]
                 guard self.remotefiles.stringValue.isEmpty == false, self.tmprestorepath.stringValue.isEmpty == false else {
-                    self.info.stringValue = "Local or remote catalog cannot be empty..."
+                    self.info.stringValue = Inforestore().info(num: 3)
                     return
                 }
                 guard self.checkforrestorefiles() == true else { return }
@@ -223,7 +223,7 @@ class ViewControllerRestore: NSViewController, SetConfigurations, Delay, Connect
             self.restorebutton.isEnabled = false
             self.working.startAnimation(nil)
             self.enabledisableradiobuttons(enable: false)
-            self.restorefilestask!.executecopyfiles(remotefile: remotefiles!.stringValue, localCatalog: tmprestorepath!.stringValue, dryrun: false, updateprogress: self)
+            self.restorefilestask?.executecopyfiles(remotefile: remotefiles?.stringValue ?? "", localCatalog: tmprestorepath?.stringValue ?? "", dryrun: false, updateprogress: self)
         }
     }
 
@@ -243,7 +243,7 @@ class ViewControllerRestore: NSViewController, SetConfigurations, Delay, Connect
         if let index = self.index {
             self.info.stringValue = ""
             guard self.connected(config: self.configurations!.getConfigurations()[index]) == true else {
-                self.info.stringValue = "Seems not to be connected..."
+                self.info.stringValue = Inforestore().info(num: 4)
                 self.info.textColor = self.setcolor(nsviewcontroller: self, color: .red)
                 self.info.isHidden = false
                 return false
@@ -251,7 +251,7 @@ class ViewControllerRestore: NSViewController, SetConfigurations, Delay, Connect
             guard self.configurations!.getConfigurations()[index].task != ViewControllerReference.shared.syncremote else {
                 self.estimatebutton.isEnabled = false
                 self.estimatebutton.isEnabled = false
-                self.info.stringValue = "Cannot copy from a syncremote task..."
+                self.info.stringValue = Inforestore().info(num: 5)
                 self.info.textColor = self.setcolor(nsviewcontroller: self, color: .red)
                 self.info.isHidden = false
                 self.restoretabledata = nil
@@ -275,7 +275,7 @@ class ViewControllerRestore: NSViewController, SetConfigurations, Delay, Connect
         self.info.stringValue = ""
         if let index = self.index {
             guard self.connected(config: self.configurations!.getConfigurations()[index]) == true else {
-                self.info.stringValue = "Seems not to be connected..."
+                self.info.stringValue = Inforestore().info(num: 4)
                 self.info.textColor = self.setcolor(nsviewcontroller: self, color: .red)
                 self.info.isHidden = false
                 return false
@@ -283,7 +283,7 @@ class ViewControllerRestore: NSViewController, SetConfigurations, Delay, Connect
             guard self.configurations!.getConfigurations()[index].task != ViewControllerReference.shared.syncremote else {
                 self.estimatebutton.isEnabled = false
                 self.estimatebutton.isEnabled = false
-                self.info.stringValue = "Cannot copy from a syncremote task..."
+                self.info.stringValue = Inforestore().info(num: 5)
                 self.info.textColor = self.setcolor(nsviewcontroller: self, color: .red)
                 self.info.isHidden = false
                 return false
@@ -311,10 +311,12 @@ class ViewControllerRestore: NSViewController, SetConfigurations, Delay, Connect
             if ViewControllerReference.shared.restorepath != nil, self.selecttmptorestore.state == .on {
                 self.fullrestoretask = FullrestoreTask(index: index, dryrun: true, tmprestore: true, updateprogress: self)
                 self.outputprocess = self.fullrestoretask?.outputprocess
+                self.process = fullrestoretask?.getProcess()
             } else {
                 self.selecttmptorestore.state = .off
                 self.fullrestoretask = FullrestoreTask(index: index, dryrun: true, tmprestore: false, updateprogress: self)
                 self.outputprocess = self.fullrestoretask?.outputprocess
+                self.process = fullrestoretask?.getProcess()
             }
         }
     }
@@ -339,9 +341,11 @@ class ViewControllerRestore: NSViewController, SetConfigurations, Delay, Connect
                 case .on:
                     self.fullrestoretask = FullrestoreTask(index: index, dryrun: false, tmprestore: true, updateprogress: self)
                     self.outputprocess = self.fullrestoretask?.outputprocess
+                    self.process = fullrestoretask?.getProcess()
                 case .off:
                     self.fullrestoretask = FullrestoreTask(index: index, dryrun: false, tmprestore: false, updateprogress: self)
                     self.outputprocess = self.fullrestoretask?.outputprocess
+                    self.process = fullrestoretask?.getProcess()
                 default:
                     return
                 }
@@ -365,10 +369,10 @@ class ViewControllerRestore: NSViewController, SetConfigurations, Delay, Connect
         let fileManager = FileManager.default
         self.info.textColor = setcolor(nsviewcontroller: self, color: .red)
         if fileManager.fileExists(atPath: self.tmprestorepath.stringValue) == false {
-            self.info.stringValue = "No such temporay catalog for restore, set it in user config."
+            self.info.stringValue = Inforestore().info(num: 1)
             return false
         } else {
-            self.info.stringValue = ""
+            self.info.stringValue = Inforestore().info(num: 0)
             return true
         }
     }
@@ -408,7 +412,7 @@ class ViewControllerRestore: NSViewController, SetConfigurations, Delay, Connect
             self.restorebutton.isEnabled = false
         } else {
             self.reset()
-            self.info.stringValue = "No such temporay catalog for restore, set it in user config."
+            self.info.stringValue = Inforestore().info(num: 1)
         }
         globalMainQueue.async { () -> Void in
             self.restoretableView.reloadData()
@@ -439,7 +443,7 @@ class ViewControllerRestore: NSViewController, SetConfigurations, Delay, Connect
     private func initpopupbutton(button: NSPopUpButton) {
         var profilestrings: [String]?
         profilestrings = CatalogProfile().getDirectorysStrings()
-        profilestrings?.insert("Default profile", at: 0)
+        profilestrings?.insert(NSLocalizedString("Default profile", comment: "default profile"), at: 0)
         button.removeAllItems()
         button.addItems(withTitles: profilestrings ?? [])
         button.selectItem(at: 0)
@@ -447,7 +451,7 @@ class ViewControllerRestore: NSViewController, SetConfigurations, Delay, Connect
 
     @IBAction func selectprofile(_: NSButton) {
         var profile = self.profilepopupbutton.titleOfSelectedItem
-        if profile == "Default profile" {
+        if profile == NSLocalizedString("Default profile", comment: "default profile") {
             profile = nil
         }
         _ = Selectprofile(profile: profile)

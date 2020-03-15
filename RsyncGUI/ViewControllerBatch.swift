@@ -1,6 +1,6 @@
 //
 //  ViewControllerBatch.swift
-//  RsyncGUIver30
+//  RsyncOSXver30
 //
 //  Created by Thomas Evensen on 25/08/2016.
 //  Copyright © 2016 Thomas Evensen. All rights reserved.
@@ -48,7 +48,7 @@ class ViewControllerBatch: NSViewController, SetDismisser, Abort, SetConfigurati
 
     // Either abort or close
     @IBAction func abort(_: NSButton) {
-        if self.batchisrunning == true || self.remoteinfotask?.stackoftasktobeestimated != nil {
+        if self.batchisrunning == true || self.remoteinfotask?.stackoftasktobeestimated?.count ?? 0 > 0 {
             self.abort()
         }
         self.executebatch!.closeOperation()
@@ -57,14 +57,14 @@ class ViewControllerBatch: NSViewController, SetDismisser, Abort, SetConfigurati
             self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
         } else if (self.presentingViewController as? ViewControllerNewConfigurations) != nil {
             self.dismissview(viewcontroller: self, vcontroller: .vcnewconfigurations)
+        } else if (self.presentingViewController as? ViewControllerRestore) != nil {
+            self.dismissview(viewcontroller: self, vcontroller: .vcrestore)
         } else if (self.presentingViewController as? ViewControllerSsh) != nil {
             self.dismissview(viewcontroller: self, vcontroller: .vcssh)
         } else if (self.presentingViewController as? ViewControllerVerify) != nil {
             self.dismissview(viewcontroller: self, vcontroller: .vcverify)
         } else if (self.presentingViewController as? ViewControllerLoggData) != nil {
             self.dismissview(viewcontroller: self, vcontroller: .vcloggdata)
-        } else if (self.presentingViewController as? ViewControllerRestore) != nil {
-            self.dismissview(viewcontroller: self, vcontroller: .vcrestore)
         }
     }
 
@@ -100,7 +100,7 @@ class ViewControllerBatch: NSViewController, SetDismisser, Abort, SetConfigurati
             self.mainTableView.reloadData()
         }
         self.remoteinfotaskDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllerMain
-        self.remoteinfotask = RemoteinfoEstimation(viewvcontroller: self)
+        self.remoteinfotask = RemoteinfoEstimation(viewcontroller: self)
         self.remoteinfotaskDelegate?.setremoteinfo(remoteinfotask: self.remoteinfotask)
         self.initiateProgressbar()
     }
@@ -190,7 +190,7 @@ extension ViewControllerBatch: StartStopProgressIndicator {
         self.executeButton.isEnabled = true
         self.estimatingbatch.stopAnimation(nil)
         self.estimatingbatch.isHidden = true
-        self.estimatingbatchlabel.stringValue = "Estimation completed, you can start batch..."
+        self.estimatingbatchlabel.stringValue = NSLocalizedString("Estimation completed, you can start batch...", comment: "Batch")
         self.estimatingbatchlabel.textColor = setcolor(nsviewcontroller: self, color: .green)
     }
 
@@ -201,7 +201,7 @@ extension ViewControllerBatch: StartStopProgressIndicator {
     func complete() {
         self.executeButton.isEnabled = false
         self.estimatingbatchlabel.isHidden = false
-        self.estimatingbatchlabel.stringValue = "Batchtasks completed, close view..."
+        self.estimatingbatchlabel.stringValue = NSLocalizedString("Batchtasks completed, close view...", comment: "Batch")
         self.estimatingbatchlabel.textColor = setcolor(nsviewcontroller: self, color: .green)
         self.batchisrunning = false
         globalMainQueue.async { () -> Void in
