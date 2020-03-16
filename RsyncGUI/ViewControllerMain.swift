@@ -245,6 +245,7 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
         self.createandreloadconfigurations()
         self.createandreloadschedules()
         //
+        self.initpopupbutton()
     }
 
     override func viewDidAppear() {
@@ -260,7 +261,6 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
         }
         self.rsyncischanged()
         self.displayProfile()
-        self.initpopupbutton(button: self.profilepopupbutton)
         self.info(num: 0)
     }
 
@@ -359,20 +359,22 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
         }
     }
 
-    private func initpopupbutton(button: NSPopUpButton) {
+    func initpopupbutton() {
         var profilestrings: [String]?
         profilestrings = CatalogProfile().getDirectorysStrings()
-        profilestrings?.insert("Default profile", at: 0)
-        button.removeAllItems()
-        button.addItems(withTitles: profilestrings ?? [])
-        button.selectItem(at: 0)
+        profilestrings?.insert(NSLocalizedString("Default profile", comment: "default profile"), at: 0)
+        self.profilepopupbutton.removeAllItems()
+        self.profilepopupbutton.addItems(withTitles: profilestrings ?? [])
+        self.profilepopupbutton.selectItem(at: 0)
     }
 
     @IBAction func selectprofile(_: NSButton) {
         var profile = self.profilepopupbutton.titleOfSelectedItem
-        if profile == "Default profile" {
+        let selectedindex = self.profilepopupbutton.indexOfSelectedItem
+        if profile == NSLocalizedString("Default profile", comment: "default profile") {
             profile = nil
         }
-        _ = Selectprofile(profile: profile)
+        self.profilepopupbutton.selectItem(at: selectedindex)
+        _ = Selectprofile(profile: profile, selectedindex: selectedindex)
     }
 }

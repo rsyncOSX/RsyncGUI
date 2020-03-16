@@ -295,7 +295,7 @@ extension ViewControllerLoggData: OpenQuickBackup {
 }
 
 extension ViewControllerLoggData: NewProfile {
-    func newProfile(profile _: String?) {
+    func newProfile(profile _: String?, selectedindex: Int?) {
         self.reloadtabledata()
     }
 

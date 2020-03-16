@@ -15,7 +15,7 @@ final class Selectprofile {
     weak var restoreprofileDelegate: NewProfile?
     weak var loggdataprofileDelegate: NewProfile?
 
-    init(profile: String?) {
+    init(profile: String?, selectedindex: Int?) {
         weak var getprocess: GetProcessreference?
         getprocess = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllerMain
         guard getprocess?.getprocessreference() == nil else { return }
@@ -24,11 +24,11 @@ final class Selectprofile {
         self.loggdataprofileDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcloggdata) as? ViewControllerLoggData
         self.restoreprofileDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcrestore) as? ViewControllerRestore
         if self.profile == "Default profile" {
-            newprofileDelegate?.newProfile(profile: nil)
+            newprofileDelegate?.newProfile(profile: nil, selectedindex: selectedindex)
         } else {
-            newprofileDelegate?.newProfile(profile: self.profile)
+            newprofileDelegate?.newProfile(profile: self.profile, selectedindex: selectedindex)
         }
-        self.restoreprofileDelegate?.newProfile(profile: nil)
-        self.loggdataprofileDelegate?.newProfile(profile: nil)
+        self.restoreprofileDelegate?.newProfile(profile: nil, selectedindex: selectedindex)
+        self.loggdataprofileDelegate?.newProfile(profile: nil, selectedindex: selectedindex)
     }
 }
