@@ -88,12 +88,12 @@ class ViewControllerAllProfiles: NSViewController, Delay, Abort {
         self.mainTableView.target = self
         self.mainTableView.doubleAction = #selector(ViewControllerProfile.tableViewDoubleClick(sender:))
         self.working.usesThreadedAnimation = true
+        self.initpopupbutton()
     }
 
     override func viewDidAppear() {
         super.viewDidAppear()
         self.reloadallprofiles()
-        self.initpopupbutton(button: self.profilepopupbutton)
         ViewControllerReference.shared.setvcref(viewcontroller: .vcallprofiles, nsviewcontroller: self)
     }
 
@@ -178,21 +178,23 @@ extension ViewControllerAllProfiles: NSTableViewDelegate, Attributedestring {
         }
     }
 
-    private func initpopupbutton(button: NSPopUpButton) {
+    func initpopupbutton() {
         var profilestrings: [String]?
         profilestrings = CatalogProfile().getDirectorysStrings()
         profilestrings?.insert(NSLocalizedString("Default profile", comment: "default profile"), at: 0)
-        button.removeAllItems()
-        button.addItems(withTitles: profilestrings ?? [])
-        button.selectItem(at: 0)
+        self.profilepopupbutton.removeAllItems()
+        self.profilepopupbutton.addItems(withTitles: profilestrings ?? [])
+        self.profilepopupbutton.selectItem(at: 0)
     }
 
     @IBAction func selectprofile(_: NSButton) {
         var profile = self.profilepopupbutton.titleOfSelectedItem
+        let selectedindex = self.profilepopupbutton.indexOfSelectedItem
         if profile == NSLocalizedString("Default profile", comment: "default profile") {
             profile = nil
         }
-        _ = Selectprofile(profile: profile)
+        self.profilepopupbutton.selectItem(at: selectedindex)
+        _ = Selectprofile(profile: profile, selectedindex: selectedindex)
     }
 }
 

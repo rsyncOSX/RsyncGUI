@@ -171,7 +171,7 @@ final class ScpArgumentsSsh: SetConfigurations {
 
     init(hiddenID: Int?) {
         if hiddenID != nil {
-            self.config = self.configurations!.getConfigurations()[self.configurations!.getIndex(hiddenID: hiddenID!)]
+            self.config = self.configurations!.getConfigurations()[self.configurations!.getIndex(hiddenID!)]
         } else {
             self.config = nil
         }

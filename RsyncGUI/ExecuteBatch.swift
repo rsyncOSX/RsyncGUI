@@ -27,7 +27,7 @@ final class ExecuteBatch: SetSchedules, SetConfigurations {
             let work = batchobject.copyofnexttaskinqueue()
             switch work.1 {
             case 1:
-                let index: Int = self.configurations!.getIndex(hiddenID: work.0)
+                let index: Int = self.configurations!.getIndex(work.0)
                 let config = self.configurations!.getConfigurations()[index]
                 self.hiddenID = config.hiddenID
                 self.outputprocess = OutputProcess()
@@ -82,7 +82,7 @@ extension ExecuteBatch: UpdateProgress {
         localprocessupdateDelegate?.processTermination()
         if let batchobject = self.batchqueue {
             let work = batchobject.removenexttaskinqueue()
-            let index = self.configurations!.getIndex(hiddenID: work.0)
+            let index = self.configurations!.getIndex(work.0)
             let config = self.configurations!.getConfigurations()[index]
             self.hiddenID = config.hiddenID
             self.configurations!.setCurrentDateonConfiguration(index: index, outputprocess: self.outputprocess)

@@ -1,6 +1,6 @@
 //
 //  ViewControllerQuickBackup.swift
-//  RsyncGUI
+//  RsyncOSX
 //
 //  Created by Thomas Evensen on 22.12.2017.
 //  Copyright © 2017 Thomas Evensen. All rights reserved.
@@ -38,14 +38,14 @@ class ViewControllerRemoteInfo: NSViewController, SetDismisser, Abort, Setcolor 
                     openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllerMain
                 } else if (self.presentingViewController as? ViewControllerNewConfigurations) != nil {
                     openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcnewconfigurations) as? ViewControllerNewConfigurations
+                } else if (self.presentingViewController as? ViewControllerRestore) != nil {
+                    openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcrestore) as? ViewControllerRestore
                 } else if (self.presentingViewController as? ViewControllerSsh) != nil {
                     openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcssh) as? ViewControllerSsh
                 } else if (self.presentingViewController as? ViewControllerVerify) != nil {
                     openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcverify) as? ViewControllerVerify
                 } else if (self.presentingViewController as? ViewControllerLoggData) != nil {
                     openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcloggdata) as? ViewControllerLoggData
-                } else if (self.presentingViewController as? ViewControllerRestore) != nil {
-                    openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcrestore) as? ViewControllerRestore
                 }
                 openDelegate?.openquickbackup()
             }
@@ -67,14 +67,14 @@ class ViewControllerRemoteInfo: NSViewController, SetDismisser, Abort, Setcolor 
             self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
         } else if (self.presentingViewController as? ViewControllerNewConfigurations) != nil {
             self.dismissview(viewcontroller: self, vcontroller: .vcnewconfigurations)
+        } else if (self.presentingViewController as? ViewControllerRestore) != nil {
+            self.dismissview(viewcontroller: self, vcontroller: .vcrestore)
         } else if (self.presentingViewController as? ViewControllerSsh) != nil {
             self.dismissview(viewcontroller: self, vcontroller: .vcssh)
         } else if (self.presentingViewController as? ViewControllerVerify) != nil {
             self.dismissview(viewcontroller: self, vcontroller: .vcverify)
         } else if (self.presentingViewController as? ViewControllerLoggData) != nil {
             self.dismissview(viewcontroller: self, vcontroller: .vcloggdata)
-        } else if (self.presentingViewController as? ViewControllerRestore) != nil {
-            self.dismissview(viewcontroller: self, vcontroller: .vcrestore)
         }
     }
 
@@ -103,7 +103,7 @@ class ViewControllerRemoteInfo: NSViewController, SetDismisser, Abort, Setcolor 
             self.loaded = true
             self.progress.isHidden = true
         } else {
-            self.remoteinfotask = RemoteinfoEstimation(viewvcontroller: self)
+            self.remoteinfotask = RemoteinfoEstimation(viewcontroller: self)
             self.remoteinfotaskDelegate?.setremoteinfo(remoteinfotask: self.remoteinfotask)
         }
     }
@@ -136,10 +136,10 @@ class ViewControllerRemoteInfo: NSViewController, SetDismisser, Abort, Setcolor 
 
     private func number() -> String {
         if self.loaded {
-            return "Loaded cached data..."
+            return NSLocalizedString("Loaded cached data...", comment: "Remote info")
         } else {
             let max = self.remoteinfotask?.maxCount() ?? 0
-            return "Number of tasks to estimate:" + " " + String(describing: max)
+            return NSLocalizedString("Number of tasks to estimate:", comment: "Remote info") + " " + String(describing: max)
         }
     }
 
