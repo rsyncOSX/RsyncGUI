@@ -217,28 +217,12 @@ extension ViewControllerMain: GetConfigurationsObject {
     // After a write, a reload is forced.
     // After a write, a reload is forced.
     func reloadconfigurationsobject() {
-        guard self.configurations?.batchQueue == nil else {
-            if self.configurations!.batchQueue?.batchruniscompleted() == true {
-                self.createandreloadconfigurations()
-                return
-            } else {
-                return
-            }
-        }
         self.createandreloadconfigurations()
     }
 }
 
 extension ViewControllerMain: GetSchedulesObject {
     func reloadschedulesobject() {
-        guard self.configurations?.batchQueue == nil else {
-            if self.configurations!.batchQueue?.batchruniscompleted() == true {
-                self.createandreloadschedules()
-                return
-            } else {
-                return
-            }
-        }
         self.createandreloadschedules()
     }
 
@@ -477,6 +461,26 @@ extension Setcolor {
             } else {
                 return .black
             }
+        }
+    }
+}
+
+// Get multiple selected indexes
+protocol GetMultipleSelectedIndexes: AnyObject {
+    func getindexes() -> [Int]
+    func multipleselection() -> Bool
+}
+
+extension ViewControllerMain: GetMultipleSelectedIndexes {
+    func multipleselection() -> Bool {
+        return self.multipeselection
+    }
+
+    func getindexes() -> [Int] {
+        if let indexes = self.indexes {
+            return indexes.map { $0 }
+        } else {
+            return []
         }
     }
 }

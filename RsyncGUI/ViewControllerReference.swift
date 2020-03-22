@@ -17,7 +17,6 @@ enum ViewController {
     case vccopyfiles
     case vcssh
     case vcabout
-    case vcbatch
     case vcprogressview
     case vcquickbackup
     case vcremoteinfo
@@ -94,8 +93,6 @@ final class ViewControllerReference {
     private var viewControllerSsh: NSViewController?
     // Reference to About
     private var viewControllerAbout: NSViewController?
-    //  Refereence to batchview
-    private var viewControllerBatch: NSViewController?
     // ProgressView single task
     private var viewControllerProgressView: NSViewController?
     // Quick batch
@@ -129,8 +126,6 @@ final class ViewControllerReference {
             return self.viewControllerSsh
         case .vcabout:
             return self.viewControllerAbout
-        case .vcbatch:
-            return self.viewControllerBatch
         case .vcprogressview:
             return self.viewControllerProgressView
         case .vcquickbackup:
@@ -166,8 +161,6 @@ final class ViewControllerReference {
             self.viewControllerSsh = nsviewcontroller
         case .vcabout:
             self.viewControllerAbout = nsviewcontroller
-        case .vcbatch:
-            self.viewControllerBatch = nsviewcontroller
         case .vcprogressview:
             self.viewControllerProgressView = nsviewcontroller
         case .vcquickbackup:
