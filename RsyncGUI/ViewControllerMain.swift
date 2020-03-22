@@ -44,6 +44,9 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
     // Index to selected row, index is set when row is selected
     var index: Int?
     // Getting output from rsync
+    // Indexes, multiple selection
+    var indexes: IndexSet?
+    var multipeselection: Bool = false
     var outputprocess: OutputProcess?
 
     @IBOutlet var info: NSTextField!
@@ -66,6 +69,8 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
             self.info.stringValue = "Only valid for backup, snapshot and combined tasks..."
         case 8:
             self.info.stringValue = "No rclone config found..."
+        case 9:
+            self.info.stringValue = "Select one or more tasks..."
         default:
             self.info.stringValue = ""
         }
@@ -87,6 +92,11 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
 
     @IBAction func totinfo(_: NSButton) {
         guard self.checkforrsync() == false else { return }
+        if self.configurations?.setestimatedlistnil() == true {
+            self.configurations?.remoteinfoestimation = nil
+            self.configurations?.estimatedlist = nil
+        }
+        self.multipeselection = false
         globalMainQueue.async { () -> Void in
             self.presentAsSheet(self.viewControllerRemoteInfo!)
         }
@@ -94,6 +104,9 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
 
     @IBAction func quickbackup(_: NSButton) {
         guard self.checkforrsync() == false else { return }
+        self.configurations?.remoteinfoestimation = nil
+        self.configurations?.estimatedlist = nil
+        self.multipeselection = false
         self.openquickbackup()
     }
 
@@ -207,6 +220,11 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
     }
 
     func automaticbackup() {
+        if self.configurations?.setestimatedlistnil() == true {
+            self.configurations?.remoteinfoestimation = nil
+            self.configurations?.estimatedlist = nil
+        }
+        self.multipeselection = false
         self.presentAsSheet(self.viewControllerEstimating!)
     }
 
@@ -266,6 +284,9 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
 
     override func viewDidDisappear() {
         super.viewDidDisappear()
+        self.multipeselection = false
+        self.configurations?.remoteinfoestimation = nil
+        self.configurations?.estimatedlist = nil
     }
 
     // Execute tasks by double click in table
@@ -292,13 +313,18 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
         self.singletask?.executeSingleTask()
     }
 
-    // Execute BATCH TASKS only
-    @IBAction func executeBatch(_: NSButton) {
+    // Execute multipleselected tasks, only from main view
+    @IBAction func executemultipleselectedindexes(_: NSButton) {
         guard self.checkforrsync() == false else { return }
-        self.setNumbers(outputprocess: nil)
-        self.deselect()
+        guard self.indexes != nil else {
+            self.info(num: 9)
+            return
+        }
+        self.multipeselection = true
+        self.configurations?.remoteinfoestimation = nil
+        self.configurations?.estimatedlist = nil
         globalMainQueue.async { () -> Void in
-            self.presentAsSheet(self.viewControllerBatch!)
+            self.presentAsSheet(self.viewControllerRemoteInfo!)
         }
     }
 

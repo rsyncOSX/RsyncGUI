@@ -24,21 +24,28 @@ final class RemoteinfoEstimation: SetConfigurations {
     weak var updateprogressDelegate: UpdateProgress?
     weak var reloadtableDelegate: Reloadandrefresh?
     weak var startstopProgressIndicatorDelegate: StartStopProgressIndicator?
+    weak var getmultipleselectedindexesDelegate: GetMultipleSelectedIndexes?
     var index: Int?
     private var maxnumber: Int?
     var inbatch: Bool?
 
     private func prepareandstartexecutetasks() {
         self.stackoftasktobeestimated = [Row]()
-        for i in 0 ..< (self.configurations?.getConfigurations().count ?? 0) {
-            let task = self.configurations?.getConfigurations()[i].task
-            if ViewControllerReference.shared.synctasks.contains(task ?? "") {
-                if self.inbatch ?? false {
-                    if self.configurations!.getConfigurations()[i].batch == 1 {
-                        self.stackoftasktobeestimated?.append((self.configurations!.getConfigurations()[i].hiddenID, i))
-                    }
-                } else {
+        if self.getmultipleselectedindexesDelegate?.multipleselection() == false {
+            for i in 0 ..< (self.configurations?.getConfigurations().count ?? 0) {
+                let task = self.configurations?.getConfigurations()[i].task
+                if ViewControllerReference.shared.synctasks.contains(task ?? "") {
                     self.stackoftasktobeestimated?.append((self.configurations!.getConfigurations()[i].hiddenID, i))
+                }
+            }
+        } else {
+            let indexes = self.getmultipleselectedindexesDelegate?.getindexes()
+            for i in 0 ..< (indexes?.count ?? 0) {
+                if let index = indexes?[i] {
+                    let task = self.configurations?.getConfigurations()[index].task
+                    if ViewControllerReference.shared.synctasks.contains(task ?? "") {
+                        self.stackoftasktobeestimated?.append((self.configurations!.getConfigurations()[index].hiddenID, index))
+                    }
                 }
             }
         }
@@ -90,9 +97,7 @@ final class RemoteinfoEstimation: SetConfigurations {
     init(viewcontroller: NSViewController) {
         self.updateprogressDelegate = viewcontroller as? UpdateProgress
         self.startstopProgressIndicatorDelegate = viewcontroller as? StartStopProgressIndicator
-        if viewcontroller == ViewControllerReference.shared.getvcref(viewcontroller: .vcbatch) as? ViewControllerBatch {
-            self.inbatch = true
-        }
+        self.getmultipleselectedindexesDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllerMain
         self.prepareandstartexecutetasks()
         self.records = [NSMutableDictionary]()
         self.configurations?.estimatedlist = [NSMutableDictionary]()
