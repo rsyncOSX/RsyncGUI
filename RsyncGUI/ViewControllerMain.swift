@@ -1,7 +1,7 @@
 //  Created by Thomas Evensen on 19/08/2016.
 //  Copyright © 2016 Thomas Evensen. All rights reserved.
 //
-//  swiftlint:disable type_body_length line_length
+//  swiftlint:disable type_body_length line_length file_length
 
 import Cocoa
 import Foundation
@@ -253,6 +253,7 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
         super.viewDidLoad()
         self.mainTableView.delegate = self
         self.mainTableView.dataSource = self
+        self.mainTableView.allowsMultipleSelection = true
         self.working.usesThreadedAnimation = true
         ViewControllerReference.shared.setvcref(viewcontroller: .vctabmain, nsviewcontroller: self)
         _ = RsyncVersionString()
