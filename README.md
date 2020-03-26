@@ -34,10 +34,7 @@ The [snapshot](https://rsyncosx.github.io/Snapshots) feature is not available in
 
 Some views of RsyncGUI. The last view shows which catalogs are approved for access. Approval for access is part of the Apple Sandbox features. The first row (in last view) is the `.ssh` catalog because `rsync` has to read the private ssh certificates. The second row is the Documents catalog. The remote catalog is remote and not required for RsyncGUI to know about regarding the Sandbox.
 
-![](images/main1.png)
-![](images/main2.png)
-![](images/main3.png)
-![](images/main4.png)
+Here are [some samples of screenshots](https://github.com/rsyncOSX/RsyncGUI/blob/master/Views/Views.md).
 
 ### Application icon
 
