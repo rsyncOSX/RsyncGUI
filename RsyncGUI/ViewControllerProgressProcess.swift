@@ -24,12 +24,10 @@ class ViewControllerProgressProcess: NSViewController, SetConfigurations, SetDis
 
     @IBAction func abort(_: NSButton) {
         switch self.countDelegate {
-        case is ViewControllerMain:
-            self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
         case is ViewControllerRestore:
             self.dismissview(viewcontroller: self, vcontroller: .vcrestore)
         default:
-            return
+            self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
         }
         self.abort()
     }

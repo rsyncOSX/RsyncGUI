@@ -89,7 +89,7 @@ class ProcessCmd: Delay {
     // Terminate Process, used when user Aborts task.
     func abortProcess() {
         guard self.processReference != nil else { return }
-        self.processReference!.terminate()
+        self.processReference?.terminate()
     }
 
     init(command: String?, arguments: [String]?) {
