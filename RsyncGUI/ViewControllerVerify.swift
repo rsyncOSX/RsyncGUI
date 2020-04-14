@@ -10,7 +10,7 @@
 import Cocoa
 import Foundation
 
-class ViewControllerVerify: NSViewController, SetConfigurations, Index, Connected, VcMain, Setcolor, Checkforrsync {
+class ViewControllerVerify: NSViewController, SetConfigurations, Index, Connected, VcMain, Setcolor, Checkforrsync, Help {
     @IBOutlet var outputtable: NSTableView!
     var outputprocess: OutputProcess?
     var lastindex: Int?
@@ -134,6 +134,10 @@ class ViewControllerVerify: NSViewController, SetConfigurations, Index, Connecte
     // Abort button
     @IBAction func abort(_: NSButton) {
         self.processRefererence?.abortProcess()
+    }
+
+    @IBAction func showHelp(_: AnyObject?) {
+        self.help()
     }
 
     override func viewDidLoad() {
