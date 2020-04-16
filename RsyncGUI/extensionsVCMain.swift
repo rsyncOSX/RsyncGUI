@@ -122,6 +122,7 @@ extension ViewControllerMain: RsyncError {
         // Set on or off in user configuration
         globalMainQueue.async { () -> Void in
             self.seterrorinfo(info: "Error")
+            self.info.stringValue = "See ~/Documents/rsynclog.txt"
             self.showrsynccommandmainview()
             guard ViewControllerReference.shared.haltonerror == true else { return }
             self.deselect()

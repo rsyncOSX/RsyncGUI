@@ -6,7 +6,7 @@
 import Cocoa
 import Foundation
 
-class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay, Fileerrormessage, Setcolor, Checkforrsync {
+class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay, Fileerrormessage, Setcolor, Checkforrsync, Help {
     // Main tableview
     @IBOutlet var mainTableView: NSTableView!
     // Progressbar indicating work
@@ -217,6 +217,10 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
             return
         }
         self.executetasknow = ExecuteTaskNow(index: self.index!)
+    }
+
+    @IBAction func showHelp(_: AnyObject?) {
+        self.help()
     }
 
     func automaticbackup() {

@@ -225,6 +225,16 @@ extension Abort {
     }
 }
 
+protocol Help: AnyObject {
+    func help()
+}
+
+extension Help {
+    func help() {
+        NSWorkspace.shared.open(URL(string: "https://rsyncosx.github.io/RsyncGUIIntro")!)
+    }
+}
+
 protocol GetOutput: AnyObject {
     func getoutput() -> [String]
 }

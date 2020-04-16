@@ -18,7 +18,7 @@ protocol SaveSequrityScopedURL: AnyObject {
     func savesequrityscopedurl(urlpath: URL)
 }
 
-class ViewControllerSsh: NSViewController, SetConfigurations, VcMain, Checkforrsync {
+class ViewControllerSsh: NSViewController, SetConfigurations, VcMain, Checkforrsync, Help {
     var sshcmd: Ssh?
     var hiddenID: Int?
     var data: [String]?
@@ -81,6 +81,10 @@ class ViewControllerSsh: NSViewController, SetConfigurations, VcMain, Checkforrs
             resetsequrityscopedDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllerMain
             resetsequrityscopedDelegate?.resetsequrityscopedurl()
         }
+    }
+
+    @IBAction func showHelp(_: AnyObject?) {
+        self.help()
     }
 
     // Just for grouping rsa and dsa radiobuttons

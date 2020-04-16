@@ -16,7 +16,7 @@ enum Typebackup {
     case singlefile
 }
 
-class ViewControllerNewConfigurations: NSViewController, SetConfigurations, Delay, Index, VcMain, Checkforrsync {
+class ViewControllerNewConfigurations: NSViewController, SetConfigurations, Delay, Index, VcMain, Checkforrsync, Help {
     var newconfigurations: NewConfigurations?
     var tabledata: [NSMutableDictionary]?
     let archive: String = "--archive"
@@ -86,6 +86,10 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, Dela
         globalMainQueue.async { () -> Void in
             self.presentAsSheet(self.viewControllerUserconfiguration!)
         }
+    }
+
+    @IBAction func showHelp(_: AnyObject?) {
+        self.help()
     }
 
     @IBAction func useGUI(_: NSButton) {
