@@ -26,9 +26,17 @@ If your plan is to use RsyncGUI as your main tool for backup of files, please in
 
 ### --delete parameter
 
-**Caution** about RsyncGUI and the `--delete` parameter. The `--delete` is a [default parameter](https://rsyncosx.github.io/RsyncParameters). The parameter instructs rsync to **delete** all files in the destination which are not present in the source. Every time you add a new task to RsyncGUI, execute an estimation run (`--dry-run` parameter) and inspect the result before executing a real run. If you by accident set an empty catalog as source RsyncGUI will delete all files in the destination. To save deleted and changes files utilize the `--backup` [feature](https://rsyncosx.github.io/Parameters).
+```
+Caution about RsyncGUI and the `--delete` parameter. The `--delete` is a default parameter.
+The parameter instructs rsync to keep the source and destination synchronized (in sync).
+The parameter instructs rsync to delete all files in the destination which are not present
+in the source.
 
-The [snapshot](https://rsyncosx.github.io/Snapshots) feature is not available in this version. If you want the snapshot feature please use RsyncOSX.
+Every time you add a new task to RsyncGUI, execute an estimation run (--dry-run) and inspect
+the result before executing a real run. If you by accident set an empty catalog as source
+RsyncGUI (rsync) will delete all files in the destination.
+```
+To save deleted and changes files utilize [the --backup parameter](https://rsyncosx.github.io/Parameters). The --delete parameter and other default parameters might be deleted if wanted.
 
 ### Main view
 
