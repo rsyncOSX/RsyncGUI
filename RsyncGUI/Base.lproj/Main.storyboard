@@ -2029,14 +2029,27 @@ DQ
                                     <action selector="close:" target="ceM-Kt-SJU" id="txF-Tu-LUI"/>
                                 </connections>
                             </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="PvJ-QR-bKc">
+                                <rect key="frame" x="543" y="13" width="72" height="32"/>
+                                <buttonCell key="cell" type="push" title="Copy" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Jw6-Gd-08K">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="pastetabeltomacospasteboard:" target="ceM-Kt-SJU" id="Tlw-cK-PPO"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="ju4-SV-jK8" secondAttribute="trailing" constant="20" id="2VK-OA-OG9"/>
+                            <constraint firstItem="PvJ-QR-bKc" firstAttribute="top" secondItem="vKB-vU-qrp" secondAttribute="bottom" constant="21" id="DDT-ey-GdT"/>
                             <constraint firstAttribute="bottom" secondItem="ju4-SV-jK8" secondAttribute="bottom" constant="20" id="Io1-JS-VYb"/>
+                            <constraint firstItem="ju4-SV-jK8" firstAttribute="leading" secondItem="PvJ-QR-bKc" secondAttribute="trailing" constant="4" id="N6f-Hr-NuY"/>
                             <constraint firstItem="ju4-SV-jK8" firstAttribute="top" secondItem="vKB-vU-qrp" secondAttribute="bottom" constant="21" id="PuO-VE-g7w"/>
                             <constraint firstItem="vKB-vU-qrp" firstAttribute="top" secondItem="KBL-J8-CuF" secondAttribute="top" constant="20" id="dk0-H9-g3m"/>
                             <constraint firstItem="vKB-vU-qrp" firstAttribute="leading" secondItem="KBL-J8-CuF" secondAttribute="leading" constant="20" id="dv5-9U-m1P"/>
                             <constraint firstAttribute="trailing" secondItem="vKB-vU-qrp" secondAttribute="trailing" constant="20" id="qW1-o4-HtQ"/>
+                            <constraint firstAttribute="bottom" secondItem="PvJ-QR-bKc" secondAttribute="bottom" constant="20" id="xvs-dY-m2K"/>
                         </constraints>
                     </view>
                     <connections>
@@ -3047,13 +3060,13 @@ DQ
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JxY-5V-aG6">
-                                <rect key="frame" x="20" y="20" width="762" height="367"/>
+                                <rect key="frame" x="20" y="61" width="762" height="326"/>
                                 <clipView key="contentView" id="9de-ez-sUR">
-                                    <rect key="frame" x="1" y="0.0" width="760" height="366"/>
+                                    <rect key="frame" x="1" y="0.0" width="760" height="325"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="C3F-Rb-k7G" viewBased="YES" id="Jq5-FS-rlQ">
-                                            <rect key="frame" x="0.0" y="0.0" width="760" height="343"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="760" height="302"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -3108,12 +3121,24 @@ DQ
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableHeaderView>
                             </scrollView>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dVg-TQ-1xp">
+                                <rect key="frame" x="716" y="13" width="72" height="32"/>
+                                <buttonCell key="cell" type="push" title="Copy" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="G70-Le-Jgu">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="pastetabeltomacospasteboard:" target="mal-sc-mlY" id="GyD-m3-T1U"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="JxY-5V-aG6" secondAttribute="trailing" constant="20" id="TPs-hT-aom"/>
-                            <constraint firstItem="JxY-5V-aG6" firstAttribute="top" secondItem="sfF-Cw-fbW" secondAttribute="top" constant="20" id="Um4-cy-ZAc"/>
-                            <constraint firstAttribute="bottom" secondItem="JxY-5V-aG6" secondAttribute="bottom" constant="20" id="Vjj-h2-yLb"/>
-                            <constraint firstItem="JxY-5V-aG6" firstAttribute="leading" secondItem="sfF-Cw-fbW" secondAttribute="leading" constant="20" id="XHQ-F1-aH0"/>
+                            <constraint firstAttribute="trailing" secondItem="JxY-5V-aG6" secondAttribute="trailing" constant="20" id="74c-nY-ppd"/>
+                            <constraint firstItem="JxY-5V-aG6" firstAttribute="leading" secondItem="sfF-Cw-fbW" secondAttribute="leading" constant="20" id="FxS-Ci-t2w"/>
+                            <constraint firstItem="JxY-5V-aG6" firstAttribute="top" secondItem="sfF-Cw-fbW" secondAttribute="top" constant="20" id="GAi-Fz-gwp"/>
+                            <constraint firstAttribute="bottom" secondItem="dVg-TQ-1xp" secondAttribute="bottom" constant="20" id="XHz-Ae-sLU"/>
+                            <constraint firstAttribute="trailing" secondItem="dVg-TQ-1xp" secondAttribute="trailing" constant="20" id="dcw-PH-9oI"/>
+                            <constraint firstItem="dVg-TQ-1xp" firstAttribute="top" secondItem="JxY-5V-aG6" secondAttribute="bottom" constant="20" id="xdR-LV-tcs"/>
                         </constraints>
                     </view>
                     <connections>
