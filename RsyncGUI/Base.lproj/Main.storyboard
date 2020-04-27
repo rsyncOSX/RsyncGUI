@@ -5041,14 +5041,14 @@ DQ
                                 </view>
                             </box>
                             <scrollView fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="22" horizontalPageScroll="10" verticalLineScroll="22" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YUT-ST-tbY">
-                                <rect key="frame" x="20" y="129" width="556" height="246"/>
+                                <rect key="frame" x="20" y="157" width="556" height="218"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <clipView key="contentView" id="6Ex-iH-OXY">
-                                    <rect key="frame" x="1" y="0.0" width="554" height="245"/>
+                                    <rect key="frame" x="1" y="0.0" width="554" height="217"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="20" rowSizeStyle="automatic" headerView="3kg-9E-7iH" viewBased="YES" id="DVe-Or-aUx">
-                                            <rect key="frame" x="0.0" y="0.0" width="554" height="220"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="554" height="192"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -5213,14 +5213,14 @@ DQ
                                 </textFieldCell>
                             </textField>
                             <box fixedFrame="YES" title="Restore to tmp catalog" translatesAutoresizingMaskIntoConstraints="NO" id="VYc-1V-Adv">
-                                <rect key="frame" x="17" y="68" width="323" height="53"/>
+                                <rect key="frame" x="17" y="74" width="323" height="75"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <view key="contentView" id="dqf-eY-ACO">
-                                    <rect key="frame" x="3" y="3" width="317" height="35"/>
+                                    <rect key="frame" x="3" y="3" width="317" height="57"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vFG-Kh-Qu9">
-                                            <rect key="frame" x="139" y="7" width="174" height="22"/>
+                                            <rect key="frame" x="139" y="29" width="174" height="22"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" bezelStyle="round" id="Pan-VO-ScB">
                                                 <font key="font" metaFont="system"/>
@@ -5229,7 +5229,7 @@ DQ
                                             </textFieldCell>
                                         </textField>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vth-aR-8GN">
-                                            <rect key="frame" x="3" y="10" width="130" height="16"/>
+                                            <rect key="frame" x="3" y="32" width="130" height="16"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Restore catalog :" id="uxf-U3-qe4">
                                                 <font key="font" metaFont="system"/>
@@ -5237,11 +5237,22 @@ DQ
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
+                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bX7-o7-4r7">
+                                            <rect key="frame" x="222" y="5" width="93" height="18"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="check" title="Select tmp: " bezelStyle="regularSquare" imagePosition="right" alignment="right" state="on" inset="2" id="0yI-ll-Jqg">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" size="13" name="HelveticaNeue"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="toggletmprestore:" target="irr-sl-lC0" id="sKA-RG-uxG"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                 </view>
                             </box>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Z8f-6o-RBV">
-                                <rect key="frame" x="352" y="55" width="121" height="18"/>
+                                <rect key="frame" x="352" y="107" width="121" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="radio" title="Full restore" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="wcM-GT-IyS">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -5252,7 +5263,7 @@ DQ
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="asH-d0-aPQ">
-                                <rect key="frame" x="352" y="33" width="121" height="18"/>
+                                <rect key="frame" x="352" y="85" width="121" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="radio" title="Restore files" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="f8Q-sQ-GxY">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -5263,7 +5274,7 @@ DQ
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FZN-bO-43b">
-                                <rect key="frame" x="471" y="49" width="99" height="32"/>
+                                <rect key="frame" x="452" y="101" width="99" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="push" title="Estimate" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="AJ3-NB-Uje">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -5274,7 +5285,7 @@ DQ
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pwX-IL-4Dx">
-                                <rect key="frame" x="471" y="23" width="99" height="32"/>
+                                <rect key="frame" x="452" y="75" width="99" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="push" title="Restore" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="at3-24-P8s">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -5284,23 +5295,22 @@ DQ
                                     <action selector="restore:" target="irr-sl-lC0" id="AA4-IG-yjP"/>
                                 </connections>
                             </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bX7-o7-4r7">
-                                <rect key="frame" x="351" y="80" width="93" height="18"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="check" title="Select tmp: " bezelStyle="regularSquare" imagePosition="right" alignment="right" state="on" inset="2" id="0yI-ll-Jqg">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" size="13" name="HelveticaNeue"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="toggletmprestore:" target="irr-sl-lC0" id="sKA-RG-uxG"/>
-                                </connections>
-                            </button>
                             <box fixedFrame="YES" title="Choose type of restore" translatesAutoresizingMaskIntoConstraints="NO" id="0xG-wh-8g8">
-                                <rect key="frame" x="342" y="16" width="237" height="105"/>
+                                <rect key="frame" x="342" y="74" width="237" height="75"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <view key="contentView" id="mWT-5T-8H9">
-                                    <rect key="frame" x="3" y="3" width="231" height="87"/>
+                                    <rect key="frame" x="3" y="3" width="231" height="57"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PfV-g1-LoQ">
+                                            <rect key="frame" x="207" y="9" width="14" height="13"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="red" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="wH8-Rx-Dac">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                        </button>
+                                    </subviews>
                                 </view>
                             </box>
                             <popUpButton fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jst-1j-bUB">
@@ -5321,16 +5331,27 @@ DQ
                                     <action selector="selectprofile:" target="irr-sl-lC0" id="yBk-5A-JkF"/>
                                 </connections>
                             </popUpButton>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XxB-T5-TGt">
+                                <rect key="frame" x="373" y="48" width="174" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="check" title="Do the real thing:  " bezelStyle="regularSquare" imagePosition="right" alignment="right" inset="2" id="rjE-Wm-6ws">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="toggledotherealthing:" target="irr-sl-lC0" id="IdZ-gJ-CXn"/>
+                                </connections>
+                            </button>
                         </subviews>
                     </view>
                     <connections>
-                        <outlet property="estimatebutton" destination="FZN-bO-43b" id="WrU-ok-Nky"/>
+                        <outlet property="dotherealthing" destination="XxB-T5-TGt" id="TEu-w2-9EJ"/>
                         <outlet property="filesrestoreradiobutton" destination="asH-d0-aPQ" id="Ppo-Vg-a47"/>
                         <outlet property="fullrestoreradiobutton" destination="Z8f-6o-RBV" id="zV9-T0-ac2"/>
                         <outlet property="info" destination="tLW-Sv-cye" id="sgc-vs-t22"/>
                         <outlet property="profilepopupbutton" destination="Jst-1j-bUB" id="Fb8-17-WKr"/>
                         <outlet property="remotefiles" destination="7ka-Af-NJE" id="lbK-Gw-zfM"/>
-                        <outlet property="restorebutton" destination="pwX-IL-4Dx" id="YlF-ge-iQy"/>
+                        <outlet property="restoreisverified" destination="PfV-g1-LoQ" id="lB1-fE-Y2O"/>
                         <outlet property="restoretableView" destination="OBb-yw-I8X" id="JwK-nN-UVj"/>
                         <outlet property="rsynctableView" destination="DVe-Or-aUx" id="ztd-Ii-Dpt"/>
                         <outlet property="search" destination="XgL-64-0Xa" id="C8s-rn-AQh"/>
