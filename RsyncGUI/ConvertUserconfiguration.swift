@@ -45,8 +45,8 @@ struct ConvertUserconfiguration {
         if ViewControllerReference.shared.rsyncPath != nil {
             rsyncPath = ViewControllerReference.shared.rsyncPath!
         }
-        if ViewControllerReference.shared.restorepath != nil {
-            restorePath = ViewControllerReference.shared.restorepath!
+        if ViewControllerReference.shared.temporarypathforrestore != nil {
+            restorePath = ViewControllerReference.shared.temporarypathforrestore!
         }
         if ViewControllerReference.shared.haltonerror == true {
             haltonerror = 1

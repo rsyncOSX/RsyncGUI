@@ -144,13 +144,13 @@ class ViewControllerUserconfiguration: NSViewController, NewRsync, SetDismisser,
         if self.restorePath.stringValue.isEmpty == false {
             if restorePath.stringValue.hasSuffix("/") == false {
                 restorePath.stringValue += "/"
-                ViewControllerReference.shared.restorepath = self.restorePath.stringValue
+                ViewControllerReference.shared.temporarypathforrestore = self.restorePath.stringValue
             } else {
-                ViewControllerReference.shared.restorepath = self.restorePath.stringValue
+                ViewControllerReference.shared.temporarypathforrestore = self.restorePath.stringValue
             }
-            _ = AppendSequrityscopedURLs(path: ViewControllerReference.shared.restorepath!)
+            _ = AppendSequrityscopedURLs(path: ViewControllerReference.shared.temporarypathforrestore!)
         } else {
-            ViewControllerReference.shared.restorepath = nil
+            ViewControllerReference.shared.temporarypathforrestore = nil
         }
         self.setdirty()
     }
@@ -247,8 +247,8 @@ class ViewControllerUserconfiguration: NSViewController, NewRsync, SetDismisser,
         } else {
             self.rsyncPath.stringValue = ""
         }
-        if ViewControllerReference.shared.restorepath != nil {
-            self.restorePath.stringValue = ViewControllerReference.shared.restorepath!
+        if ViewControllerReference.shared.temporarypathforrestore != nil {
+            self.restorePath.stringValue = ViewControllerReference.shared.temporarypathforrestore!
         } else {
             self.restorePath.stringValue = ""
         }
