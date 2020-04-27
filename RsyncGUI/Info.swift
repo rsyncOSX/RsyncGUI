@@ -16,6 +16,7 @@ struct Infoexecute {
     let info13: String = NSLocalizedString("No rsync in path...", comment: "Execute")
     let info14: String = NSLocalizedString("⌘A to abort or wait...", comment: "Execute")
     let info15: String = NSLocalizedString("Menu app is running...", comment: "Execute")
+    let info16: String = NSLocalizedString("Select one or more tasks...", comment: "Execute")
     let info19: String = NSLocalizedString("New version is available - see About", comment: "Execute")
 
     // Execute
@@ -31,6 +32,8 @@ struct Infoexecute {
             return self.info14
         case 5:
             return self.info15
+        case 6:
+            return self.info16
         case 9:
             return self.info19
         default:
@@ -110,6 +113,7 @@ struct Infosnapshots {
     let info54: String = NSLocalizedString("Seriously, enter a real number...", comment: "Snapshots")
     let info55: String = NSLocalizedString("You cannot delete that many, max are", comment: "Snapshots")
     let info34: String = NSLocalizedString("Seems not to be connected...", comment: "Copy files")
+    let info56: String = NSLocalizedString("Cleaning logs completed...", comment: "Snapshots")
 
     // snapshots
     func info(num: Int) -> String {
@@ -126,6 +130,8 @@ struct Infosnapshots {
             return self.info55
         case 6:
             return self.info34
+        case 7:
+            return self.info56
         default:
             return ""
         }
