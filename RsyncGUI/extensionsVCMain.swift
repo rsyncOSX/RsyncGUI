@@ -122,7 +122,7 @@ extension ViewControllerMain: RsyncError {
         // Set on or off in user configuration
         globalMainQueue.async { () -> Void in
             self.seterrorinfo(info: "Error")
-            self.info.stringValue = "See ~/Documents/rsynclog.txt"
+            self.info.stringValue = "See https://rsyncosx.netlify.app/post/rsyncguiintro/"
             self.showrsynccommandmainview()
             guard ViewControllerReference.shared.haltonerror == true else { return }
             self.deselect()
@@ -147,15 +147,15 @@ extension ViewControllerMain: Fileerror {
             if errortype == .openlogfile {
                 self.seterrorinfo(info: "Warning")
                 self.outputprocess?.addlinefromoutput(str: self.errordescription(errortype: errortype))
-                self.info.stringValue = "Logfile: see ~/Documents/rsynclog.txt"
+                self.info.stringValue = "Logfile: https://rsyncosx.netlify.app/post/rsyncguiintro/"
             } else if errortype == .filesize {
                 self.seterrorinfo(info: "Warning")
                 self.outputprocess?.addlinefromoutput(str: self.errordescription(errortype: errortype) + ": filesize = " + errorstr)
-                self.info.stringValue = "Size logfile: see ~/Documents/rsynclog.txt"
+                self.info.stringValue = "Size logfile: https://rsyncosx.netlify.app/post/rsyncguiintro/"
             } else {
                 self.seterrorinfo(info: "Error")
                 self.outputprocess?.addlinefromoutput(str: self.errordescription(errortype: errortype) + "\n" + errorstr)
-                self.info.stringValue = "Error: see ~/Documents/rsynclog.txt"
+                self.info.stringValue = "Error: see https://rsyncosx.netlify.app/post/rsyncguiintro/"
             }
             _ = Logging(self.outputprocess, true)
         }
