@@ -110,11 +110,12 @@ extension SingleTask: UpdateProgress {
             case .error:
                 self.indicatorDelegate?.stopIndicator()
                 self.singletaskDelegate?.presentViewInformation(outputprocess: self.outputprocess)
+                self.configurations?.setCurrentDateonConfiguration(index: self.index!, outputprocess: self.outputprocess)
                 self.workload = nil
             case .executesinglerun:
                 self.singletaskDelegate?.terminateProgressProcess()
                 self.singletaskDelegate?.presentViewInformation(outputprocess: self.outputprocess)
-                self.configurations!.setCurrentDateonConfiguration(index: self.index!, outputprocess: self.outputprocess)
+                self.configurations?.setCurrentDateonConfiguration(index: self.index!, outputprocess: self.outputprocess)
             case .empty:
                 self.workload = nil
             default:
