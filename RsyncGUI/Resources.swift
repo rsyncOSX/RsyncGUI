@@ -18,7 +18,7 @@ enum ResourceType {
 
 struct Resources {
     // Resource strings
-    private var changelog: String = "https://rsyncosx.netlify.app/post/rclonechangelog/"
+    private var changelog: String = "https://rsyncosx.netlify.app/post/rsyncguichangelog/"
     private var documents: String = "https://rsyncosx.netlify.app/post/rsyncguifirststart/"
     private var introduction: String = "https://rsyncosx.netlify.app/post/rsyncguiintro/"
     private var verify: String = "https://rsyncosx.netlify.app/post/verify/"
