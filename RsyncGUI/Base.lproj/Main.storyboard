@@ -3121,8 +3121,28 @@ DQ
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableHeaderView>
                             </scrollView>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0fU-ki-tKf">
+                                <rect key="frame" x="14" y="13" width="81" height="32"/>
+                                <buttonCell key="cell" type="push" title="Logfile" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="4OJ-CT-uFi">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="readloggfile:" target="mal-sc-mlY" id="Qzo-Ke-R1M"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xlw-rR-ni0">
+                                <rect key="frame" x="152" y="13" width="82" height="32"/>
+                                <buttonCell key="cell" type="push" title="Reload" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="VJs-ja-KpP">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="reloadoutput:" target="mal-sc-mlY" id="SLi-3O-bOb"/>
+                                </connections>
+                            </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dVg-TQ-1xp">
-                                <rect key="frame" x="716" y="13" width="72" height="32"/>
+                                <rect key="frame" x="88" y="13" width="72" height="32"/>
                                 <buttonCell key="cell" type="push" title="Copy" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="G70-Le-Jgu">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -3134,11 +3154,16 @@ DQ
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="JxY-5V-aG6" secondAttribute="trailing" constant="20" id="74c-nY-ppd"/>
+                            <constraint firstItem="0fU-ki-tKf" firstAttribute="leading" secondItem="sfF-Cw-fbW" secondAttribute="leading" constant="20" id="AYc-P3-rix"/>
                             <constraint firstItem="JxY-5V-aG6" firstAttribute="leading" secondItem="sfF-Cw-fbW" secondAttribute="leading" constant="20" id="FxS-Ci-t2w"/>
                             <constraint firstItem="JxY-5V-aG6" firstAttribute="top" secondItem="sfF-Cw-fbW" secondAttribute="top" constant="20" id="GAi-Fz-gwp"/>
-                            <constraint firstAttribute="bottom" secondItem="dVg-TQ-1xp" secondAttribute="bottom" constant="20" id="XHz-Ae-sLU"/>
-                            <constraint firstAttribute="trailing" secondItem="dVg-TQ-1xp" secondAttribute="trailing" constant="20" id="dcw-PH-9oI"/>
-                            <constraint firstItem="dVg-TQ-1xp" firstAttribute="top" secondItem="JxY-5V-aG6" secondAttribute="bottom" constant="20" id="xdR-LV-tcs"/>
+                            <constraint firstAttribute="bottom" secondItem="xlw-rR-ni0" secondAttribute="bottom" constant="20" id="Odx-Xc-CWa"/>
+                            <constraint firstItem="dVg-TQ-1xp" firstAttribute="top" secondItem="JxY-5V-aG6" secondAttribute="bottom" constant="20" id="QXC-ux-iTd"/>
+                            <constraint firstAttribute="bottom" secondItem="0fU-ki-tKf" secondAttribute="bottom" constant="20" id="Xof-pF-bVt"/>
+                            <constraint firstItem="xlw-rR-ni0" firstAttribute="leading" secondItem="dVg-TQ-1xp" secondAttribute="trailing" constant="4" id="eE2-4q-GBG"/>
+                            <constraint firstItem="0fU-ki-tKf" firstAttribute="top" secondItem="JxY-5V-aG6" secondAttribute="bottom" constant="20" id="gAp-I3-nZM"/>
+                            <constraint firstItem="dVg-TQ-1xp" firstAttribute="leading" secondItem="0fU-ki-tKf" secondAttribute="trailing" constant="5" id="oDA-H9-N9h"/>
+                            <constraint firstItem="xlw-rR-ni0" firstAttribute="top" secondItem="JxY-5V-aG6" secondAttribute="bottom" constant="20" id="rhX-H3-pcF"/>
                         </constraints>
                     </view>
                     <connections>
