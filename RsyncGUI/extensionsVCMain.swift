@@ -144,11 +144,7 @@ extension ViewControllerMain: Fileerror {
             if self.outputprocess == nil {
                 self.outputprocess = OutputProcess()
             }
-            if errortype == .openlogfile {
-                self.seterrorinfo(info: "Logfile warning")
-                self.outputprocess?.addlinefromoutput(str: self.errordescription(errortype: errortype))
-                self.info.stringValue = "Logfile: https://rsyncosx.netlify.app/post/rsyncguiintro/"
-            } else if errortype == .filesize {
+            if errortype == .filesize {
                 self.seterrorinfo(info: "Logfile size")
                 self.outputprocess?.addlinefromoutput(str: self.errordescription(errortype: errortype) + ": filesize = " + errorstr)
                 self.info.stringValue = "Size logfile: https://rsyncosx.netlify.app/post/rsyncguiintro/"
@@ -256,16 +252,16 @@ extension ViewControllerMain: GetHiddenID {
 extension ViewControllerMain: Setinfoaboutrsync {
     internal func setinfoaboutrsync() {
         if ViewControllerReference.shared.norsync == true {
-            self.info(num: 3)
+            self.info.stringValue = Infoexecute().info(num: 3)
         } else {
-            self.info(num: 0)
+            self.info.stringValue = Infoexecute().info(num: 0)
         }
     }
 }
 
 extension ViewControllerMain: ErrorOutput {
     func erroroutput() {
-        self.info(num: 2)
+        self.info.stringValue = Infoexecute().info(num: 2)
     }
 }
 

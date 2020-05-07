@@ -97,7 +97,7 @@ extension ViewControllerMain: NSTableViewDelegate, Attributedestring {
         // If change row during estimation
         if self.process != nil { self.abortOperations() }
         self.backupdryrun.state = .on
-        self.info(num: 0)
+        self.info.stringValue = Infoexecute().info(num: 0)
         let myTableViewFromNotification = (notification.object as? NSTableView)!
         let indexes = myTableViewFromNotification.selectedRowIndexes
         if let index = indexes.first {
