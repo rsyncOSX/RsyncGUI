@@ -1,12 +1,12 @@
 //  Created by Thomas Evensen on 19/08/2016.
 //  Copyright © 2016 Thomas Evensen. All rights reserved.
 //
-//  swiftlint:disable type_body_length line_length file_length
+//  swiftlint:disable type_body_length line_length
 
 import Cocoa
 import Foundation
 
-class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay, Fileerrormessage, Setcolor, Checkforrsync, Help {
+class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay, Errormessage, Setcolor, Checkforrsync, Help {
     // Main tableview
     @IBOutlet var mainTableView: NSTableView!
     // Progressbar indicating work
@@ -51,40 +51,15 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
 
     @IBOutlet var info: NSTextField!
 
-    func info(num: Int) {
-        switch num {
-        case 1:
-            self.info.stringValue = "Select a task...."
-        case 2:
-            self.info.stringValue = "Possible error logging..."
-        case 3:
-            self.info.stringValue = "No rsync in path..."
-        case 4:
-            self.info.stringValue = "⌘A to abort or wait..."
-        case 5:
-            self.info.stringValue = "Menu app is running..."
-        case 6:
-            self.info.stringValue = "This is a combined task, execute by ⌘R..."
-        case 7:
-            self.info.stringValue = "Only valid for backup, snapshot and combined tasks..."
-        case 8:
-            self.info.stringValue = "No rclone config found..."
-        case 9:
-            self.info.stringValue = "Select one or more tasks..."
-        default:
-            self.info.stringValue = ""
-        }
-    }
-
     @IBAction func infoonetask(_: NSButton) {
         guard self.index != nil else {
-            self.info(num: 1)
+            self.info.stringValue = Infoexecute().info(num: 1)
             return
         }
         guard self.checkforrsync() == false else { return }
         let task = self.configurations!.getConfigurations()[self.index!].task
         guard ViewControllerReference.shared.synctasks.contains(task) else {
-            self.info(num: 7)
+            self.info.stringValue = Infoexecute().info(num: 7)
             return
         }
         self.presentAsSheet(self.viewControllerInformationLocalRemote!)
@@ -113,7 +88,7 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
     @IBAction func edit(_: NSButton) {
         self.reset()
         guard self.index != nil else {
-            self.info(num: 1)
+            self.info.stringValue = Infoexecute().info(num: 1)
             return
         }
         globalMainQueue.async { () -> Void in
@@ -124,7 +99,7 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
     @IBAction func rsyncparams(_: NSButton) {
         self.reset()
         guard self.index != nil else {
-            self.info(num: 1)
+            self.info.stringValue = Infoexecute().info(num: 1)
             return
         }
         globalMainQueue.async { () -> Void in
@@ -134,7 +109,7 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
 
     @IBAction func delete(_: NSButton) {
         guard self.index != nil else {
-            self.info(num: 1)
+            self.info.stringValue = Infoexecute().info(num: 1)
             return
         }
         if let hiddenID = self.configurations?.gethiddenID(index: self.index!) {
@@ -209,7 +184,7 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
     @IBAction func executetasknow(_: NSButton) {
         guard self.checkforrsync() == false else { return }
         guard self.index != nil else {
-            self.info(num: 1)
+            self.info.stringValue = Infoexecute().info(num: 1)
             return
         }
         let task = self.configurations!.getConfigurations()[self.index!].task
@@ -284,7 +259,7 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
         }
         self.rsyncischanged()
         self.displayProfile()
-        self.info(num: 0)
+        self.info.stringValue = Infoexecute().info(num: 0)
     }
 
     override func viewDidDisappear() {
@@ -305,7 +280,7 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
         guard self.index != nil else { return }
         let task = self.configurations!.getConfigurations()[self.index!].task
         guard ViewControllerReference.shared.synctasks.contains(task) else {
-            self.info(num: 6)
+            self.info.stringValue = Infoexecute().info(num: 6)
             return
         }
         guard self.singletask != nil else {
@@ -322,7 +297,7 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
     @IBAction func executemultipleselectedindexes(_: NSButton) {
         guard self.checkforrsync() == false else { return }
         guard self.indexes != nil else {
-            self.info(num: 9)
+            self.info.stringValue = Infoexecute().info(num: 9)
             return
         }
         self.multipeselection = true
