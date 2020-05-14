@@ -131,7 +131,7 @@ extension ViewControllerMain: RsyncError {
                 process.terminate()
                 self.process = nil
             }
-            // Either error in single task or batch task
+            // Either error in single task
             self.singletask?.error()
         }
     }
@@ -146,13 +146,13 @@ extension ViewControllerMain: Fileerror {
             }
             if errortype == .filesize {
                 self.seterrorinfo(info: "Logfile size")
-                self.outputprocess?.addlinefromoutput(str: self.errordescription(errortype: errortype) + ": filesize = " + errorstr)
-                self.info.stringValue = "Size logfile: https://rsyncosx.netlify.app/post/rsyncguiintro/"
+                self.info.stringValue = "Size logfile: " + errorstr
             } else {
                 self.seterrorinfo(info: "Some error")
                 self.outputprocess?.addlinefromoutput(str: self.errordescription(errortype: errortype) + "\n" + errorstr)
                 self.info.stringValue = "Error: see https://rsyncosx.netlify.app/post/rsyncguiintro/"
             }
+            guard errortype != .filesize else { return }
             _ = Logging(self.outputprocess, true)
         }
     }
@@ -185,7 +185,7 @@ extension ViewControllerMain: Abort {
     }
 }
 
-// Extensions from here are used in either newSingleTask or newBatchTask
+// Extensions from here are used in newSingleTask
 
 extension ViewControllerMain: StartStopProgressIndicatorSingleTask {
     func startIndicatorExecuteTaskNow() {
