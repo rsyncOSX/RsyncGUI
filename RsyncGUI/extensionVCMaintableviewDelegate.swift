@@ -62,9 +62,7 @@ extension ViewControllerMain: NSTableViewDelegate, Attributedestring {
                 }
             }
         } else {
-            if tableColumn!.identifier.rawValue == "batchCellID" {
-                return object[tableColumn!.identifier] as? Int
-            } // Check if test for connections is selected
+            // Check if test for connections is selected
             if self.configurations?.tcpconnections?.connectionscheckcompleted ?? false == true {
                 if (self.configurations?.tcpconnections?.gettestAllremoteserverConnections()?[row]) ?? false,
                     tableColumn!.identifier.rawValue == "offsiteServerCellID" {
@@ -77,17 +75,6 @@ extension ViewControllerMain: NSTableViewDelegate, Attributedestring {
             }
         }
         return nil
-    }
-
-    // Toggling batch
-    func tableView(_: NSTableView, setObjectValue _: Any?, for _: NSTableColumn?, row: Int) {
-        if self.process != nil {
-            self.abortOperations()
-        }
-        let task = self.configurations!.getConfigurations()[row].task
-        if ViewControllerReference.shared.synctasks.contains(task) {
-            self.configurations!.togglebatch(row)
-        }
     }
 
     // when row is selected

@@ -27,7 +27,6 @@ final class RemoteinfoEstimation: SetConfigurations {
     weak var getmultipleselectedindexesDelegate: GetMultipleSelectedIndexes?
     var index: Int?
     private var maxnumber: Int?
-    var inbatch: Bool?
 
     private func prepareandstartexecutetasks() {
         self.stackoftasktobeestimated = [Row]()
@@ -88,7 +87,7 @@ final class RemoteinfoEstimation: SetConfigurations {
         guard (self.stackoftasktobeestimated?.count ?? 0) > 0 else { return }
         if let index = self.stackoftasktobeestimated?.remove(at: 0).1 {
             self.index = index
-            self.outputprocess = OutputProcess()
+            self.outputprocess = OutputProcessRsync()
             self.startstopProgressIndicatorDelegate?.start()
             _ = EstimateremoteInformationOnetask(index: index, outputprocess: self.outputprocess, local: false, updateprogress: self)
         }
@@ -136,7 +135,7 @@ extension RemoteinfoEstimation: UpdateProgress {
         }
         // Update View
         self.updateprogressDelegate?.processTermination()
-        self.outputprocess = OutputProcess()
+        self.outputprocess = OutputProcessRsync()
         if let index = self.stackoftasktobeestimated?.remove(at: 0).1 {
             self.index = index
             _ = EstimateremoteInformationOnetask(index: index, outputprocess: self.outputprocess, local: false, updateprogress: self)
