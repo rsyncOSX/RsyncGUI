@@ -99,8 +99,8 @@ final class ViewControllerReference {
     private var viewControllerAbout: NSViewController?
     // ProgressView single task
     private var viewControllerProgressView: NSViewController?
-    // Quick batch
-    private var viewControllerQuickBatch: NSViewController?
+    // Quickbackup
+    private var viewControllerQuickbackup: NSViewController?
     // Remote info
     private var viewControllerRemoteInfo: NSViewController?
     // All profiles
@@ -133,7 +133,7 @@ final class ViewControllerReference {
         case .vcprogressview:
             return self.viewControllerProgressView
         case .vcquickbackup:
-            return self.viewControllerQuickBatch
+            return self.viewControllerQuickbackup
         case .vcremoteinfo:
             return self.viewControllerRemoteInfo
         case .vcallprofiles:
@@ -168,7 +168,7 @@ final class ViewControllerReference {
         case .vcprogressview:
             self.viewControllerProgressView = nsviewcontroller
         case .vcquickbackup:
-            self.viewControllerQuickBatch = nsviewcontroller
+            self.viewControllerQuickbackup = nsviewcontroller
         case .vcremoteinfo:
             self.viewControllerRemoteInfo = nsviewcontroller
         case .vcallprofiles:
