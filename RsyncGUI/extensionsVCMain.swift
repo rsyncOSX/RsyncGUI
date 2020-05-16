@@ -176,17 +176,16 @@ extension ViewControllerMain: Abort {
                 self.configurations!.remoteinfoestimation = nil
             }
         } else {
-            self.working.stopAnimation(nil)
-            self.workinglabel.isHidden = true
             self.rsyncCommand.stringValue = "Selection out of range - aborting"
-            self.process = nil
-            self.index = nil
         }
+        self.working.stopAnimation(nil)
+        self.workinglabel.isHidden = true
+        self.process = nil
+        self.index = nil
     }
 }
 
 // Extensions from here are used in newSingleTask
-
 extension ViewControllerMain: StartStopProgressIndicatorSingleTask {
     func startIndicatorExecuteTaskNow() {
         self.working.startAnimation(nil)
