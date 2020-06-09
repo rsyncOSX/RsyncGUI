@@ -33,6 +33,7 @@ class ViewControllerUserconfiguration: NSViewController, NewRsync, SetDismisser,
     @IBOutlet var sshport: NSTextField!
     @IBOutlet var sshkeypathandidentityfile: NSTextField!
     @IBOutlet var statuslightsshkeypath: NSImageView!
+    @IBOutlet var closebutton: NSButton!
 
     @IBAction func togglehaltonerror(_: NSButton) {
         if ViewControllerReference.shared.haltonerror {
@@ -103,6 +104,22 @@ class ViewControllerUserconfiguration: NSViewController, NewRsync, SetDismisser,
         _ = RsyncVersionString()
     }
 
+    @IBAction func closenosave(_: NSButton) {
+        if (self.presentingViewController as? ViewControllerMain) != nil {
+            self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
+        } else if (self.presentingViewController as? ViewControllerNewConfigurations) != nil {
+            self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
+        } else if (self.presentingViewController as? ViewControllerRestore) != nil {
+            self.dismissview(viewcontroller: self, vcontroller: .vcrestore)
+        } else if (self.presentingViewController as? ViewControllerSsh) != nil {
+            self.dismissview(viewcontroller: self, vcontroller: .vcssh)
+        } else if (self.presentingViewController as? ViewControllerVerify) != nil {
+            self.dismissview(viewcontroller: self, vcontroller: .vcverify)
+        } else if (self.presentingViewController as? ViewControllerLoggData) != nil {
+            self.dismissview(viewcontroller: self, vcontroller: .vcloggdata)
+        }
+    }
+
     @IBAction func logging(_: NSButton) {
         if self.fulllogging.state == .on {
             ViewControllerReference.shared.fulllogging = true
@@ -120,6 +137,8 @@ class ViewControllerUserconfiguration: NSViewController, NewRsync, SetDismisser,
     private func setdirty() {
         self.dirty = true
         self.savebutton.title = "Save"
+        self.closebutton.isHidden = false
+        self.closebutton.isEnabled = true
     }
 
     private func setmarknumberofdayssince() {
@@ -271,9 +290,6 @@ class ViewControllerUserconfiguration: NSViewController, NewRsync, SetDismisser,
         self.sshport.delegate = self
         self.nologging.state = .on
         self.reloadconfigurationsDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllerMain
-        // Sandbox constraints
-        self.version3rsync.isEnabled = false
-        self.rsyncPath.isEnabled = false
     }
 
     override func viewDidAppear() {
@@ -291,6 +307,7 @@ class ViewControllerUserconfiguration: NSViewController, NewRsync, SetDismisser,
         self.statuslighttemppath.isHidden = true
         self.statuslightpathrsync.isHidden = true
         self.statuslightsshkeypath.isHidden = true
+        self.closebutton.isHidden = true
     }
 
     // Function for check and set user configuration
