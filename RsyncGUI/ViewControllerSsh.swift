@@ -188,10 +188,10 @@ extension ViewControllerSsh: NSTableViewDataSource {
 extension ViewControllerSsh: NSTableViewDelegate {
     func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
         if tableView == self.detailsTable {
-            if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "output"), owner: nil) as? NSTableCellView {
-                cell.textField?.stringValue = self.data?[row] ?? ""
-                return cell
-            } else {
+            switch tableColumn!.identifier.rawValue {
+            case "outputID":
+                return self.data?[row] ?? ""
+            default:
                 return nil
             }
         } else {
