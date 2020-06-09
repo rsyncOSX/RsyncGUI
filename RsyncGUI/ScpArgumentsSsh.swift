@@ -10,14 +10,12 @@
 import Foundation
 
 enum SshOperations {
-    case scpKey
-    case checkKey
+    case sshcopyid
+    case verifyremotekey
     case createKey
-    case createRemoteSshCatalog
-    case chmod
 }
 
-final class ScpArgumentsSsh: SetConfigurations {
+final class ArgumentsSsh: SetConfigurations {
     var commandCopyPasteTerminal: String?
     private var config: Configuration?
     private var args: [String]?

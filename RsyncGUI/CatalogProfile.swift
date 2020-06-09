@@ -13,7 +13,7 @@ final class CatalogProfile: Files {
     // Function for creating new profile directory
     func createProfileDirectory(profileName: String) -> Bool {
         let fileManager = FileManager.default
-        if let path = self.realrootpath {
+        if let path = self.rootpath {
             let profileDirectory = path + "/" + profileName
             if fileManager.fileExists(atPath: profileDirectory) == false {
                 do {
@@ -36,7 +36,7 @@ final class CatalogProfile: Files {
     // Function for deleting profile
     func deleteProfileDirectory(profileName: String) {
         let fileManager = FileManager.default
-        if let path = self.realrootpath {
+        if let path = self.rootpath {
             let profileDirectory = path + "/" + profileName
             if fileManager.fileExists(atPath: profileDirectory) == true {
                 let answer = Alerts.dialogOrCancel(question: "Delete profile: " + profileName + "?", text: "Cancel or OK", dialog: "Delete")
@@ -53,6 +53,6 @@ final class CatalogProfile: Files {
     }
 
     init() {
-        super.init(whatroot: .profileRoot, configpath: ViewControllerReference.shared.configpath)
+        super.init(whichroot: .profileRoot, configpath: ViewControllerReference.shared.configpath)
     }
 }

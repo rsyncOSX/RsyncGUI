@@ -5,7 +5,7 @@
 //  Created by Thomas Evensen on 26/04/2019.
 //  Copyright © 2019 Thomas Evensen. All rights reserved.
 //
-// swiftlint:disable function_body_length trailing_comma
+// swiftlint:disable function_body_length trailing_comma cyclomatic_complexity
 
 import Foundation
 
@@ -69,6 +69,12 @@ struct ConvertUserconfiguration {
             dict.setObject(restorePath!, forKey: "restorePath" as NSCopying)
         } else {
             dict.setObject("", forKey: "restorePath" as NSCopying)
+        }
+        if let sshkeypathandidentityfile = ViewControllerReference.shared.sshkeypathandidentityfile {
+            dict.setObject(sshkeypathandidentityfile, forKey: "sshkeypathandidentityfile" as NSCopying)
+        }
+        if let sshport = ViewControllerReference.shared.sshport {
+            dict.setObject(sshport, forKey: "sshport" as NSCopying)
         }
         array.append(dict)
         self.userconfiguration = array
