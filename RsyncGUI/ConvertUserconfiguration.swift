@@ -70,6 +70,12 @@ struct ConvertUserconfiguration {
         } else {
             dict.setObject("", forKey: "restorePath" as NSCopying)
         }
+        if let sshkeypathandidentityfile = ViewControllerReference.shared.sshkeypathandidentityfile {
+            dict.setObject(sshkeypathandidentityfile, forKey: "sshkeypathandidentityfile" as NSCopying)
+        }
+        if let sshport = ViewControllerReference.shared.sshport {
+            dict.setObject(sshport, forKey: "sshport" as NSCopying)
+        }
         array.append(dict)
         self.userconfiguration = array
     }

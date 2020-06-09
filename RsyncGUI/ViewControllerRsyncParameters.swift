@@ -257,8 +257,8 @@ class ViewControllerRsyncParameters: NSViewController, SetConfigurations, SetDis
             if configurations[index].sshport != nil {
                 self.sshport.stringValue = String(configurations[index].sshport!)
             }
-            if (configurations[index].sshidentityfile ?? "").isEmpty == false {
-                self.sshidentityfile.stringValue = configurations[index].sshidentityfile!
+            if (configurations[index].sshkeypathandidentityfile ?? "").isEmpty == false {
+                self.sshidentityfile.stringValue = configurations[index].sshkeypathandidentityfile!
             }
         }
     }
@@ -295,9 +295,9 @@ class ViewControllerRsyncParameters: NSViewController, SetConfigurations, SetDis
             }
             if let sshidentityfile = self.sshidentityfile {
                 if sshidentityfile.stringValue.isEmpty == false {
-                    configurations[index].sshidentityfile = sshidentityfile.stringValue
+                    configurations[index].sshkeypathandidentityfile = sshidentityfile.stringValue
                 } else {
-                    configurations[index].sshidentityfile = nil
+                    configurations[index].sshkeypathandidentityfile = nil
                 }
             }
             // Update configuration in memory before saving

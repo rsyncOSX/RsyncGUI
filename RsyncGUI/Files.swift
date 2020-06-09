@@ -9,9 +9,9 @@
 
 import Foundation
 
-enum WhatRoot {
+enum WhichRoot {
     case profileRoot
-    case realRoot
+    case sshRoot
     case sandboxedRoot
 }
 
@@ -67,23 +67,14 @@ extension Errormessage {
 }
 
 class Files: Fileerrors {
-    var whatroot: WhatRoot?
-    var realrootpath: String?
+    var whichroot: WhichRoot?
+    var rootpath: String?
     var sandboxedrootpath: String?
-    var sshrealrootpath: String?
+    var identityfile: String?
     private var configpath: String?
-    var userHomeDirectoryPath: String {
-        let pw = getpwuid(getuid())
-        if let home = pw?.pointee.pw_dir {
-            let homePath = FileManager.default.string(withFileSystemRepresentation: home, length: Int(strlen(home)))
-            return homePath
-        }
-        self.error(error: "Root of homecatalog", errortype: .homerootcatalog)
-        return ""
-    }
 
     private func setrootpath() {
-        switch self.whatroot! {
+        switch self.whichroot! {
         case .profileRoot:
             let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as NSArray
             let docuDir = (paths.firstObject as? String)!
@@ -91,10 +82,23 @@ class Files: Fileerrors {
                 ViewControllerReference.shared.macserialnumber = Macserialnumber().getMacSerialNumber() ?? ""
             }
             let profilePath = docuDir + self.configpath! + (ViewControllerReference.shared.macserialnumber ?? "")
-            self.realrootpath = profilePath
-        case .realRoot:
-            self.realrootpath = self.userHomeDirectoryPath
-            self.sshrealrootpath = self.userHomeDirectoryPath + "/.ssh/"
+            self.rootpath = profilePath
+        case .sshRoot:
+            // Check if a global ssh keypath and identityfile is set
+            // Set full path if not ssh-keygen will fail
+            // The sshkeypath + identityfile must be prefixed with "~" used in rsync parameters
+            // only full path when ssh-keygen is used
+            if ViewControllerReference.shared.sshkeypathandidentityfile == nil {
+                self.rootpath = NSHomeDirectory() + "/.ssh"
+                self.identityfile = "id_rsa"
+            } else {
+                // global sshkeypath and identityfile is set
+                if let sshkeypathandidentityfile = ViewControllerReference.shared.sshkeypathandidentityfile {
+                    let sshkeypath = Keypathidentityfile(sshkeypathandidentityfile: sshkeypathandidentityfile)
+                    self.identityfile = sshkeypath.identityfile
+                    self.rootpath = sshkeypath.rootpath
+                }
+            }
         case .sandboxedRoot:
             self.sandboxedrootpath = NSHomeDirectory()
         }
@@ -103,7 +107,7 @@ class Files: Fileerrors {
     // Function for returning files in path as array of URLs
     func getFilesURLs() -> [URL]? {
         var array: [URL]?
-        if let filePath = self.realrootpath {
+        if let filePath = self.rootpath {
             let fileManager = FileManager.default
             var isDir: ObjCBool = false
             if fileManager.fileExists(atPath: filePath, isDirectory: &isDir) {
@@ -121,9 +125,9 @@ class Files: Fileerrors {
     }
 
     // Function for returning files in path as array of Strings
-    func getsshcatalogsfilestrings() -> [String]? {
+    func getFileStrings() -> [String]? {
         var array: [String]?
-        if let filePath = self.sshrealrootpath {
+        if let filePath = self.rootpath {
             let fileManager = FileManager.default
             var isDir: ObjCBool = false
             if fileManager.fileExists(atPath: filePath, isDirectory: &isDir) {
@@ -132,7 +136,7 @@ class Files: Fileerrors {
             if let fileURLs = self.getfileURLs(path: filePath) {
                 array = [String]()
                 for i in 0 ..< fileURLs.count where fileURLs[i].isFileURL {
-                    array!.append(fileURLs[i].path)
+                    array?.append(fileURLs[i].path)
                 }
                 return array
             }
@@ -143,7 +147,7 @@ class Files: Fileerrors {
     // Function for returning profiles as array of Strings
     func getDirectorysStrings() -> [String] {
         var array = [String]()
-        if let filePath = self.realrootpath {
+        if let filePath = self.rootpath {
             if let fileURLs = self.getfileURLs(path: filePath) {
                 for i in 0 ..< fileURLs.count where fileURLs[i].hasDirectoryPath {
                     let path = fileURLs[i].pathComponents
@@ -159,7 +163,7 @@ class Files: Fileerrors {
     // Func that creates directory if not created
     func createDirectory() {
         let fileManager = FileManager.default
-        if let path = self.realrootpath {
+        if let path = self.rootpath {
             // Profile root
             if fileManager.fileExists(atPath: path) == false {
                 do {
@@ -189,9 +193,9 @@ class Files: Fileerrors {
         }
     }
 
-    init(whatroot: WhatRoot, configpath: String) {
+    init(whichroot: WhichRoot, configpath: String) {
         self.configpath = configpath
-        self.whatroot = whatroot
+        self.whichroot = whichroot
         self.setrootpath()
     }
 }

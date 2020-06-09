@@ -61,6 +61,7 @@
 		E840ED1B22D0BDC900CF62FF /* RootcatalogSequrityscopedURLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E840ED1A22D0BDC900CF62FF /* RootcatalogSequrityscopedURLs.swift */; };
 		E840ED1F22D0CD3C00CF62FF /* AppendSequrityscopedURLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E840ED1E22D0CD3C00CF62FF /* AppendSequrityscopedURLs.swift */; };
 		E8EDD15323C8C0E800806CCD /* Validatenewconfigs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EDD15223C8C0E800806CCD /* Validatenewconfigs.swift */; };
+		E9005014248FA06E00FAD2BC /* Keypathidentityfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9005013248FA06E00FAD2BC /* Keypathidentityfile.swift */; };
 		E905DC111EACF7550003BF37 /* ViewControllerSsh.swift in Sources */ = {isa = PBXBuildFile; fileRef = E905DC101EACF7550003BF37 /* ViewControllerSsh.swift */; };
 		E905EDB41FED05B10044234E /* QuickBackup.swift in Sources */ = {isa = PBXBuildFile; fileRef = E905EDB31FED05B10044234E /* QuickBackup.swift */; };
 		E909C2F523F3D8A200FF8A52 /* ViewControllerRestore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E909C2F423F3D8A200FF8A52 /* ViewControllerRestore.swift */; };
@@ -134,7 +135,7 @@
 		E9C6EA8A1ED2AE2F00680D4D /* Numbers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C6EA891ED2AE2F00680D4D /* Numbers.swift */; };
 		E9DB9023241E047000C4C519 /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DB9022241E047000C4C519 /* Info.swift */; };
 		E9E70A3C1FF3BCB30099554D /* RsyncVersionString.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E70A3B1FF3BCB30099554D /* RsyncVersionString.swift */; };
-		E9E88FD01EB25A080028432F /* ScpArgumentsSsh.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E88FCF1EB25A080028432F /* ScpArgumentsSsh.swift */; };
+		E9E88FD01EB25A080028432F /* ArgumentsSsh.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E88FCF1EB25A080028432F /* ArgumentsSsh.swift */; };
 		E9EC78711EACE082001EED9B /* Ssh.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EC78701EACE082001EED9B /* Ssh.swift */; };
 		E9F068EC1F27B7FB00DDF1A1 /* SingleTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F068EB1F27B7FB00DDF1A1 /* SingleTask.swift */; };
 		E9F068F01F27B93E00DDF1A1 /* ConfigurationSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F068EF1F27B93E00DDF1A1 /* ConfigurationSchedule.swift */; };
@@ -206,6 +207,7 @@
 		E840ED1A22D0BDC900CF62FF /* RootcatalogSequrityscopedURLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootcatalogSequrityscopedURLs.swift; sourceTree = "<group>"; };
 		E840ED1E22D0CD3C00CF62FF /* AppendSequrityscopedURLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppendSequrityscopedURLs.swift; sourceTree = "<group>"; };
 		E8EDD15223C8C0E800806CCD /* Validatenewconfigs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validatenewconfigs.swift; sourceTree = "<group>"; };
+		E9005013248FA06E00FAD2BC /* Keypathidentityfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keypathidentityfile.swift; sourceTree = "<group>"; };
 		E905DC101EACF7550003BF37 /* ViewControllerSsh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerSsh.swift; sourceTree = "<group>"; };
 		E905EDB31FED05B10044234E /* QuickBackup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickBackup.swift; sourceTree = "<group>"; };
 		E909C2F423F3D8A200FF8A52 /* ViewControllerRestore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerRestore.swift; sourceTree = "<group>"; };
@@ -282,7 +284,7 @@
 		E9C6EA891ED2AE2F00680D4D /* Numbers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Numbers.swift; sourceTree = "<group>"; };
 		E9DB9022241E047000C4C519 /* Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
 		E9E70A3B1FF3BCB30099554D /* RsyncVersionString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RsyncVersionString.swift; sourceTree = "<group>"; };
-		E9E88FCF1EB25A080028432F /* ScpArgumentsSsh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScpArgumentsSsh.swift; sourceTree = "<group>"; };
+		E9E88FCF1EB25A080028432F /* ArgumentsSsh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArgumentsSsh.swift; sourceTree = "<group>"; };
 		E9EC78701EACE082001EED9B /* Ssh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ssh.swift; sourceTree = "<group>"; };
 		E9F068EB1F27B7FB00DDF1A1 /* SingleTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleTask.swift; sourceTree = "<group>"; };
 		E9F068EF1F27B93E00DDF1A1 /* ConfigurationSchedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationSchedule.swift; sourceTree = "<group>"; };
@@ -388,6 +390,7 @@
 				E98D6C2E21DFAF9400F4BB67 /* FileDialog.swift */,
 				A0762A1E1DB4A8F000538CE9 /* CatalogProfile.swift */,
 				E9234FFA1EB068AE00A4C550 /* Files.swift */,
+				E9005013248FA06E00FAD2BC /* Keypathidentityfile.swift */,
 			);
 			name = FilesAndCatalogs;
 			sourceTree = "<group>";
@@ -713,7 +716,7 @@
 		E99FC81E200FDDBC00477B1A /* ProcessArguments */ = {
 			isa = PBXGroup;
 			children = (
-				E9E88FCF1EB25A080028432F /* ScpArgumentsSsh.swift */,
+				E9E88FCF1EB25A080028432F /* ArgumentsSsh.swift */,
 				E9A8D81B1ED20AEB009648DE /* GetRemoteFileListingsArguments.swift */,
 				A04492A01D658F2100B3CE17 /* RestorefilesArguments.swift */,
 				E9230C0D1E6DDC57001D9954 /* RsyncParametersSingleFilesArguments.swift */,
@@ -906,6 +909,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9005014248FA06E00FAD2BC /* Keypathidentityfile.swift in Sources */,
 				A04972511D6595B200086EFD /* OutputProcess.swift in Sources */,
 				E943DC6A1FF9141D00E6B8B7 /* RemoteinfoEstimation.swift in Sources */,
 				E9BBE8C32273131F00404D7A /* ConvertConfigurations.swift in Sources */,
@@ -928,7 +932,7 @@
 				E94DC3112313E72200E7CE7E /* extensionVCMaintableviewDelegate.swift in Sources */,
 				E989CE961EF948D0000CB7C2 /* ChmodPubKey.swift in Sources */,
 				E9E70A3C1FF3BCB30099554D /* RsyncVersionString.swift in Sources */,
-				E9E88FD01EB25A080028432F /* ScpArgumentsSsh.swift in Sources */,
+				E9E88FD01EB25A080028432F /* ArgumentsSsh.swift in Sources */,
 				E98997F721E265F300B5D5A3 /* BookmarksManager.swift in Sources */,
 				A03876E11DB4FD9D00C14AEA /* ViewControllerProfile.swift in Sources */,
 				E98997F321E265F300B5D5A3 /* OpenPanelBuilder.swift in Sources */,

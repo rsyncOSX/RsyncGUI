@@ -10,125 +10,58 @@ import Cocoa
 import Foundation
 
 class Ssh: Files {
-    var commandCopyPasteTermninal: String?
-    // Local public rsa and dsa based keys
-    let rsaPubKey: String = "id_rsa.pub"
-    let dsaPubKey: String = "id_dsa.pub"
-    let sshCatalog: String = ".ssh/"
-    var dsaPubKeyExist: Bool = false
-    var rsaPubKeyExist: Bool = false
-    // Full URL paths to local public keys
-    var rsaURLpath: URL?
-    var dsaURLpath: URL?
-    // Full String paths to local public keys
+    var commandCopyPasteTerminal: String?
     var rsaStringPath: String?
-    var dsaStringPath: String?
     // Arrays listing all key files
     var keyFileURLS: [URL]?
     var keyFileStrings: [String]?
-    var scpArguments: ScpArgumentsSsh?
+    var argumentsssh: ArgumentsSsh?
     var command: String?
     var arguments: [String]?
     // Process
     var process: CommandSsh?
     var outputprocess: OutputProcess?
-    // Chmod
-    var chmod: ChmodPubKey?
 
-    // Create local rsa keys
-    func createLocalKeysRsa() {
-        guard self.rsaPubKeyExist == false else { return }
-        self.scpArguments = ScpArgumentsSsh(hiddenID: nil)
-        self.arguments = scpArguments!.getArguments(operation: .createKey, key: "rsa", path: self.sshrealrootpath)
-        self.command = self.scpArguments!.getCommand()
+    // Create rsa keypair
+    func creatersakeypair() {
+        guard self.islocalpublicrsakeypresent() == false else { return }
+        self.argumentsssh = ArgumentsSsh(hiddenID: nil, sshkeypathandidentityfile: (self.rootpath ?? "") +
+            "/" + (self.identityfile ?? ""))
+        self.arguments = argumentsssh?.getArguments(operation: .createKey)
+        self.command = self.argumentsssh?.getCommand()
         self.executeSshCommand()
     }
 
-    // Create local dsa keys
-    func createLocalKeysDsa() {
-        guard self.dsaPubKeyExist == false else { return }
-        self.scpArguments = ScpArgumentsSsh(hiddenID: nil)
-        self.arguments = scpArguments!.getArguments(operation: .createKey, key: "dsa", path: self.sshrealrootpath)
-        self.command = self.scpArguments!.getCommand()
-        self.executeSshCommand()
-    }
-
-    // Check for local public keys
-    func checkForLocalPubKeys() {
-        self.dsaPubKeyExist = self.isLocalPublicKeysPresent(key: self.dsaPubKey)
-        self.rsaPubKeyExist = self.isLocalPublicKeysPresent(key: self.rsaPubKey)
-    }
-
-    // Check if rsa and/or dsa is existing in local .ssh catalog
-    func isLocalPublicKeysPresent(key: String) -> Bool {
+    // Check if rsa pub key exists
+    func islocalpublicrsakeypresent() -> Bool {
         guard self.keyFileStrings != nil else { return false }
-        guard self.keyFileStrings!.filter({ $0.contains(key) }).count > 0 else { return false }
-        switch key {
-        case rsaPubKey:
-            self.rsaURLpath = URL(string: self.keyFileStrings!.filter { $0.contains(self.sshCatalog + key) }[0])
-            self.rsaStringPath = self.keyFileStrings!.filter { $0.contains(self.sshCatalog + key) }[0]
-        case dsaPubKey:
-            self.dsaURLpath = URL(string: self.keyFileStrings!.filter { $0.contains(self.sshCatalog + key) }[0])
-            self.dsaStringPath = self.keyFileStrings!.filter { $0.contains(self.sshCatalog + key) }[0]
-        default:
-            return false
-        }
+        guard self.keyFileStrings!.filter({ $0.contains(self.identityfile ?? "") }).count > 0 else { return false }
+        self.rsaStringPath = self.keyFileStrings!.filter { $0.contains((self.identityfile ?? "") + ".pub") }[0]
+        guard self.rsaStringPath?.count ?? 0 > 0 else { return false }
         return true
     }
 
     // Secure copy of public key from local to remote catalog
-    func scpPubKey(key: String, hiddenID: Int) {
-        self.scpArguments = ScpArgumentsSsh(hiddenID: hiddenID)
-        switch key {
-        case "rsa":
-            guard self.rsaStringPath != nil else { return }
-            self.arguments = scpArguments!.getArguments(operation: .scpKey, key: key, path: self.rsaStringPath!)
-        case "dsa":
-            guard self.dsaStringPath != nil else { return }
-            self.arguments = scpArguments!.getArguments(operation: .scpKey, key: key, path: self.dsaStringPath!)
-        default:
-            break
-        }
-        self.command = self.scpArguments!.getCommand()
-        self.commandCopyPasteTermninal = self.scpArguments!.commandCopyPasteTerminal
+    func copykeyfile(hiddenID: Int) {
+        self.argumentsssh = ArgumentsSsh(hiddenID: hiddenID, sshkeypathandidentityfile: (self.rootpath ?? "") +
+            "/" + (self.identityfile ?? ""))
+        self.arguments = argumentsssh?.getArguments(operation: .sshcopyid)
+        self.commandCopyPasteTerminal = self.argumentsssh?.commandCopyPasteTerminal
     }
 
     // Check for remote pub keys
-    func checkRemotePubKey(key: String, hiddenID: Int) {
-        self.scpArguments = ScpArgumentsSsh(hiddenID: hiddenID)
-        switch key {
-        case "rsa":
-            guard self.rsaStringPath != nil else { return }
-            self.arguments = scpArguments!.getArguments(operation: .checkKey, key: key, path: nil)
-        case "dsa":
-            guard self.dsaStringPath != nil else { return }
-            self.arguments = scpArguments!.getArguments(operation: .checkKey, key: key, path: nil)
-        default:
-            break
-        }
-        self.command = self.scpArguments!.getCommand()
-    }
-
-    // Create remote ssh directory
-    func createSshRemoteDirectory(hiddenID: Int) {
-        self.scpArguments = ScpArgumentsSsh(hiddenID: hiddenID)
-        self.arguments = scpArguments!.getArguments(operation: .createRemoteSshCatalog, key: nil, path: nil)
-        self.command = self.scpArguments!.getCommand()
-        self.commandCopyPasteTermninal = self.scpArguments!.commandCopyPasteTerminal
-    }
-
-    // Chmod remote .ssh directory
-    func chmodSsh(key: String, hiddenID: Int) {
-        self.scpArguments = ScpArgumentsSsh(hiddenID: hiddenID)
-        self.arguments = scpArguments!.getArguments(operation: .chmod, key: key, path: nil)
-        self.command = self.scpArguments!.getCommand()
-        self.chmod = ChmodPubKey(key: key)
+    func verifyremotekey(hiddenID: Int) {
+        self.argumentsssh = ArgumentsSsh(hiddenID: hiddenID, sshkeypathandidentityfile: (self.rootpath ?? "") +
+            "/" + (self.identityfile ?? ""))
+        self.arguments = argumentsssh?.getArguments(operation: .verifyremotekey)
+        self.commandCopyPasteTerminal = self.argumentsssh?.commandCopyPasteTerminal
     }
 
     // Execute command
     func executeSshCommand() {
+        guard self.arguments != nil else { return }
         self.process = CommandSsh(command: self.command, arguments: self.arguments)
-        self.process!.executeProcess(outputprocess: self.outputprocess!)
+        self.process?.executeProcess(outputprocess: self.outputprocess)
     }
 
     // get output
@@ -136,17 +69,11 @@ class Ssh: Files {
         return self.outputprocess?.getOutput()
     }
 
-    // Open Terminal.app
-    func openTerminal() {
-        NSWorkspace.shared.open(URL(fileURLWithPath: "/Applications/Utilities/Terminal.app"))
-    }
-
     init(outputprocess: OutputProcess?) {
-        super.init(whatroot: .realRoot, configpath: ViewControllerReference.shared.configpath)
+        super.init(whichroot: .sshRoot, configpath: ViewControllerReference.shared.configpath)
         self.outputprocess = outputprocess
         self.keyFileURLS = self.getFilesURLs()
-        self.keyFileStrings = self.getsshcatalogsfilestrings()
-        self.checkForLocalPubKeys()
+        self.keyFileStrings = self.getFileStrings()
         self.createDirectory()
     }
 }
