@@ -79,6 +79,12 @@ struct Userconfiguration {
                 ViewControllerReference.shared.haltonerror = false
             }
         }
+        if let sshkeypathandidentityfile = dict.value(forKey: "sshkeypathandidentityfile") as? String {
+            ViewControllerReference.shared.sshkeypathandidentityfile = sshkeypathandidentityfile
+        }
+        if let sshport = dict.value(forKey: "sshport") as? Int {
+            ViewControllerReference.shared.sshport = sshport
+        }
     }
 
     init(userconfigRsyncGUI: [NSDictionary]) {
