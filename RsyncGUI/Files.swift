@@ -72,6 +72,15 @@ class Files: Fileerrors {
     var sandboxedrootpath: String?
     var identityfile: String?
     private var configpath: String?
+    var userHomeDirectoryPath: String {
+        let pw = getpwuid(getuid())
+        if let home = pw?.pointee.pw_dir {
+            let homePath = FileManager.default.string(withFileSystemRepresentation: home, length: Int(strlen(home)))
+            return homePath
+        }
+        self.error(error: "Root of homecatalog", errortype: .homerootcatalog)
+        return ""
+    }
 
     private func setrootpath() {
         switch self.whichroot! {
@@ -89,7 +98,7 @@ class Files: Fileerrors {
             // The sshkeypath + identityfile must be prefixed with "~" used in rsync parameters
             // only full path when ssh-keygen is used
             if ViewControllerReference.shared.sshkeypathandidentityfile == nil {
-                self.rootpath = NSHomeDirectory() + "/.ssh"
+                self.rootpath = self.userHomeDirectoryPath + "/.ssh"
                 self.identityfile = "id_rsa"
             } else {
                 // global sshkeypath and identityfile is set

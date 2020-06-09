@@ -13,6 +13,14 @@ struct Keypathidentityfile {
     // If global keypath and identityfile is set must split keypath and identifile
     // create a new key require full path
     var identityfile: String?
+    var userHomeDirectoryPath: String {
+        let pw = getpwuid(getuid())
+        if let home = pw?.pointee.pw_dir {
+            let homePath = FileManager.default.string(withFileSystemRepresentation: home, length: Int(strlen(home)))
+            return homePath
+        }
+        return ""
+    }
 
     init(sshkeypathandidentityfile: String) {
         if sshkeypathandidentityfile.first == "~" {
@@ -21,7 +29,7 @@ struct Keypathidentityfile {
             var sshkeypathandidentityfilesplit = sshkeypathandidentityfile.split(separator: "/")
             guard sshkeypathandidentityfilesplit.count > 2 else {
                 // If anything goes wrong set to default global values
-                self.rootpath = NSHomeDirectory() + "/.ssh"
+                self.rootpath = self.userHomeDirectoryPath + "/.ssh"
                 ViewControllerReference.shared.sshkeypathandidentityfile = nil
                 self.identityfile = "id_rsa"
                 return
@@ -29,11 +37,11 @@ struct Keypathidentityfile {
             self.identityfile =
                 String(sshkeypathandidentityfilesplit[sshkeypathandidentityfilesplit.count - 1])
             sshkeypathandidentityfilesplit.remove(at: sshkeypathandidentityfilesplit.count - 1)
-            self.rootpath = NSHomeDirectory() +
+            self.rootpath = self.userHomeDirectoryPath +
                 sshkeypathandidentityfilesplit.joined(separator: "/").dropFirst()
         } else {
             // If anything goes wrong set to default global values
-            self.rootpath = NSHomeDirectory() + "/.ssh"
+            self.rootpath = self.userHomeDirectoryPath + "/.ssh"
             ViewControllerReference.shared.sshkeypathandidentityfile = nil
             self.identityfile = "id_rsa"
         }
