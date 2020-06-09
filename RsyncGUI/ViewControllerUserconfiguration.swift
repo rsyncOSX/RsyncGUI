@@ -30,6 +30,9 @@ class ViewControllerUserconfiguration: NSViewController, NewRsync, SetDismisser,
     @IBOutlet var savebutton: NSButton!
     @IBOutlet var useGUIbutton: NSButton!
     @IBOutlet var haltonerror: NSButton!
+    @IBOutlet var sshport: NSTextField!
+    @IBOutlet var sshkeypathandidentityfile: NSTextField!
+    @IBOutlet var statuslightsshkeypath: NSImageView!
 
     @IBAction func togglehaltonerror(_: NSButton) {
         if ViewControllerReference.shared.haltonerror {
@@ -77,6 +80,7 @@ class ViewControllerUserconfiguration: NSViewController, NewRsync, SetDismisser,
             self.setRsyncPath()
             self.setRestorePath()
             self.setmarknumberofdayssince()
+            self.setsshparameters()
             _ = PersistentStorageUserconfiguration().saveuserconfiguration()
             if self.reload {
                 self.reloadconfigurationsDelegate?.createandreloadconfigurations()
@@ -206,11 +210,63 @@ class ViewControllerUserconfiguration: NSViewController, NewRsync, SetDismisser,
         }
     }
 
+    private func verifysshkeypath() {
+        self.statuslightsshkeypath.isHidden = false
+        if self.sshkeypathandidentityfile.stringValue.first != "~" {
+            let tempsshkeypath = self.sshkeypathandidentityfile.stringValue
+            self.sshkeypathandidentityfile.stringValue = "~" + tempsshkeypath
+        }
+        let tempsshkeypath = self.sshkeypathandidentityfile.stringValue
+        let sshkeypathandidentityfilesplit = tempsshkeypath.split(separator: "/")
+        if sshkeypathandidentityfilesplit.count > 2 {
+            guard sshkeypathandidentityfilesplit[1].count > 1 else {
+                self.statuslightsshkeypath.image = #imageLiteral(resourceName: "red")
+                return
+            }
+            guard sshkeypathandidentityfilesplit[2].count > 1 else {
+                self.statuslightsshkeypath.image = #imageLiteral(resourceName: "red")
+                return
+            }
+            self.statuslightsshkeypath.image = #imageLiteral(resourceName: "green")
+        } else {
+            self.statuslightsshkeypath.image = #imageLiteral(resourceName: "red")
+        }
+    }
+
+    private func checksshkeypathbeforesaving() -> Bool {
+        if self.sshkeypathandidentityfile.stringValue.first != "~" { return false }
+        let tempsshkeypath = self.sshkeypathandidentityfile.stringValue
+        let sshkeypathandidentityfilesplit = tempsshkeypath.split(separator: "/")
+        guard sshkeypathandidentityfilesplit.count > 2 else { return false }
+        guard sshkeypathandidentityfilesplit[1].count > 1 else { return false }
+        guard sshkeypathandidentityfilesplit[2].count > 1 else { return false }
+        return true
+    }
+
+    private func setsshparameters() {
+        if self.sshkeypathandidentityfile.stringValue.isEmpty == false {
+            guard self.checksshkeypathbeforesaving() == true else { return }
+            ViewControllerReference.shared.sshkeypathandidentityfile = self.sshkeypathandidentityfile.stringValue
+        } else {
+            ViewControllerReference.shared.sshkeypathandidentityfile = nil
+        }
+        if self.sshport.stringValue.isEmpty == false {
+            if let port = self.sshport {
+                ViewControllerReference.shared.sshport = Int(port.stringValue)
+            }
+        } else {
+            ViewControllerReference.shared.sshport = nil
+        }
+        self.reload = true
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.rsyncPath.delegate = self
         self.restorePath.delegate = self
         self.marknumberofdayssince.delegate = self
+        self.sshkeypathandidentityfile.delegate = self
+        self.sshport.delegate = self
         self.nologging.state = .on
         self.reloadconfigurationsDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllerMain
         // Sandbox constraints
@@ -222,12 +278,17 @@ class ViewControllerUserconfiguration: NSViewController, NewRsync, SetDismisser,
         super.viewDidAppear()
         self.dirty = false
         self.useGUIbutton.state = .off
+        self.sshkeypathandidentityfile.stringValue = ViewControllerReference.shared.sshkeypathandidentityfile ?? ""
+        if let sshport = ViewControllerReference.shared.sshport {
+            self.sshport.stringValue = String(sshport)
+        }
         self.checkUserConfig()
         self.verifyrsync()
         self.marknumberofdayssince.stringValue = String(ViewControllerReference.shared.marknumberofdayssince)
         self.reload = false
         self.statuslighttemppath.isHidden = true
         self.statuslightpathrsync.isHidden = true
+        self.statuslightsshkeypath.isHidden = true
     }
 
     // Function for check and set user configuration
@@ -280,6 +341,10 @@ extension ViewControllerUserconfiguration: NSTextFieldDelegate {
             case self.restorePath:
                 self.filemanager()
             case self.marknumberofdayssince:
+                return
+            case self.sshkeypathandidentityfile:
+                self.verifysshkeypath()
+            case self.sshport:
                 return
             default:
                 return
