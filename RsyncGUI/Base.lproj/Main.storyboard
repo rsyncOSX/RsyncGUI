@@ -2067,58 +2067,18 @@ DQ
             <objects>
                 <viewController title="View Controller Configuration" storyboardIdentifier="StoryboardUserconfigID" id="Psw-ga-cgO" customClass="ViewControllerUserconfiguration" customModule="RsyncGUI" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="SDJ-iR-PEg">
-                        <rect key="frame" x="0.0" y="0.0" width="895" height="275"/>
+                        <rect key="frame" x="0.0" y="0.0" width="895" height="264"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <box fixedFrame="YES" title="Rsync, paths and logging" translatesAutoresizingMaskIntoConstraints="NO" id="vgF-FF-cIJ">
-                                <rect key="frame" x="17" y="102" width="467" height="153"/>
+                            <box fixedFrame="YES" title="Logging, path restore" translatesAutoresizingMaskIntoConstraints="NO" id="vgF-FF-cIJ">
+                                <rect key="frame" x="17" y="158" width="467" height="86"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <view key="contentView" id="dSE-x8-8Gm">
-                                    <rect key="frame" x="3" y="3" width="461" height="135"/>
+                                    <rect key="frame" x="3" y="3" width="461" height="68"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pCc-fa-P8h">
-                                            <rect key="frame" x="36" y="113" width="407" height="18"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <buttonCell key="cell" type="check" title="v 3.1.2 or 3.1.3 rsync - set optional path if NOT in /usr/local/bin" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="f6o-pt-x0z">
-                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                <font key="font" metaFont="system"/>
-                                            </buttonCell>
-                                            <connections>
-                                                <action selector="toggleversion3rsync:" target="Psw-ga-cgO" id="LIf-Ff-uwO"/>
-                                            </connections>
-                                        </button>
-                                        <textField verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Raw-fd-DIw">
-                                            <rect key="frame" x="206" y="83" width="227" height="22"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" bezelStyle="round" id="b2I-ky-1DA">
-                                                <font key="font" metaFont="system"/>
-                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
-                                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dg1-Pc-D5r">
-                                            <rect key="frame" x="36" y="60" width="149" height="18"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <buttonCell key="cell" type="check" title=" detailed logging" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="dsn-9I-wI5">
-                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                <font key="font" metaFont="system"/>
-                                            </buttonCell>
-                                            <connections>
-                                                <action selector="toggleDetailedlogging:" target="Psw-ga-cgO" id="XGx-SY-Yq1"/>
-                                            </connections>
-                                        </button>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cK0-aL-8M2">
-                                            <rect key="frame" x="58" y="86" width="155" height="17"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="optional path for rsync:" id="m7F-8t-VwR">
-                                                <font key="font" metaFont="system"/>
-                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nHN-9u-RWb">
-                                            <rect key="frame" x="52" y="17" width="160" height="17"/>
+                                            <rect key="frame" x="40" y="40" width="160" height="17"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="temporary path restore:" id="GKP-F2-XbX">
                                                 <font key="font" metaFont="system"/>
@@ -2126,17 +2086,8 @@ DQ
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MU5-XI-9GS">
-                                            <rect key="frame" x="212" y="60" width="231" height="20"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Error : no rsync in path" id="CCB-zy-XDh">
-                                                <font key="font" metaFont="system"/>
-                                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
                                         <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="x5R-hx-ATZ">
-                                            <rect key="frame" x="206" y="15" width="227" height="22"/>
+                                            <rect key="frame" x="194" y="38" width="238" height="22"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" bezelStyle="round" id="bxr-Dx-Wja">
                                                 <font key="font" metaFont="system"/>
@@ -2144,18 +2095,13 @@ DQ
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <imageView hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="71I-bU-rKZ">
-                                            <rect key="frame" x="438" y="86" width="15" height="14"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="red" id="Gld-Qu-VaY"/>
-                                        </imageView>
                                         <imageView hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FFf-rE-SFk">
-                                            <rect key="frame" x="438" y="21" width="15" height="14"/>
+                                            <rect key="frame" x="440" y="44" width="15" height="14"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="red" id="k12-2S-HZs"/>
                                         </imageView>
                                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9dy-Ke-Ijn">
-                                            <rect key="frame" x="204" y="43" width="101" height="18"/>
+                                            <rect key="frame" x="322" y="14" width="101" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="Use GUI" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="C85-Qk-KSK">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -2163,6 +2109,17 @@ DQ
                                             </buttonCell>
                                             <connections>
                                                 <action selector="togglerestorepath:" target="Psw-ga-cgO" id="h6k-Dd-CVy"/>
+                                            </connections>
+                                        </button>
+                                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dg1-Pc-D5r">
+                                            <rect key="frame" x="40" y="14" width="149" height="18"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="check" title=" detailed logging" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="dsn-9I-wI5">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="toggleDetailedlogging:" target="Psw-ga-cgO" id="XGx-SY-Yq1"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -2237,29 +2194,8 @@ DQ
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
                             </box>
-                            <box fixedFrame="YES" title="Halt on error" translatesAutoresizingMaskIntoConstraints="NO" id="OMX-Jx-wAq">
-                                <rect key="frame" x="486" y="16" width="215" height="50"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <view key="contentView" id="xhk-rg-bQr">
-                                    <rect key="frame" x="3" y="3" width="209" height="32"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <subviews>
-                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pzs-pW-MII">
-                                            <rect key="frame" x="21" y="7" width="146" height="18"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <buttonCell key="cell" type="check" title="Halt on error" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="yWU-eF-729">
-                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                <font key="font" metaFont="system"/>
-                                            </buttonCell>
-                                            <connections>
-                                                <action selector="togglehaltonerror:" target="Psw-ga-cgO" id="Rhu-FE-JcP"/>
-                                            </connections>
-                                        </button>
-                                    </subviews>
-                                </view>
-                            </box>
                             <box fixedFrame="YES" title="ssh parameters (global)" translatesAutoresizingMaskIntoConstraints="NO" id="CkZ-6Z-G72">
-                                <rect key="frame" x="486" y="169" width="392" height="86"/>
+                                <rect key="frame" x="486" y="158" width="392" height="86"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <view key="contentView" id="GRL-fU-S6N">
                                     <rect key="frame" x="3" y="3" width="386" height="68"/>
@@ -2301,11 +2237,6 @@ DQ
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <imageView hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KPn-dw-ePR">
-                                            <rect key="frame" x="368" y="18" width="15" height="14"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="red" id="QyR-dg-bgg"/>
-                                        </imageView>
                                     </subviews>
                                 </view>
                             </box>
@@ -2334,6 +2265,27 @@ DQ
                                     <action selector="closenosave:" target="Psw-ga-cgO" id="7aP-hG-dkn"/>
                                 </connections>
                             </button>
+                            <box fixedFrame="YES" title="Halt on error" translatesAutoresizingMaskIntoConstraints="NO" id="OMX-Jx-wAq">
+                                <rect key="frame" x="17" y="104" width="215" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <view key="contentView" id="xhk-rg-bQr">
+                                    <rect key="frame" x="3" y="3" width="209" height="32"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pzs-pW-MII">
+                                            <rect key="frame" x="21" y="7" width="146" height="18"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="check" title="Halt on error" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="yWU-eF-729">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="togglehaltonerror:" target="Psw-ga-cgO" id="Rhu-FE-JcP"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                </view>
+                            </box>
                         </subviews>
                     </view>
                     <connections>
@@ -2343,23 +2295,18 @@ DQ
                         <outlet property="haltonerror" destination="Pzs-pW-MII" id="bZD-Sv-p85"/>
                         <outlet property="marknumberofdayssince" destination="LM6-LS-XBt" id="i3n-O2-UHK"/>
                         <outlet property="minimumlogging" destination="rRE-KD-I0w" id="ULZ-Cz-3Gs"/>
-                        <outlet property="noRsync" destination="MU5-XI-9GS" id="apy-XI-W5g"/>
                         <outlet property="nologging" destination="nJR-oe-0vl" id="CwU-Bk-FNB"/>
                         <outlet property="restorePath" destination="x5R-hx-ATZ" id="qoy-sV-5fh"/>
-                        <outlet property="rsyncPath" destination="Raw-fd-DIw" id="9MU-5e-zvh"/>
                         <outlet property="savebutton" destination="u41-A5-KKx" id="DZB-hH-3zk"/>
                         <outlet property="sshkeypathandidentityfile" destination="Wx0-5A-aYw" id="7eS-lB-iUg"/>
                         <outlet property="sshport" destination="71d-Sb-Pw9" id="nQ5-Or-QPp"/>
-                        <outlet property="statuslightpathrsync" destination="71I-bU-rKZ" id="JMy-HB-X1t"/>
-                        <outlet property="statuslightsshkeypath" destination="KPn-dw-ePR" id="Hye-0S-WFn"/>
                         <outlet property="statuslighttemppath" destination="FFf-rE-SFk" id="aF1-mh-YhA"/>
                         <outlet property="useGUIbutton" destination="9dy-Ke-Ijn" id="KGB-zl-drk"/>
-                        <outlet property="version3rsync" destination="pCc-fa-P8h" id="SEd-Qb-5fr"/>
                     </connections>
                 </viewController>
                 <customObject id="mqj-jt-V17" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1030.5" y="2185.5"/>
+            <point key="canvasLocation" x="1030.5" y="2180"/>
         </scene>
         <!--View Controller Edit-->
         <scene sceneID="5Mo-Eu-OTy">
