@@ -9,6 +9,13 @@
 
 import Foundation
 
+enum Sort {
+    case localCatalog
+    case offsiteCatalog
+    case offsiteServer
+    case backupId
+}
+
 final class QuickBackup: SetConfigurations {
     var sortedlist: [NSMutableDictionary]?
     var estimatedlist: [NSDictionary]?
@@ -35,14 +42,14 @@ final class QuickBackup: SetConfigurations {
         self.reloadtableDelegate?.reloadtabledata()
     }
 
-    private func executetaskquickbackup(hiddenID: Int) {
+    private func executequickbackuptask(hiddenID: Int) {
         let now: Date = Date()
         let dateformatter = Dateandtime().setDateformat()
         let task: NSDictionary = [
             "start": now,
             "hiddenID": hiddenID,
             "dateStart": dateformatter.date(from: "01 Jan 1900 00:00")!,
-            "schedule": "manuel",
+            "schedule": Scheduletype.manuel.rawValue,
         ]
         ViewControllerReference.shared.quickbackuptask = task
         _ = OperationFactory(updateprogress: self)
@@ -73,7 +80,7 @@ final class QuickBackup: SetConfigurations {
             self.sortedlist![self.index!].setValue(true, forKey: "inprogressCellID")
             self.maxcount = Int(self.sortedlist![self.index!].value(forKey: "transferredNumber") as? String ?? "0")
             self.stackoftasktobeexecuted?.remove(at: 0)
-            self.executetaskquickbackup(hiddenID: self.hiddenID!)
+            self.executequickbackuptask(hiddenID: self.hiddenID!)
         }
     }
 
@@ -129,7 +136,7 @@ extension QuickBackup: UpdateProgress {
         self.stackoftasktobeexecuted?.remove(at: 0)
         self.sortedlist![self.index!].setValue(true, forKey: "inprogressCellID")
         self.maxcount = Int(self.sortedlist![self.index!].value(forKey: "transferredNumber") as? String ?? "0")
-        self.executetaskquickbackup(hiddenID: self.hiddenID!)
+        self.executequickbackuptask(hiddenID: self.hiddenID!)
         self.reloadtableDelegate?.reloadtabledata()
     }
 

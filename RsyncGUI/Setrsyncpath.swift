@@ -20,12 +20,12 @@ struct Setrsyncpath {
         // rsyncPath is set if none of the above
         if let rsyncPath = ViewControllerReference.shared.rsyncPath {
             path = rsyncPath + ViewControllerReference.shared.rsync
-        } else if ViewControllerReference.shared.rsyncVer3 {
+        } else if ViewControllerReference.shared.rsyncversion3 {
             path = "/usr/local/bin/" + ViewControllerReference.shared.rsync
         } else {
             path = "/usr/bin/" + ViewControllerReference.shared.rsync
         }
-        guard ViewControllerReference.shared.rsyncVer3 == true else {
+        guard ViewControllerReference.shared.rsyncversion3 == true else {
             ViewControllerReference.shared.norsync = false
             self.setinfoaboutrsyncDelegate?.setinfoaboutrsync()
             return

@@ -17,9 +17,9 @@ struct Userconfiguration {
         // Another version of rsync
         if let version3rsync = dict.value(forKey: "version3Rsync") as? Int {
             if version3rsync == 1 {
-                ViewControllerReference.shared.rsyncVer3 = true
+                ViewControllerReference.shared.rsyncversion3 = true
             } else {
-                ViewControllerReference.shared.rsyncVer3 = false
+                ViewControllerReference.shared.rsyncversion3 = false
             }
         }
         // Detailed logging

@@ -152,7 +152,7 @@ final class Numbers: SetConfigurations {
             let size = numberOfFiles + " files :" + sizeOfFiles + " KB" + " in just a few seconds"
             return size
         }
-        if ViewControllerReference.shared.rsyncVer3 {
+        if ViewControllerReference.shared.rsyncversion3 {
             // ["sent", "409687", "bytes", "", "received", "5331", "bytes", "", "830036.00", "bytes/sec"]
             let newmessage = self.resultRsync!.replacingOccurrences(of: ",", with: "")
             parts = newmessage.components(separatedBy: " ")
@@ -189,7 +189,7 @@ final class Numbers: SetConfigurations {
     private func formatresult(numberOfFiles: String?, bytesTotal: Double, seconds: Double) -> String {
         // Dont have numbers of file as input
         if numberOfFiles == nil {
-            return String(self.output!.count) + " files : " +
+            return String(self.output?.count ?? 0) + " files : " +
                 String(format: "%.2f", (bytesTotal / 1024) / 1000) +
                 " MB in " + String(format: "%.2f", seconds) + " seconds"
         } else {
@@ -203,8 +203,8 @@ final class Numbers: SetConfigurations {
         guard outputprocess != nil else { return }
         self.output = outputprocess!.trimoutput(trim: .two)
         // Getting the summarized output from output.
-        if self.output!.count > 2 {
-            self.resultRsync = (self.output![self.output!.count - 2])
+        if (self.output?.count ?? 0) > 2 {
+            self.resultRsync = (self.output![(self.output?.count ?? 0) - 2])
         }
         self.files = self.output!.filter { ($0.contains("files transferred:")) }
         // ver 3.x - [Number of regular files transferred: 24]
@@ -223,7 +223,7 @@ final class Numbers: SetConfigurations {
         // Delete files
         self.delete = self.output!.filter { ($0.contains("Number of deleted files:")) }
         if files!.count == 1, filesSize!.count == 1, totfileSize!.count == 1, totfilesNum!.count == 1 {
-            if ViewControllerReference.shared.rsyncVer3 {
+            if ViewControllerReference.shared.rsyncversion3 {
                 self.resultrsyncver3()
                 self.checandadjustknumbers()
             } else {
@@ -232,7 +232,7 @@ final class Numbers: SetConfigurations {
             }
         } else {
             // If it breaks set number of transferred files to size of output.
-            self.transferNum = self.output!.count
+            self.transferNum = (self.output?.count ?? 0)
         }
     }
 }

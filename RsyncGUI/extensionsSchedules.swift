@@ -29,3 +29,11 @@ protocol GetSchedulesObject: AnyObject {
     func createschedulesobject(profile: String?) -> Schedules?
     func reloadschedulesobject()
 }
+
+enum Scheduletype: String {
+    case once
+    case daily
+    case weekly
+    case manuel
+    case stopped
+}
