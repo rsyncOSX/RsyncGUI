@@ -22,7 +22,7 @@ struct ConvertUserconfiguration {
         var marknumberofdayssince: String?
         var haltonerror: Int?
         var array = [NSMutableDictionary]()
-        if ViewControllerReference.shared.rsyncVer3 {
+        if ViewControllerReference.shared.rsyncversion3 {
             version3Rsync = 1
         } else {
             version3Rsync = 0

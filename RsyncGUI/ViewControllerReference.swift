@@ -42,7 +42,7 @@ final class ViewControllerReference {
     // Download URL if new version is avaliable
     var URLnewVersion: String?
     // True if version 3.2.1 of rsync in /usr/local/bin
-    var rsyncVer3: Bool = false
+    var rsyncversion3: Bool = false
     // Optional path to rsync
     var rsyncPath: String?
     // No valid rsyncPath - true if no valid rsync is found
