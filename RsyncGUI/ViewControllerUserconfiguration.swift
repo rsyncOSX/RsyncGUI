@@ -22,7 +22,6 @@ class ViewControllerUserconfiguration: NSViewController, NewRsync, SetDismisser,
     @IBOutlet var minimumlogging: NSButton!
     @IBOutlet var nologging: NSButton!
     @IBOutlet var marknumberofdayssince: NSTextField!
-    @IBOutlet var statuslighttemppath: NSImageView!
     @IBOutlet var savebutton: NSButton!
     @IBOutlet var useGUIbutton: NSButton!
     @IBOutlet var haltonerror: NSButton!
@@ -214,7 +213,6 @@ class ViewControllerUserconfiguration: NSViewController, NewRsync, SetDismisser,
         self.checkUserConfig()
         self.marknumberofdayssince.stringValue = String(ViewControllerReference.shared.marknumberofdayssince)
         self.reload = false
-        self.statuslighttemppath.isHidden = true
         self.closebutton.isHidden = true
     }
 
@@ -248,14 +246,14 @@ extension ViewControllerUserconfiguration: NSTextFieldDelegate {
     func controlTextDidBeginEditing(_ notification: Notification) {
         delayWithSeconds(0.5) {
             self.setdirty()
-            switch (notification.object as? NSTextField)! {
-            case self.restorePath:
-                self.filemanager()
-            case self.marknumberofdayssince:
-                return
+            switch notification.object as? NSTextField {
             case self.sshkeypathandidentityfile:
                 return
             case self.sshport:
+                return
+            case self.restorePath:
+                self.filemanager()
+            case self.marknumberofdayssince:
                 return
             default:
                 return
