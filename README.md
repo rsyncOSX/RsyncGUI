@@ -14,9 +14,7 @@ The app was [released](https://itunes.apple.com/us/app/rsyncgui/id1449707783?l=n
 
 ### Apple App Sandboxing technology
 
-Apple has the [App Sandboxing technology](https://developer.apple.com/app-sandboxing/) for protecting the user for malicious software. To release a macOS app on Apple Mac App Store require the app to execute inside a sandbox. This repository is a fork of RsyncOSX to enable RsyncGUI to execute inside a sandbox to be released on the Mac App Store. The name of the app is due to Apple naming conventions for apps released on the Mac App Store.
-
-Much of the work on sandbox is based upon [Sandbox code](https://github.com/regexident/Sandbox). The user has to allow the app to read all catalogs and if remote servers is utilized rsync must be allowed to read the private ssh certificates.
+Apple has the [App Sandboxing technology](https://developer.apple.com/app-sandboxing/) for protecting the user for malicious software. To release a macOS app on Apple Mac App Store require the app to execute inside a sandbox. This repository is a fork of RsyncOSX to enable RsyncGUI to execute inside a sandbox to be released on the Mac App Store. The name of the app is due to Apple naming conventions for apps released on the Mac App Store. Some of the work on sandbox is based upon [Sandbox code](https://github.com/regexident/Sandbox).
 
 ### Some words about RsyncGUI
 
@@ -36,7 +34,7 @@ Every time you add a new task to RsyncGUI, execute an estimation run (--dry-run)
 the result before executing a real run. If you by accident set an empty catalog as source
 RsyncGUI (rsync) will delete all files in the destination.
 ```
-To save deleted and changes files utilize [the --backup parameter](https://rsyncosx.github.io/Parameters). The --delete parameter and other default parameters might be deleted if wanted.
+To save deleted and changes files utilize [the --backup parameter](https://rsyncosx.netlify.app/post/userparameters/). The --delete parameter and other default parameters might be deleted if wanted.
 
 ### Main view
 
