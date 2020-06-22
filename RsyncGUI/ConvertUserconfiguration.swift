@@ -21,6 +21,7 @@ struct ConvertUserconfiguration {
         var restorePath: String?
         var marknumberofdayssince: String?
         var haltonerror: Int?
+        var monitornetworkconnection: Int?
         var array = [NSMutableDictionary]()
         if ViewControllerReference.shared.rsyncversion3 {
             version3Rsync = 1
@@ -53,14 +54,20 @@ struct ConvertUserconfiguration {
         } else {
             haltonerror = 0
         }
+        if ViewControllerReference.shared.monitornetworkconnection {
+                   monitornetworkconnection = 1
+               } else {
+                   monitornetworkconnection = 0
+               }
         marknumberofdayssince = String(ViewControllerReference.shared.marknumberofdayssince)
         let dict: NSMutableDictionary = [
             "version3Rsync": version3Rsync ?? 0 as Int,
             "detailedlogging": detailedlogging ?? 0 as Int,
-            "minimumlogging": minimumlogging! as Int,
-            "fulllogging": fulllogging! as Int,
+            "minimumlogging": minimumlogging ?? 0 as Int,
+            "fulllogging": fulllogging ?? 0 as Int,
             "marknumberofdayssince": marknumberofdayssince ?? "5.0",
             "haltonerror": haltonerror ?? 0 as Int,
+            "monitornetworkconnection": monitornetworkconnection ?? 0 as Int,
         ]
         if rsyncPath != nil {
             dict.setObject(rsyncPath!, forKey: "rsyncPath" as NSCopying)
