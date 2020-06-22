@@ -91,6 +91,10 @@
 		E943DC681FF9115200E6B8B7 /* EstimateremoteInformationOnetask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E943DC671FF9115200E6B8B7 /* EstimateremoteInformationOnetask.swift */; };
 		E943DC6A1FF9141D00E6B8B7 /* RemoteinfoEstimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E943DC691FF9141D00E6B8B7 /* RemoteinfoEstimation.swift */; };
 		E945D61420B736E9000E787B /* ViewControllerInformationLocalRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = E945D61320B736E9000E787B /* ViewControllerInformationLocalRemote.swift */; };
+		E94AEF3D24A09C61002D3757 /* ProcessCmdVerify.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94AEF3B24A09C61002D3757 /* ProcessCmdVerify.swift */; };
+		E94AEF3E24A09C61002D3757 /* InterruptProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94AEF3C24A09C61002D3757 /* InterruptProcess.swift */; };
+		E94AEF4024A09C8E002D3757 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94AEF3F24A09C8E002D3757 /* NetworkMonitor.swift */; };
+		E94AEF4224A09CAC002D3757 /* RsyncVerify.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94AEF4124A09CAC002D3757 /* RsyncVerify.swift */; };
 		E94BCEF421C63F0800DB8EA2 /* RemoteCapacity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94BCEF321C63F0800DB8EA2 /* RemoteCapacity.swift */; };
 		E94D2603205025790026D18F /* ViewControllerAllProfiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94D2602205025790026D18F /* ViewControllerAllProfiles.swift */; };
 		E94D6E3221A5BBA400DDDB61 /* QuickbackupDispatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94D6E2E21A5BBA300DDDB61 /* QuickbackupDispatch.swift */; };
@@ -237,6 +241,10 @@
 		E943DC671FF9115200E6B8B7 /* EstimateremoteInformationOnetask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EstimateremoteInformationOnetask.swift; sourceTree = "<group>"; };
 		E943DC691FF9141D00E6B8B7 /* RemoteinfoEstimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteinfoEstimation.swift; sourceTree = "<group>"; };
 		E945D61320B736E9000E787B /* ViewControllerInformationLocalRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerInformationLocalRemote.swift; sourceTree = "<group>"; };
+		E94AEF3B24A09C61002D3757 /* ProcessCmdVerify.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProcessCmdVerify.swift; sourceTree = "<group>"; };
+		E94AEF3C24A09C61002D3757 /* InterruptProcess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterruptProcess.swift; sourceTree = "<group>"; };
+		E94AEF3F24A09C8E002D3757 /* NetworkMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
+		E94AEF4124A09CAC002D3757 /* RsyncVerify.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RsyncVerify.swift; sourceTree = "<group>"; };
 		E94BCEF321C63F0800DB8EA2 /* RemoteCapacity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteCapacity.swift; sourceTree = "<group>"; };
 		E94D2602205025790026D18F /* ViewControllerAllProfiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerAllProfiles.swift; sourceTree = "<group>"; };
 		E94D6E2E21A5BBA300DDDB61 /* QuickbackupDispatch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickbackupDispatch.swift; sourceTree = "<group>"; };
@@ -439,6 +447,7 @@
 		A04492C41D65901400B3CE17 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				E94AEF3F24A09C8E002D3757 /* NetworkMonitor.swift */,
 				A04492C21D658FC300B3CE17 /* yudpsocket */,
 				E943DC651FF90A6600E6B8B7 /* RemoteinfonumbersOnetask.swift */,
 				E9C6EA891ED2AE2F00680D4D /* Numbers.swift */,
@@ -464,6 +473,7 @@
 		A04492C51D65904500B3CE17 /* Process */ = {
 			isa = PBXGroup;
 			children = (
+				E94AEF4124A09CAC002D3757 /* RsyncVerify.swift */,
 				E82473A12309B62400355CEA /* Mainprocess */,
 				E9F4EBB71EB4C32D006EEEF1 /* CommandSsh.swift */,
 				E9FFA02E1E728C6E00B7AB2B /* Rsync.swift */,
@@ -547,6 +557,8 @@
 			isa = PBXGroup;
 			children = (
 				E9FFA02C1E7287E100B7AB2B /* ProcessCmd.swift */,
+				E94AEF3C24A09C61002D3757 /* InterruptProcess.swift */,
+				E94AEF3B24A09C61002D3757 /* ProcessCmdVerify.swift */,
 			);
 			name = Mainprocess;
 			sourceTree = "<group>";
@@ -916,6 +928,7 @@
 				E83B4471235F3C6700BBC793 /* ArgumentsSynchronize.swift in Sources */,
 				E939EC4A20C048A000C47F91 /* extensionsVCMain.swift in Sources */,
 				E942FF291FED41D0004191B5 /* ViewControllerQuickBackup.swift in Sources */,
+				E94AEF4224A09CAC002D3757 /* RsyncVerify.swift in Sources */,
 				E909C2F823F3D92E00FF8A52 /* extensionRestore.swift in Sources */,
 				E9231AFB1F6E3D270055000C /* NewConfigurations.swift in Sources */,
 				E9609EF51F229F5900F5BFAA /* PersistentStorageConfiguration.swift in Sources */,
@@ -928,6 +941,7 @@
 				E92F368D22B4022800B9C3AB /* Remotefilelist.swift in Sources */,
 				E97E3BA71F6256DB00411D0E /* Configurations.swift in Sources */,
 				E9764F60204BEE970018C0D7 /* AllConfigurations.swift in Sources */,
+				E94AEF3E24A09C61002D3757 /* InterruptProcess.swift in Sources */,
 				E92755A62130539400B1F781 /* Dispatchqueues.swift in Sources */,
 				E94DC3112313E72200E7CE7E /* extensionVCMaintableviewDelegate.swift in Sources */,
 				E989CE961EF948D0000CB7C2 /* ChmodPubKey.swift in Sources */,
@@ -973,6 +987,7 @@
 				E9BBE8C42273131F00404D7A /* ConvertSchedules.swift in Sources */,
 				A00FE1A81D6A19CF00012089 /* ViewControllerNewConfigurations.swift in Sources */,
 				E9374D2E1E329A5800CD3945 /* CompleteQuickbackupTask.swift in Sources */,
+				E94AEF4024A09C8E002D3757 /* NetworkMonitor.swift in Sources */,
 				E83B4474235F3C6700BBC793 /* ArgumentsVerify.swift in Sources */,
 				E914B7722131197B00FFE398 /* extensionsSchedules.swift in Sources */,
 				E98997F521E265F300B5D5A3 /* PermissionManager.swift in Sources */,
@@ -990,6 +1005,7 @@
 				E9F4EBB81EB4C32D006EEEF1 /* CommandSsh.swift in Sources */,
 				A04492BB1D658F2100B3CE17 /* ytcpsocket.swift in Sources */,
 				E9282DB722C0B050004AA0E5 /* Getrsyncpath.swift in Sources */,
+				E94AEF3D24A09C61002D3757 /* ProcessCmdVerify.swift in Sources */,
 				E96A95922195D5F3000326F2 /* DuArgumentsSsh.swift in Sources */,
 				E94F0708211D8FCC00B2C3D8 /* ViewControllerAllOutput.swift in Sources */,
 				E98997F621E265F300B5D5A3 /* OpenPanelDelegate.swift in Sources */,

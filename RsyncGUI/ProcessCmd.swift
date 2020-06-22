@@ -1,6 +1,6 @@
 //
 //  processCmd.swift
-//  RsyncGUI
+//  RsyncOSX
 //
 //  Created by Thomas Evensen on 10.03.2017.
 //  Copyright © 2017 Thomas Evensen. All rights reserved.
@@ -86,7 +86,7 @@ class ProcessCmd: Delay {
 
     // Terminate Process, used when user Aborts task.
     func abortProcess() {
-        self.processReference?.terminate()
+        _ = InterruptProcess(process: self.processReference)
     }
 
     init(command: String?, arguments: [String]?) {
