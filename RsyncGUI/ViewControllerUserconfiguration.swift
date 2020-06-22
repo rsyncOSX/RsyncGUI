@@ -28,6 +28,7 @@ class ViewControllerUserconfiguration: NSViewController, NewRsync, SetDismisser,
     @IBOutlet var sshport: NSTextField!
     @IBOutlet var sshkeypathandidentityfile: NSTextField!
     @IBOutlet var closebutton: NSButton!
+    @IBOutlet var monitornetworkconnection: NSButton!
 
     @IBAction func togglehaltonerror(_: NSButton) {
         if ViewControllerReference.shared.haltonerror {
@@ -51,6 +52,15 @@ class ViewControllerUserconfiguration: NSViewController, NewRsync, SetDismisser,
 
     @IBAction func togglerestorepath(_: NSButton) {
         self.filemanager()
+    }
+
+    @IBAction func togglemonitornetworkconnection(_: NSButton) {
+        if self.monitornetworkconnection.state == .on {
+            ViewControllerReference.shared.monitornetworkconnection = true
+        } else {
+            ViewControllerReference.shared.monitornetworkconnection = false
+        }
+        self.setdirty()
     }
 
     @IBAction func close(_: NSButton) {
@@ -238,6 +248,11 @@ class ViewControllerUserconfiguration: NSViewController, NewRsync, SetDismisser,
             self.haltonerror.state = .on
         } else {
             self.haltonerror.state = .off
+        }
+        if ViewControllerReference.shared.monitornetworkconnection {
+            self.monitornetworkconnection.state = .on
+        } else {
+            self.monitornetworkconnection.state = .off
         }
     }
 }
