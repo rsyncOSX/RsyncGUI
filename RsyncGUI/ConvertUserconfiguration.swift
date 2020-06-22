@@ -55,10 +55,10 @@ struct ConvertUserconfiguration {
             haltonerror = 0
         }
         if ViewControllerReference.shared.monitornetworkconnection {
-                   monitornetworkconnection = 1
-               } else {
-                   monitornetworkconnection = 0
-               }
+            monitornetworkconnection = 1
+        } else {
+            monitornetworkconnection = 0
+        }
         marknumberofdayssince = String(ViewControllerReference.shared.marknumberofdayssince)
         let dict: NSMutableDictionary = [
             "version3Rsync": version3Rsync ?? 0 as Int,
