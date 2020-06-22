@@ -85,6 +85,8 @@ final class ViewControllerReference {
     // Global SSH parameters
     var sshport: Int?
     var sshkeypathandidentityfile: String?
+    // Check for network connection
+    var executecontinuislycheckforconnected: Bool = true
 
     // Reference to main View
     private var viewControllertabMain: NSViewController?

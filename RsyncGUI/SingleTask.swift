@@ -1,18 +1,18 @@
 //
-//  SingleTask.swift
-//  RsyncGUI
+//  NewSingleTask.swift
+//  RsyncOSX
 //
 //  Created by Thomas Evensen on 20.06.2017.
 //  Copyright © 2017 Thomas Evensen. All rights reserved.
 //
-//  swiftlint:disable line_length
+//  swiftlint:disable line_length cyclomatic_complexity function_body_length
 
 import Foundation
 
 // Protocols for instruction start/stop progressviewindicator
 protocol StartStopProgressIndicatorSingleTask: AnyObject {
-    func startIndicatorExecuteTaskNow()
     func startIndicator()
+    func startIndicatorExecuteTaskNow()
     func stopIndicator()
 }
 
@@ -41,29 +41,45 @@ final class SingleTask: SetSchedules, SetConfigurations {
         if self.workload == nil {
             self.workload = SingleTaskWorkQueu()
         }
-        switch self.workload!.peek() {
+        switch self.workload?.peek() {
         case .estimatesinglerun:
             if let index = self.index {
                 self.indicatorDelegate?.startIndicator()
+                self.outputprocess = OutputProcessRsync()
                 if let arguments = self.configurations?.arguments4rsync(index: index, argtype: .argdryRun) {
-                    let process = Rsync(arguments: arguments)
-                    self.outputprocess = OutputProcessRsync()
-                    process.setdelegate(object: self)
-                    process.executeProcess(outputprocess: self.outputprocess)
-                    self.setprocessDelegate?.sendprocessreference(process: process.getProcess())
-                    self.setprocessDelegate?.sendoutputprocessreference(outputprocess: self.outputprocess)
+                    if #available(OSX 10.14, *) {
+                        let process = RsyncVerify(arguments: arguments, config: (self.configurations?.getConfigurations()[index])!)
+                        process.setdelegate(object: self)
+                        process.executeProcess(outputprocess: self.outputprocess)
+                        self.setprocessDelegate?.sendprocessreference(process: process.getProcess())
+                        self.setprocessDelegate?.sendoutputprocessreference(outputprocess: self.outputprocess)
+                    } else {
+                        let process = Rsync(arguments: arguments)
+                        process.setdelegate(object: self)
+                        process.executeProcess(outputprocess: self.outputprocess)
+                        self.setprocessDelegate?.sendprocessreference(process: process.getProcess())
+                        self.setprocessDelegate?.sendoutputprocessreference(outputprocess: self.outputprocess)
+                    }
                 }
             }
         case .executesinglerun:
             if let index = self.index {
                 self.singletaskDelegate?.presentViewProgress()
+                self.outputprocess = OutputProcessRsync()
                 if let arguments = self.configurations?.arguments4rsync(index: index, argtype: .arg) {
-                    let process = Rsync(arguments: arguments)
-                    self.outputprocess = OutputProcessRsync()
-                    process.setdelegate(object: self)
-                    process.executeProcess(outputprocess: self.outputprocess)
-                    self.setprocessDelegate?.sendprocessreference(process: process.getProcess())
-                    self.setprocessDelegate?.sendoutputprocessreference(outputprocess: self.outputprocess)
+                    if #available(OSX 10.14, *) {
+                        let process = RsyncVerify(arguments: arguments, config: (self.configurations?.getConfigurations()[index])!)
+                        process.setdelegate(object: self)
+                        process.executeProcess(outputprocess: self.outputprocess)
+                        self.setprocessDelegate?.sendprocessreference(process: process.getProcess())
+                        self.setprocessDelegate?.sendoutputprocessreference(outputprocess: self.outputprocess)
+                    } else {
+                        let process = Rsync(arguments: arguments)
+                        process.setdelegate(object: self)
+                        process.executeProcess(outputprocess: self.outputprocess)
+                        self.setprocessDelegate?.sendprocessreference(process: process.getProcess())
+                        self.setprocessDelegate?.sendoutputprocessreference(outputprocess: self.outputprocess)
+                    }
                 }
             }
         case .abort:
@@ -94,7 +110,7 @@ extension SingleTask: Count {
     }
 
     func inprogressCount() -> Int {
-        return (self.outputprocess?.count() ?? 0)
+        return self.outputprocess?.count() ?? 0
     }
 }
 
