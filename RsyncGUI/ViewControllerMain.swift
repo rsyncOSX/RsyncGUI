@@ -108,6 +108,17 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
         self.setNumbers(outputprocess: nil)
         self.process = nil
         self.singletask = nil
+        // Close edit and parameters view if open
+        if let view = ViewControllerReference.shared.getvcref(viewcontroller: .vcrsyncparameters) as? ViewControllerRsyncParameters {
+            weak var closeview: ViewControllerRsyncParameters?
+            closeview = view
+            closeview?.closeview()
+        }
+        if let view = ViewControllerReference.shared.getvcref(viewcontroller: .vcedit) as? ViewControllerEdit {
+            weak var closeview: ViewControllerEdit?
+            closeview = view
+            closeview?.closeview()
+        }
     }
 
     @IBAction func TCP(_: NSButton) {
