@@ -31,7 +31,7 @@ class ProcessCmdVerify: ProcessCmd {
             formatter.dateFormat = "-yyyy-MM-dd"
             let string = "Network dropped: " + formatter.string(from: Date())
             output.addlinefromoutput(str: string)
-            _ = InterruptProcess(process: self.processReference, output: output)
+            _ = InterruptProcess(output: output)
         }
     }
 

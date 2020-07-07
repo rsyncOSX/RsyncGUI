@@ -124,6 +124,8 @@ final class ViewControllerReference {
     private var viewControllerEdit: NSViewController?
     // Rsync parameters
     private var viewControllerRsyncParameters: NSViewController?
+    // Reference to the active process
+    var process: Process?
 
     func getvcref(viewcontroller: ViewController) -> NSViewController? {
         switch viewcontroller {

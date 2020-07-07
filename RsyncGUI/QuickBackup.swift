@@ -106,11 +106,7 @@ final class QuickBackup: SetConfigurations {
     }
 }
 
-extension QuickBackup: SendProcessreference {
-    func sendprocessreference(process _: Process?) {
-        //
-    }
-
+extension QuickBackup: SendOutputProcessreference {
     func sendoutputprocessreference(outputprocess: OutputProcess?) {
         self.outputprocess = outputprocess
     }
