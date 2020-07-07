@@ -33,7 +33,7 @@ class ViewControllerAllProfiles: NSViewController, Delay, Abort {
     private var process: Process?
 
     @IBAction func abort(_: NSButton) {
-        self.process?.terminate()
+        _ = InterruptProcess(process: process)
         self.process = nil
     }
 
