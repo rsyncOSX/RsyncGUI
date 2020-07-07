@@ -128,7 +128,7 @@ extension ViewControllerMain: RsyncError {
             self.deselect()
             // Abort any operations
             if let process = self.process {
-                process.terminate()
+                _ = InterruptProcess(process: process)
                 self.process = nil
             }
             // Either error in single task
@@ -164,19 +164,15 @@ extension ViewControllerMain: Abort {
     func abortOperations() {
         // Terminates the running process
         if let process = self.process {
-            process.terminate()
-            self.index = nil
-            self.working.stopAnimation(nil)
-            self.workinglabel.isHidden = true
+            _ = InterruptProcess(process: process)
             self.process = nil
-            // Create workqueu and add abort
             self.seterrorinfo(info: "Abort")
             self.rsyncCommand.stringValue = ""
-            if self.configurations!.remoteinfoestimation != nil, self.configurations?.estimatedlist != nil {
-                self.configurations!.remoteinfoestimation = nil
+            if self.configurations?.remoteinfoestimation != nil, self.configurations?.estimatedlist != nil {
+                self.configurations?.remoteinfoestimation = nil
             }
         } else {
-            self.rsyncCommand.stringValue = "Selection out of range - aborting"
+            self.rsyncCommand.stringValue = NSLocalizedString("Selection out of range - aborting", comment: "Execute")
         }
         self.working.stopAnimation(nil)
         self.workinglabel.isHidden = true
