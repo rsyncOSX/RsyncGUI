@@ -39,8 +39,6 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
     // Reference to the taskobjects
     var singletask: SingleTask?
     var executetasknow: ExecuteTaskNow?
-    // Reference to Process task
-    var process: Process?
     // Index to selected row, index is set when row is selected
     var index: Int?
     // Getting output from rsync
@@ -106,7 +104,6 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
 
     func reset() {
         self.setNumbers(outputprocess: nil)
-        self.process = nil
         self.singletask = nil
         // Close edit and parameters view if open
         if let view = ViewControllerReference.shared.getvcref(viewcontroller: .vcrsyncparameters) as? ViewControllerRsyncParameters {
@@ -138,7 +135,6 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
     @IBAction func abort(_: NSButton) {
         globalMainQueue.async { () -> Void in
             self.abortOperations()
-            self.process = nil
         }
     }
 
@@ -326,7 +322,6 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
     }
 
     func createandreloadschedules() {
-        self.process = nil
         guard self.configurations != nil else {
             self.schedules = Schedules(profile: nil)
             return

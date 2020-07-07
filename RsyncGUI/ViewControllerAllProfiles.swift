@@ -30,11 +30,9 @@ class ViewControllerAllProfiles: NSViewController, Delay, Abort {
     private var sortascending: Bool = true
     private var index: Int?
     private var outputprocess: OutputProcess?
-    private var process: Process?
 
     @IBAction func abort(_: NSButton) {
-        _ = InterruptProcess(process: process)
-        self.process = nil
+        _ = InterruptProcess()
     }
 
     @IBAction func sortdirection(_: NSButton) {
@@ -67,7 +65,7 @@ class ViewControllerAllProfiles: NSViewController, Delay, Abort {
 
     private func getremotesizes() {
         guard self.index != nil else { return }
-        guard self.process == nil else { return }
+        guard ViewControllerReference.shared.process == nil else { return }
         self.outputprocess = OutputProcess()
         let dict = self.allprofiles!.allconfigurationsasdictionary?[self.index!]
         let config = Configuration(dictionary: dict!)
@@ -77,7 +75,6 @@ class ViewControllerAllProfiles: NSViewController, Delay, Abort {
         let task: DuCommandSsh = DuCommandSsh(command: duargs.getCommand(), arguments: duargs.getArguments())
         task.setdelegate(object: self)
         task.executeProcess(outputprocess: self.outputprocess)
-        self.process = task.getprocess()
     }
 
     override func viewDidLoad() {
@@ -228,8 +225,7 @@ extension ViewControllerAllProfiles: NSSearchFieldDelegate {
 extension ViewControllerAllProfiles: UpdateProgress {
     func processTermination() {
         self.working.stopAnimation(nil)
-        guard self.process != nil else { return }
-        self.process = nil
+        guard ViewControllerReference.shared.process != nil else { return }
         let numbers = RemoteNumbers(outputprocess: self.outputprocess)
         self.allprofiles!.allconfigurationsasdictionary?[self.index!].setValue(numbers.getused(), forKey: "used")
         self.allprofiles!.allconfigurationsasdictionary?[self.index!].setValue(numbers.getavail(), forKey: "avail")

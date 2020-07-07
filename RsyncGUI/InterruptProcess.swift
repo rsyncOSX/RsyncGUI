@@ -9,20 +9,22 @@
 import Foundation
 
 struct InterruptProcess {
-    init(process: Process?) {
-        guard process != nil else { return }
+    init() {
+        guard ViewControllerReference.shared.process != nil else { return }
         let output = OutputProcess()
         let formatter = DateFormatter()
         formatter.dateFormat = "-yyyy-MM-dd"
         let string = "Interrupted: " + formatter.string(from: Date())
         output.addlinefromoutput(str: string)
         _ = Logging(output, true)
-        process?.interrupt()
+        ViewControllerReference.shared.process?.interrupt()
+        ViewControllerReference.shared.process = nil
     }
 
-    init(process: Process?, output: OutputProcess?) {
-        guard process != nil, output != nil else { return }
+    init(output: OutputProcess?) {
+        guard ViewControllerReference.shared.process != nil, output != nil else { return }
         _ = Logging(output, true)
-        process?.interrupt()
+        ViewControllerReference.shared.process?.interrupt()
+        ViewControllerReference.shared.process = nil
     }
 }

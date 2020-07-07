@@ -74,7 +74,6 @@ class ViewControllerRestore: NSViewController, SetConfigurations, Delay, Connect
     var outputprocess: OutputProcess?
     var maxcount: Int = 0
     weak var outputeverythingDelegate: ViewOutputDetails?
-    var process: Process?
 
     var restoreactions: RestoreActions?
 
@@ -125,8 +124,7 @@ class ViewControllerRestore: NSViewController, SetConfigurations, Delay, Connect
     // Abort button
     @IBAction func abort(_: NSButton) {
         self.working.stopAnimation(nil)
-        _ = InterruptProcess(process: self.process)
-        self.process = nil
+        _ = InterruptProcess()
         self.reset()
     }
 
@@ -208,7 +206,6 @@ class ViewControllerRestore: NSViewController, SetConfigurations, Delay, Connect
             let hiddenID = self.configurations!.getConfigurationsDataSourceSynchronize()![index].value(forKey: "hiddenID") as? Int ?? -1
             self.restorefilestask = RestorefilesTask(hiddenID: hiddenID)
             self.remotefilelist = Remotefilelist(hiddenID: hiddenID)
-            self.process = self.remotefilelist?.getProcess()
             self.working.startAnimation(nil)
             self.restoreisverified.image = #imageLiteral(resourceName: "yellow")
         } else {
@@ -342,11 +339,9 @@ class ViewControllerRestore: NSViewController, SetConfigurations, Delay, Connect
                 if tmprestore {
                     self.fullrestoretask = FullrestoreTask(index: index, dryrun: false, tmprestore: true, updateprogress: self)
                     self.outputprocess = self.fullrestoretask?.outputprocess
-                    self.process = fullrestoretask?.getProcess()
                 } else {
                     self.fullrestoretask = FullrestoreTask(index: index, dryrun: false, tmprestore: false, updateprogress: self)
                     self.outputprocess = self.fullrestoretask?.outputprocess
-                    self.process = fullrestoretask?.getProcess()
                 }
             }
         }
@@ -431,12 +426,10 @@ class ViewControllerRestore: NSViewController, SetConfigurations, Delay, Connect
                 if self.restoreactions?.goforfullrestoreestimatetemporarypath() ?? false {
                     self.fullrestoretask = FullrestoreTask(index: index, dryrun: true, tmprestore: true, updateprogress: self)
                     self.outputprocess = self.fullrestoretask?.outputprocess
-                    self.process = fullrestoretask?.getProcess()
                 } else if self.restoreactions?.goforfullrestoreestimate() ?? false {
                     self.selecttmptorestore.state = .off
                     self.fullrestoretask = FullrestoreTask(index: index, dryrun: true, tmprestore: false, updateprogress: self)
                     self.outputprocess = self.fullrestoretask?.outputprocess
-                    self.process = fullrestoretask?.getProcess()
                 }
             }
         } else {
