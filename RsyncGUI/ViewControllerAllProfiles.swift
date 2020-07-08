@@ -227,9 +227,11 @@ extension ViewControllerAllProfiles: UpdateProgress {
         self.working.stopAnimation(nil)
         guard ViewControllerReference.shared.process != nil else { return }
         let numbers = RemoteNumbers(outputprocess: self.outputprocess)
-        self.allprofiles!.allconfigurationsasdictionary?[self.index!].setValue(numbers.getused(), forKey: "used")
-        self.allprofiles!.allconfigurationsasdictionary?[self.index!].setValue(numbers.getavail(), forKey: "avail")
-        self.allprofiles!.allconfigurationsasdictionary?[self.index!].setValue(numbers.getpercentavaliable(), forKey: "availpercent")
+        if let index = self.index {
+            self.allprofiles?.allconfigurationsasdictionary?[index].setValue(numbers.getused(), forKey: "used")
+            self.allprofiles?.allconfigurationsasdictionary?[index].setValue(numbers.getavail(), forKey: "avail")
+            self.allprofiles?.allconfigurationsasdictionary?[index].setValue(numbers.getpercentavaliable(), forKey: "availpercent")
+        }
         globalMainQueue.async { () -> Void in
             self.mainTableView.reloadData()
         }

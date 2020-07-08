@@ -105,6 +105,7 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
     func reset() {
         self.setNumbers(outputprocess: nil)
         self.singletask = nil
+        self.seterrorinfo(info: "")
         // Close edit and parameters view if open
         if let view = ViewControllerReference.shared.getvcref(viewcontroller: .vcrsyncparameters) as? ViewControllerRsyncParameters {
             weak var closeview: ViewControllerRsyncParameters?
@@ -308,7 +309,7 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
             self.profilInfo.textColor = .white
             return
         }
-        if let profile = self.configurations!.getProfile() {
+        if let profile = self.configurations?.getProfile() {
             self.profilInfo.stringValue = "Profile: " + profile
             self.profilInfo.textColor = setcolor(nsviewcontroller: self, color: .white)
         } else {
@@ -326,7 +327,7 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
             self.schedules = Schedules(profile: nil)
             return
         }
-        if let profile = self.configurations!.getProfile() {
+        if let profile = self.configurations?.getProfile() {
             self.schedules = nil
             self.schedules = Schedules(profile: profile)
         } else {
@@ -340,7 +341,7 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
             self.configurations = Configurations(profile: nil)
             return
         }
-        if let profile = self.configurations!.getProfile() {
+        if let profile = self.configurations?.getProfile() {
             self.configurations = nil
             self.configurations = Configurations(profile: profile)
         } else {
