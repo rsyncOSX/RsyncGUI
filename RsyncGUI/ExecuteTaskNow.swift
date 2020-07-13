@@ -48,7 +48,7 @@ extension ExecuteTaskNow: UpdateProgress {
     func processTermination() {
         self.startstopindicators?.stopIndicator()
         if let index = self.index {
-         self.configurations?.setCurrentDateonConfiguration(index: index, outputprocess: self.outputprocess)
+            self.configurations?.setCurrentDateonConfiguration(index: index, outputprocess: self.outputprocess)
         }
         self.deinitDelegate?.deinitexecutetasknow()
     }
