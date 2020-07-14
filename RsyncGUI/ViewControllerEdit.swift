@@ -19,7 +19,6 @@ class ViewControllerEdit: NSViewController, SetConfigurations, SetDismisser, Ind
     @IBOutlet var offsiteUsername: NSTextField!
     @IBOutlet var offsiteServer: NSTextField!
     @IBOutlet var backupID: NSTextField!
-    @IBOutlet var sshport: NSTextField!
     @IBOutlet var stringlocalcatalog: NSTextField!
     @IBOutlet var stringremotecatalog: NSTextField!
 
@@ -47,14 +46,6 @@ class ViewControllerEdit: NSViewController, SetConfigurations, SetDismisser, Ind
             config[index].offsiteServer = self.offsiteServer.stringValue
             config[index].offsiteUsername = self.offsiteUsername.stringValue
             config[index].backupID = self.backupID.stringValue
-            let port = self.sshport.stringValue
-            if port.isEmpty == false {
-                if let port = Int(port) {
-                    config[index].sshport = port
-                }
-            } else {
-                config[index].sshport = nil
-            }
             let dict = ConvertOneConfig(config: config[index]).dict
             guard Validatenewconfigs(dict: dict, Edit: true).validated == true else { return }
             self.configurations?.updateConfigurations(config[index], index: index)
@@ -76,7 +67,6 @@ class ViewControllerEdit: NSViewController, SetConfigurations, SetDismisser, Ind
         self.offsiteUsername.stringValue = ""
         self.offsiteServer.stringValue = ""
         self.backupID.stringValue = ""
-        self.sshport.stringValue = ""
         if let index = self.index() {
             self.index = index
             if let config: Configuration = self.configurations?.getConfigurations()[index] {
@@ -90,9 +80,6 @@ class ViewControllerEdit: NSViewController, SetConfigurations, SetDismisser, Ind
                 self.offsiteUsername.stringValue = config.offsiteUsername
                 self.offsiteServer.stringValue = config.offsiteServer
                 self.backupID.stringValue = config.backupID
-                if let port = config.sshport {
-                    self.sshport.stringValue = String(port)
-                }
                 self.changelabels()
             }
         }
