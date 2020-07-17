@@ -46,7 +46,7 @@ extension ViewControllerMain: GetSelecetedIndex {
 // New profile is loaded.
 extension ViewControllerMain: NewProfile {
     // Function is called from profiles when new or default profiles is seleceted
-    func newProfile(profile: String?, selectedindex: Int?) {
+    func newprofile(profile: String?, selectedindex: Int?) {
         if let index = selectedindex {
             self.profilepopupbutton.selectItem(at: index)
         } else {
@@ -64,7 +64,7 @@ extension ViewControllerMain: NewProfile {
         self.deselectrowtable()
     }
 
-    func enableselectprofile() {
+    func reloadprofilepopupbutton() {
         globalMainQueue.async { () -> Void in
             self.displayProfile()
         }
@@ -472,5 +472,15 @@ extension ViewControllerMain: GetMultipleSelectedIndexes {
 extension ViewControllerMain: DeinitExecuteTaskNow {
     func deinitexecutetasknow() {
         self.executetasknow = nil
+    }
+}
+
+extension ViewControllerMain: DisableEnablePopupSelectProfile {
+    func enableselectpopupprofile() {
+        self.profilepopupbutton.isEnabled = true
+    }
+
+    func disableselectpopupprofile() {
+        self.profilepopupbutton.isEnabled = false
     }
 }

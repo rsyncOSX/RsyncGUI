@@ -16,18 +16,17 @@ final class Selectprofile {
     weak var loggdataprofileDelegate: NewProfile?
 
     init(profile: String?, selectedindex: Int?) {
-        guard ViewControllerReference.shared.process == nil else { return }
         self.profile = profile
         self.newprofileDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllerMain
         self.loggdataprofileDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcloggdata) as? ViewControllerLoggData
         self.restoreprofileDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcrestore) as? ViewControllerRestore
         if self.profile == "Default profile" {
-            newprofileDelegate?.newProfile(profile: nil, selectedindex: selectedindex)
+            newprofileDelegate?.newprofile(profile: nil, selectedindex: selectedindex)
         } else {
-            newprofileDelegate?.newProfile(profile: self.profile, selectedindex: selectedindex)
+            newprofileDelegate?.newprofile(profile: self.profile, selectedindex: selectedindex)
         }
-        self.restoreprofileDelegate?.newProfile(profile: nil, selectedindex: selectedindex)
-        self.loggdataprofileDelegate?.newProfile(profile: nil, selectedindex: selectedindex)
+        self.restoreprofileDelegate?.newprofile(profile: nil, selectedindex: selectedindex)
+        self.loggdataprofileDelegate?.newprofile(profile: nil, selectedindex: selectedindex)
         // Close edit and parameters view if open
         if let view = ViewControllerReference.shared.getvcref(viewcontroller: .vcrsyncparameters) as? ViewControllerRsyncParameters {
             weak var closeview: ViewControllerRsyncParameters?
