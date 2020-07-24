@@ -17,13 +17,13 @@ class Schedules: ScheduleWriteLoggData {
         return self.schedules ?? []
     }
 
-    /// Function deletes all Schedules by hiddenID. Invoked when Configurations are
-    /// deleted. When a Configuration are deleted all tasks connected to
-    /// Configuration has to  be deleted.
-    /// - parameter hiddenID : hiddenID for task
+    // Function deletes all Schedules by hiddenID. Invoked when Configurations are
+    // deleted. When a Configuration are deleted all tasks connected to
+    // Configuration has to  be deleted.
+    // - parameter hiddenID : hiddenID for task
     func deletescheduleonetask(hiddenID: Int) {
         var delete: Bool = false
-        for i in 0 ..< self.schedules!.count where self.schedules![i].hiddenID == hiddenID {
+        for i in 0 ..< (self.schedules?.count ?? 0) where self.schedules![i].hiddenID == hiddenID {
             // Mark Schedules for delete
             // Cannot delete in memory, index out of bound is result
             self.schedules![i].delete = true
@@ -37,15 +37,16 @@ class Schedules: ScheduleWriteLoggData {
     }
 
     // Test if Schedule record in memory is set to delete or not
-    private func delete(dict: NSDictionary) {
-        for i in 0 ..< self.schedules!.count {
-            if dict.value(forKey: "hiddenID") as? Int == self.schedules![i].hiddenID {
-                if dict.value(forKey: "dateStop") as? String == self.schedules![i].dateStop ||
-                    self.schedules![i].dateStop == nil &&
-                    dict.value(forKey: "schedule") as? String == self.schedules![i].schedule &&
-                    dict.value(forKey: "dateStart") as? String == self.schedules![i].dateStart {
-                    self.schedules![i].delete = true
-                    break
+    func delete(dict: NSDictionary) {
+        if let hiddenID = dict.value(forKey: "hiddenID") as? Int {
+            if let schedule = dict.value(forKey: "schedule") as? String {
+                if let datestart = dict.value(forKey: "dateStart") as? String {
+                    if let i = self.schedules?.firstIndex(where: { $0.hiddenID == hiddenID
+                            && $0.schedule == schedule
+                            && $0.dateStart == datestart
+                    }) {
+                        self.schedules![i].delete = true
+                    }
                 }
             }
         }
@@ -57,7 +58,7 @@ class Schedules: ScheduleWriteLoggData {
         let store = PersistentStorageScheduling(profile: self.profile).getScheduleandhistory(nolog: false)
         guard store != nil else { return }
         var data = [ConfigurationSchedule]()
-        for i in 0 ..< store!.count where store![i].logrecords.isEmpty == false {
+        for i in 0 ..< (store?.count ?? 0) where store?[i].logrecords.isEmpty == false {
             data.append(store![i])
         }
         // Sorting schedule after hiddenID
