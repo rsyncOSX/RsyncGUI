@@ -49,7 +49,6 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, Dela
     @IBOutlet var offsiteUsername: NSTextField!
     @IBOutlet var offsiteServer: NSTextField!
     @IBOutlet var backupID: NSTextField!
-    @IBOutlet var sshport: NSTextField!
     @IBOutlet var profilInfo: NSTextField!
     @IBOutlet var copyconfigbutton: NSButton!
     @IBOutlet var backuptype: NSComboBox!
@@ -122,7 +121,6 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, Dela
         } else {
             self.offsiteServer.stringValue = ""
         }
-        self.sshport.stringValue = self.configurations!.getResourceConfiguration(hiddenID: hiddenID, resource: .sshport)
     }
 
     @IBAction func cleartable(_: NSButton) {
@@ -212,7 +210,6 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, Dela
         self.offsiteUsername.stringValue = ""
         self.offsiteServer.stringValue = ""
         self.backupID.stringValue = ""
-        self.sshport.stringValue = ""
     }
 
     @IBAction func addConfig(_: NSButton) {
@@ -240,11 +237,6 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, Dela
         if !self.offsiteCatalog.stringValue.hasSuffix("/") {
             self.offsiteCatalog.stringValue += "/"
             dict.setValue(self.offsiteCatalog.stringValue, forKey: "offsiteCatalog")
-        }
-        if sshport.stringValue != "" {
-            if let port: Int = Int(self.sshport.stringValue) {
-                dict.setObject(port, forKey: "sshport" as NSCopying)
-            }
         }
         if self.backuptypeselected == .syncremote {
             guard self.offsiteServer.stringValue.isEmpty == false else { return }
