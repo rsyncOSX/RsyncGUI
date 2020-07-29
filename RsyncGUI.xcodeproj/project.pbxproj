@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -45,6 +45,8 @@
 		E83B4474235F3C6700BBC793 /* ArgumentsVerify.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B446D235F3C6700BBC793 /* ArgumentsVerify.swift */; };
 		E840ED1B22D0BDC900CF62FF /* RootcatalogSequrityscopedURLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E840ED1A22D0BDC900CF62FF /* RootcatalogSequrityscopedURLs.swift */; };
 		E840ED1F22D0CD3C00CF62FF /* AppendSequrityscopedURLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E840ED1E22D0CD3C00CF62FF /* AppendSequrityscopedURLs.swift */; };
+		E8B668C724D191C000117833 /* NamesandPaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B668C624D191C000117833 /* NamesandPaths.swift */; };
+		E8B668CA24D1955500117833 /* Files in Frameworks */ = {isa = PBXBuildFile; productRef = E8B668C924D1955500117833 /* Files */; };
 		E8EDD15323C8C0E800806CCD /* Validatenewconfigs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EDD15223C8C0E800806CCD /* Validatenewconfigs.swift */; };
 		E9005014248FA06E00FAD2BC /* Keypathidentityfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9005013248FA06E00FAD2BC /* Keypathidentityfile.swift */; };
 		E905DC111EACF7550003BF37 /* ViewControllerSsh.swift in Sources */ = {isa = PBXBuildFile; fileRef = E905DC101EACF7550003BF37 /* ViewControllerSsh.swift */; };
@@ -188,6 +190,7 @@
 		E83B446D235F3C6700BBC793 /* ArgumentsVerify.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArgumentsVerify.swift; sourceTree = "<group>"; };
 		E840ED1A22D0BDC900CF62FF /* RootcatalogSequrityscopedURLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootcatalogSequrityscopedURLs.swift; sourceTree = "<group>"; };
 		E840ED1E22D0CD3C00CF62FF /* AppendSequrityscopedURLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppendSequrityscopedURLs.swift; sourceTree = "<group>"; };
+		E8B668C624D191C000117833 /* NamesandPaths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NamesandPaths.swift; sourceTree = "<group>"; };
 		E8EDD15223C8C0E800806CCD /* Validatenewconfigs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validatenewconfigs.swift; sourceTree = "<group>"; };
 		E9005013248FA06E00FAD2BC /* Keypathidentityfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keypathidentityfile.swift; sourceTree = "<group>"; };
 		E905DC101EACF7550003BF37 /* ViewControllerSsh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerSsh.swift; sourceTree = "<group>"; };
@@ -288,6 +291,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E8B668CA24D1955500117833 /* Files in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -377,6 +381,7 @@
 				A0762A1E1DB4A8F000538CE9 /* CatalogProfile.swift */,
 				E9234FFA1EB068AE00A4C550 /* Files.swift */,
 				E9005013248FA06E00FAD2BC /* Keypathidentityfile.swift */,
+				E8B668C624D191C000117833 /* NamesandPaths.swift */,
 			);
 			name = FilesAndCatalogs;
 			sourceTree = "<group>";
@@ -769,6 +774,9 @@
 			dependencies = (
 			);
 			name = RsyncGUI;
+			packageProductDependencies = (
+				E8B668C924D1955500117833 /* Files */,
+			);
 			productName = RsyncGUI;
 			productReference = A04492821D658EE800B3CE17 /* RsyncGUI.app */;
 			productType = "com.apple.product-type.application";
@@ -830,6 +838,9 @@
 				Base,
 			);
 			mainGroup = A04492791D658EE800B3CE17;
+			packageReferences = (
+				E8B668C824D1955500117833 /* XCRemoteSwiftPackageReference "Files" */,
+			);
 			productRefGroup = A04492831D658EE800B3CE17 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -971,6 +982,7 @@
 				E83B446E235F3C6700BBC793 /* ArgumentsRestore.swift in Sources */,
 				E9F068F21F27B9C100DDF1A1 /* ArgumentsOneConfiguration.swift in Sources */,
 				E943DC661FF90A6600E6B8B7 /* RemoteinfonumbersOnetask.swift in Sources */,
+				E8B668C724D191C000117833 /* NamesandPaths.swift in Sources */,
 				A0A403521D76BD2E00A30017 /* ViewControllerRsyncParameters.swift in Sources */,
 				A04492B41D658F2100B3CE17 /* RestorefilesArguments.swift in Sources */,
 				A0B3D9741D758E20001E190E /* ViewControllerUserconfiguration.swift in Sources */,
@@ -1290,6 +1302,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E8B668C824D1955500117833 /* XCRemoteSwiftPackageReference "Files" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/rsyncOSX/Files";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.1.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E8B668C924D1955500117833 /* Files */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E8B668C824D1955500117833 /* XCRemoteSwiftPackageReference "Files" */;
+			productName = Files;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = A044927A1D658EE800B3CE17 /* Project object */;
 }
