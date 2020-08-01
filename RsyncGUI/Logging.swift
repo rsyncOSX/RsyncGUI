@@ -91,7 +91,8 @@ class Logging: Fileerrors {
 
     init(outputprocess: OutputProcess?) {
         guard ViewControllerReference.shared.fulllogging == true ||
-            ViewControllerReference.shared.minimumlogging == true else {
+            ViewControllerReference.shared.minimumlogging == true
+        else {
             return
         }
         self.outputprocess = outputprocess

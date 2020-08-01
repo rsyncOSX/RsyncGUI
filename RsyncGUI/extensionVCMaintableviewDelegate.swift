@@ -50,7 +50,8 @@ extension ViewControllerMain: NSTableViewDelegate, Attributedestring {
                 return object[tableColumn!.identifier] as? String
             }
         } else if tableColumn!.identifier.rawValue == "offsiteServerCellID",
-            ((object[tableColumn!.identifier] as? String)?.isEmpty) == true {
+            ((object[tableColumn!.identifier] as? String)?.isEmpty) == true
+        {
             return "localhost"
         } else if tableColumn!.identifier.rawValue == "statCellID" {
             if row == self.index {
@@ -64,7 +65,8 @@ extension ViewControllerMain: NSTableViewDelegate, Attributedestring {
             // Check if test for connections is selected
             if self.configurations?.tcpconnections?.connectionscheckcompleted ?? false == true {
                 if (self.configurations?.tcpconnections?.gettestAllremoteserverConnections()?[row]) ?? false,
-                    tableColumn!.identifier.rawValue == "offsiteServerCellID" {
+                    tableColumn!.identifier.rawValue == "offsiteServerCellID"
+                {
                     return self.attributedstring(str: celltext ?? "", color: NSColor.red, align: .left)
                 } else {
                     return object[tableColumn!.identifier] as? String
