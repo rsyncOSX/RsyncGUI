@@ -71,10 +71,12 @@ class ScheduleWriteLoggData: SetConfigurations, ReloadTable, Deselect {
     private func addlogexisting(_ hiddenID: Int, result: String, date: String) -> Bool {
         var loggadded: Bool = false
         for i in 0 ..< self.schedules!.count where
-            self.configurations!.getResourceConfiguration(hiddenID: hiddenID, resource: .task) == ViewControllerReference.shared.synchronize {
+            self.configurations!.getResourceConfiguration(hiddenID: hiddenID, resource: .task) == ViewControllerReference.shared.synchronize
+        {
             if self.schedules![i].hiddenID == hiddenID,
                 self.schedules![i].schedule == "manuel",
-                self.schedules![i].dateStop == nil {
+                self.schedules![i].dateStop == nil
+            {
                 let dict = NSMutableDictionary()
                 dict.setObject(date, forKey: "dateExecuted" as NSCopying)
                 dict.setObject(result, forKey: "resultExecuted" as NSCopying)
