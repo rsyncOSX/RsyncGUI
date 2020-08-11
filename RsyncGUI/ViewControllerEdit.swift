@@ -23,7 +23,6 @@ class ViewControllerEdit: NSViewController, SetConfigurations, SetDismisser, Ind
     @IBOutlet var stringremotecatalog: NSTextField!
 
     var index: Int?
-    var singleFile: Bool = false
 
     // Close and dismiss view
     @IBAction func close(_: NSButton) {
@@ -34,7 +33,7 @@ class ViewControllerEdit: NSViewController, SetConfigurations, SetDismisser, Ind
     @IBAction func update(_: NSButton) {
         var config: [Configuration] = self.configurations?.getConfigurations() ?? []
         guard config.count > 0 else { return }
-        if self.localCatalog.stringValue.hasSuffix("/") == false, self.singleFile == false {
+        if self.localCatalog.stringValue.hasSuffix("/") == false {
             self.localCatalog.stringValue += "/"
         }
         if let index = self.index() {
@@ -71,11 +70,6 @@ class ViewControllerEdit: NSViewController, SetConfigurations, SetDismisser, Ind
             self.index = index
             if let config: Configuration = self.configurations?.getConfigurations()[index] {
                 self.localCatalog.stringValue = config.localCatalog
-                if self.localCatalog.stringValue.hasSuffix("/") == false {
-                    self.singleFile = true
-                } else {
-                    self.singleFile = false
-                }
                 self.offsiteCatalog.stringValue = config.offsiteCatalog
                 self.offsiteUsername.stringValue = config.offsiteUsername
                 self.offsiteServer.stringValue = config.offsiteServer

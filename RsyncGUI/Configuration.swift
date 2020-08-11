@@ -35,12 +35,12 @@ struct Configuration {
     var dayssincelastbackup: String?
     var markdays: Bool = false
     var profile: String?
-    
+
     var lastruninseconds: Double? {
         if let date = self.dateRun {
             let dateformatter = Dateandtime().setDateformat()
             let lastbackup = dateformatter.date(from: date)
-            let seconds: TimeInterval = lastbackup!.timeIntervalSinceNow
+            let seconds: TimeInterval = lastbackup?.timeIntervalSinceNow ?? 0
             return seconds * (-1)
         } else {
             return nil

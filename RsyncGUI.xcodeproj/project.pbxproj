@@ -82,7 +82,6 @@
 		E94AEF3E24A09C61002D3757 /* InterruptProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94AEF3C24A09C61002D3757 /* InterruptProcess.swift */; };
 		E94AEF4024A09C8E002D3757 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94AEF3F24A09C8E002D3757 /* NetworkMonitor.swift */; };
 		E94AEF4224A09CAC002D3757 /* RsyncVerify.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94AEF4124A09CAC002D3757 /* RsyncVerify.swift */; };
-		E94BCEF421C63F0800DB8EA2 /* RemoteCapacity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94BCEF321C63F0800DB8EA2 /* RemoteCapacity.swift */; };
 		E94D2603205025790026D18F /* ViewControllerAllProfiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94D2602205025790026D18F /* ViewControllerAllProfiles.swift */; };
 		E94D6E3221A5BBA400DDDB61 /* QuickbackupDispatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94D6E2E21A5BBA300DDDB61 /* QuickbackupDispatch.swift */; };
 		E94D6E3321A5BBA400DDDB61 /* ExecuteQuickbackupTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94D6E2F21A5BBA400DDDB61 /* ExecuteQuickbackupTask.swift */; };
@@ -226,7 +225,6 @@
 		E94AEF3C24A09C61002D3757 /* InterruptProcess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterruptProcess.swift; sourceTree = "<group>"; };
 		E94AEF3F24A09C8E002D3757 /* NetworkMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 		E94AEF4124A09CAC002D3757 /* RsyncVerify.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RsyncVerify.swift; sourceTree = "<group>"; };
-		E94BCEF321C63F0800DB8EA2 /* RemoteCapacity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteCapacity.swift; sourceTree = "<group>"; };
 		E94D2602205025790026D18F /* ViewControllerAllProfiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerAllProfiles.swift; sourceTree = "<group>"; };
 		E94D6E2E21A5BBA300DDDB61 /* QuickbackupDispatch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickbackupDispatch.swift; sourceTree = "<group>"; };
 		E94D6E2F21A5BBA400DDDB61 /* ExecuteQuickbackupTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecuteQuickbackupTask.swift; sourceTree = "<group>"; };
@@ -353,7 +351,6 @@
 			isa = PBXGroup;
 			children = (
 				E98997ED21E265C000B5D5A3 /* Sandbox */,
-				E94BCEF221C63EDD00DB8EA2 /* RemoteCapacity */,
 				E9764F5E204BEE710018C0D7 /* AllProfiles */,
 				E99FC81E200FDDBC00477B1A /* ProcessArguments */,
 				E99AEC701FF8BBA40004992B /* Userconfiguration */,
@@ -580,14 +577,6 @@
 				E943130323ACB4AE008F82B6 /* ConfigurationsXCTEST.swift */,
 			);
 			name = XCTest;
-			sourceTree = "<group>";
-		};
-		E94BCEF221C63EDD00DB8EA2 /* RemoteCapacity */ = {
-			isa = PBXGroup;
-			children = (
-				E94BCEF321C63F0800DB8EA2 /* RemoteCapacity.swift */,
-			);
-			name = RemoteCapacity;
 			sourceTree = "<group>";
 		};
 		E94DC30F2313E6E300E7CE7E /* extensionVCMain */ = {
@@ -1007,7 +996,6 @@
 				E9F413BB1F63AC2A00C0945E /* Schedules.swift in Sources */,
 				E9407BB9208AFB7C00A6780E /* ViewControllerEstimatingTasks.swift in Sources */,
 				E96C784422227A3600AF81E1 /* PersistentStorageAllprofilesAPI.swift in Sources */,
-				E94BCEF421C63F0800DB8EA2 /* RemoteCapacity.swift in Sources */,
 				E95AE70721A5B88B00B2420B /* OperationFactory.swift in Sources */,
 				E97C05F8229FBBA30044EAF6 /* ConvertOneConfig.swift in Sources */,
 				E83B4473235F3C6700BBC793 /* ArgumentsLocalcatalogInfo.swift in Sources */,
