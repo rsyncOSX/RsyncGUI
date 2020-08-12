@@ -31,7 +31,7 @@ class ViewControllerEdit: NSViewController, SetConfigurations, SetDismisser, Ind
 
     // Update configuration, save and dismiss view
     @IBAction func update(_: NSButton) {
-        if var config: [Configuration] = self.configurations?.getConfigurations() {
+        if var config = self.configurations?.getConfigurations() {
             if self.localCatalog.stringValue.hasSuffix("/") == false {
                 self.localCatalog.stringValue += "/"
             }

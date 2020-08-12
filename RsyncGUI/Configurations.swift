@@ -130,14 +130,14 @@ class Configurations: ReloadTable, SetSchedules {
     // - parameter argtype : either .arg or .argdryRun (of enumtype argumentsRsync)
     // - returns : array of Strings holding all computed arguments
     func arguments4rsync(index: Int, argtype: ArgumentsRsync) -> [String] {
-        let allarguments = self.argumentAllConfigurations![index]
+        let allarguments = self.argumentAllConfigurations?[index]
         switch argtype {
         case .arg:
-            return allarguments.arg ?? []
+            return allarguments?.arg ?? []
         case .argdryRun:
-            return allarguments.argdryRun ?? []
+            return allarguments?.argdryRun ?? []
         case .argdryRunlocalcataloginfo:
-            return allarguments.argdryRunLocalcatalogInfo ?? []
+            return allarguments?.argdryRunLocalcatalogInfo ?? []
         }
     }
 
@@ -147,49 +147,49 @@ class Configurations: ReloadTable, SetSchedules {
     // - parameter argtype : either .arg or .argdryRun (of enumtype argumentsRsync)
     // - returns : array of Strings holding all computed arguments
     func arguments4restore(index: Int, argtype: ArgumentsRsync) -> [String] {
-        let allarguments = self.argumentAllConfigurations![index]
+        let allarguments = self.argumentAllConfigurations?[index]
         switch argtype {
         case .arg:
-            return allarguments.restore ?? []
+            return allarguments?.restore ?? []
         case .argdryRun:
-            return allarguments.restoredryRun ?? []
+            return allarguments?.restoredryRun ?? []
         default:
             return []
         }
     }
 
     func arguments4tmprestore(index: Int, argtype: ArgumentsRsync) -> [String] {
-        let allarguments = self.argumentAllConfigurations![index]
+        let allarguments = self.argumentAllConfigurations?[index]
         switch argtype {
         case .arg:
-            return allarguments.tmprestore ?? []
+            return allarguments?.tmprestore ?? []
         case .argdryRun:
-            return allarguments.tmprestoredryRun ?? []
+            return allarguments?.tmprestoredryRun ?? []
         default:
             return []
         }
     }
 
     func arguments4verify(index: Int) -> [String] {
-        let allarguments = self.argumentAllConfigurations![index]
-        return allarguments.verify ?? []
+        let allarguments = self.argumentAllConfigurations?[index]
+        return allarguments?.verify ?? []
     }
 
     // Function is adding new Configurations to existing in memory.
     // - parameter dict : new record configuration
     func appendconfigurationstomemory(dict: NSDictionary) {
         let config = Configuration(dictionary: dict)
-        self.configurations!.append(config)
+        self.configurations?.append(config)
     }
 
     func setCurrentDateonConfiguration(index: Int, outputprocess: OutputProcess?) {
         let number = Numbers(outputprocess: outputprocess)
         let hiddenID = self.gethiddenID(index: index)
         let numbers = number.stats()
-        self.schedules!.addlog(hiddenID: hiddenID, result: numbers)
+        self.schedules?.addlog(hiddenID: hiddenID, result: numbers)
         let currendate = Date()
         let dateformatter = Dateandtime().setDateformat()
-        self.configurations![index].dateRun = dateformatter.string(from: currendate)
+        self.configurations?[index].dateRun = dateformatter.string(from: currendate)
         // Saving updated configuration in memory to persistent store
         _ = PersistentStorageConfiguration(profile: self.profile).saveconfigInMemoryToPersistentStore()
         // Call the view and do a refresh of tableView
@@ -202,7 +202,7 @@ class Configurations: ReloadTable, SetSchedules {
     // - parameter config: updated configuration
     // - parameter index: index to Configuration to replace by config
     func updateConfigurations(_ config: Configuration, index: Int) {
-        self.configurations![index] = config
+        self.configurations?[index] = config
         _ = PersistentStorageConfiguration(profile: self.profile).saveconfigInMemoryToPersistentStore()
     }
 
@@ -211,8 +211,9 @@ class Configurations: ReloadTable, SetSchedules {
     // Function computes index by hiddenID.
     // - parameter hiddenID: hiddenID which is unique for every Configuration
     func deleteConfigurationsByhiddenID(hiddenID: Int) {
-        let index = self.getIndex(hiddenID)
-        self.configurations!.remove(at: index)
+        let index = self.configurations?.firstIndex(where: { $0.hiddenID == hiddenID }) ?? -1
+        guard index > -1 else { return }
+        self.configurations?.remove(at: index)
         _ = PersistentStorageConfiguration(profile: self.profile).saveconfigInMemoryToPersistentStore()
     }
 
@@ -222,75 +223,69 @@ class Configurations: ReloadTable, SetSchedules {
     }
 
     func getResourceConfiguration(_ hiddenID: Int, resource: ResourceInConfiguration) -> String {
-        let result = self.configurations!.filter { ($0.hiddenID == hiddenID) }
-        guard result.count > 0 else { return "" }
-        switch resource {
-        case .localCatalog:
-            return result[0].localCatalog
-        case .offsiteCatalog:
-            return result[0].offsiteCatalog
-        case .offsiteServer:
-            if result[0].offsiteServer.isEmpty {
-                return "localhost"
-            } else {
-                return result[0].offsiteServer
+        if let result = self.configurations?.filter({ ($0.hiddenID == hiddenID) }) {
+            switch resource {
+            case .localCatalog:
+                return result[0].localCatalog
+            case .offsiteCatalog:
+                return result[0].offsiteCatalog
+            case .offsiteServer:
+                if result[0].offsiteServer.isEmpty {
+                    return "localhost"
+                } else {
+                    return result[0].offsiteServer
+                }
+            case .task:
+                return result[0].task
+            case .backupid:
+                return result[0].backupID
+            case .offsiteusername:
+                return result[0].offsiteUsername
+            case .sshport:
+                if result[0].sshport != nil {
+                    return String(result[0].sshport!)
+                } else {
+                    return ""
+                }
             }
-        case .task:
-            return result[0].task
-        case .backupid:
-            return result[0].backupID
-        case .offsiteusername:
-            return result[0].offsiteUsername
-        case .sshport:
-            if result[0].sshport != nil {
-                return String(result[0].sshport!)
-            } else {
-                return ""
-            }
+        } else {
+            return ""
         }
     }
 
     func getIndex(_ hiddenID: Int) -> Int {
-        var index: Int = -1
-        loop: for i in 0 ..< self.configurations!.count where self.configurations![i].hiddenID == hiddenID {
-            index = i
-            break loop
-        }
-        return index
+        return self.configurations?.firstIndex(where: { $0.hiddenID == hiddenID }) ?? -1
     }
 
     func gethiddenID(index: Int) -> Int {
-        guard index < (self.configurations?.count ?? -1) else { return -1 }
-        return self.configurations![index].hiddenID
+        guard index != -1, index < (self.configurations?.count ?? -1) else { return -1 }
+        return self.configurations?[index].hiddenID ?? -1
     }
 
     func removecompressparameter(index: Int, delete: Bool) {
-        guard self.configurations != nil else { return }
-        guard index < self.configurations!.count else { return }
+        guard index < (self.configurations?.count ?? -1) else { return }
         if delete {
-            self.configurations![index].parameter3 = ""
+            self.configurations?[index].parameter3 = ""
         } else {
-            self.configurations![index].parameter3 = "--compress"
+            self.configurations?[index].parameter3 = "--compress"
         }
     }
 
     func removeedeleteparameter(index: Int, delete: Bool) {
-        guard self.configurations != nil else { return }
-        guard index < self.configurations!.count else { return }
+        guard index < (self.configurations?.count ?? -1) else { return }
         if delete {
-            self.configurations![index].parameter4 = ""
+            self.configurations?[index].parameter4 = ""
         } else {
-            self.configurations![index].parameter4 = "--delete"
+            self.configurations?[index].parameter4 = "--delete"
         }
     }
 
     func removeesshparameter(index: Int, delete: Bool) {
-        guard self.configurations != nil else { return }
-        guard index < self.configurations!.count else { return }
+        guard index < (self.configurations?.count ?? -1) else { return }
         if delete {
-            self.configurations![index].parameter5 = ""
+            self.configurations?[index].parameter5 = ""
         } else {
-            self.configurations![index].parameter5 = "-e"
+            self.configurations?[index].parameter5 = "-e"
         }
     }
 
@@ -301,14 +296,14 @@ class Configurations: ReloadTable, SetSchedules {
             "localcatalog": append.urlpath!,
             "SecurityScoped": append.success,
         ]
-        self.SequrityScopedURLs!.append(dict)
+        self.SequrityScopedURLs?.append(dict)
         if config.offsiteServer.isEmpty == true {
             let append = AppendSequrityscopedURLs(path: config.offsiteCatalog)
             let dict: NSMutableDictionary = [
                 "localcatalog": append.urlpath!,
                 "SecurityScoped": append.success,
             ]
-            self.SequrityScopedURLs!.append(dict)
+            self.SequrityScopedURLs?.append(dict)
         }
     }
 
