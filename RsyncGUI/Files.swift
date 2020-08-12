@@ -67,38 +67,6 @@ extension Errormessage {
 }
 
 class Files: NamesandPaths, Fileerrors {
-    /*
-     private func setrootpath() {
-         switch self.whichroot! {
-         case .profileRoot:
-             let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as NSArray
-             let docuDir = (paths.firstObject as? String)!
-             if ViewControllerReference.shared.macserialnumber == nil {
-                 ViewControllerReference.shared.macserialnumber = Macserialnumber().getMacSerialNumber() ?? ""
-             }
-             let profilePath = docuDir + self.configpath! + (ViewControllerReference.shared.macserialnumber ?? "")
-             self.rootpath = profilePath
-         case .sshRoot:
-             // Check if a global ssh keypath and identityfile is set
-             // Set full path if not ssh-keygen will fail
-             // The sshkeypath + identityfile must be prefixed with "~" used in rsync parameters
-             // only full path when ssh-keygen is used
-             if ViewControllerReference.shared.sshkeypathandidentityfile == nil {
-                 self.rootpath = self.userHomeDirectoryPath + "/.ssh"
-                 self.identityfile = "id_rsa"
-             } else {
-                 // global sshkeypath and identityfile is set
-                 if let sshkeypathandidentityfile = ViewControllerReference.shared.sshkeypathandidentityfile {
-                     let sshkeypath = Keypathidentityfile(sshkeypathandidentityfile: sshkeypathandidentityfile)
-                     self.identityfile = sshkeypath.identityfile
-                     self.rootpath = sshkeypath.rootpath
-                 }
-             }
-         case .sandboxedRoot:
-             self.sandboxedrootpath = NSHomeDirectory()
-         }
-     }
-     */
     // Function for returning files in path as array of URLs
     func getcatalogsasURLnames() -> [URL]? {
         if let atpath = self.rootpath {
