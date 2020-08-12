@@ -5,7 +5,7 @@
 //  Created by Thomas Evensen on 13/02/16.
 //  Copyright © 2016 Thomas Evensen. All rights reserved.
 //
-//  swiftlint:disable line_length trailing_comma
+//  swiftlint:disable trailing_comma
 
 import Cocoa
 import Foundation
@@ -13,7 +13,6 @@ import Foundation
 enum Typebackup {
     case synchronize
     case syncremote
-    case singlefile
 }
 
 class ViewControllerNewConfigurations: NSViewController, SetConfigurations, Delay, Index, VcMain, Checkforrsync, Help {
@@ -30,15 +29,12 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, Dela
     var index: Int?
     // Reference to rsync parameters to use in combox
     var comboBoxValues = [ViewControllerReference.shared.synchronize,
-                          ViewControllerReference.shared.syncremote,
-                          "single file"]
+                          ViewControllerReference.shared.syncremote]
     var backuptypeselected: Typebackup = .synchronize
-    var remote: RemoteCapacity?
     var editlocalcatalog: Bool = true
     var diddissappear: Bool = false
 
     @IBOutlet var addtable: NSTableView!
-    @IBOutlet var remotecapacitytable: NSTableView!
     @IBOutlet var viewParameter1: NSTextField!
     @IBOutlet var viewParameter2: NSTextField!
     @IBOutlet var viewParameter3: NSTextField!
@@ -50,9 +46,7 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, Dela
     @IBOutlet var offsiteServer: NSTextField!
     @IBOutlet var backupID: NSTextField!
     @IBOutlet var profilInfo: NSTextField!
-    @IBOutlet var copyconfigbutton: NSButton!
     @IBOutlet var backuptype: NSComboBox!
-    @IBOutlet var remotecapacitybutton: NSButton!
     @IBOutlet var useGUIbutton: NSButton!
     @IBOutlet var stringlocalcatalog: NSTextField!
     @IBOutlet var stringremotecatalog: NSTextField!
@@ -102,27 +96,6 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, Dela
         }
     }
 
-    @IBAction func remotecapacity(_: NSButton) {
-        guard self.configurations?.getConfigurationsDataSource() != nil else { return }
-        guard (self.configurations?.getConfigurations().count ?? -1) > 0 else { return }
-        self.remotecapacitybutton.isEnabled = false
-        self.remote = RemoteCapacity(object: self)
-    }
-
-    @IBAction func copyconfiguration(_: NSButton) {
-        guard self.index != nil else { return }
-        let hiddenID = self.configurations!.gethiddenID(index: self.index!)
-        self.localCatalog.stringValue = self.configurations!.getResourceConfiguration(hiddenID: hiddenID, resource: .localCatalog)
-        self.offsiteCatalog.stringValue = self.configurations!.getResourceConfiguration(hiddenID: hiddenID, resource: .offsiteCatalog)
-        self.offsiteUsername.stringValue = self.configurations!.getResourceConfiguration(hiddenID: hiddenID, resource: .offsiteusername)
-        self.backupID.stringValue = "copy of " + self.configurations!.getResourceConfiguration(hiddenID: hiddenID, resource: .backupid)
-        if self.configurations!.getResourceConfiguration(hiddenID: hiddenID, resource: .offsiteServer) != "localhost" {
-            self.offsiteServer.stringValue = self.configurations!.getResourceConfiguration(hiddenID: hiddenID, resource: .offsiteServer)
-        } else {
-            self.offsiteServer.stringValue = ""
-        }
-    }
-
     @IBAction func cleartable(_: NSButton) {
         self.newconfigurations = nil
         self.newconfigurations = NewConfigurations()
@@ -149,8 +122,6 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, Dela
             self.backuptypeselected = .synchronize
         case 1:
             self.backuptypeselected = .syncremote
-        case 2:
-            self.backuptypeselected = .singlefile
         default:
             self.backuptypeselected = .synchronize
         }
@@ -162,8 +133,6 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, Dela
         self.newconfigurations = NewConfigurations()
         self.addtable.delegate = self
         self.addtable.dataSource = self
-        self.remotecapacitytable.delegate = self
-        self.remotecapacitytable.dataSource = self
         self.localCatalog.delegate = self
         self.offsiteCatalog.delegate = self
         self.localCatalog.toolTip = "By using Finder drag and drop filepaths."
@@ -179,11 +148,6 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, Dela
         self.useGUIbutton.state = .off
         self.editlocalcatalog = true
         self.index = self.index()
-        if self.index != nil {
-            self.copyconfigbutton.isEnabled = true
-        } else {
-            self.copyconfigbutton.isEnabled = false
-        }
         guard self.diddissappear == false else { return }
         self.viewParameter1.stringValue = self.archive
         self.viewParameter2.stringValue = self.verbose
@@ -228,21 +192,18 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, Dela
             "parameter6": self.ssh,
             "dryrun": self.dryrun,
             "dateRun": "",
-            "singleFile": 0,
         ]
-        if !self.localCatalog.stringValue.hasSuffix("/"), self.backuptypeselected != .singlefile {
+        if self.localCatalog.stringValue.hasSuffix("/") == false {
             self.localCatalog.stringValue += "/"
             dict.setValue(self.localCatalog.stringValue, forKey: "localCatalog")
         }
-        if !self.offsiteCatalog.stringValue.hasSuffix("/") {
+        if self.offsiteCatalog.stringValue.hasSuffix("/") == false {
             self.offsiteCatalog.stringValue += "/"
             dict.setValue(self.offsiteCatalog.stringValue, forKey: "offsiteCatalog")
         }
         if self.backuptypeselected == .syncremote {
             guard self.offsiteServer.stringValue.isEmpty == false else { return }
             dict.setValue(ViewControllerReference.shared.syncremote, forKey: "task")
-        } else if self.backuptypeselected == .singlefile {
-            dict.setValue(1, forKey: "singleFile")
         }
         guard Validatenewconfigs(dict: dict).validated == true else { return }
         self.configurations!.addNewConfigurations(dict: dict)
@@ -256,30 +217,18 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, Dela
 }
 
 extension ViewControllerNewConfigurations: NSTableViewDataSource {
-    func numberOfRows(in tableView: NSTableView) -> Int {
-        if tableView == self.addtable {
-            return self.newconfigurations?.newConfigurationsCount() ?? 0
-        } else {
-            return self.remote?.remotecapacity?.count ?? 0
-        }
+    func numberOfRows(in _: NSTableView) -> Int {
+        return self.newconfigurations?.newConfigurationsCount() ?? 0
     }
 }
 
 extension ViewControllerNewConfigurations: NSTableViewDelegate {
-    func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
-        if tableView == self.addtable {
-            guard self.newconfigurations?.getnewConfigurations() != nil else { return nil }
-            let object: NSMutableDictionary = self.newconfigurations!.getnewConfigurations()![row]
+    func tableView(_: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
+        if let object: NSMutableDictionary = self.newconfigurations?.getnewConfigurations()![row] {
             return object[tableColumn!.identifier] as? String
         } else {
-            guard self.remote?.remotecapacity != nil else { return nil }
-            let object: NSMutableDictionary = self.remote!.remotecapacity![row]
-            return object[tableColumn!.identifier] as? String
+            return nil
         }
-    }
-
-    func tableView(_: NSTableView, setObjectValue object: Any?, for tableColumn: NSTableColumn?, row: Int) {
-        self.tabledata![row].setObject(object!, forKey: (tableColumn?.identifier)! as NSCopying)
     }
 }
 
@@ -295,20 +244,6 @@ extension ViewControllerNewConfigurations: SetProfileinfo {
             self.profilInfo.stringValue = profile
             self.profilInfo.textColor = color
         }
-    }
-}
-
-extension ViewControllerNewConfigurations: UpdateProgress {
-    func processTermination() {
-        self.remote?.processTermination()
-        self.remotecapacitybutton.isEnabled = self.remote?.enableremotecapacitybutton() ?? false
-        globalMainQueue.async { () -> Void in
-            self.remotecapacitytable.reloadData()
-        }
-    }
-
-    func fileHandler() {
-        //
     }
 }
 

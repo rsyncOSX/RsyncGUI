@@ -23,7 +23,6 @@ class ViewControllerEdit: NSViewController, SetConfigurations, SetDismisser, Ind
     @IBOutlet var stringremotecatalog: NSTextField!
 
     var index: Int?
-    var singleFile: Bool = false
 
     // Close and dismiss view
     @IBAction func close(_: NSButton) {
@@ -32,24 +31,24 @@ class ViewControllerEdit: NSViewController, SetConfigurations, SetDismisser, Ind
 
     // Update configuration, save and dismiss view
     @IBAction func update(_: NSButton) {
-        var config: [Configuration] = self.configurations?.getConfigurations() ?? []
-        guard config.count > 0 else { return }
-        if self.localCatalog.stringValue.hasSuffix("/") == false, self.singleFile == false {
-            self.localCatalog.stringValue += "/"
-        }
-        if let index = self.index() {
-            config[self.index!].localCatalog = self.localCatalog.stringValue
-            if self.offsiteCatalog.stringValue.hasSuffix("/") == false {
-                self.offsiteCatalog.stringValue += "/"
+        if var config: [Configuration] = self.configurations?.getConfigurations() {
+            if self.localCatalog.stringValue.hasSuffix("/") == false {
+                self.localCatalog.stringValue += "/"
             }
-            config[index].offsiteCatalog = self.offsiteCatalog.stringValue
-            config[index].offsiteServer = self.offsiteServer.stringValue
-            config[index].offsiteUsername = self.offsiteUsername.stringValue
-            config[index].backupID = self.backupID.stringValue
-            let dict = ConvertOneConfig(config: config[index]).dict
-            guard Validatenewconfigs(dict: dict, Edit: true).validated == true else { return }
-            self.configurations?.updateConfigurations(config[index], index: index)
-            self.view.window?.close()
+            if let index = self.index() {
+                config[self.index!].localCatalog = self.localCatalog.stringValue
+                if self.offsiteCatalog.stringValue.hasSuffix("/") == false {
+                    self.offsiteCatalog.stringValue += "/"
+                }
+                config[index].offsiteCatalog = self.offsiteCatalog.stringValue
+                config[index].offsiteServer = self.offsiteServer.stringValue
+                config[index].offsiteUsername = self.offsiteUsername.stringValue
+                config[index].backupID = self.backupID.stringValue
+                let dict = ConvertOneConfig(config: config[index]).dict
+                guard Validatenewconfigs(dict: dict, Edit: true).validated == true else { return }
+                self.configurations?.updateConfigurations(config[index], index: index)
+                self.view.window?.close()
+            }
         }
     }
 
@@ -71,11 +70,6 @@ class ViewControllerEdit: NSViewController, SetConfigurations, SetDismisser, Ind
             self.index = index
             if let config: Configuration = self.configurations?.getConfigurations()[index] {
                 self.localCatalog.stringValue = config.localCatalog
-                if self.localCatalog.stringValue.hasSuffix("/") == false {
-                    self.singleFile = true
-                } else {
-                    self.singleFile = false
-                }
                 self.offsiteCatalog.stringValue = config.offsiteCatalog
                 self.offsiteUsername.stringValue = config.offsiteUsername
                 self.offsiteServer.stringValue = config.offsiteServer

@@ -186,7 +186,7 @@ class Configurations: ReloadTable, SetSchedules {
         let number = Numbers(outputprocess: outputprocess)
         let hiddenID = self.gethiddenID(index: index)
         let numbers = number.stats()
-        self.schedules!.addlog(hiddenID, result: numbers)
+        self.schedules!.addlog(hiddenID: hiddenID, result: numbers)
         let currendate = Date()
         let dateformatter = Dateandtime().setDateformat()
         self.configurations![index].dateRun = dateformatter.string(from: currendate)
@@ -221,7 +221,7 @@ class Configurations: ReloadTable, SetSchedules {
         _ = PersistentStorageConfiguration(profile: self.profile).newConfigurations(dict: dict)
     }
 
-    func getResourceConfiguration(hiddenID: Int, resource: ResourceInConfiguration) -> String {
+    func getResourceConfiguration(_ hiddenID: Int, resource: ResourceInConfiguration) -> String {
         let result = self.configurations!.filter { ($0.hiddenID == hiddenID) }
         guard result.count > 0 else { return "" }
         switch resource {
