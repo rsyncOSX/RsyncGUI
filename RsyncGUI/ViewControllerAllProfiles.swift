@@ -43,8 +43,7 @@ class ViewControllerAllProfiles: NSViewController, Delay, Abort {
             self.sortascending = true
             self.sortdirection.image = #imageLiteral(resourceName: "up")
         }
-        guard self.filterby != nil else { return }
-        switch self.filterby! {
+        switch self.filterby ?? .localcatalog {
         case .executedate:
             self.allprofiles?.allconfigurationsasdictionary = self.allprofiles!.sortbydate(notsortedlist: self.allprofiles?.allconfigurationsasdictionary, sortdirection: self.sortascending)
         default:
