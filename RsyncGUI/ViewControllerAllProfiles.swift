@@ -116,23 +116,22 @@ class ViewControllerAllProfiles: NSViewController, Delay, Abort {
 
 extension ViewControllerAllProfiles: NSTableViewDataSource {
     func numberOfRows(in _: NSTableView) -> Int {
-        if self.allprofiles?.allconfigurationsasdictionary == nil {
-            self.numberOfprofiles.stringValue = "Number of configurations:"
-            return 0
-        } else {
-            self.numberOfprofiles.stringValue = "Number of configurations: " +
-                String(self.allprofiles!.allconfigurationsasdictionary?.count ?? 0)
-            return self.allprofiles!.allconfigurationsasdictionary?.count ?? 0
-        }
+        self.numberOfprofiles.stringValue = "Number of configurations: " +
+            String(self.allprofiles?.allconfigurationsasdictionary?.count ?? 0)
+        return self.allprofiles?.allconfigurationsasdictionary?.count ?? 0
     }
 }
 
 extension ViewControllerAllProfiles: NSTableViewDelegate, Attributedestring {
     // TableView delegates
     func tableView(_: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
-        if row > self.allprofiles!.allconfigurationsasdictionary!.count - 1 { return nil }
-        let object: NSDictionary = self.allprofiles!.allconfigurationsasdictionary![row]
-        return object[tableColumn!.identifier] as? String
+        if let tableColumn = tableColumn {
+            if row > (self.allprofiles?.allconfigurationsasdictionary?.count ?? -1) - 1 { return nil }
+            if let object: NSDictionary = self.allprofiles?.allconfigurationsasdictionary?[row] {
+                return object[tableColumn.identifier] as? String
+            }
+        }
+        return nil
     }
 
     // setting which table row is selected
