@@ -293,14 +293,14 @@ class Configurations: ReloadTable, SetSchedules {
     private func appendsequrityscopedurls(config: Configuration) {
         let append = AppendSequrityscopedURLs(path: config.localCatalog)
         let dict: NSMutableDictionary = [
-            "localcatalog": append.urlpath!,
+            "localcatalog": append.urlpath ?? "",
             "SecurityScoped": append.success,
         ]
         self.SequrityScopedURLs?.append(dict)
         if config.offsiteServer.isEmpty == true {
             let append = AppendSequrityscopedURLs(path: config.offsiteCatalog)
             let dict: NSMutableDictionary = [
-                "localcatalog": append.urlpath!,
+                "localcatalog": append.urlpath ?? "",
                 "SecurityScoped": append.success,
             ]
             self.SequrityScopedURLs?.append(dict)
