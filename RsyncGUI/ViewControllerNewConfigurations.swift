@@ -193,6 +193,7 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, Dela
             "dryrun": self.dryrun,
             "dateRun": "",
         ]
+        guard Validatenewconfigs(dict: dict).validated == true else { return }
         if self.localCatalog.stringValue.hasSuffix("/") == false {
             self.localCatalog.stringValue += "/"
             dict.setValue(self.localCatalog.stringValue, forKey: "localCatalog")
@@ -205,10 +206,9 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, Dela
             guard self.offsiteServer.stringValue.isEmpty == false else { return }
             dict.setValue(ViewControllerReference.shared.syncremote, forKey: "task")
         }
-        guard Validatenewconfigs(dict: dict).validated == true else { return }
-        self.configurations!.addNewConfigurations(dict: dict)
+        self.configurations?.addNewConfigurations(dict: dict)
         self.newconfigurations?.appendnewConfigurations(dict: dict)
-        self.tabledata = self.newconfigurations!.getnewConfigurations()
+        self.tabledata = self.newconfigurations?.getnewConfigurations()
         globalMainQueue.async { () -> Void in
             self.addtable.reloadData()
         }
