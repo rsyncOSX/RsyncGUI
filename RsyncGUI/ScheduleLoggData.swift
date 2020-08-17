@@ -42,15 +42,15 @@ final class ScheduleLoggData: SetConfigurations, SetSchedules, Sorting {
         if let input: [ConfigurationSchedule] = self.schedules?.getSchedule() {
             for i in 0 ..< input.count {
                 for j in 0 ..< input[i].logrecords.count {
-                    if let hiddenID = self.schedules?.getSchedule()[i].hiddenID {
+                    if let hiddenID = self.schedules?.getSchedule()?[i].hiddenID {
                         let dict = input[i].logrecords[j]
                         let date = dict.value(forKey: "dateExecuted") as? String ?? ""
                         let logdetail: NSMutableDictionary = [
-                            "localCatalog": self.configurations!.getResourceConfiguration(hiddenID, resource: .localCatalog),
-                            "offsiteCatalog": self.configurations!.getResourceConfiguration(hiddenID, resource: .offsiteCatalog),
-                            "offsiteServer": self.configurations!.getResourceConfiguration(hiddenID, resource: .offsiteServer),
-                            "task": self.configurations!.getResourceConfiguration(hiddenID, resource: .task),
-                            "backupID": self.configurations!.getResourceConfiguration(hiddenID, resource: .backupid),
+                            "localCatalog": self.configurations?.getResourceConfiguration(hiddenID, resource: .localCatalog) ?? "",
+                            "offsiteCatalog": self.configurations?.getResourceConfiguration(hiddenID, resource: .offsiteCatalog) ?? "",
+                            "offsiteServer": self.configurations?.getResourceConfiguration(hiddenID, resource: .offsiteServer) ?? "",
+                            "task": self.configurations?.getResourceConfiguration(hiddenID, resource: .task) ?? "",
+                            "backupID": self.configurations?.getResourceConfiguration(hiddenID, resource: .backupid) ?? "",
                             "dateExecuted": date,
                             "resultExecuted": dict.value(forKey: "resultExecuted") as? String ?? "",
                             "deleteCellID": dict.value(forKey: "deleteCellID") as? Int ?? 0,

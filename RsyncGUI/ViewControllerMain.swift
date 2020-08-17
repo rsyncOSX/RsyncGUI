@@ -178,11 +178,12 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
             self.info.stringValue = Infoexecute().info(num: 1)
             return
         }
-        let task = self.configurations!.getConfigurations()[self.index!].task
-        guard ViewControllerReference.shared.synctasks.contains(task) else {
-            return
+        if let index = self.index {
+            if let task = self.configurations?.getConfigurations()[index].task {
+                guard ViewControllerReference.shared.synctasks.contains(task) else { return }
+                self.executetasknow = ExecuteTaskNow(index: index)
+            }
         }
-        self.executetasknow = ExecuteTaskNow(index: self.index!)
     }
 
     @IBAction func showHelp(_: AnyObject?) {
