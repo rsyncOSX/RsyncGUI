@@ -13,7 +13,8 @@ public struct Alerts {
         let alert = NSAlert()
         alert.messageText = info
         alert.alertStyle = NSAlert.Style.warning
-        alert.addButton(withTitle: "Close")
+        let close: String = "Close"
+        alert.addButton(withTitle: close)
         alert.runModal()
     }
 
@@ -23,7 +24,8 @@ public struct Alerts {
         myPopup.informativeText = text
         myPopup.alertStyle = NSAlert.Style.warning
         myPopup.addButton(withTitle: dialog)
-        myPopup.addButton(withTitle: "Cancel")
+        let cancel: String = "Cancel"
+        myPopup.addButton(withTitle: cancel)
         let res = myPopup.runModal()
         if res == NSApplication.ModalResponse.alertFirstButtonReturn {
             return true
