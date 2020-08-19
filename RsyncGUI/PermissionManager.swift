@@ -37,7 +37,7 @@ public class PermissionManager {
         var securityScopedURL: URL?
         let closure: () -> Void = {
             NSApplication.shared.activate(ignoringOtherApps: true)
-            if openPanel.runModal().rawValue == NSFileHandlingPanelOKButton {
+            if openPanel.runModal().rawValue == NSApplication.ModalResponse.OK.rawValue {
                 securityScopedURL = openPanel.url as URL?
             }
             openPanel.delegate = nil

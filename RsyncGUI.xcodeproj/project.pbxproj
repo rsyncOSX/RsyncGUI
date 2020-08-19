@@ -1163,7 +1163,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MARKETING_VERSION = 2.1.9;
 				PRODUCT_BUNDLE_IDENTIFIER = no.blogspot.rsyncgui;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1191,7 +1191,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MARKETING_VERSION = 2.1.9;
 				PRODUCT_BUNDLE_IDENTIFIER = no.blogspot.rsyncgui;
 				PRODUCT_NAME = "$(TARGET_NAME)";
