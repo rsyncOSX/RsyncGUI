@@ -72,9 +72,9 @@ class ViewControllerLoggData: NSViewController, SetConfigurations, SetSchedules,
         guard self.filterby != nil else { return }
         switch self.filterby! {
         case .executedate:
-            self.scheduleloggdata?.loggdata = self.scheduleloggdata!.sortbydate(notsortedlist: self.scheduleloggdata?.loggdata, sortdirection: self.sortedascending)
+            self.scheduleloggdata?.loggdata = self.scheduleloggdata?.sortbydate(notsortedlist: self.scheduleloggdata?.loggdata, sortdirection: self.sortedascending)
         default:
-            self.scheduleloggdata?.loggdata = self.scheduleloggdata!.sortbystring(notsortedlist: self.scheduleloggdata?.loggdata, sortby: self.filterby!, sortdirection: self.sortedascending)
+            self.scheduleloggdata?.loggdata = self.scheduleloggdata?.sortbystring(notsortedlist: self.scheduleloggdata?.loggdata, sortby: self.filterby!, sortdirection: self.sortedascending)
         }
         globalMainQueue.async { () -> Void in
             self.scheduletable.reloadData()
@@ -82,12 +82,12 @@ class ViewControllerLoggData: NSViewController, SetConfigurations, SetSchedules,
     }
 
     @IBAction func selectlogs(_: NSButton) {
-        guard self.scheduleloggdata!.loggdata != nil else { return }
-        for i in 0 ..< self.scheduleloggdata!.loggdata!.count {
-            if self.scheduleloggdata!.loggdata![i].value(forKey: "deleteCellID") as? Int == 1 {
-                self.scheduleloggdata!.loggdata![i].setValue(0, forKey: "deleteCellID")
+        guard self.scheduleloggdata?.loggdata != nil else { return }
+        for i in 0 ..< (self.scheduleloggdata?.loggdata?.count ?? 0) {
+            if self.scheduleloggdata?.loggdata?[i].value(forKey: "deleteCellID") as? Int == 1 {
+                self.scheduleloggdata?.loggdata?[i].setValue(0, forKey: "deleteCellID")
             } else {
-                self.scheduleloggdata!.loggdata![i].setValue(1, forKey: "deleteCellID")
+                self.scheduleloggdata?.loggdata?[i].setValue(1, forKey: "deleteCellID")
             }
         }
         globalMainQueue.async { () -> Void in
@@ -105,8 +105,11 @@ class ViewControllerLoggData: NSViewController, SetConfigurations, SetSchedules,
     }
 
     private func selectednumber() -> String {
-        let number = self.scheduleloggdata!.loggdata!.filter { ($0.value(forKey: "deleteCellID") as? Int)! == 1 }.count
-        return String(number)
+       if let number = self.scheduleloggdata?.loggdata?.filter({ ($0.value(forKey: "deleteCellID") as? Int) == 1 }).count {
+            return String(number)
+        } else {
+            return "0"
+        }
     }
 
     override func viewDidLoad() {
