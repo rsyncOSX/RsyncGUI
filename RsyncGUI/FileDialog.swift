@@ -39,7 +39,7 @@ final class FileDialog {
             }
         } else {
             openPanel.begin(completionHandler: { response in
-                if response.rawValue == NSFileHandlingPanelOKButton {
+                if response.rawValue == NSApplication.ModalResponse.OK.rawValue {
                     self.urlpath = openPanel.url
                     self.saveSequrityScopedURL()
                 }
