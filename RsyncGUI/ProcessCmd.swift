@@ -84,17 +84,13 @@ class ProcessCmd: Delay {
         }
         ViewControllerReference.shared.process = task
         self.profilepopupDelegate?.disableselectpopupprofile()
-        if #available(OSX 10.13, *) {
-            do {
-                try task.run()
-            } catch let e {
-                let error = e as NSError
-                let outputprocess = OutputProcess()
-                outputprocess.addlinefromoutput(str: error.description)
-                _ = Logging(outputprocess, true)
-            }
-        } else {
-            task.launch()
+        do {
+            try task.run()
+        } catch let e {
+            let error = e as NSError
+            let outputprocess = OutputProcess()
+            outputprocess.addlinefromoutput(str: error.description)
+            _ = Logging(outputprocess, true)
         }
     }
 
