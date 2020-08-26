@@ -170,7 +170,7 @@ extension ViewControllerLoggData: NSSearchFieldDelegate {
             if filterstring.isEmpty {
                 self.reloadtabledata()
             } else {
-                self.scheduleloggdata!.myownfilter(search: filterstring, filterby: self.filterby)
+                self.scheduleloggdata?.filter(search: filterstring, filterby: self.filterby)
                 globalMainQueue.async { () -> Void in
                     self.scheduletable.reloadData()
                 }
@@ -192,23 +192,29 @@ extension ViewControllerLoggData: NSTableViewDataSource {
             self.selectedrows.stringValue = "Selected logs: 0"
             return 0
         } else {
-            self.numberOflogfiles.stringValue = "Number of logs: " + String(self.scheduleloggdata!.loggdata?.count ?? 0)
+            self.numberOflogfiles.stringValue = "Number of logs: " + String(self.scheduleloggdata?.loggdata?.count ?? 0)
             self.selectedrows.stringValue = "Selected logs: " + self.selectednumber()
-            return self.scheduleloggdata!.loggdata?.count ?? 0
+            return self.scheduleloggdata?.loggdata?.count ?? 0
         }
     }
 }
 
 extension ViewControllerLoggData: NSTableViewDelegate {
     func tableView(_: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
-        guard self.scheduleloggdata != nil else { return nil }
-        guard row < self.scheduleloggdata!.loggdata!.count else { return nil }
-        let object: NSDictionary = self.scheduleloggdata!.loggdata![row]
-        if tableColumn!.identifier.rawValue == "deleteCellID" {
-            return object[tableColumn!.identifier] as? Int
-        } else {
-            return object[tableColumn!.identifier] as? String
+        if let tableColumn = tableColumn {
+            guard row < self.scheduleloggdata?.loggdata?.count ?? -1 else { return nil }
+            if let object: NSDictionary = self.scheduleloggdata?.loggdata?[row] {
+                if tableColumn.identifier.rawValue == "deleteCellID" ||
+                    tableColumn.identifier.rawValue == "snapCellID"
+                {
+                    return object[tableColumn.identifier] as? Int
+                } else {
+                    return object[tableColumn.identifier] as? String
+                }
+            }
+            return nil
         }
+        return nil
     }
 
     // setting which table row is selected
@@ -217,7 +223,6 @@ extension ViewControllerLoggData: NSTableViewDelegate {
         let indexes = myTableViewFromNotification.selectedRowIndexes
         if let index = indexes.first {
             self.index = index
-            self.row = self.scheduleloggdata?.loggdata![self.index!]
         }
         let column = myTableViewFromNotification.selectedColumn
         var sortbystring = true
@@ -239,9 +244,9 @@ extension ViewControllerLoggData: NSTableViewDelegate {
             return
         }
         if sortbystring {
-            self.scheduleloggdata?.loggdata = self.scheduleloggdata!.sortbystring(notsortedlist: self.scheduleloggdata?.loggdata, sortby: self.filterby!, sortdirection: self.sortedascending)
+            self.scheduleloggdata?.loggdata = self.scheduleloggdata?.sortbystring(notsortedlist: self.scheduleloggdata?.loggdata, sortby: self.filterby, sortdirection: self.sortedascending)
         } else {
-            self.scheduleloggdata?.loggdata = self.scheduleloggdata!.sortbydate(notsortedlist: self.scheduleloggdata?.loggdata, sortdirection: self.sortedascending)
+            self.scheduleloggdata?.loggdata = self.scheduleloggdata?.sortbydate(notsortedlist: self.scheduleloggdata?.loggdata, sortdirection: self.sortedascending)
         }
         globalMainQueue.async { () -> Void in
             self.scheduletable.reloadData()
@@ -249,17 +254,19 @@ extension ViewControllerLoggData: NSTableViewDelegate {
     }
 
     func tableView(_: NSTableView, setObjectValue _: Any?, for tableColumn: NSTableColumn?, row: Int) {
-        if tableColumn!.identifier.rawValue == "deleteCellID" {
-            var delete: Int = (self.scheduleloggdata?.loggdata![row].value(forKey: "deleteCellID") as? Int)!
-            if delete == 0 { delete = 1 } else if delete == 1 { delete = 0 }
-            switch tableColumn!.identifier.rawValue {
-            case "deleteCellID":
-                self.scheduleloggdata?.loggdata![row].setValue(delete, forKey: "deleteCellID")
-            default:
-                break
-            }
-            globalMainQueue.async { () -> Void in
-                self.selectedrows.stringValue = "Selected rows: " + self.selectednumber()
+        if let tableColumn = tableColumn {
+            if tableColumn.identifier.rawValue == "deleteCellID" {
+                var delete: Int = (self.scheduleloggdata?.loggdata![row].value(forKey: "deleteCellID") as? Int)!
+                if delete == 0 { delete = 1 } else if delete == 1 { delete = 0 }
+                switch tableColumn.identifier.rawValue {
+                case "deleteCellID":
+                    self.scheduleloggdata?.loggdata?[row].setValue(delete, forKey: "deleteCellID")
+                default:
+                    break
+                }
+                globalMainQueue.async { () -> Void in
+                    self.selectedrows.stringValue = NSLocalizedString("Selected logs:", comment: "Logg") + " " + self.selectednumber()
+                }
             }
         }
     }
@@ -301,6 +308,12 @@ extension ViewControllerLoggData: OpenQuickBackup {
     }
 }
 
+extension ViewControllerLoggData: DismissViewController {
+    func dismiss_view(viewcontroller: NSViewController) {
+        self.dismiss(viewcontroller)
+    }
+}
+
 extension ViewControllerLoggData: NewProfile {
     func newprofile(profile _: String?, selectedindex _: Int?) {
         self.reloadtabledata()
@@ -308,11 +321,5 @@ extension ViewControllerLoggData: NewProfile {
 
     func reloadprofilepopupbutton() {
         //
-    }
-}
-
-extension ViewControllerLoggData: DismissViewController {
-    func dismiss_view(viewcontroller: NSViewController) {
-        self.dismiss(viewcontroller)
     }
 }

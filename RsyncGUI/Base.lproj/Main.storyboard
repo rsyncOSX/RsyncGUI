@@ -1209,7 +1209,7 @@
                                                     </textFieldCell>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                 </tableColumn>
-                                                <tableColumn identifier="offsiteCatalog" width="152.5" minWidth="10" maxWidth="3.4028234663852886e+38" id="06G-g8-Hcd" userLabel="remoteCatalog">
+                                                <tableColumn identifier="remoteCatalog" width="152.5" minWidth="10" maxWidth="3.4028234663852886e+38" id="06G-g8-Hcd" userLabel="remoteCatalog">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Remote catalog">
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

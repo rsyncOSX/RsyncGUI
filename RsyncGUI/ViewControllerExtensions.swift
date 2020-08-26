@@ -288,47 +288,50 @@ protocol Reloadsortedandrefresh {
 // Protocol for sorting
 protocol Sorting {
     func sortbydate(notsortedlist: [NSMutableDictionary]?, sortdirection: Bool) -> [NSMutableDictionary]?
-    func sortbystring(notsortedlist: [NSMutableDictionary]?, sortby: Sortandfilter, sortdirection: Bool) -> [NSMutableDictionary]?
+    func sortbystring(notsortedlist: [NSMutableDictionary]?, sortby: Sortandfilter?, sortdirection: Bool) -> [NSMutableDictionary]?
 }
 
 extension Sorting {
     func sortbydate(notsortedlist: [NSMutableDictionary]?, sortdirection: Bool) -> [NSMutableDictionary]? {
         let dateformatter = Dateandtime().setDateformat()
         let sorted = notsortedlist?.sorted { (dict1, dict2) -> Bool in
-            let date1localized = dateformatter.date(from: (dict1.value(forKey: "dateExecuted") as? String) ?? "")
-            if let date2localized = dateformatter.date(from: (dict2.value(forKey: "dateExecuted") as? String) ?? "") {
-                if date1localized?.timeIntervalSince(date2localized) ?? -1 > 0 {
-                    return sortdirection
+            if let date1localized = dateformatter.date(from: (dict1.value(forKey: "dateExecuted") as? String) ?? "") {
+                if let date2localized = dateformatter.date(from: (dict2.value(forKey: "dateExecuted") as? String) ?? "") {
+                    if date1localized.timeIntervalSince(date2localized) > 0 {
+                        return sortdirection
+                    } else {
+                        return !sortdirection
+                    }
                 } else {
                     return !sortdirection
                 }
-            } else {
-                return !sortdirection
             }
+            return false
         }
         return sorted
     }
 
-    func sortbystring(notsortedlist: [NSMutableDictionary]?, sortby: Sortandfilter, sortdirection: Bool) -> [NSMutableDictionary]? {
+    func sortbystring(notsortedlist: [NSMutableDictionary]?, sortby: Sortandfilter?, sortdirection: Bool) -> [NSMutableDictionary]? {
         let sortstring = self.filterbystring(filterby: sortby)
         let sorted = notsortedlist?.sorted { (dict1, dict2) -> Bool in
-            if (dict1.value(forKey: sortstring) as? String) ?? "" > (dict2.value(forKey: sortstring) as? String) ?? "" {
-                return sortdirection
-            } else {
-                return !sortdirection
+            if let dict1 = dict1.value(forKey: sortstring) as? String,
+                let dict2 = dict2.value(forKey: sortstring) as? String
+            {
+                if dict1 > dict2 { return sortdirection } else { return !sortdirection }
             }
+            return false
         }
         return sorted
     }
 
-    func filterbystring(filterby: Sortandfilter) -> String {
-        switch filterby {
+    func filterbystring(filterby: Sortandfilter?) -> String {
+        switch filterby ?? .none {
         case .localcatalog:
             return "localCatalog"
         case .profile:
             return "profile"
         case .offsitecatalog:
-            return "offsiteCatalog"
+            return "remoteCatalog"
         case .offsiteserver:
             return "offsiteServer"
         case .task:
@@ -339,6 +342,8 @@ extension Sorting {
             return "daysID"
         case .executedate:
             return "dateExecuted"
+        default:
+            return ""
         }
     }
 }
