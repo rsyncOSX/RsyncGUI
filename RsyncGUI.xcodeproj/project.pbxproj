@@ -58,7 +58,7 @@
 		E91B6E8A1FFA17B800A2231A /* ViewControllerRemoteInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91B6E891FFA17B800A2231A /* ViewControllerRemoteInfo.swift */; };
 		E9230C0E1E6DDC57001D9954 /* RsyncParametersSingleFilesArguments.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9230C0D1E6DDC57001D9954 /* RsyncParametersSingleFilesArguments.swift */; };
 		E9231AFB1F6E3D270055000C /* NewConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9231AFA1F6E3D260055000C /* NewConfigurations.swift */; };
-		E9234FFB1EB068AE00A4C550 /* Files.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9234FFA1EB068AE00A4C550 /* Files.swift */; };
+		E9234FFB1EB068AE00A4C550 /* Catalogsandfiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9234FFA1EB068AE00A4C550 /* Catalogsandfiles.swift */; };
 		E92755A221304F0000B1F781 /* Macserialnumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92755A121304F0000B1F781 /* Macserialnumber.swift */; };
 		E92755A42130506000B1F781 /* Dateandtime.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92755A32130506000B1F781 /* Dateandtime.swift */; };
 		E92755A62130539400B1F781 /* Dispatchqueues.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92755A52130539400B1F781 /* Dispatchqueues.swift */; };
@@ -201,7 +201,7 @@
 		E91B6E891FFA17B800A2231A /* ViewControllerRemoteInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerRemoteInfo.swift; sourceTree = "<group>"; };
 		E9230C0D1E6DDC57001D9954 /* RsyncParametersSingleFilesArguments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RsyncParametersSingleFilesArguments.swift; sourceTree = "<group>"; };
 		E9231AFA1F6E3D260055000C /* NewConfigurations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConfigurations.swift; sourceTree = "<group>"; };
-		E9234FFA1EB068AE00A4C550 /* Files.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Files.swift; sourceTree = "<group>"; };
+		E9234FFA1EB068AE00A4C550 /* Catalogsandfiles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Catalogsandfiles.swift; sourceTree = "<group>"; };
 		E92755A121304F0000B1F781 /* Macserialnumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Macserialnumber.swift; sourceTree = "<group>"; };
 		E92755A32130506000B1F781 /* Dateandtime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dateandtime.swift; sourceTree = "<group>"; };
 		E92755A52130539400B1F781 /* Dispatchqueues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dispatchqueues.swift; sourceTree = "<group>"; };
@@ -376,7 +376,7 @@
 				E96C78412222775F00AF81E1 /* ReadWriteDictionary.swift */,
 				E98D6C2E21DFAF9400F4BB67 /* FileDialog.swift */,
 				A0762A1E1DB4A8F000538CE9 /* CatalogProfile.swift */,
-				E9234FFA1EB068AE00A4C550 /* Files.swift */,
+				E9234FFA1EB068AE00A4C550 /* Catalogsandfiles.swift */,
 				E9005013248FA06E00FAD2BC /* Keypathidentityfile.swift */,
 				E8B668C624D191C000117833 /* NamesandPaths.swift */,
 			);
@@ -936,7 +936,7 @@
 				E9847D6F246DC524007CDEC2 /* OutputProcessRsync.swift in Sources */,
 				E945D61420B736E9000E787B /* ViewControllerInformationLocalRemote.swift in Sources */,
 				E9FFA02F1E728C6E00B7AB2B /* Rsync.swift in Sources */,
-				E9234FFB1EB068AE00A4C550 /* Files.swift in Sources */,
+				E9234FFB1EB068AE00A4C550 /* Catalogsandfiles.swift in Sources */,
 				E9B9CCA621BC46B00042D5CE /* extensionDate.swift in Sources */,
 				E9284CF621308AE9006648C1 /* extensionsConfigurations.swift in Sources */,
 				A0FC45641D9545CC005208EF /* ScheduleLoggData.swift in Sources */,
