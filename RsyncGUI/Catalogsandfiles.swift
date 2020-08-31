@@ -156,11 +156,16 @@ class Catalogsandfiles: NamesandPaths, FileErrors {
     // If ssh catalog exists - bail out, no need
     // to create
     func createsshkeyrootpath() {
+        var root: Folder?
         if let path = self.onlysshkeypath {
-            let root = Folder.home
-            guard root.containsSubfolder(named: path) == false else { return }
+            if let home = self.userHomeDirectoryPath {
+                do {
+                    root = try Folder(path: home)
+                } catch {}
+            }
+            guard root?.containsSubfolder(named: path) == false else { return }
             do {
-                try root.createSubfolder(at: path)
+                try root?.createSubfolder(at: path)
             } catch {}
         }
     }
