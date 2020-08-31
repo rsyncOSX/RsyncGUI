@@ -53,16 +53,18 @@ class NamesandPaths {
         return (paths.firstObject as? String)
     }
 
-    var sandboxedrootpath: String? {
-        return NSHomeDirectory()
-    }
-
     // Path to ssh keypath
     var fullsshkeypath: String? {
         if let sshkeypathandidentityfile = ViewControllerReference.shared.sshkeypathandidentityfile {
             return Keypathidentityfile(sshkeypathandidentityfile: sshkeypathandidentityfile).fullsshkeypath
         } else {
-            return NSHomeDirectory() + "/.ssh"
+            let pw = getpwuid(getuid())
+            if let home = pw?.pointee.pw_dir {
+                let homePath = FileManager.default.string(withFileSystemRepresentation: home, length: Int(strlen(home)))
+                return homePath + "/.ssh"
+            } else {
+                return nil
+            }
         }
     }
 
@@ -70,7 +72,13 @@ class NamesandPaths {
         if let sshkeypathandidentityfile = ViewControllerReference.shared.sshkeypathandidentityfile {
             return Keypathidentityfile(sshkeypathandidentityfile: sshkeypathandidentityfile).onlysshkeypath
         } else {
-            return NSHomeDirectory()
+            let pw = getpwuid(getuid())
+            if let home = pw?.pointee.pw_dir {
+                let homePath = FileManager.default.string(withFileSystemRepresentation: home, length: Int(strlen(home)))
+                return homePath
+            } else {
+                return nil
+            }
         }
     }
 
@@ -115,7 +123,7 @@ class NamesandPaths {
             self.fullroot = self.fullsshkeypath
             self.identityfile = self.sshidentityfile
         case .sandboxroot:
-            self.fullroot = self.sandboxedrootpath
+            self.fullroot = self.userHomeDirectoryPath
         default:
             return
         }

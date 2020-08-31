@@ -5,7 +5,7 @@
 //  Created by Thomas Evensen on 06/07/2019.
 //  Copyright © 2019 Thomas Evensen. All rights reserved.
 //
-//  swiftlint:disable line_length trailing_comma
+//  swiftlint:disable  trailing_comma
 
 import Foundation
 
@@ -13,7 +13,7 @@ struct RootcatalogSequrityscopedURLs {
     var dictionary: NSMutableDictionary?
 
     init(suffix: String?) {
-        let rootcatalog = Catalogsandfiles(profileorsshrootpath: .sandboxroot).fullroot ?? ""
+        let rootcatalog = NamesandPaths(profileorsshrootpath: .sandboxroot).fullroot ?? ""
         let append = AppendSequrityscopedURLs(path: rootcatalog + (suffix ?? ""))
         self.dictionary = [
             "rootcatalog": append.urlpath!,
