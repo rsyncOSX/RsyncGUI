@@ -17,7 +17,7 @@ public class PermissionManager {
     public let bookmarksManager: BookmarksManager
     public lazy var openPanelDelegate: OpenPanelDelegateType = OpenPanelDelegate()
     public lazy var openPanel: NSOpenPanel = OpenPanelBuilder().openPanel()
-    public static let defaultManager: PermissionManager = PermissionManager()
+    public static let defaultManager = PermissionManager()
 
     public func needsPermissionForFileAtURL(fileURL: URL) -> Bool {
         let reachable = try? fileURL.checkResourceIsReachable()

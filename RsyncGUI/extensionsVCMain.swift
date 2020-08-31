@@ -347,14 +347,14 @@ extension ViewControllerMain: ViewOutputDetails {
 
 extension ViewControllerMain: ResetSequrityScopedURL {
     func resetsequrityscopedurl() {
-        let permissionManager: PermissionManager = PermissionManager(bookmarksManager: BookmarksManager.defaultManager)
+        let permissionManager = PermissionManager(bookmarksManager: BookmarksManager.defaultManager)
         permissionManager.bookmarksManager.clearSecurityScopedBookmarks()
     }
 }
 
 extension ViewControllerMain: SaveSequrityScopedURL {
     func savesequrityscopedurl(urlpath: URL) {
-        let permissionManager: PermissionManager = PermissionManager(bookmarksManager: BookmarksManager.defaultManager)
+        let permissionManager = PermissionManager(bookmarksManager: BookmarksManager.defaultManager)
         permissionManager.bookmarksManager.saveSecurityScopedBookmarkForFileAtURL(securityScopedFileURL: urlpath)
     }
 }

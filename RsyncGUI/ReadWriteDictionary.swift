@@ -14,28 +14,27 @@ import Cocoa
 import Foundation
 
 class ReadWriteDictionary: NamesandPaths {
-      // Function for reading data from persistent store
-     func readNSDictionaryFromPersistentStore() -> [NSDictionary]? {
-         var data: [NSDictionary]?
-         let dictionary = NSDictionary(contentsOfFile: self.filename ?? "")
-         if let items = dictionary?.object(forKey: self.key ?? "") as? NSArray {
-             data = [NSDictionary]()
-             for i in 0 ..< items.count {
-                 if let item = items[i] as? NSDictionary {
-                     data?.append(item)
-                 }
-             }
-         }
-         return data
-     }
+    // Function for reading data from persistent store
+    func readNSDictionaryFromPersistentStore() -> [NSDictionary]? {
+        var data: [NSDictionary]?
+        let dictionary = NSDictionary(contentsOfFile: self.filename ?? "")
+        if let items = dictionary?.object(forKey: self.key ?? "") as? NSArray {
+            data = [NSDictionary]()
+            for i in 0 ..< items.count {
+                if let item = items[i] as? NSDictionary {
+                    data?.append(item)
+                }
+            }
+        }
+        return data
+    }
 
-     // Function for write data to persistent store
-     func writeNSDictionaryToPersistentStorage(array: [NSDictionary]) -> Bool {
-         let dictionary = NSDictionary(object: array, forKey: (self.key ?? "") as NSCopying)
-         let write = dictionary.write(toFile: self.filename ?? "", atomically: true)
-         return write
-     }
-
+    // Function for write data to persistent store
+    func writeNSDictionaryToPersistentStorage(array: [NSDictionary]) -> Bool {
+        let dictionary = NSDictionary(object: array, forKey: (self.key ?? "") as NSCopying)
+        let write = dictionary.write(toFile: self.filename ?? "", atomically: true)
+        return write
+    }
 
     override init(whattoreadwrite: WhatToReadWrite, profile: String?) {
         super.init(whattoreadwrite: whattoreadwrite, profile: profile)
