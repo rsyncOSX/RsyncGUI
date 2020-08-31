@@ -120,14 +120,16 @@ class Catalogsandfiles: NamesandPaths, FileErrors {
                 // Creating profile catalalog is a two step task
                 // 1: create profilecatalog
                 // 2: create profilecatalog/macserialnumber
-                // New config path (/.rsyncosx)
+                // New config path (/.rsyncgui)
                 if ViewControllerReference.shared.usenewconfigpath {
                     catalog = ViewControllerReference.shared.newconfigpath
-                    root = Folder.home
-                    do {
-                        try root?.createSubfolder(at: catalog ?? "")
-                    } catch {
-                        return
+                    if let home = self.userHomeDirectoryPath {
+                        do {
+                            root = try Folder(path: home)
+                        } catch { return }
+                        do {
+                            try root?.createSubfolder(at: catalog ?? "")
+                        } catch { return }
                     }
                 } else {
                     // Old configpath (Rsync)
@@ -135,18 +137,14 @@ class Catalogsandfiles: NamesandPaths, FileErrors {
                     root = Folder.documents
                     do {
                         try root?.createSubfolder(at: catalog ?? "")
-                    } catch {
-                        return
-                    }
+                    } catch { return }
                 }
                 if let macserialnumber = self.macserialnumber,
                     let fullrootnomacserial = self.fullrootnomacserial
                 {
                     do {
                         try Folder(path: fullrootnomacserial).createSubfolder(at: macserialnumber)
-                    } catch {
-                        return
-                    }
+                    } catch { return }
                 }
             }
         }
