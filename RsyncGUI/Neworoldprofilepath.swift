@@ -40,6 +40,10 @@ struct Neworoldprofilepath {
     }
 
     init() {
+        guard ViewControllerReference.shared.usenewconfigpath == true else {
+            ViewControllerReference.shared.usenewconfigpath = false
+            return
+        }
         ViewControllerReference.shared.usenewconfigpath = false
         self.oldpath = NamesandPaths(profileorsshrootpath: .profileroot).fullroot
         ViewControllerReference.shared.usenewconfigpath = true
