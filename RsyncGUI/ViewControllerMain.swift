@@ -6,7 +6,7 @@
 import Cocoa
 import Foundation
 
-class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay, Errormessage, Setcolor, Checkforrsync, Help {
+class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay, ErrorMessage, Setcolor, Checkforrsync, Help {
     // Main tableview
     @IBOutlet var mainTableView: NSTableView!
     // Progressbar indicating work
@@ -222,7 +222,15 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Read user configuration
+        // Decide if:
+        // 1: First time start, use new profilepath
+        // 2: Old profilepath is copied to new, use new profilepath
+        // 3: Use old profilepath
+        // ViewControllerReference.shared.usenewconfigpath = true or false (default true)
+        _ = Neworoldprofilepath()
+        // Create base profile catalog
+        _ = CatalogProfile().createrootprofilecatalog()
+        // Must read userconfig when loading main view, view only load once
         if let userconfiguration = PersistentStorageUserconfiguration().readuserconfiguration() {
             _ = Userconfiguration(userconfigRsyncGUI: userconfiguration)
         } else {

@@ -13,7 +13,7 @@ struct RootcatalogSequrityscopedURLs {
     var dictionary: NSMutableDictionary?
 
     init(suffix: String?) {
-        let rootcatalog = Catalogsandfiles(whichroot: .sshRoot, configpath: ViewControllerReference.shared.configpath).rootpath ?? ""
+        let rootcatalog = Catalogsandfiles(profileorsshrootpath: .sandboxroot).fullroot ?? ""
         let append = AppendSequrityscopedURLs(path: rootcatalog + (suffix ?? ""))
         self.dictionary = [
             "rootcatalog": append.urlpath!,

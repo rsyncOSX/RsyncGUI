@@ -47,7 +47,7 @@ class ViewControllerProfile: NSViewController, SetConfigurations, SetDismisser, 
             self.dismissView()
             return
         }
-        let success = self.profile?.createProfileDirectory(profileName: newprofile)
+        let success = self.profile?.createprofilecatalog(profile: newprofile)
         guard success == true else {
             self.dismissView()
             return

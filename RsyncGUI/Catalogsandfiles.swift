@@ -1,6 +1,6 @@
 //
 //  files.swift
-//  RsyncGUI
+//  RsyncOSX
 //
 //  Created by Thomas Evensen on 26.04.2017.
 //  Copyright © 2017 Thomas Evensen. All rights reserved.
@@ -9,19 +9,12 @@
 import Files
 import Foundation
 
-enum WhichRoot {
-    case profileRoot
-    case sshRoot
-    case sandboxedRoot
-}
-
 enum Fileerrortype {
     case writelogfile
     case profilecreatedirectory
     case profiledeletedirectory
     case filesize
     case sequrityscoped
-    case homerootcatalog
 }
 
 // Protocol for reporting file errors
@@ -29,11 +22,11 @@ protocol Fileerror: AnyObject {
     func errormessage(errorstr: String, errortype: Fileerrortype)
 }
 
-protocol Fileerrors {
+protocol FileErrors {
     var errorDelegate: Fileerror? { get }
 }
 
-extension Fileerrors {
+extension FileErrors {
     var errorDelegate: Fileerror? {
         return ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllerMain
     }
@@ -43,11 +36,11 @@ extension Fileerrors {
     }
 }
 
-protocol Errormessage {
+protocol ErrorMessage {
     func errordescription(errortype: Fileerrortype) -> String
 }
 
-extension Errormessage {
+extension ErrorMessage {
     func errordescription(errortype: Fileerrortype) -> String {
         switch errortype {
         case .writelogfile:
@@ -59,17 +52,14 @@ extension Errormessage {
         case .filesize:
             return "Filesize of logfile is getting bigger"
         case .sequrityscoped:
-            return "Could not save SequrityScoped URL"
-        case .homerootcatalog:
-            return "Could not get root of homecatalog"
+            return "Sequrityscoped error"
         }
     }
 }
 
-class Catalogsandfiles: NamesandPaths, Fileerrors {
-    // Function for returning files in path as array of URLs
+class Catalogsandfiles: NamesandPaths, FileErrors {
     func getcatalogsasURLnames() -> [URL]? {
-        if let atpath = self.rootpath {
+        if let atpath = self.fullroot {
             do {
                 var array = [URL]()
                 for file in try Folder(path: atpath).files {
@@ -83,9 +73,8 @@ class Catalogsandfiles: NamesandPaths, Fileerrors {
         return nil
     }
 
-    // Function for returning files in path as array of Strings
     func getfilesasstringnames() -> [String]? {
-        if let atpath = self.rootpath {
+        if let atpath = self.fullroot {
             do {
                 var array = [String]()
                 for file in try Folder(path: atpath).files {
@@ -99,9 +88,8 @@ class Catalogsandfiles: NamesandPaths, Fileerrors {
         return nil
     }
 
-    // Function for returning profiles as array of Strings
     func getcatalogsasstringnames() -> [String]? {
-        if let atpath = self.rootpath {
+        if let atpath = self.fullroot {
             var array = [String]()
             do {
                 for folders in try Folder(path: atpath).subfolders {
@@ -115,23 +103,69 @@ class Catalogsandfiles: NamesandPaths, Fileerrors {
         return nil
     }
 
-    // Func that creates directory if not created
-    func createprofilecatalog() {
-        let fileManager = FileManager.default
-        if let path = self.rootpath {
-            // Profile root
-            if fileManager.fileExists(atPath: path) == false {
-                do {
-                    try fileManager.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
-                } catch let e {
-                    let error = e as NSError
-                    self.error(error: error.description, errortype: .profilecreatedirectory)
+    // Create profile catalog at first start of RsyncOSX.
+    // If profile catalog exists - bail out, no need to create
+    func createrootprofilecatalog() {
+        var root: Folder?
+        var catalog: String?
+        // First check if profilecatalog exists, if yes bail out
+        if let macserialnumber = self.macserialnumber,
+            let fullrootnomacserial = self.fullrootnomacserial
+        {
+            do {
+                let pathexists = try Folder(path: fullrootnomacserial).containsSubfolder(named: macserialnumber)
+                guard pathexists == false else { return }
+            } catch {
+                // if fails then create profile catalogs
+                // Creating profile catalalog is a two step task
+                // 1: create profilecatalog
+                // 2: create profilecatalog/macserialnumber
+                // New config path (/.rsyncosx)
+                if ViewControllerReference.shared.usenewconfigpath {
+                    catalog = ViewControllerReference.shared.newconfigpath
+                    root = Folder.home
+                    do {
+                        try root?.createSubfolder(at: catalog ?? "")
+                    } catch {
+                        return
+                    }
+                } else {
+                    // Old configpath (Rsync)
+                    catalog = ViewControllerReference.shared.configpath
+                    root = Folder.documents
+                    do {
+                        try root?.createSubfolder(at: catalog ?? "")
+                    } catch {
+                        return
+                    }
+                }
+                if let macserialnumber = self.macserialnumber,
+                    let fullrootnomacserial = self.fullrootnomacserial
+                {
+                    do {
+                        try Folder(path: fullrootnomacserial).createSubfolder(at: macserialnumber)
+                    } catch {
+                        return
+                    }
                 }
             }
         }
     }
 
-    override init(whichroot: WhichRoot, configpath: String?) {
-        super.init(whichroot: whichroot, configpath: configpath)
+    // Create SSH catalog
+    // If ssh catalog exists - bail out, no need
+    // to create
+    func createsshkeyrootpath() {
+        if let path = self.onlysshkeypath {
+            let root = Folder.home
+            guard root.containsSubfolder(named: path) == false else { return }
+            do {
+                try root.createSubfolder(at: path)
+            } catch {}
+        }
+    }
+
+    override init(profileorsshrootpath whichroot: Profileorsshrootpath) {
+        super.init(profileorsshrootpath: whichroot)
     }
 }

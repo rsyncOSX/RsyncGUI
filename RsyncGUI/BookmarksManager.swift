@@ -9,7 +9,7 @@
 
 import Foundation
 
-public class BookmarksManager: Fileerrors {
+public class BookmarksManager: FileErrors {
     public let userDefaults: UserDefaults
     public static let defaultManager: BookmarksManager = BookmarksManager()
     private static let userDefaultsBookmarksKey = "no.blogspot.rsyncgui"
