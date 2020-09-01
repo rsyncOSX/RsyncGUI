@@ -72,13 +72,7 @@ class NamesandPaths {
         if let sshkeypathandidentityfile = ViewControllerReference.shared.sshkeypathandidentityfile {
             return Keypathidentityfile(sshkeypathandidentityfile: sshkeypathandidentityfile).onlysshkeypath
         } else {
-            let pw = getpwuid(getuid())
-            if let home = pw?.pointee.pw_dir {
-                let homePath = FileManager.default.string(withFileSystemRepresentation: home, length: Int(strlen(home)))
-                return homePath
-            } else {
-                return nil
-            }
+            return "/.ssh"
         }
     }
 
