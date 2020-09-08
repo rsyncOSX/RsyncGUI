@@ -12,19 +12,19 @@ import Foundation
 
 extension ViewControllerRestore: NSSearchFieldDelegate {
     func controlTextDidChange(_ notification: Notification) {
-        if (notification.object as? NSTextField)! == self.search {
+        if (notification.object as? NSTextField) == self.search {
             self.delayWithSeconds(0.25) {
                 if self.search.stringValue.isEmpty {
                     globalMainQueue.async { () -> Void in
                         if let index = self.index {
-                            if let hiddenID = self.configurations!.getConfigurationsDataSourceSynchronize()![index].value(forKey: "hiddenID") as? Int {
+                            if let hiddenID = self.configurations?.getConfigurationsDataSourceSynchronize()?[index].value(forKey: "hiddenID") as? Int {
                                 self.remotefilelist = Remotefilelist(hiddenID: hiddenID)
                             }
                         }
                     }
                 } else {
                     globalMainQueue.async { () -> Void in
-                        self.restoretabledata = self.restoretabledata!.filter { $0.contains(self.search.stringValue) }
+                        self.restoretabledata = self.restoretabledata?.filter { $0.contains(self.search.stringValue) }
                         self.restoretableView.reloadData()
                     }
                 }
@@ -34,7 +34,7 @@ extension ViewControllerRestore: NSSearchFieldDelegate {
 
     func searchFieldDidEndSearching(_: NSSearchField) {
         if let index = self.index {
-            if self.configurations!.getConfigurationsDataSourceSynchronize()![index].value(forKey: "hiddenID") as? Int != nil {
+            if self.configurations?.getConfigurationsDataSourceSynchronize()?[index].value(forKey: "hiddenID") as? Int != nil {
                 self.working.startAnimation(nil)
             }
         }
@@ -45,11 +45,9 @@ extension ViewControllerRestore: NSTableViewDataSource {
     func numberOfRows(in tableView: NSTableView) -> Int {
         if tableView == self.restoretableView {
             guard self.restoretabledata != nil else {
-                self.info.textColor = setcolor(nsviewcontroller: self, color: .red)
                 return 0
             }
-            self.info.textColor = setcolor(nsviewcontroller: self, color: .green)
-            self.info.stringValue = NSLocalizedString("Number of remote files:", comment: "Restore") + " " + NumberFormatter.localizedString(from: NSNumber(value: self.restoretabledata?.count ?? 0), number: NumberFormatter.Style.decimal)
+            self.infolabel.stringValue = NSLocalizedString("Number of remote files:", comment: "Restore") + " " + NumberFormatter.localizedString(from: NSNumber(value: self.restoretabledata?.count ?? 0), number: NumberFormatter.Style.decimal)
             return self.restoretabledata!.count
         } else {
             return self.configurations?.getConfigurationsDataSourceSynchronize()?.count ?? 0
@@ -66,7 +64,7 @@ extension ViewControllerRestore: NSTableViewDelegate {
                 return cell
             }
         } else {
-            guard row < self.configurations!.getConfigurationsDataSourceSynchronize()!.count else { return nil }
+            guard row < self.configurations?.getConfigurationsDataSourceSynchronize()?.count ?? -1 else { return nil }
             let object: NSDictionary = self.configurations!.getConfigurationsDataSourceSynchronize()![row]
             let cellIdentifier: String = tableColumn!.identifier.rawValue
             if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: cellIdentifier), owner: self) as? NSTableCellView {
@@ -83,13 +81,11 @@ extension ViewControllerRestore: UpdateProgress {
         if let vc = ViewControllerReference.shared.getvcref(viewcontroller: .vcprogressview) as? ViewControllerProgressProcess {
             vc.processTermination()
             self.reset()
-            self.info.textColor = setcolor(nsviewcontroller: self, color: .green)
-            self.info.stringValue = NSLocalizedString("Restore completed...", comment: "Restore")
+            self.infolabel.stringValue = NSLocalizedString("Restore completed...", comment: "Restore")
         } else {
             let number = Numbers(outputprocess: self.outputprocess)
             self.maxcount = number.getTransferredNumbers(numbers: .transferredNumber)
-            self.info.textColor = setcolor(nsviewcontroller: self, color: .green)
-            self.info.stringValue = NSLocalizedString("Number of remote files:", comment: "Restore") + " " + NumberFormatter.localizedString(from: NSNumber(value: self.maxcount), number: NumberFormatter.Style.decimal) + ", " + NumberFormatter.localizedString(from: NSNumber(value: number.getTransferredNumbers(numbers: .transferredNumberSizebytes)), number: NumberFormatter.Style.decimal) + " kB"
+            self.infolabel.stringValue = NSLocalizedString("Number of remote files:", comment: "Restore") + " " + NumberFormatter.localizedString(from: NSNumber(value: self.maxcount), number: NumberFormatter.Style.decimal) + ", size: " + NumberFormatter.localizedString(from: NSNumber(value: number.getTransferredNumbers(numbers: .transferredNumberSizebytes)), number: NumberFormatter.Style.decimal) + " kB"
             self.restoreisverified.image = #imageLiteral(resourceName: "green")
             self.restoreactions?.estimated = true
         }
