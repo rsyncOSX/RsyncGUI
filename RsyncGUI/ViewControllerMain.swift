@@ -146,9 +146,7 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
 
     // Userconfiguration button
     @IBAction func userconfiguration(_: NSButton) {
-        globalMainQueue.async { () -> Void in
-            self.presentAsSheet(self.viewControllerUserconfiguration!)
-        }
+        self.presentAsModalWindow(self.viewControllerUserconfiguration!)
     }
 
     // Selecting profiles
