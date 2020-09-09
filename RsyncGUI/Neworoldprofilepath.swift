@@ -41,23 +41,5 @@ struct Neworoldprofilepath {
 
     init() {
         ViewControllerReference.shared.usenewconfigpath = false
-        /*
-         ViewControllerReference.shared.usenewconfigpath = false
-         self.oldpath = NamesandPaths(profileorsshrootpath: .profileroot).fullroot
-         ViewControllerReference.shared.usenewconfigpath = true
-         self.newpath = NamesandPaths(profileorsshrootpath: .profileroot).fullroot
-         self.useoldpath = verifyoldpath()
-         self.usenewpath = verifynewpath()
-         switch (self.useoldpath, self.usenewpath) {
-         case (true, true):
-             ViewControllerReference.shared.usenewconfigpath = true
-         case (true, false):
-             ViewControllerReference.shared.usenewconfigpath = false
-         case (false, false):
-             ViewControllerReference.shared.usenewconfigpath = true
-         default:
-             ViewControllerReference.shared.usenewconfigpath = true
-         }
-         */
     }
 }
