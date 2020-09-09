@@ -1,16 +1,34 @@
 //
 //  NamesandPaths.swift
-//  RsyncGUI
+//  RsyncOSX
 //
-//  Created by Thomas Evensen on 29/07/2020.
+//  Created by Thomas Evensen on 28/07/2020.
 //  Copyright © 2020 Thomas Evensen. All rights reserved.
 //
+// swiftlint:disable line_length
 
 import Foundation
 
+enum WhatToReadWrite {
+    case schedule
+    case configuration
+    case userconfig
+    case none
+}
+
+enum Profileorsshrootpath {
+    case profileroot
+    case sshroot
+    case sandboxroot
+}
+
 class NamesandPaths {
-    var whichroot: WhichRoot?
-    var rootpath: String?
+    // which root to compute? either RsyncOSX profileroot or sshroot
+    var profileorsshroot: Profileorsshrootpath?
+    // rootpath without macserialnumber
+    var fullrootnomacserial: String?
+    // rootpath with macserianlnumer
+    var fullroot: String?
     // If global keypath and identityfile is set must split keypath and identifile
     // create a new key require full path
     var identityfile: String?
@@ -36,11 +54,25 @@ class NamesandPaths {
     }
 
     // Path to ssh keypath
-    var sshrootkeypath: String? {
+    var fullsshkeypath: String? {
         if let sshkeypathandidentityfile = ViewControllerReference.shared.sshkeypathandidentityfile {
-            return Keypathidentityfile(sshkeypathandidentityfile: sshkeypathandidentityfile).rootpath
+            return Keypathidentityfile(sshkeypathandidentityfile: sshkeypathandidentityfile).fullsshkeypath
         } else {
-            return (self.userHomeDirectoryPath ?? "") + "/.ssh"
+            let pw = getpwuid(getuid())
+            if let home = pw?.pointee.pw_dir {
+                let homePath = FileManager.default.string(withFileSystemRepresentation: home, length: Int(strlen(home)))
+                return homePath + "/.ssh"
+            } else {
+                return nil
+            }
+        }
+    }
+
+    var onlysshkeypath: String? {
+        if let sshkeypathandidentityfile = ViewControllerReference.shared.sshkeypathandidentityfile {
+            return Keypathidentityfile(sshkeypathandidentityfile: sshkeypathandidentityfile).onlysshkeypath
+        } else {
+            return "/.ssh"
         }
     }
 
@@ -71,36 +103,44 @@ class NamesandPaths {
         }
     }
 
-    var sandboxedrootpath: String? {
-        return NSHomeDirectory()
-    }
-
     func setrootpath() {
-        switch self.whichroot {
-        case .profileRoot:
-            self.rootpath = (self.documentscatalog ?? "") + (self.configpath ?? "") + (self.macserialnumber ?? "")
-        case .sshRoot:
-            self.rootpath = self.sshrootkeypath
+        switch self.profileorsshroot {
+        case .profileroot:
+            if ViewControllerReference.shared.usenewconfigpath == true {
+                self.fullroot = (self.userHomeDirectoryPath ?? "") + (self.configpath ?? "") + (self.macserialnumber ?? "")
+                self.fullrootnomacserial = (self.userHomeDirectoryPath ?? "") + (self.configpath ?? "")
+            } else {
+                self.fullroot = (self.documentscatalog ?? "") + (self.configpath ?? "") + (self.macserialnumber ?? "")
+                self.fullrootnomacserial = (self.documentscatalog ?? "") + (self.configpath ?? "")
+            }
+        case .sshroot:
+            self.fullroot = self.fullsshkeypath
             self.identityfile = self.sshidentityfile
+        case .sandboxroot:
+            self.fullroot = self.userHomeDirectoryPath
         default:
             return
         }
     }
 
+    // Set path and name for reading plist.files
     func setnameandpath() {
         let config = (self.configpath ?? "") + (self.macserialnumber ?? "")
         let plist = (self.plistname ?? "")
         if let profile = self.profile {
             // Use profile
-            let profilePath = CatalogProfile()
-            profilePath.createprofilecatalog()
-            self.filename = (self.documentscatalog ?? "") + config + "/" + profile + plist
+            if ViewControllerReference.shared.usenewconfigpath == true {
+                self.filename = (self.userHomeDirectoryPath ?? "") + config + "/" + profile + plist
+            } else {
+                self.filename = (self.documentscatalog ?? "") + config + "/" + profile + plist
+            }
             self.filepath = config + "/" + profile + "/"
         } else {
-            // no profile
-            let profilePath = CatalogProfile()
-            profilePath.createprofilecatalog()
-            self.filename = (self.documentscatalog ?? "") + config + plist
+            if ViewControllerReference.shared.usenewconfigpath == true {
+                self.filename = (self.userHomeDirectoryPath ?? "") + config + plist
+            } else {
+                self.filename = (self.documentscatalog ?? "") + config + plist
+            }
             self.filepath = config + "/"
         }
     }
@@ -110,27 +150,28 @@ class NamesandPaths {
         self.task = whattoreadwrite
         switch self.task ?? .none {
         case .schedule:
-            self.plistname = "/scheduleRsync.plist"
-            self.key = "Schedule"
+            self.plistname = ViewControllerReference.shared.scheduleplist
+            self.key = ViewControllerReference.shared.schedulekey
         case .configuration:
-            self.plistname = "/configRsync.plist"
-            self.key = "Catalogs"
+            self.plistname = ViewControllerReference.shared.configurationsplist
+            self.key = ViewControllerReference.shared.configurationskey
         case .userconfig:
-            self.plistname = "/config.plist"
-            self.key = "config"
+            self.plistname = ViewControllerReference.shared.userconfigplist
+            self.key = ViewControllerReference.shared.userconfigkey
         case .none:
             self.plistname = nil
+            self.key = nil
         }
     }
 
-    init(whichroot: WhichRoot, configpath: String?) {
-        self.configpath = configpath
-        self.whichroot = whichroot
+    init(profileorsshrootpath: Profileorsshrootpath) {
+        self.configpath = Configpath().configpath
+        self.profileorsshroot = profileorsshrootpath
         self.setrootpath()
     }
 
-    init(whattoreadwrite: WhatToReadWrite, profile: String?, configpath: String?) {
-        self.configpath = configpath
+    init(whattoreadwrite: WhatToReadWrite, profile: String?) {
+        self.configpath = Configpath().configpath
         self.profile = profile
         self.setpreferencesforreadingplist(whattoreadwrite: whattoreadwrite)
         self.setnameandpath()

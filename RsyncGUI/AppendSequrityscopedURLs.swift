@@ -13,7 +13,7 @@ struct AppendSequrityscopedURLs {
     var urlpath: URL?
 
     private func accessFiles(fileURL: URL) -> Bool {
-        let permissionmanager: PermissionManager = PermissionManager(bookmarksManager: BookmarksManager.defaultManager)
+        let permissionmanager = PermissionManager(bookmarksManager: BookmarksManager.defaultManager)
         let permission = permissionmanager.accessAndIfNeededAskUserForSecurityScopeForFileAtURL(fileURL: fileURL)
         let success = FileManager.default.isReadableFile(atPath: fileURL.path)
         return permission && success

@@ -191,19 +191,22 @@ extension Delay {
 }
 
 protocol Connected {
-    func connected(config: Configuration) -> Bool
+    func connected(config: Configuration?) -> Bool
 }
 
 extension Connected {
-    func connected(config: Configuration) -> Bool {
+    func connected(config: Configuration?) -> Bool {
         var port: Int = 22
-        if config.offsiteServer.isEmpty == false {
-            if let sshport: Int = config.sshport { port = sshport }
-            let success = TCPconnections().testTCPconnection(config.offsiteServer, port: port, timeout: 1)
-            return success
-        } else {
-            return true
+        if let config = config {
+            if config.offsiteServer.isEmpty == false {
+                if let sshport: Int = config.sshport { port = sshport }
+                let success = TCPconnections().testTCPconnection(config.offsiteServer, port: port, timeout: 1)
+                return success
+            } else {
+                return true
+            }
         }
+        return false
     }
 }
 

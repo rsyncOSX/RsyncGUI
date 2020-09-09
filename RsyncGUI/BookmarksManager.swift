@@ -9,9 +9,9 @@
 
 import Foundation
 
-public class BookmarksManager: Fileerrors {
+public class BookmarksManager: FileErrors {
     public let userDefaults: UserDefaults
-    public static let defaultManager: BookmarksManager = BookmarksManager()
+    public static let defaultManager = BookmarksManager()
     private static let userDefaultsBookmarksKey = "no.blogspot.rsyncgui"
 
     private var securityScopedBookmarksByFilePath: [String: NSData] {
