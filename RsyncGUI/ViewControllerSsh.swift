@@ -179,32 +179,37 @@ extension ViewControllerSsh: NSTableViewDataSource {
 
 extension ViewControllerSsh: NSTableViewDelegate {
     func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
-        if tableView == self.detailsTable {
-            switch tableColumn!.identifier.rawValue {
-            case "outputID":
-                return self.data?[row] ?? ""
-            default:
-                return nil
-            }
-        } else {
-            guard self.configurations?.SequrityScopedURLs?.unique() != nil else { return nil }
-            guard row < (self.configurations?.SequrityScopedURLs?.unique().count ?? -1) else { return nil }
-            let object: NSDictionary = self.configurations!.SequrityScopedURLs!.unique()[row]
-            switch tableColumn!.identifier.rawValue {
-            case "SecurityScoped":
-                if (object.value(forKey: "SecurityScoped") as? Bool) == true {
-                    return #imageLiteral(resourceName: "green")
-                } else {
-                    return #imageLiteral(resourceName: "red")
+        if let tableColumn = tableColumn {
+            if tableView == self.detailsTable {
+                switch tableColumn.identifier.rawValue {
+                case "outputID":
+                    return self.data?[row] ?? ""
+                default:
+                    return nil
                 }
-            case "rootcatalog":
-                return (object.value(forKey: "rootcatalog") as? NSURL)?.absoluteString ?? ""
-            case "localcatalog":
-                return (object.value(forKey: "localcatalog") as? NSURL)?.absoluteString ?? ""
-            default:
-                return nil
+            } else {
+                guard self.configurations?.SequrityScopedURLs?.unique() != nil else { return nil }
+                guard row < (self.configurations?.SequrityScopedURLs?.unique().count ?? -1) else { return nil }
+                if let object: NSDictionary = self.configurations?.SequrityScopedURLs?.unique()[row] {
+                    switch tableColumn.identifier.rawValue {
+                    case "SecurityScoped":
+                        if (object.value(forKey: "SecurityScoped") as? Bool) == true {
+                            return #imageLiteral(resourceName: "green")
+                        } else {
+                            return #imageLiteral(resourceName: "red")
+                        }
+                    case "rootcatalog":
+                        return (object.value(forKey: "rootcatalog") as? NSURL)?.absoluteString ?? ""
+                    case "localcatalog":
+                        return (object.value(forKey: "localcatalog") as? NSURL)?.absoluteString ?? ""
+                    default:
+                        return nil
+                    }
+                }
             }
+            return nil
         }
+        return nil
     }
 }
 
