@@ -15,6 +15,7 @@ enum Fileerrortype {
     case profiledeletedirectory
     case filesize
     case sequrityscoped
+    case createsshdirectory
 }
 
 // Protocol for reporting file errors
@@ -53,6 +54,8 @@ extension ErrorMessage {
             return "Filesize of logfile is getting bigger"
         case .sequrityscoped:
             return "Sequrityscoped error"
+        case .createsshdirectory:
+            return "Error creating ssh directory"
         }
     }
 }
@@ -129,7 +132,11 @@ class Catalogsandfiles: NamesandPaths, FileErrors {
                         } catch { return }
                         do {
                             try root?.createSubfolder(at: catalog ?? "")
-                        } catch { return }
+                        } catch let e {
+                            let error = e as NSError
+                            self.error(error: error.description, errortype: .profilecreatedirectory)
+                            return
+                        }
                     }
                 } else {
                     // Old configpath (Rsync)
@@ -137,14 +144,22 @@ class Catalogsandfiles: NamesandPaths, FileErrors {
                     root = Folder.documents
                     do {
                         try root?.createSubfolder(at: catalog ?? "")
-                    } catch { return }
+                    } catch let e {
+                        let error = e as NSError
+                        self.error(error: error.description, errortype: .profilecreatedirectory)
+                        return
+                    }
                 }
                 if let macserialnumber = self.macserialnumber,
                     let fullrootnomacserial = self.fullrootnomacserial
                 {
                     do {
                         try Folder(path: fullrootnomacserial).createSubfolder(at: macserialnumber)
-                    } catch { return }
+                    } catch let e {
+                        let error = e as NSError
+                        self.error(error: error.description, errortype: .profilecreatedirectory)
+                        return
+                    }
                 }
             }
         }
@@ -164,7 +179,11 @@ class Catalogsandfiles: NamesandPaths, FileErrors {
             guard root?.containsSubfolder(named: path) == false else { return }
             do {
                 try root?.createSubfolder(at: path)
-            } catch {}
+            } catch let e {
+                let error = e as NSError
+                self.error(error: error.description, errortype: .createsshdirectory)
+                return
+            }
         }
     }
 
