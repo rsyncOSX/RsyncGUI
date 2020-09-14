@@ -13,7 +13,7 @@ struct RootcatalogSequrityscopedURLs {
     var dictionary: NSMutableDictionary?
 
     init(suffix: String?) {
-        let rootcatalog = NamesandPaths(profileorsshrootpath: .sandboxroot).fullsshkeypath ?? ""
+        let rootcatalog = NamesandPaths(profileorsshrootpath: .sandboxroot).userHomeDirectoryPath ?? ""
         let append = AppendSequrityscopedURLs(path: rootcatalog + (suffix ?? ""))
         self.dictionary = [
             "rootcatalog": append.urlpath ?? "",
