@@ -128,9 +128,7 @@ class ViewControllerRestore: NSViewController, SetConfigurations, Delay, Connect
 
     // Selecting profiles
     @IBAction func profiles(_: NSButton) {
-        globalMainQueue.async { () -> Void in
-            self.presentAsSheet(self.viewControllerProfile!)
-        }
+        self.presentAsModalWindow(self.viewControllerProfile!)
     }
 
     // Userconfiguration button
@@ -225,7 +223,7 @@ class ViewControllerRestore: NSViewController, SetConfigurations, Delay, Connect
             self.infolabel.isHidden = true
             self.remotefiles.stringValue = ""
             let hiddenID = self.configurations?.getConfigurationsDataSourceSynchronize()?[index].value(forKey: "hiddenID") as? Int ?? -1
-            self.restorefilestask = RestorefilesTask(hiddenID: hiddenID)
+            self.restorefilestask = RestorefilesTask(hiddenID: hiddenID, processtermination: self.processtermination, filehandler: self.filehandler)
             self.remotefilelist = Remotefilelist(hiddenID: hiddenID)
             self.working.startAnimation(nil)
             self.restoreisverified.image = #imageLiteral(resourceName: "yellow")
@@ -311,7 +309,7 @@ class ViewControllerRestore: NSViewController, SetConfigurations, Delay, Connect
         let answer = Alerts.dialogOrCancel(question: question, text: text, dialog: dialog)
         if answer {
             self.working.startAnimation(nil)
-            self.restorefilestask?.executecopyfiles(remotefile: remotefiles?.stringValue ?? "", localCatalog: tmprestorepath?.stringValue ?? "", dryrun: false, updateprogress: self)
+            self.restorefilestask?.executecopyfiles(remotefile: remotefiles?.stringValue ?? "", localCatalog: tmprestorepath?.stringValue ?? "", dryrun: false)
         }
     }
 
@@ -363,10 +361,10 @@ class ViewControllerRestore: NSViewController, SetConfigurations, Delay, Connect
                     self.presentAsSheet(self.viewControllerProgress!)
                 }
                 if tmprestore {
-                    self.fullrestoretask = FullrestoreTask(index: index, dryrun: false, tmprestore: true, updateprogress: self)
+                    self.fullrestoretask = FullrestoreTask(index: index, dryrun: false, tmprestore: true, processtermination: self.processtermination, filehandler: self.filehandler)
                     self.outputprocess = self.fullrestoretask?.outputprocess
                 } else {
-                    self.fullrestoretask = FullrestoreTask(index: index, dryrun: false, tmprestore: false, updateprogress: self)
+                    self.fullrestoretask = FullrestoreTask(index: index, dryrun: false, tmprestore: false, processtermination: self.processtermination, filehandler: self.filehandler)
                     self.outputprocess = self.fullrestoretask?.outputprocess
                 }
             }
@@ -451,18 +449,18 @@ class ViewControllerRestore: NSViewController, SetConfigurations, Delay, Connect
                 self.infolabel.isHidden = false
                 self.working.startAnimation(nil)
                 if self.restoreactions?.goforfullrestoreestimatetemporarypath() ?? false {
-                    self.fullrestoretask = FullrestoreTask(index: index, dryrun: true, tmprestore: true, updateprogress: self)
+                    self.fullrestoretask = FullrestoreTask(index: index, dryrun: true, tmprestore: true, processtermination: self.processtermination, filehandler: self.filehandler)
                     self.outputprocess = self.fullrestoretask?.outputprocess
                 } else if self.restoreactions?.goforfullrestoreestimate() ?? false {
                     self.selecttmptorestore.state = .off
-                    self.fullrestoretask = FullrestoreTask(index: index, dryrun: true, tmprestore: false, updateprogress: self)
+                    self.fullrestoretask = FullrestoreTask(index: index, dryrun: true, tmprestore: false, processtermination: self.processtermination, filehandler: self.filehandler)
                     self.outputprocess = self.fullrestoretask?.outputprocess
                 }
             }
         } else {
             guard self.restoreactions?.remotefileverified ?? false else { return }
             self.working.startAnimation(nil)
-            self.restorefilestask?.executecopyfiles(remotefile: self.remotefiles!.stringValue, localCatalog: self.tmprestorepath!.stringValue, dryrun: true, updateprogress: self)
+            self.restorefilestask?.executecopyfiles(remotefile: self.remotefiles!.stringValue, localCatalog: self.tmprestorepath!.stringValue, dryrun: true)
             self.outputprocess = self.restorefilestask?.outputprocess
         }
     }

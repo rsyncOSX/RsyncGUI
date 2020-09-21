@@ -62,7 +62,7 @@ class ScheduleWriteLoggData: SetConfigurations, ReloadTable, Deselect {
                 inserted = self.addlognew(hiddenID: hiddenID, result: resultannotaded ?? "", date: date)
             }
             if inserted {
-                _ = PersistentStorageScheduling(profile: self.profile).savescheduleInMemoryToPersistentStore()
+                PersistentStorageScheduling(profile: self.profile).savescheduleInMemoryToPersistentStore()
                 self.deselectrowtable()
             }
         }
