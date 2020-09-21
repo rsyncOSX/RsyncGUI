@@ -13,6 +13,7 @@ import Foundation
 class ViewControllerUserconfiguration: NSViewController, NewRsync, SetDismisser, Delay, ChangeTemporaryRestorePath {
     var dirty: Bool = false
     weak var reloadconfigurationsDelegate: Createandreloadconfigurations?
+    weak var loadsshparametersDelegate: Loadsshparameters?
     var oldmarknumberofdayssince: Double?
     var reload: Bool = false
 
@@ -69,10 +70,12 @@ class ViewControllerUserconfiguration: NSViewController, NewRsync, SetDismisser,
             self.setRestorePath()
             self.setmarknumberofdayssince()
             self.setsshparameters()
-            _ = PersistentStorageUserconfiguration().saveuserconfiguration()
+            PersistentStorageUserconfiguration().saveuserconfiguration()
             if self.reload {
                 self.reloadconfigurationsDelegate?.createandreloadconfigurations()
             }
+            self.loadsshparametersDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcssh) as? ViewControllerSsh
+            self.loadsshparametersDelegate?.loadsshparameters()
             self.changetemporaryrestorepath()
         }
         if (self.presentingViewController as? ViewControllerMain) != nil {

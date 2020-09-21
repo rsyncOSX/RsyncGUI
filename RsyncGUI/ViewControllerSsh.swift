@@ -5,7 +5,7 @@
 //  Created by Thomas Evensen on 23.04.2017.
 //  Copyright © 2017 Thomas Evensen. All rights reserved.
 //
-//  swiftlint:disable  line_length
+//  swiftlint:disable line_length
 
 import Cocoa
 import Foundation
@@ -16,6 +16,10 @@ protocol ResetSequrityScopedURL: AnyObject {
 
 protocol SaveSequrityScopedURL: AnyObject {
     func savesequrityscopedurl(urlpath: URL)
+}
+
+protocol Loadsshparameters: AnyObject {
+    func loadsshparameters()
 }
 
 class ViewControllerSsh: NSViewController, SetConfigurations, VcMain, Checkforrsync, Help {
@@ -81,7 +85,9 @@ class ViewControllerSsh: NSViewController, SetConfigurations, VcMain, Checkforrs
 
     @IBAction func createPublicPrivateRSAKeyPair(_: NSButton) {
         self.outputprocess = OutputProcess()
-        self.sshcmd = Ssh(outputprocess: self.outputprocess)
+        self.sshcmd = Ssh(outputprocess: self.outputprocess,
+                          processtermination: self.processtermination,
+                          filehandler: self.filehandler)
         guard self.sshcmd?.islocalpublicrsakeypresent() ?? true == false else { return }
         self.sshcmd?.creatersakeypair()
     }
@@ -103,7 +109,7 @@ class ViewControllerSsh: NSViewController, SetConfigurations, VcMain, Checkforrs
 
     override func viewDidAppear() {
         super.viewDidAppear()
-        self.changesshparameters()
+        self.loadsshparameters()
         globalMainQueue.async { () -> Void in
             self.SequrityScopedTable.reloadData()
         }
@@ -116,7 +122,9 @@ class ViewControllerSsh: NSViewController, SetConfigurations, VcMain, Checkforrs
     }
 
     private func checkforPrivateandPublicRSAKeypair() {
-        self.sshcmd = Ssh(outputprocess: nil)
+        self.sshcmd = Ssh(outputprocess: nil,
+                          processtermination: self.processtermination,
+                          filehandler: self.filehandler)
         if self.sshcmd?.islocalpublicrsakeypresent() ?? false {
             self.rsaCheck.state = .on
         } else {
@@ -124,20 +132,12 @@ class ViewControllerSsh: NSViewController, SetConfigurations, VcMain, Checkforrs
         }
     }
 
-    private func changesshparameters() {
-        self.sshkeypathandidentityfile.stringValue = ViewControllerReference.shared.sshkeypathandidentityfile ?? ""
-        if let sshport = ViewControllerReference.shared.sshport {
-            self.sshport.stringValue = String(sshport)
-        } else {
-            self.sshport.stringValue = ""
-        }
-        self.checkforPrivateandPublicRSAKeypair()
-    }
-
     func copylocalpubrsakeyfile() {
         guard self.sshcmd?.islocalpublicrsakeypresent() ?? false == true else { return }
         self.outputprocess = OutputProcess()
-        self.sshcmd = Ssh(outputprocess: self.outputprocess)
+        self.sshcmd = Ssh(outputprocess: self.outputprocess,
+                          processtermination: self.processtermination,
+                          filehandler: self.filehandler)
         if let hiddenID = self.hiddenID {
             self.sshcmd?.copykeyfile(hiddenID: hiddenID)
             self.copykeycommand.stringValue = sshcmd?.commandCopyPasteTerminal ?? ""
@@ -151,7 +151,7 @@ extension ViewControllerSsh: DismissViewController {
     func dismiss_view(viewcontroller: NSViewController) {
         self.dismiss(viewcontroller)
         self.copylocalpubrsakeyfile()
-        self.changesshparameters()
+        self.loadsshparameters()
     }
 }
 
@@ -213,14 +213,14 @@ extension ViewControllerSsh: NSTableViewDelegate {
     }
 }
 
-extension ViewControllerSsh: UpdateProgress {
-    func processTermination() {
+extension ViewControllerSsh {
+    func processtermination() {
         globalMainQueue.async { () -> Void in
             self.checkforPrivateandPublicRSAKeypair()
         }
     }
 
-    func fileHandler() {
+    func filehandler() {
         self.data = self.outputprocess?.getOutput()
         globalMainQueue.async { () -> Void in
             self.detailsTable.reloadData()
@@ -233,5 +233,17 @@ extension ViewControllerSsh: OpenQuickBackup {
         globalMainQueue.async { () -> Void in
             self.presentAsSheet(self.viewControllerQuickBackup!)
         }
+    }
+}
+
+extension ViewControllerSsh: Loadsshparameters {
+    func loadsshparameters() {
+        self.sshkeypathandidentityfile.stringValue = ViewControllerReference.shared.sshkeypathandidentityfile ?? ""
+        if let sshport = ViewControllerReference.shared.sshport {
+            self.sshport.stringValue = String(sshport)
+        } else {
+            self.sshport.stringValue = ""
+        }
+        self.checkforPrivateandPublicRSAKeypair()
     }
 }

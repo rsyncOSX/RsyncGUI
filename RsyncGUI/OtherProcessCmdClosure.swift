@@ -1,17 +1,18 @@
 //
-//  processCmd.swift
+//  OtherProcessCmdClosure.swift
 //  RsyncOSX
 //
-//  Created by Thomas Evensen on 10.03.2017.
-//  Copyright © 2017 Thomas Evensen. All rights reserved.
+//  Created by Thomas Evensen on 17/09/2020.
+//  Copyright © 2020 Thomas Evensen. All rights reserved.
 //
 //  swiftlint:disable line_length
 
 import Foundation
 
-class ProcessCmd: Delay {
-    // Message to calling class
-    weak var updateDelegate: UpdateProgress?
+class OtherProcessCmdClosure: Delay {
+    // Process termination and filehandler closures
+    var processtermination: () -> Void
+    var filehandler: () -> Void
     // Observers
     weak var notifications_datahandle: NSObjectProtocol?
     weak var notifications_termination: NSObjectProtocol?
@@ -26,18 +27,13 @@ class ProcessCmd: Delay {
     // Enable and disable select profile
     weak var profilepopupDelegate: DisableEnablePopupSelectProfile?
 
-    func setupdateDelegate(object: UpdateProgress) {
-        self.updateDelegate = object
-    }
-
     func executeProcess(outputprocess: OutputProcess?) {
+        guard self.command != nil else { return }
         // Process
         let task = Process()
         // If self.command != nil either alternativ path for rsync or other command than rsync to be executed
         if let command = self.command {
             task.launchPath = command
-        } else {
-            task.launchPath = Getrsyncpath().rsyncpath
         }
         task.arguments = self.arguments
         // Pipe for reading output from Process
@@ -53,7 +49,8 @@ class ProcessCmd: Delay {
                 if let str = NSString(data: data, encoding: String.Encoding.utf8.rawValue) {
                     outputprocess?.addlinefromoutput(str: str as String)
                     // Send message about files
-                    self?.updateDelegate?.fileHandler()
+                    // Send message about files
+                    self?.filehandler()
                     if self?.termination ?? false {
                         self?.possibleerrorDelegate?.erroroutput()
                     }
@@ -65,7 +62,7 @@ class ProcessCmd: Delay {
         self.notifications_termination = NotificationCenter.default.addObserver(forName: Process.didTerminateNotification, object: nil, queue: nil) { _ in
             self.delayWithSeconds(0.5) {
                 self.termination = true
-                self.updateDelegate?.processTermination()
+                self.processtermination()
                 // Must remove for deallocation
                 NotificationCenter.default.removeObserver(self.notifications_datahandle as Any)
                 NotificationCenter.default.removeObserver(self.notifications_termination as Any)
@@ -90,9 +87,15 @@ class ProcessCmd: Delay {
         _ = InterruptProcess()
     }
 
-    init(command: String?, arguments: [String]?) {
+    init(command: String?,
+         arguments: [String]?,
+         processtermination: @escaping () -> Void,
+         filehandler: @escaping () -> Void)
+    {
         self.command = command
         self.arguments = arguments
+        self.processtermination = processtermination
+        self.filehandler = filehandler
         self.possibleerrorDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllerMain
         self.profilepopupDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllerMain
     }

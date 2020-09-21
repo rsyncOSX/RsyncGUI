@@ -39,7 +39,7 @@ class ScheduleWriteLoggData: SetConfigurations, ReloadTable, Deselect {
         for i in 0 ..< deletes.count {
             self.schedules?[deletes[i].0].logrecords.remove(at: deletes[i].1)
         }
-        _ = PersistentStorageScheduling(profile: self.profile).savescheduleInMemoryToPersistentStore()
+        PersistentStorageScheduling(profile: self.profile).savescheduleInMemoryToPersistentStore()
         self.reloadtable(vcontroller: .vcloggdata)
     }
 
@@ -62,7 +62,7 @@ class ScheduleWriteLoggData: SetConfigurations, ReloadTable, Deselect {
                 inserted = self.addlognew(hiddenID: hiddenID, result: resultannotaded ?? "", date: date)
             }
             if inserted {
-                _ = PersistentStorageScheduling(profile: self.profile).savescheduleInMemoryToPersistentStore()
+                PersistentStorageScheduling(profile: self.profile).savescheduleInMemoryToPersistentStore()
                 self.deselectrowtable()
             }
         }

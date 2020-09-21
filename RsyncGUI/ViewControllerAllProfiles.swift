@@ -71,8 +71,10 @@ class ViewControllerAllProfiles: NSViewController, Delay, Abort {
         let duargs = DuArgumentsSsh(config: config)
         guard duargs.getArguments() != nil || duargs.getCommand() != nil else { return }
         self.working.startAnimation(nil)
-        let task = DuCommandSsh(command: duargs.getCommand(), arguments: duargs.getArguments())
-        task.setdelegate(object: self)
+        let task = OtherProcessCmdClosure(command: duargs.getCommand(),
+                                          arguments: duargs.getArguments(),
+                                          processtermination: self.processtermination,
+                                          filehandler: self.filehandler)
         task.executeProcess(outputprocess: self.outputprocess)
     }
 
@@ -220,8 +222,8 @@ extension ViewControllerAllProfiles: NSSearchFieldDelegate {
     }
 }
 
-extension ViewControllerAllProfiles: UpdateProgress {
-    func processTermination() {
+extension ViewControllerAllProfiles {
+    func processtermination() {
         self.working.stopAnimation(nil)
         guard ViewControllerReference.shared.process != nil else { return }
         let numbers = RemoteNumbers(outputprocess: self.outputprocess)
@@ -236,7 +238,7 @@ extension ViewControllerAllProfiles: UpdateProgress {
         ViewControllerReference.shared.process = nil
     }
 
-    func fileHandler() {
+    func filehandler() {
         //
     }
 }

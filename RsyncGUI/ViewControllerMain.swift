@@ -227,7 +227,7 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
         // ViewControllerReference.shared.usenewconfigpath = true or false (default true)
         _ = Neworoldprofilepath()
         // Create base profile catalog
-        _ = CatalogProfile().createrootprofilecatalog()
+        CatalogProfile().createrootprofilecatalog()
         // Must read userconfig when loading main view, view only load once
         if let userconfiguration = PersistentStorageUserconfiguration().readuserconfiguration() {
             _ = Userconfiguration(userconfigRsyncGUI: userconfiguration)
@@ -290,11 +290,11 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
             guard self.singletask != nil else {
                 // Dry run
                 self.singletask = SingleTask(index: self.index!)
-                self.singletask?.executeSingleTask()
+                self.singletask?.executesingletask()
                 return
             }
             // Real run
-            self.singletask?.executeSingleTask()
+            self.singletask?.executesingletask()
         }
     }
 

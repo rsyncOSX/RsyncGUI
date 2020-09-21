@@ -13,31 +13,39 @@ protocol DeinitExecuteTaskNow: AnyObject {
     func deinitexecutetasknow()
 }
 
-final class ExecuteTaskNow: SetConfigurations {
+class ExecuteTaskNow: SetConfigurations {
     weak var setprocessDelegate: SendOutputProcessreference?
     weak var startstopindicators: StartStopProgressIndicatorSingleTask?
     weak var deinitDelegate: DeinitExecuteTaskNow?
     var outputprocess: OutputProcess?
     var index: Int?
 
+    func executetasknow() {
+        if let index = self.index {
+            self.outputprocess = OutputProcessRsync()
+            if let arguments = self.configurations?.arguments4rsync(index: index, argtype: .arg) {
+                let process = RsyncProcessCmdClosure(arguments: arguments,
+                                                     config: self.configurations?.getConfigurations()[index],
+                                                     processtermination: self.processtermination,
+                                                     filehandler: self.filehandler)
+                process.executeProcess(outputprocess: self.outputprocess)
+                self.startstopindicators?.startIndicatorExecuteTaskNow()
+                self.setprocessDelegate?.sendoutputprocessreference(outputprocess: self.outputprocess)
+            }
+        }
+    }
+
     init(index: Int) {
         self.index = index
         self.setprocessDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllerMain
         self.startstopindicators = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllerMain
         self.deinitDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllerMain
-        self.outputprocess = OutputProcessRsync()
-        if let arguments = self.configurations?.arguments4rsync(index: index, argtype: .arg) {
-            let process = RsyncVerify(arguments: arguments, config: (self.configurations?.getConfigurations()[index])!)
-            process.setdelegate(object: self)
-            process.executeProcess(outputprocess: self.outputprocess)
-            self.startstopindicators?.startIndicatorExecuteTaskNow()
-            self.setprocessDelegate?.sendoutputprocessreference(outputprocess: self.outputprocess)
-        }
+        self.executetasknow()
     }
 }
 
-extension ExecuteTaskNow: UpdateProgress {
-    func processTermination() {
+extension ExecuteTaskNow {
+    func processtermination() {
         self.startstopindicators?.stopIndicator()
         if let index = self.index {
             self.configurations?.setCurrentDateonConfiguration(index: index, outputprocess: self.outputprocess)
@@ -45,7 +53,7 @@ extension ExecuteTaskNow: UpdateProgress {
         self.deinitDelegate?.deinitexecutetasknow()
     }
 
-    func fileHandler() {
+    func filehandler() {
         weak var outputeverythingDelegate: ViewOutputDetails?
         outputeverythingDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllerMain
         if outputeverythingDelegate?.appendnow() ?? false {
