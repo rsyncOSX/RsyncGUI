@@ -7,8 +7,6 @@
 		<dict>
 			<key>backupID</key>
 			<string>XCTest</string>
-			<key>batch</key>
-			<integer>0</integer>
 			<key>dateRun</key>
 			<string></string>
 			<key>hiddenID</key>
@@ -51,8 +49,6 @@
 		<dict>
 			<key>backupID</key>
 			<string>XCTest</string>
-			<key>batch</key>
-			<integer>0</integer>
 			<key>dateRun</key>
 			<string>26 Jun 2019 09:40</string>
 			<key>hiddenID</key>
@@ -95,16 +91,14 @@
 		<dict>
 			<key>backupID</key>
 			<string>XCTest</string>
-			<key>batch</key>
-			<integer>0</integer>
 			<key>dateRun</key>
 			<string></string>
 			<key>hiddenID</key>
 			<integer>3</integer>
 			<key>localCatalog</key>
-			<string>~/remotecatalog/</string>
-			<key>offsiteCatalog</key>
 			<string>/Users/thomas/localcatalog/</string>
+			<key>offsiteCatalog</key>
+			<string>~/remotecatalog/</string>
 			<key>offsiteServer</key>
 			<string>web</string>
 			<key>offsiteUsername</key>
@@ -128,7 +122,7 @@
 			<key>sshport</key>
 			<integer>22</integer>
 			<key>task</key>
-			<string>syncremote</string>
+			<string>synchronize</string>
 		</dict>
 	</array>
 </dict>
