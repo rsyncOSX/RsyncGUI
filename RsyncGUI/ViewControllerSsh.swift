@@ -18,6 +18,10 @@ protocol SaveSequrityScopedURL: AnyObject {
     func savesequrityscopedurl(urlpath: URL)
 }
 
+protocol Loadsshparameters: AnyObject {
+    func loadsshparameters()
+}
+
 class ViewControllerSsh: NSViewController, SetConfigurations, VcMain, Checkforrsync, Help {
     var sshcmd: Ssh?
     var hiddenID: Int?
@@ -105,7 +109,7 @@ class ViewControllerSsh: NSViewController, SetConfigurations, VcMain, Checkforrs
 
     override func viewDidAppear() {
         super.viewDidAppear()
-        self.changesshparameters()
+        self.loadsshparameters()
         globalMainQueue.async { () -> Void in
             self.SequrityScopedTable.reloadData()
         }
@@ -128,16 +132,6 @@ class ViewControllerSsh: NSViewController, SetConfigurations, VcMain, Checkforrs
         }
     }
 
-    private func changesshparameters() {
-        self.sshkeypathandidentityfile.stringValue = ViewControllerReference.shared.sshkeypathandidentityfile ?? ""
-        if let sshport = ViewControllerReference.shared.sshport {
-            self.sshport.stringValue = String(sshport)
-        } else {
-            self.sshport.stringValue = ""
-        }
-        self.checkforPrivateandPublicRSAKeypair()
-    }
-
     func copylocalpubrsakeyfile() {
         guard self.sshcmd?.islocalpublicrsakeypresent() ?? false == true else { return }
         self.outputprocess = OutputProcess()
@@ -157,7 +151,7 @@ extension ViewControllerSsh: DismissViewController {
     func dismiss_view(viewcontroller: NSViewController) {
         self.dismiss(viewcontroller)
         self.copylocalpubrsakeyfile()
-        self.changesshparameters()
+        self.loadsshparameters()
     }
 }
 
@@ -239,5 +233,17 @@ extension ViewControllerSsh: OpenQuickBackup {
         globalMainQueue.async { () -> Void in
             self.presentAsSheet(self.viewControllerQuickBackup!)
         }
+    }
+}
+
+extension ViewControllerSsh: Loadsshparameters {
+    func loadsshparameters() {
+        self.sshkeypathandidentityfile.stringValue = ViewControllerReference.shared.sshkeypathandidentityfile ?? ""
+        if let sshport = ViewControllerReference.shared.sshport {
+            self.sshport.stringValue = String(sshport)
+        } else {
+            self.sshport.stringValue = ""
+        }
+        self.checkforPrivateandPublicRSAKeypair()
     }
 }
