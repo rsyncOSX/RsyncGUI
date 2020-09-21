@@ -157,9 +157,8 @@ class ViewControllerVerify: NSViewController, SetConfigurations, Index, VcMain, 
             if let index = self.index() {
                 let datelastbackup = self.configurations?.getConfigurations()[index].dateRun ?? ""
                 if datelastbackup.isEmpty == false {
-                    let date = datelastbackup.en_us_date_from_string()
                     self.datelastbackup.stringValue = NSLocalizedString("Date last synchronize:", comment: "Remote Info")
-                        + " " + date.localized_string_from_date()
+                        + " " + datelastbackup
                 } else {
                     self.datelastbackup.stringValue = NSLocalizedString("Date last synchronize:", comment: "Remote Info")
                 }

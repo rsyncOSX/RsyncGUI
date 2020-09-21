@@ -30,7 +30,7 @@ class Schedules: ScheduleWriteLoggData {
             delete = true
         }
         if delete {
-            _ = PersistentStorageScheduling(profile: self.profile).savescheduleInMemoryToPersistentStore()
+            PersistentStorageScheduling(profile: self.profile).savescheduleInMemoryToPersistentStore()
             // Send message about refresh tableView
             self.reloadtable(vcontroller: .vctabmain)
         }

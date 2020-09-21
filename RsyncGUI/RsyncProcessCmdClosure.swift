@@ -50,7 +50,7 @@ class RsyncProcessCmdClosure: Delay {
         if self.monitor?.monitor?.currentPath.status != .satisfied {
             let output = OutputProcess()
             let formatter = DateFormatter()
-                        formatter.dateFormat = "-yyyy-MM-dd"
+            formatter.dateFormat = "-yyyy-MM-dd"
             let string = "Network dropped: " + formatter.string(from: Date())
             output.addlinefromoutput(str: string)
             _ = InterruptProcess(output: output)

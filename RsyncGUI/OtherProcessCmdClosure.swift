@@ -100,4 +100,3 @@ class OtherProcessCmdClosure: Delay {
         self.profilepopupDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllerMain
     }
 }
-
