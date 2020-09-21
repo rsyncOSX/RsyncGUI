@@ -1,6 +1,6 @@
 //
 //  ViewControllerLoggData.swift
-//  RsyncGUI
+//  RsyncOSX
 //  The ViewController is the logview
 //
 //  Created by Thomas Evensen on 23/09/2016.
@@ -11,9 +11,8 @@
 import Cocoa
 import Foundation
 
-class ViewControllerLoggData: NSViewController, SetConfigurations, SetSchedules, Delay, Index, Connected, VcMain, Checkforrsync, Help {
+class ViewControllerLoggData: NSViewController, SetConfigurations, SetSchedules, Delay, Index, Connected, VcMain, Checkforrsync, Setcolor, Help {
     private var scheduleloggdata: ScheduleLoggData?
-    private var row: NSDictionary?
     private var filterby: Sortandfilter?
     private var index: Int?
     private var sortedascending: Bool = true
@@ -45,9 +44,7 @@ class ViewControllerLoggData: NSViewController, SetConfigurations, SetSchedules,
 
     // Selecting profiles
     @IBAction func profiles(_: NSButton) {
-        globalMainQueue.async { () -> Void in
-            self.presentAsSheet(self.viewControllerProfile!)
-        }
+        self.presentAsModalWindow(self.viewControllerProfile!)
     }
 
     // Userconfiguration button
@@ -67,12 +64,11 @@ class ViewControllerLoggData: NSViewController, SetConfigurations, SetSchedules,
             self.sortedascending = true
             self.sortdirection.image = #imageLiteral(resourceName: "up")
         }
-        guard self.filterby != nil else { return }
-        switch self.filterby! {
+        switch self.filterby ?? .localcatalog {
         case .executedate:
             self.scheduleloggdata?.loggdata = self.scheduleloggdata?.sortbydate(notsortedlist: self.scheduleloggdata?.loggdata, sortdirection: self.sortedascending)
         default:
-            self.scheduleloggdata?.loggdata = self.scheduleloggdata?.sortbystring(notsortedlist: self.scheduleloggdata?.loggdata, sortby: self.filterby!, sortdirection: self.sortedascending)
+            self.scheduleloggdata?.loggdata = self.scheduleloggdata?.sortbystring(notsortedlist: self.scheduleloggdata?.loggdata, sortby: self.filterby ?? .localcatalog, sortdirection: self.sortedascending)
         }
         globalMainQueue.async { () -> Void in
             self.scheduletable.reloadData()
@@ -89,13 +85,17 @@ class ViewControllerLoggData: NSViewController, SetConfigurations, SetSchedules,
             }
         }
         globalMainQueue.async { () -> Void in
-            self.selectedrows.stringValue = "Selected logs: " + self.selectednumber()
+            self.selectedrows.stringValue = NSLocalizedString("Selected logs:", comment: "Logg") + " " + self.selectednumber()
             self.scheduletable.reloadData()
         }
     }
 
     @IBAction func deletealllogs(_: NSButton) {
-        let answer = Alerts.dialogOrCancel(question: "Delete " + self.selectednumber() + " logrecords?", text: "Cancel or Delete", dialog: "Delete")
+        guard self.selectednumber() != "0" else { return }
+        let question: String = NSLocalizedString("Delete", comment: "Logg")
+        let text: String = NSLocalizedString("Cancel or Delete", comment: "Logg")
+        let dialog: String = NSLocalizedString("Delete", comment: "Logg")
+        let answer = Alerts.dialogOrCancel(question: question + " " + self.selectednumber() + " logrecords?", text: text, dialog: dialog)
         if answer {
             self.deselectrow()
             self.schedules?.deleteselectedrows(scheduleloggdata: self.scheduleloggdata)
@@ -123,13 +123,17 @@ class ViewControllerLoggData: NSViewController, SetConfigurations, SetSchedules,
 
     override func viewDidAppear() {
         super.viewDidAppear()
+        self.info.textColor = setcolor(nsviewcontroller: self, color: .green)
         self.index = self.index()
         if let index = self.index {
             let hiddenID = self.configurations?.gethiddenID(index: index) ?? -1
-            self.scheduleloggdata = ScheduleLoggData(hiddenID: hiddenID, sortascending: self.sortedascending)
-            self.info(num: 1)
+            guard hiddenID > -1 else { return }
+            if let config = self.configurations?.getConfigurations()[index] {
+                self.scheduleloggdata = ScheduleLoggData(hiddenID: hiddenID, sortascending: self.sortedascending)
+                self.info.stringValue = Infologgdata().info(num: 1)
+            }
         } else {
-            self.info(num: 0)
+            self.info.stringValue = Infologgdata().info(num: 0)
             self.scheduleloggdata = ScheduleLoggData(sortascending: self.sortedascending)
         }
         globalMainQueue.async { () -> Void in
@@ -148,15 +152,6 @@ class ViewControllerLoggData: NSViewController, SetConfigurations, SetSchedules,
         guard self.index != nil else { return }
         self.scheduletable.deselectRow(self.index!)
         self.index = self.index()
-    }
-
-    private func info(num: Int) {
-        switch num {
-        case 1:
-            self.info.stringValue = "Got index from Synchronize and listing logs for one configuration..."
-        default:
-            self.info.stringValue = ""
-        }
     }
 }
 
@@ -186,12 +181,14 @@ extension ViewControllerLoggData: NSSearchFieldDelegate {
 extension ViewControllerLoggData: NSTableViewDataSource {
     func numberOfRows(in _: NSTableView) -> Int {
         if self.scheduleloggdata == nil {
-            self.numberOflogfiles.stringValue = "Number of logs:"
-            self.selectedrows.stringValue = "Selected logs: 0"
+            self.numberOflogfiles.stringValue = NSLocalizedString("Number of logs:", comment: "Logg")
+            self.selectedrows.stringValue = NSLocalizedString("Selected logs:", comment: "Logg") + " 0"
             return 0
         } else {
-            self.numberOflogfiles.stringValue = "Number of logs: " + String(self.scheduleloggdata?.loggdata?.count ?? 0)
-            self.selectedrows.stringValue = "Selected logs: " + self.selectednumber()
+            self.numberOflogfiles.stringValue = NSLocalizedString("Number of logs:", comment: "Logg")
+                + " " + String(self.scheduleloggdata?.loggdata?.count ?? 0)
+            self.selectedrows.stringValue = NSLocalizedString("Selected logs:", comment: "Logg")
+                + " " + self.selectednumber()
             return self.scheduleloggdata?.loggdata?.count ?? 0
         }
     }
@@ -275,7 +272,9 @@ extension ViewControllerLoggData: Reloadandrefresh {
         if let index = self.index {
             let hiddenID = self.configurations?.gethiddenID(index: index) ?? -1
             guard hiddenID > -1 else { return }
-            self.scheduleloggdata = ScheduleLoggData(hiddenID: hiddenID, sortascending: self.sortedascending)
+            if let config = self.configurations?.getConfigurations()[index] {
+                self.scheduleloggdata = ScheduleLoggData(hiddenID: hiddenID, sortascending: self.sortedascending)
+            }
         } else {
             self.scheduleloggdata = ScheduleLoggData(sortascending: self.sortedascending)
         }
@@ -285,15 +284,15 @@ extension ViewControllerLoggData: Reloadandrefresh {
     }
 }
 
-extension ViewControllerLoggData: UpdateProgress {
-    func processTermination() {
+extension ViewControllerLoggData {
+    func processtermination() {
         self.working.stopAnimation(nil)
         globalMainQueue.async { () -> Void in
             self.scheduletable.reloadData()
         }
     }
 
-    func fileHandler() {
+    func filehandler() {
         //
     }
 }

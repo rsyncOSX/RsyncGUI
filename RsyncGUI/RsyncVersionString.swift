@@ -1,6 +1,6 @@
 //
 //  RsyncVersionString.swift
-//  RsyncGUI
+//  RsyncOSX
 //
 //  Created by Thomas Evensen on 27.12.2017.
 //  Copyright © 2017 Thomas Evensen. All rights reserved.
@@ -8,30 +8,35 @@
 
 import Foundation
 
-final class RsyncVersionString: ProcessCmd {
+struct RsyncVersionString {
     var outputprocess: OutputProcess?
-
     init() {
-        super.init(command: nil, arguments: ["--version"])
-        self.outputprocess = OutputProcess()
         if ViewControllerReference.shared.norsync == false {
-            self.updateDelegate = self
-            self.executeProcess(outputprocess: self.outputprocess)
+            self.outputprocess = OutputProcess()
+            let command = RsyncProcessCmdClosure(arguments: ["--version"],
+                                                 config: nil,
+                                                 processtermination: self.processtermination,
+                                                 filehandler: self.filehandler)
+            command.executeProcess(outputprocess: self.outputprocess)
         }
     }
 }
 
-extension RsyncVersionString: UpdateProgress {
-    func processTermination() {
+extension RsyncVersionString {
+    func processtermination() {
         guard self.outputprocess?.getOutput()?.count ?? 0 > 0 else { return }
-        ViewControllerReference.shared.rsyncversionshort = self.outputprocess!.getOutput()![0]
-        ViewControllerReference.shared.rsyncversionstring = self.outputprocess!.getOutput()!.joined(separator: "\n")
+        if let rsyncversionshort = self.outputprocess?.getOutput()?[0],
+            let rsyncversionstring = self.outputprocess?.getOutput()?.joined(separator: "\n")
+        {
+            ViewControllerReference.shared.rsyncversionshort = rsyncversionshort
+            ViewControllerReference.shared.rsyncversionstring = rsyncversionstring
+        }
         weak var shortstringDelegate: RsyncIsChanged?
         shortstringDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllerMain
         shortstringDelegate?.rsyncischanged()
     }
 
-    func fileHandler() {
+    func filehandler() {
         // none
     }
 }
