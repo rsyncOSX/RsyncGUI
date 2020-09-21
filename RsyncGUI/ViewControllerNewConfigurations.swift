@@ -204,6 +204,10 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, Dela
             guard self.offsiteServer.stringValue.isEmpty == false else { return }
             dict.setValue(ViewControllerReference.shared.syncremote, forKey: "task")
         }
+        if self.backuptypeselected == .syncremote {
+            guard self.offsiteServer.stringValue.isEmpty == false else { return }
+            dict.setValue(ViewControllerReference.shared.syncremote, forKey: "task")
+        }
         self.configurations?.addNewConfigurations(dict: dict)
         self.newconfigurations?.appendnewConfigurations(dict: dict)
         self.tabledata = self.newconfigurations?.getnewConfigurations()
