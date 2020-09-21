@@ -290,11 +290,11 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
             guard self.singletask != nil else {
                 // Dry run
                 self.singletask = SingleTask(index: self.index!)
-                self.singletask?.executeSingleTask()
+                self.singletask?.executesingletask()
                 return
             }
             // Real run
-            self.singletask?.executeSingleTask()
+            self.singletask?.executesingletask()
         }
     }
 

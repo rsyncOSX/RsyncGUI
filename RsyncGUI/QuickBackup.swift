@@ -52,7 +52,7 @@ final class QuickBackup: SetConfigurations {
             "schedule": Scheduletype.manuel.rawValue,
         ]
         ViewControllerReference.shared.quickbackuptask = task
-        _ = OperationFactory(updateprogress: self)
+        _ = QuickbackupDispatch(processtermination: self.processtermination, filehandler: self.filehandler, outputprocess: self.outputprocess)
     }
 
     func prepareandstartexecutetasks() {
@@ -112,8 +112,8 @@ extension QuickBackup: SendOutputProcessreference {
     }
 }
 
-extension QuickBackup: UpdateProgress {
-    func processTermination() {
+extension QuickBackup {
+    func processtermination() {
         self.setcompleted()
         ViewControllerReference.shared.completeoperation?.finalizeScheduledJob(outputprocess: self.outputprocess)
         ViewControllerReference.shared.completeoperation = nil
@@ -136,7 +136,7 @@ extension QuickBackup: UpdateProgress {
         self.reloadtableDelegate?.reloadtabledata()
     }
 
-    func fileHandler() {
+    func filehandler() {
         weak var localprocessupdateDelegate: Reloadandrefresh?
         weak var outputeverythingDelegate: ViewOutputDetails?
         localprocessupdateDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcquickbackup) as? ViewControllerQuickBackup

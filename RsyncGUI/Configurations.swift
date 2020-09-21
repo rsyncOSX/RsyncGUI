@@ -191,7 +191,7 @@ class Configurations: ReloadTable, SetSchedules {
         let dateformatter = Dateandtime().setDateformat()
         self.configurations?[index].dateRun = dateformatter.string(from: currendate)
         // Saving updated configuration in memory to persistent store
-        _ = PersistentStorageConfiguration(profile: self.profile).saveconfigInMemoryToPersistentStore()
+        PersistentStorageConfiguration(profile: self.profile).saveconfigInMemoryToPersistentStore()
         // Call the view and do a refresh of tableView
         self.reloadtable(vcontroller: .vctabmain)
         _ = Logging(outputprocess: outputprocess)
@@ -203,7 +203,7 @@ class Configurations: ReloadTable, SetSchedules {
     // - parameter index: index to Configuration to replace by config
     func updateConfigurations(_ config: Configuration, index: Int) {
         self.configurations?[index] = config
-        _ = PersistentStorageConfiguration(profile: self.profile).saveconfigInMemoryToPersistentStore()
+        PersistentStorageConfiguration(profile: self.profile).saveconfigInMemoryToPersistentStore()
     }
 
     // Function deletes Configuration in memory at hiddenID and
@@ -214,12 +214,12 @@ class Configurations: ReloadTable, SetSchedules {
         let index = self.configurations?.firstIndex(where: { $0.hiddenID == hiddenID }) ?? -1
         guard index > -1 else { return }
         self.configurations?.remove(at: index)
-        _ = PersistentStorageConfiguration(profile: self.profile).saveconfigInMemoryToPersistentStore()
+        PersistentStorageConfiguration(profile: self.profile).saveconfigInMemoryToPersistentStore()
     }
 
     // Add new configurations
     func addNewConfigurations(dict: NSMutableDictionary) {
-        _ = PersistentStorageConfiguration(profile: self.profile).newConfigurations(dict: dict)
+        PersistentStorageConfiguration(profile: self.profile).newConfigurations(dict: dict)
     }
 
     func getResourceConfiguration(_ hiddenID: Int, resource: ResourceInConfiguration) -> String {

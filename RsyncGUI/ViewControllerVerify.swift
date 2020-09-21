@@ -1,25 +1,25 @@
 //
 //  ViewControllerVerify.swift
-//  RsyncGUI
+//  RsyncOSX
 //
 //  Created by Thomas Evensen on 26.07.2018.
 //  Copyright © 2018 Thomas Evensen. All rights reserved.
 //
-// swiftlint:disable line_length
+// swiftlint:disable line_length type_body_length
 
 import Cocoa
 import Foundation
 
-class ViewControllerVerify: NSViewController, SetConfigurations, Index, Connected, VcMain, Setcolor, Checkforrsync, Help {
-    @IBOutlet var outputtable: NSTableView!
+class ViewControllerVerify: NSViewController, SetConfigurations, Index, VcMain, Connected, Setcolor, Checkforrsync, Help {
     var outputprocess: OutputProcess?
     var lastindex: Int?
     var estimatedindex: Int?
     var gotremoteinfo: Bool = false
-    private var numbers: NSMutableDictionary?
     private var complete: Bool = false
-    private var processRefererence: ProcessCmd?
+    let lastdate: String = NSLocalizedString("Date last synchronize:", comment: "Verify")
+    let dayssince: String = NSLocalizedString("Days since last synchronize:", comment: "Verify")
 
+    @IBOutlet var outputtable: NSTableView!
     @IBOutlet var working: NSProgressIndicator!
     @IBOutlet var verifybutton: NSButton!
     @IBOutlet var changedbutton: NSButton!
@@ -63,9 +63,7 @@ class ViewControllerVerify: NSViewController, SetConfigurations, Index, Connecte
 
     // Selecting profiles
     @IBAction func profiles(_: NSButton) {
-        globalMainQueue.async { () -> Void in
-            self.presentAsSheet(self.viewControllerProfile!)
-        }
+        self.presentAsModalWindow(self.viewControllerProfile!)
     }
 
     // Userconfiguration button
@@ -73,13 +71,18 @@ class ViewControllerVerify: NSViewController, SetConfigurations, Index, Connecte
         self.presentAsModalWindow(self.viewControllerUserconfiguration!)
     }
 
+    @IBAction func showHelp(_: AnyObject?) {
+        self.help()
+    }
+
     @IBAction func verify(_: NSButton) {
-        guard self.processRefererence == nil else { return }
+        guard ViewControllerReference.shared.process == nil else { return }
         if let index = self.index() {
             self.estimatedindex = index
             self.rsynccommanddisplay.stringValue = Displayrsyncpath(index: index, display: .verify).displayrsyncpath ?? ""
             self.gotit.textColor = setcolor(nsviewcontroller: self, color: .white)
-            self.gotit.stringValue = "Verifying, please wait..."
+            let gotit: String = NSLocalizedString("Verifying, please wait...", comment: "Verify")
+            self.gotit.stringValue = gotit
             self.working.startAnimation(nil)
             if let arguments = self.configurations?.arguments4verify(index: index) {
                 self.outputprocess = OutputProcess()
@@ -90,12 +93,13 @@ class ViewControllerVerify: NSViewController, SetConfigurations, Index, Connecte
     }
 
     @IBAction func changed(_: NSButton) {
-        guard self.processRefererence == nil else { return }
+        guard ViewControllerReference.shared.process == nil else { return }
         if let index = self.index() {
             self.estimatedindex = index
             self.rsynccommanddisplay.stringValue = Displayrsyncpath(index: index, display: .restore).displayrsyncpath ?? ""
             self.gotit.textColor = setcolor(nsviewcontroller: self, color: .white)
-            self.gotit.stringValue = "Computing changed, please wait..."
+            let gotit: String = NSLocalizedString("Computing changed, please wait...", comment: "Verify")
+            self.gotit.stringValue = gotit
             self.working.startAnimation(nil)
             if let arguments = self.configurations?.arguments4restore(index: index, argtype: .argdryRun) {
                 self.outputprocess = OutputProcess()
@@ -106,10 +110,11 @@ class ViewControllerVerify: NSViewController, SetConfigurations, Index, Connecte
     }
 
     private func verifyandchanged(arguments: [String]) {
-        let verifytask = ProcessCmd(command: nil, arguments: arguments)
-        verifytask.setupdateDelegate(object: self)
+        let verifytask = RsyncProcessCmdClosure(arguments: arguments,
+                                                config: nil,
+                                                processtermination: self.processtermination,
+                                                filehandler: self.filehandler)
         verifytask.executeProcess(outputprocess: self.outputprocess)
-        self.processRefererence = verifytask
     }
 
     @IBAction func info(_: NSButton) {
@@ -131,11 +136,7 @@ class ViewControllerVerify: NSViewController, SetConfigurations, Index, Connecte
 
     // Abort button
     @IBAction func abort(_: NSButton) {
-        self.processRefererence?.abortProcess()
-    }
-
-    @IBAction func showHelp(_: AnyObject?) {
-        self.help()
+        _ = InterruptProcess()
     }
 
     override func viewDidLoad() {
@@ -153,10 +154,18 @@ class ViewControllerVerify: NSViewController, SetConfigurations, Index, Connecte
             self.setinfo()
             self.gotremoteinfo = false
             self.complete = false
-            let datelastbackup = self.configurations?.getConfigurations()[self.index()!].dateRun ?? "none"
-            let numberlastbackup = self.configurations?.getConfigurations()[self.index()!].dayssincelastbackup ?? "none"
-            self.datelastbackup.stringValue = "Date last backup: " + datelastbackup
-            self.dayslastbackup.stringValue = "Days since last backup: " + numberlastbackup
+            if let index = self.index() {
+                let datelastbackup = self.configurations?.getConfigurations()[index].dateRun ?? ""
+                if datelastbackup.isEmpty == false {
+                    let date = datelastbackup.en_us_date_from_string()
+                    self.datelastbackup.stringValue = NSLocalizedString("Date last synchronize:", comment: "Remote Info")
+                        + " " + date.localized_string_from_date()
+                } else {
+                    self.datelastbackup.stringValue = NSLocalizedString("Date last synchronize:", comment: "Remote Info")
+                }
+                let numberlastbackup = self.configurations?.getConfigurations()[index].dayssincelastbackup ?? ""
+                self.dayslastbackup.stringValue = self.dayssince + " " + numberlastbackup
+            }
         } else {
             _ = self.reload()
         }
@@ -167,19 +176,15 @@ class ViewControllerVerify: NSViewController, SetConfigurations, Index, Connecte
             let config = self.configurations!.getConfigurations()[index]
             guard config.task != ViewControllerReference.shared.syncremote else {
                 self.gotit.textColor = setcolor(nsviewcontroller: self, color: .red)
-                let message: String = "Cannot verify a syncremote task..."
+                let message: String = NSLocalizedString("Cannot verify a syncremote task...", comment: "Verify")
                 self.gotit.stringValue = message
-                self.verifybutton.isEnabled = false
-                self.changedbutton.isEnabled = false
                 self.resetinfo()
                 return false
             }
             guard self.connected(config: config) == true else {
                 self.gotit.textColor = setcolor(nsviewcontroller: self, color: .red)
-                let dontgotit: String = "Seems not to be connected..."
+                let dontgotit: String = NSLocalizedString("Seems not to be connected...", comment: "Verify")
                 self.gotit.stringValue = dontgotit
-                self.verifybutton.isEnabled = false
-                self.changedbutton.isEnabled = false
                 self.resetinfo()
                 return false
             }
@@ -187,7 +192,7 @@ class ViewControllerVerify: NSViewController, SetConfigurations, Index, Connecte
             guard self.estimatedindex ?? -1 != index else { return false }
         } else {
             self.gotit.textColor = setcolor(nsviewcontroller: self, color: .green)
-            let task: String = "Please select a task in Synchronize ..."
+            let task: String = NSLocalizedString("Please select a task in Synchronize ...", comment: "Verify")
             self.gotit.stringValue = task
             self.outputprocess = nil
             self.resetinfo()
@@ -217,27 +222,28 @@ class ViewControllerVerify: NSViewController, SetConfigurations, Index, Connecte
         } else {
             arguments = self.configurations!.arguments4rsync(index: index, argtype: .argdryRun)
         }
-        let verifytask = VerifyTask(arguments: arguments)
-        verifytask.setdelegate(object: self)
-        verifytask.executeProcess(outputprocess: self.outputprocess)
-        self.processRefererence = verifytask
+        let estimate = RsyncProcessCmdClosure(arguments: arguments,
+                                              config: nil,
+                                              processtermination: self.processtermination,
+                                              filehandler: self.filehandler)
+        estimate.executeProcess(outputprocess: self.outputprocess)
     }
 
     private func publishnumbers(outputprocess: OutputProcess?, local: Bool) {
         globalMainQueue.async { () -> Void in
             let infotask = RemoteinfonumbersOnetask(outputprocess: outputprocess)
             if local {
-                self.localtotalNumber.stringValue = infotask.totalNumber!
-                self.localtotalNumberSizebytes.stringValue = infotask.totalNumberSizebytes!
-                self.localtotalDirs.stringValue = infotask.totalDirs!
+                self.localtotalNumber.stringValue = infotask.totalNumber ?? ""
+                self.localtotalNumberSizebytes.stringValue = infotask.totalNumberSizebytes ?? ""
+                self.localtotalDirs.stringValue = infotask.totalDirs ?? ""
             } else {
-                self.transferredNumber.stringValue = infotask.transferredNumber!
-                self.transferredNumberSizebytes.stringValue = infotask.transferredNumberSizebytes!
-                self.totalNumber.stringValue = infotask.totalNumber!
-                self.totalNumberSizebytes.stringValue = infotask.totalNumberSizebytes!
-                self.totalDirs.stringValue = infotask.totalDirs!
-                self.newfiles.stringValue = infotask.newfiles!
-                self.deletefiles.stringValue = infotask.deletefiles!
+                self.transferredNumber.stringValue = infotask.transferredNumber ?? ""
+                self.transferredNumberSizebytes.stringValue = infotask.transferredNumberSizebytes ?? ""
+                self.totalNumber.stringValue = infotask.totalNumber ?? ""
+                self.totalNumberSizebytes.stringValue = infotask.totalNumberSizebytes ?? ""
+                self.totalDirs.stringValue = infotask.totalDirs ?? ""
+                self.newfiles.stringValue = infotask.newfiles ?? ""
+                self.deletefiles.stringValue = infotask.deletefiles ?? ""
                 self.working.stopAnimation(nil)
                 self.gotit.stringValue = ""
             }
@@ -246,9 +252,12 @@ class ViewControllerVerify: NSViewController, SetConfigurations, Index, Connecte
 
     private func setinfo() {
         if let hiddenID = self.configurations?.gethiddenID(index: self.index() ?? -1) {
-            self.localcatalog.stringValue = self.configurations!.getResourceConfiguration(hiddenID, resource: .localCatalog)
-            self.remoteserver.stringValue = self.configurations!.getResourceConfiguration(hiddenID, resource: .offsiteServer)
-            self.remotecatalog.stringValue = self.configurations!.getResourceConfiguration(hiddenID, resource: .offsiteCatalog)
+            self.localcatalog.stringValue =
+                self.configurations?.getResourceConfiguration(hiddenID, resource: .localCatalog) ?? ""
+            self.remoteserver.stringValue =
+                self.configurations?.getResourceConfiguration(hiddenID, resource: .offsiteServer) ?? ""
+            self.remotecatalog.stringValue =
+                self.configurations?.getResourceConfiguration(hiddenID, resource: .offsiteCatalog) ?? ""
         }
     }
 
@@ -263,8 +272,8 @@ class ViewControllerVerify: NSViewController, SetConfigurations, Index, Connecte
         self.totalDirs.stringValue = ""
         self.newfiles.stringValue = ""
         self.deletefiles.stringValue = ""
-        self.datelastbackup.stringValue = "Date last backup:"
-        self.dayslastbackup.stringValue = "Days since last backup:"
+        self.datelastbackup.stringValue = self.lastdate
+        self.dayslastbackup.stringValue = self.dayssince
         self.rsynccommanddisplay.stringValue = ""
         self.verifyradiobutton.state = .off
         self.changedradiobutton.state = .off
@@ -292,9 +301,9 @@ extension ViewControllerVerify: NSTableViewDelegate {
     }
 }
 
-extension ViewControllerVerify: UpdateProgress {
-    func processTermination() {
-        self.processRefererence = nil
+extension ViewControllerVerify {
+    func processtermination() {
+        ViewControllerReference.shared.process = nil
         if self.gotremoteinfo == false {
             if self.complete == false {
                 self.publishnumbers(outputprocess: self.outputprocess, local: true)
@@ -314,12 +323,13 @@ extension ViewControllerVerify: UpdateProgress {
             }
         } else {
             self.working.stopAnimation(nil)
-            self.gotit.stringValue = "Completed ..."
+            let gotit: String = NSLocalizedString("Completed ...", comment: "Verify")
+            self.gotit.stringValue = gotit
             self.gotit.textColor = setcolor(nsviewcontroller: self, color: .green)
         }
     }
 
-    func fileHandler() {
+    func filehandler() {
         if self.gotremoteinfo == true {
             globalMainQueue.async { () -> Void in
                 self.outputtable.reloadData()

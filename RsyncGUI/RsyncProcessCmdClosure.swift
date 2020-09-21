@@ -49,7 +49,9 @@ class RsyncProcessCmdClosure: Delay {
     func statusDidChange() {
         if self.monitor?.monitor?.currentPath.status != .satisfied {
             let output = OutputProcess()
-            let string = "Network dropped: " + Date().long_localized_string_from_date()
+            let formatter = DateFormatter()
+                        formatter.dateFormat = "-yyyy-MM-dd"
+            let string = "Network dropped: " + formatter.string(from: Date())
             output.addlinefromoutput(str: string)
             _ = InterruptProcess(output: output)
         }
@@ -61,11 +63,6 @@ class RsyncProcessCmdClosure: Delay {
         // Getting version of rsync
         task.launchPath = Getrsyncpath().rsyncpath
         task.arguments = self.arguments
-        // If there are any Environmentvariables like
-        // SSH_AUTH_SOCK": "/Users/user/.gnupg/S.gpg-agent.ssh"
-        if let environment = Environment() {
-            task.environment = environment.environment
-        }
         // Pipe for reading output from Process
         let pipe = Pipe()
         task.standardOutput = pipe

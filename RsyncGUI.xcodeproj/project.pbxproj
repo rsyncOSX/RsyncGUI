@@ -94,7 +94,6 @@
 		E958CDDF1FA4CEBD00EA37A5 /* ViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E958CDDE1FA4CEBD00EA37A5 /* ViewControllerExtensions.swift */; };
 		E958D35D25187CA80046E8F4 /* RsyncProcessCmdClosure.swift in Sources */ = {isa = PBXBuildFile; fileRef = E958D35C25187CA80046E8F4 /* RsyncProcessCmdClosure.swift */; };
 		E958D36125187CE10046E8F4 /* OtherProcessCmdClosure.swift in Sources */ = {isa = PBXBuildFile; fileRef = E958D36025187CE10046E8F4 /* OtherProcessCmdClosure.swift */; };
-		E95AE70721A5B88B00B2420B /* OperationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95AE70621A5B88A00B2420B /* OperationFactory.swift */; };
 		E96059AA2109B63D00DFA08E /* ViewControllerVerify.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96059A92109B63D00DFA08E /* ViewControllerVerify.swift */; };
 		E9609EF51F229F5900F5BFAA /* PersistentStorageConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9609EF41F229F5900F5BFAA /* PersistentStorageConfiguration.swift */; };
 		E96291B1213049D7005119A7 /* TCPconnections.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96291B0213049D7005119A7 /* TCPconnections.swift */; };
@@ -236,7 +235,6 @@
 		E958CDDE1FA4CEBD00EA37A5 /* ViewControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerExtensions.swift; sourceTree = "<group>"; };
 		E958D35C25187CA80046E8F4 /* RsyncProcessCmdClosure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RsyncProcessCmdClosure.swift; sourceTree = "<group>"; };
 		E958D36025187CE10046E8F4 /* OtherProcessCmdClosure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherProcessCmdClosure.swift; sourceTree = "<group>"; };
-		E95AE70621A5B88A00B2420B /* OperationFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperationFactory.swift; sourceTree = "<group>"; };
 		E96059A92109B63D00DFA08E /* ViewControllerVerify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerVerify.swift; sourceTree = "<group>"; };
 		E9609EF41F229F5900F5BFAA /* PersistentStorageConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentStorageConfiguration.swift; sourceTree = "<group>"; };
 		E96291B0213049D7005119A7 /* TCPconnections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TCPconnections.swift; sourceTree = "<group>"; };
@@ -608,7 +606,6 @@
 		E988FCBC1F9BCF0A00F21FB9 /* QuickbackupOperation */ = {
 			isa = PBXGroup;
 			children = (
-				E95AE70621A5B88A00B2420B /* OperationFactory.swift */,
 				E9374D2D1E329A5800CD3945 /* CompleteQuickbackupTask.swift */,
 				E94D6E2F21A5BBA400DDDB61 /* ExecuteQuickbackupTask.swift */,
 				E94D6E2E21A5BBA300DDDB61 /* QuickbackupDispatch.swift */,
@@ -792,7 +789,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1020;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = "Thomas Evensen";
 				TargetAttributes = {
 					A04492811D658EE800B3CE17 = {
@@ -992,7 +989,6 @@
 				E9F413BB1F63AC2A00C0945E /* Schedules.swift in Sources */,
 				E9407BB9208AFB7C00A6780E /* ViewControllerEstimatingTasks.swift in Sources */,
 				E96C784422227A3600AF81E1 /* PersistentStorageAllprofilesAPI.swift in Sources */,
-				E95AE70721A5B88B00B2420B /* OperationFactory.swift in Sources */,
 				E97C05F8229FBBA30044EAF6 /* ConvertOneConfig.swift in Sources */,
 				E83B4473235F3C6700BBC793 /* ArgumentsLocalcatalogInfo.swift in Sources */,
 				E840ED1B22D0BDC900CF62FF /* RootcatalogSequrityscopedURLs.swift in Sources */,
@@ -1058,6 +1054,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -1116,6 +1113,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
