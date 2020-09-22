@@ -1,6 +1,6 @@
 //
 //  QuickBackup.swift
-//  RsyncGUI
+//  RsyncOSX
 //
 //  Created by Thomas Evensen on 22.12.2017.
 //  Copyright © 2017 Thomas Evensen. All rights reserved.
@@ -24,8 +24,9 @@ final class QuickBackup: SetConfigurations {
     var index: Int?
     var hiddenID: Int?
     var maxcount: Int?
-    var outputprocess: OutputProcess?
     weak var reloadtableDelegate: Reloadandrefresh?
+
+    var outputprocess: OutputProcess?
 
     func sortbydays() {
         guard self.sortedlist != nil else { return }
@@ -45,13 +46,14 @@ final class QuickBackup: SetConfigurations {
     private func executequickbackuptask(hiddenID: Int) {
         let now = Date()
         let dateformatter = Dateandtime().setDateformat()
-        let task: NSDictionary = [
+        ViewControllerReference.shared.quickbackuptask = [
             "start": now,
             "hiddenID": hiddenID,
-            "dateStart": dateformatter.date(from: "01 Jan 1900 00:00")!,
+            "dateStart": dateformatter.date(from: "01 Jan 1900 00:00") ?? "",
             "schedule": Scheduletype.manuel.rawValue,
         ]
-        ViewControllerReference.shared.quickbackuptask = task
+        self.outputprocess = nil
+        self.outputprocess = OutputProcessRsync()
         _ = QuickbackupDispatch(processtermination: self.processtermination, filehandler: self.filehandler, outputprocess: self.outputprocess)
     }
 
@@ -103,12 +105,6 @@ final class QuickBackup: SetConfigurations {
         self.sortbydays()
         self.hiddenID = nil
         self.reloadtableDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcquickbackup) as? ViewControllerQuickBackup
-    }
-}
-
-extension QuickBackup: SendOutputProcessreference {
-    func sendoutputprocessreference(outputprocess: OutputProcess?) {
-        self.outputprocess = outputprocess
     }
 }
 
