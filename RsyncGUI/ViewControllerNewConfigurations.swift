@@ -69,9 +69,7 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, Dela
 
     // Selecting profiles
     @IBAction func profiles(_: NSButton) {
-        globalMainQueue.async { () -> Void in
-            self.presentAsSheet(self.viewControllerProfile!)
-        }
+        self.presentAsModalWindow(self.viewControllerProfile!)
     }
 
     // Userconfiguration button
@@ -204,10 +202,6 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, Dela
             guard self.offsiteServer.stringValue.isEmpty == false else { return }
             dict.setValue(ViewControllerReference.shared.syncremote, forKey: "task")
         }
-        if self.backuptypeselected == .syncremote {
-            guard self.offsiteServer.stringValue.isEmpty == false else { return }
-            dict.setValue(ViewControllerReference.shared.syncremote, forKey: "task")
-        }
         self.configurations?.addNewConfigurations(dict: dict)
         self.newconfigurations?.appendnewConfigurations(dict: dict)
         self.tabledata = self.newconfigurations?.getnewConfigurations()
@@ -226,7 +220,7 @@ extension ViewControllerNewConfigurations: NSTableViewDataSource {
 
 extension ViewControllerNewConfigurations: NSTableViewDelegate {
     func tableView(_: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
-        if let object: NSMutableDictionary = self.newconfigurations?.getnewConfigurations()![row] {
+        if let object: NSMutableDictionary = self.newconfigurations?.getnewConfigurations()?[row] {
             return object[tableColumn!.identifier] as? String
         } else {
             return nil
