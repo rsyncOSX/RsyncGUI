@@ -270,9 +270,7 @@ extension ViewControllerLoggData: Reloadandrefresh {
         if let index = self.index {
             let hiddenID = self.configurations?.gethiddenID(index: index) ?? -1
             guard hiddenID > -1 else { return }
-            if let config = self.configurations?.getConfigurations()[index] {
-                self.scheduleloggdata = ScheduleLoggData(hiddenID: hiddenID, sortascending: self.sortedascending)
-            }
+            self.scheduleloggdata = ScheduleLoggData(hiddenID: hiddenID, sortascending: self.sortedascending)
         } else {
             self.scheduleloggdata = ScheduleLoggData(sortascending: self.sortedascending)
         }

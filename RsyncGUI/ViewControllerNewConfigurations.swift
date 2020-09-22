@@ -220,7 +220,7 @@ extension ViewControllerNewConfigurations: NSTableViewDataSource {
 
 extension ViewControllerNewConfigurations: NSTableViewDelegate {
     func tableView(_: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
-        if let object: NSMutableDictionary = self.newconfigurations?.getnewConfigurations()![row] {
+        if let object: NSMutableDictionary = self.newconfigurations?.getnewConfigurations()?[row] {
             return object[tableColumn!.identifier] as? String
         } else {
             return nil
