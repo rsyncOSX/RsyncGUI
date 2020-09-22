@@ -69,9 +69,7 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, Dela
 
     // Selecting profiles
     @IBAction func profiles(_: NSButton) {
-        globalMainQueue.async { () -> Void in
-            self.presentAsSheet(self.viewControllerProfile!)
-        }
+        self.presentAsModalWindow(self.viewControllerProfile!)
     }
 
     // Userconfiguration button
@@ -199,10 +197,6 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, Dela
         if self.offsiteCatalog.stringValue.hasSuffix("/") == false {
             self.offsiteCatalog.stringValue += "/"
             dict.setValue(self.offsiteCatalog.stringValue, forKey: "offsiteCatalog")
-        }
-        if self.backuptypeselected == .syncremote {
-            guard self.offsiteServer.stringValue.isEmpty == false else { return }
-            dict.setValue(ViewControllerReference.shared.syncremote, forKey: "task")
         }
         if self.backuptypeselected == .syncremote {
             guard self.offsiteServer.stringValue.isEmpty == false else { return }
