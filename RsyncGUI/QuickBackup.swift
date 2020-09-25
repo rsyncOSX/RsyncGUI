@@ -25,8 +25,8 @@ final class QuickBackup: SetConfigurations {
     var hiddenID: Int?
     var maxcount: Int?
     weak var reloadtableDelegate: Reloadandrefresh?
-
     var outputprocess: OutputProcess?
+    var command: QuickbackupDispatch?
 
     func sortbydays() {
         guard self.sortedlist != nil else { return }
@@ -54,7 +54,9 @@ final class QuickBackup: SetConfigurations {
         ]
         self.outputprocess = nil
         self.outputprocess = OutputProcessRsync()
-        _ = QuickbackupDispatch(processtermination: self.processtermination, filehandler: self.filehandler, outputprocess: self.outputprocess)
+        _ = QuickbackupDispatch(processtermination: self.processtermination,
+                                filehandler: self.filehandler,
+                                outputprocess: self.outputprocess)
     }
 
     func prepareandstartexecutetasks() {
@@ -130,6 +132,7 @@ extension QuickBackup {
         self.maxcount = Int(self.sortedlist![self.index!].value(forKey: "transferredNumber") as? String ?? "0")
         self.executequickbackuptask(hiddenID: self.hiddenID!)
         self.reloadtableDelegate?.reloadtabledata()
+        self.command = nil
     }
 
     func filehandler() {
