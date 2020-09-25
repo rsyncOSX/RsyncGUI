@@ -18,6 +18,7 @@ class ViewControllerVerify: NSViewController, SetConfigurations, Index, VcMain, 
     private var complete: Bool = false
     let lastdate: String = NSLocalizedString("Date last synchronize:", comment: "Verify")
     let dayssince: String = NSLocalizedString("Days since last synchronize:", comment: "Verify")
+    var command: RsyncProcessCmdClosure?
 
     @IBOutlet var outputtable: NSTableView!
     @IBOutlet var working: NSProgressIndicator!
@@ -110,11 +111,11 @@ class ViewControllerVerify: NSViewController, SetConfigurations, Index, VcMain, 
     }
 
     private func verifyandchanged(arguments: [String]) {
-        let verifytask = RsyncProcessCmdClosure(arguments: arguments,
-                                                config: nil,
-                                                processtermination: self.processtermination,
-                                                filehandler: self.filehandler)
-        verifytask.executeProcess(outputprocess: self.outputprocess)
+        self.command = RsyncProcessCmdClosure(arguments: arguments,
+                                              config: nil,
+                                              processtermination: self.processtermination,
+                                              filehandler: self.filehandler)
+        self.command?.executeProcess(outputprocess: self.outputprocess)
     }
 
     @IBAction func info(_: NSButton) {
@@ -157,8 +158,9 @@ class ViewControllerVerify: NSViewController, SetConfigurations, Index, VcMain, 
             if let index = self.index() {
                 let datelastbackup = self.configurations?.getConfigurations()[index].dateRun ?? ""
                 if datelastbackup.isEmpty == false {
+                    let date = datelastbackup
                     self.datelastbackup.stringValue = NSLocalizedString("Date last synchronize:", comment: "Remote Info")
-                        + " " + datelastbackup
+                        + " " + date
                 } else {
                     self.datelastbackup.stringValue = NSLocalizedString("Date last synchronize:", comment: "Remote Info")
                 }
@@ -221,11 +223,11 @@ class ViewControllerVerify: NSViewController, SetConfigurations, Index, VcMain, 
         } else {
             arguments = self.configurations!.arguments4rsync(index: index, argtype: .argdryRun)
         }
-        let estimate = RsyncProcessCmdClosure(arguments: arguments,
+        self.command = RsyncProcessCmdClosure(arguments: arguments,
                                               config: nil,
                                               processtermination: self.processtermination,
                                               filehandler: self.filehandler)
-        estimate.executeProcess(outputprocess: self.outputprocess)
+        self.command?.executeProcess(outputprocess: self.outputprocess)
     }
 
     private func publishnumbers(outputprocess: OutputProcess?, local: Bool) {
@@ -303,6 +305,7 @@ extension ViewControllerVerify: NSTableViewDelegate {
 extension ViewControllerVerify {
     func processtermination() {
         ViewControllerReference.shared.process = nil
+        self.command = nil
         if self.gotremoteinfo == false {
             if self.complete == false {
                 self.publishnumbers(outputprocess: self.outputprocess, local: true)

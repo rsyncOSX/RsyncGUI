@@ -30,6 +30,7 @@ class ViewControllerAllProfiles: NSViewController, Delay, Abort {
     private var sortascending: Bool = true
     private var index: Int?
     private var outputprocess: OutputProcess?
+    var command: OtherProcessCmdClosure?
 
     @IBAction func abort(_: NSButton) {
         _ = InterruptProcess()
@@ -71,11 +72,11 @@ class ViewControllerAllProfiles: NSViewController, Delay, Abort {
         let duargs = DuArgumentsSsh(config: config)
         guard duargs.getArguments() != nil || duargs.getCommand() != nil else { return }
         self.working.startAnimation(nil)
-        let task = OtherProcessCmdClosure(command: duargs.getCommand(),
-                                          arguments: duargs.getArguments(),
-                                          processtermination: self.processtermination,
-                                          filehandler: self.filehandler)
-        task.executeProcess(outputprocess: self.outputprocess)
+        self.command = OtherProcessCmdClosure(command: duargs.getCommand(),
+                                              arguments: duargs.getArguments(),
+                                              processtermination: self.processtermination,
+                                              filehandler: self.filehandler)
+        self.command?.executeProcess(outputprocess: self.outputprocess)
     }
 
     override func viewDidLoad() {
@@ -236,6 +237,7 @@ extension ViewControllerAllProfiles {
             self.mainTableView.reloadData()
         }
         ViewControllerReference.shared.process = nil
+        self.command = nil
     }
 
     func filehandler() {
