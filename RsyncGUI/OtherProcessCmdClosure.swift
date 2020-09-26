@@ -103,6 +103,6 @@ class OtherProcessCmdClosure: Delay {
     }
 
     deinit {
-        print("deinit OtherProcessCmdClosure")
+        // print("deinit OtherProcessCmdClosure")
     }
 }

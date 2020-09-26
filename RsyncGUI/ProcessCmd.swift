@@ -100,6 +100,6 @@ class ProcessCmd: Delay {
     }
 
     deinit {
-        print("deinit ProcessCmd")
+        // print("deinit ProcessCmd")
     }
 }
