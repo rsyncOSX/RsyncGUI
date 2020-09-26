@@ -54,9 +54,9 @@ final class QuickBackup: SetConfigurations {
         ]
         self.outputprocess = nil
         self.outputprocess = OutputProcessRsync()
-        _ = QuickbackupDispatch(processtermination: self.processtermination,
-                                filehandler: self.filehandler,
-                                outputprocess: self.outputprocess)
+        self.command = QuickbackupDispatch(processtermination: self.processtermination,
+                                           filehandler: self.filehandler,
+                                           outputprocess: self.outputprocess)
     }
 
     func prepareandstartexecutetasks() {
