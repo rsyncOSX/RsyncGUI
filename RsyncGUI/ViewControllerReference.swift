@@ -69,6 +69,8 @@ final class ViewControllerReference {
     var configurationskey: String = "Catalogs"
     var userconfigplist: String = "/config.plist"
     var userconfigkey: String = "config"
+    var assistplist: String = "/assist.plist"
+    var assistkey: String = "assist"
     // Loggfile
     var minimumlogging: Bool = false
     var fulllogging: Bool = false
