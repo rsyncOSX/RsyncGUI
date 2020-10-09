@@ -34,6 +34,7 @@
 		A0F2E20C1D6D91AA0091E8BF /* Userconfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F2E20B1D6D91AA0091E8BF /* Userconfiguration.swift */; };
 		A0FAF5CF1DDF2E5F0009FE7A /* ViewControllerAbout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FAF5CE1DDF2E5F0009FE7A /* ViewControllerAbout.swift */; };
 		A0FC45641D9545CC005208EF /* ScheduleLoggData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FC45631D9545CC005208EF /* ScheduleLoggData.swift */; };
+		E80596EF253035AA00E9D38E /* Backupconfigfiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80596EE253035AA00E9D38E /* Backupconfigfiles.swift */; };
 		E824739B2309B18100355CEA /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = E824739A2309B18100355CEA /* Result.swift */; };
 		E824739D2309B20900355CEA /* Socket.swift in Sources */ = {isa = PBXBuildFile; fileRef = E824739C2309B20900355CEA /* Socket.swift */; };
 		E83B446E235F3C6700BBC793 /* ArgumentsRestore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B4467235F3C6700BBC793 /* ArgumentsRestore.swift */; };
@@ -181,6 +182,7 @@
 		A0F2E20B1D6D91AA0091E8BF /* Userconfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Userconfiguration.swift; sourceTree = "<group>"; };
 		A0FAF5CE1DDF2E5F0009FE7A /* ViewControllerAbout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerAbout.swift; sourceTree = "<group>"; };
 		A0FC45631D9545CC005208EF /* ScheduleLoggData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleLoggData.swift; sourceTree = "<group>"; };
+		E80596EE253035AA00E9D38E /* Backupconfigfiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Backupconfigfiles.swift; sourceTree = "<group>"; };
 		E824739A2309B18100355CEA /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		E824739C2309B20900355CEA /* Socket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Socket.swift; sourceTree = "<group>"; };
 		E83B4467235F3C6700BBC793 /* ArgumentsRestore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArgumentsRestore.swift; sourceTree = "<group>"; };
@@ -455,6 +457,7 @@
 				E988932322C1E95C0094B15B /* Selectprofile.swift */,
 				E8EDD15223C8C0E800806CCD /* Validatenewconfigs.swift */,
 				E9DB9022241E047000C4C519 /* Info.swift */,
+				E80596EE253035AA00E9D38E /* Backupconfigfiles.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -955,6 +958,7 @@
 				E94DC3132313E79700E7CE7E /* extensionVCMainSingletask.swift in Sources */,
 				E9847D6F246DC524007CDEC2 /* OutputProcessRsync.swift in Sources */,
 				E977A7A3252C8C3F009D9E87 /* AssistDefault.swift in Sources */,
+				E80596EF253035AA00E9D38E /* Backupconfigfiles.swift in Sources */,
 				E945D61420B736E9000E787B /* ViewControllerInformationLocalRemote.swift in Sources */,
 				E9234FFB1EB068AE00A4C550 /* Catalogsandfiles.swift in Sources */,
 				E9B9CCA621BC46B00042D5CE /* extensionDate.swift in Sources */,
