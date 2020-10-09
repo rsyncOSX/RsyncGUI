@@ -28,8 +28,12 @@ class ViewControllerUserconfiguration: NSViewController, NewRsync, SetDismisser,
     @IBOutlet var haltonerror: NSButton!
     @IBOutlet var sshport: NSTextField!
     @IBOutlet var sshkeypathandidentityfile: NSTextField!
-    @IBOutlet var closebutton: NSButton!
     @IBOutlet var monitornetworkconnection: NSButton!
+
+    @IBAction func copyconfigfiles(_: NSButton) {
+        _ = Backupconfigfiles()
+        self.view.window?.close()
+    }
 
     @IBAction func togglehaltonerror(_: NSButton) {
         if ViewControllerReference.shared.haltonerror {
@@ -78,36 +82,8 @@ class ViewControllerUserconfiguration: NSViewController, NewRsync, SetDismisser,
             self.loadsshparametersDelegate?.loadsshparameters()
             self.changetemporaryrestorepath()
         }
-        if (self.presentingViewController as? ViewControllerMain) != nil {
-            self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
-        } else if (self.presentingViewController as? ViewControllerNewConfigurations) != nil {
-            self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
-        } else if (self.presentingViewController as? ViewControllerRestore) != nil {
-            self.dismissview(viewcontroller: self, vcontroller: .vcrestore)
-        } else if (self.presentingViewController as? ViewControllerSsh) != nil {
-            self.dismissview(viewcontroller: self, vcontroller: .vcssh)
-        } else if (self.presentingViewController as? ViewControllerVerify) != nil {
-            self.dismissview(viewcontroller: self, vcontroller: .vcverify)
-        } else if (self.presentingViewController as? ViewControllerLoggData) != nil {
-            self.dismissview(viewcontroller: self, vcontroller: .vcloggdata)
-        }
+        self.view.window?.close()
         _ = RsyncVersionString()
-    }
-
-    @IBAction func closenosave(_: NSButton) {
-        if (self.presentingViewController as? ViewControllerMain) != nil {
-            self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
-        } else if (self.presentingViewController as? ViewControllerNewConfigurations) != nil {
-            self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
-        } else if (self.presentingViewController as? ViewControllerRestore) != nil {
-            self.dismissview(viewcontroller: self, vcontroller: .vcrestore)
-        } else if (self.presentingViewController as? ViewControllerSsh) != nil {
-            self.dismissview(viewcontroller: self, vcontroller: .vcssh)
-        } else if (self.presentingViewController as? ViewControllerVerify) != nil {
-            self.dismissview(viewcontroller: self, vcontroller: .vcverify)
-        } else if (self.presentingViewController as? ViewControllerLoggData) != nil {
-            self.dismissview(viewcontroller: self, vcontroller: .vcloggdata)
-        }
     }
 
     @IBAction func logging(_: NSButton) {
@@ -127,8 +103,6 @@ class ViewControllerUserconfiguration: NSViewController, NewRsync, SetDismisser,
     private func setdirty() {
         self.dirty = true
         self.savebutton.title = "Save"
-        self.closebutton.isHidden = false
-        self.closebutton.isEnabled = true
     }
 
     private func setmarknumberofdayssince() {
@@ -226,7 +200,6 @@ class ViewControllerUserconfiguration: NSViewController, NewRsync, SetDismisser,
         self.checkUserConfig()
         self.marknumberofdayssince.stringValue = String(ViewControllerReference.shared.marknumberofdayssince)
         self.reload = false
-        self.closebutton.isHidden = true
     }
 
     // Function for check and set user configuration
