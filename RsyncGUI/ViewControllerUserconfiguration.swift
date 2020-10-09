@@ -29,7 +29,7 @@ class ViewControllerUserconfiguration: NSViewController, NewRsync, SetDismisser,
     @IBOutlet var sshport: NSTextField!
     @IBOutlet var sshkeypathandidentityfile: NSTextField!
     @IBOutlet var monitornetworkconnection: NSButton!
-    
+
     @IBAction func copyconfigfiles(_: NSButton) {
         _ = Backupconfigfiles()
         self.view.window?.close()

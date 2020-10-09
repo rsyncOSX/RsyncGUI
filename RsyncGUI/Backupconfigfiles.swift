@@ -22,7 +22,7 @@ struct Backupconfigfiles: FileErrors {
                 originFolder = try Folder(path: usedpath)
                 let formatter = DateFormatter()
                 formatter.dateFormat = "-yyyy-MM-dd"
-                let targetpath = "RsyncGUIcopy-" + formatter.string(from: Date())
+                let targetpath = "RsyncGUIcopy" + formatter.string(from: Date())
                 let targetFolder = try Folder(path: documentscatalog).createSubfolder(at: targetpath)
                 try originFolder?.copy(to: targetFolder)
             } catch let e {
@@ -35,8 +35,7 @@ struct Backupconfigfiles: FileErrors {
     init() {
         let path = NamesandPaths(profileorsshrootpath: .profileroot)
         self.usedpath = path.fullrootnomacserial
-        self.backuppath = path.documentscatalog
+        self.backuppath = path.userHomeDirectoryPath
         self.backup()
     }
 }
-
