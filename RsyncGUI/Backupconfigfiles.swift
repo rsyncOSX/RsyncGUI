@@ -23,7 +23,7 @@ struct Backupconfigfiles: FileErrors {
                 let formatter = DateFormatter()
                 formatter.dateFormat = "-yyyy-MM-dd"
                 let targetpath = "RsyncGUIcopy" + formatter.string(from: Date())
-                let targetFolder = try Folder(path: documentscatalog).createSubfolder(at: targetpath)
+                let targetFolder = try Folder(path: documentscatalog + "/Documents").createSubfolder(at: targetpath)
                 try originFolder?.copy(to: targetFolder)
             } catch let e {
                 let error = e as NSError
