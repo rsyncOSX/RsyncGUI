@@ -42,8 +42,8 @@ extension ViewControllerMain: NSTableViewDelegate, Attributedestring {
         guard self.configurations != nil else { return nil }
         if row > (self.configurations?.configurationsDataSourcecount() ?? 0) - 1 { return nil }
         if let object: NSDictionary = self.configurations?.getConfigurationsDataSource()?[row],
-            let markdays: Bool = self.configurations?.getConfigurations()[row].markdays,
-            let tableColumn = tableColumn
+           let markdays: Bool = self.configurations?.getConfigurations()[row].markdays,
+           let tableColumn = tableColumn
         {
             let celltext = object[tableColumn.identifier] as? String
             if tableColumn.identifier.rawValue == "daysID" {
@@ -68,7 +68,7 @@ extension ViewControllerMain: NSTableViewDelegate, Attributedestring {
                 // Check if test for connections is selected
                 if self.configurations?.tcpconnections?.connectionscheckcompleted ?? false == true {
                     if (self.configurations?.tcpconnections?.gettestAllremoteserverConnections()?[row]) ?? false,
-                        tableColumn.identifier.rawValue == "offsiteServerCellID"
+                       tableColumn.identifier.rawValue == "offsiteServerCellID"
                     {
                         return self.attributedstring(str: celltext ?? "", color: NSColor.red, align: .left)
                     } else {
