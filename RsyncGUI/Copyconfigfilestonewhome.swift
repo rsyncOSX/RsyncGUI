@@ -19,7 +19,7 @@ struct Copyconfigfilestonewhome: FileErrors {
     // to new profile catalog.
     func moveplistfilestonewhome() -> Bool {
         if let oldpath = self.oldpath,
-            let newpath = self.newpath
+           let newpath = self.newpath
         {
             var originFolder: Folder?
             var targetFolder: Folder?
