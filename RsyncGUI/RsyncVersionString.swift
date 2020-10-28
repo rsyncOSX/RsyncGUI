@@ -34,6 +34,7 @@ extension RsyncVersionString {
         weak var shortstringDelegate: RsyncIsChanged?
         shortstringDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllerMain
         shortstringDelegate?.rsyncischanged()
+        ViewControllerReference.shared.process = nil
     }
 
     func filehandler() {
