@@ -130,7 +130,7 @@ class RsyncProcessCmdClosure: Delay {
     }
 
     deinit {
-        // print("deinit RsyncProcessCmdClosure")
+        ViewControllerReference.shared.process = nil
         self.monitor?.stopMonitoring()
         self.monitor = nil
     }

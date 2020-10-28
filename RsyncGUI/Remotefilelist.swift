@@ -40,6 +40,7 @@ extension Remotefilelist: UpdateProgress {
     func processTermination() {
         self.remotefilelist = self.outputprocess?.trimoutput(trim: .one)
         self.setremotefilelistDelegate?.updateremotefilelist()
+        ViewControllerReference.shared.process = nil
     }
 
     func fileHandler() {

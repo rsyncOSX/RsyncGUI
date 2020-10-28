@@ -103,6 +103,6 @@ class OtherProcessCmdClosure: Delay {
     }
 
     deinit {
-        // print("deinit OtherProcessCmdClosure")
+        ViewControllerReference.shared.process = nil
     }
 }
