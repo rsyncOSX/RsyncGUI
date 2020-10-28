@@ -115,7 +115,10 @@ class Logging: NamesandPaths, FileErrors {
     init(_ outputprocess: OutputProcess?, _ logging: Bool) {
         super.init(profileorsshrootpath: .profileroot)
         if logging == false, outputprocess == nil {
-            self.log = "Creating a new logfile"
+            let currendate = Date()
+            let dateformatter = Dateandtime().setDateformat()
+            let date = dateformatter.string(from: currendate)
+            self.log = date + ": new logfile is created..."
             self.writeloggfile()
         } else {
             self.outputprocess = outputprocess
