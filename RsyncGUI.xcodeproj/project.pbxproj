@@ -47,7 +47,6 @@
 		E840ED1B22D0BDC900CF62FF /* RootcatalogSequrityscopedURLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E840ED1A22D0BDC900CF62FF /* RootcatalogSequrityscopedURLs.swift */; };
 		E840ED1F22D0CD3C00CF62FF /* AppendSequrityscopedURLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E840ED1E22D0CD3C00CF62FF /* AppendSequrityscopedURLs.swift */; };
 		E8B668C724D191C000117833 /* NamesandPaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B668C624D191C000117833 /* NamesandPaths.swift */; };
-		E8B668CA24D1955500117833 /* Files in Frameworks */ = {isa = PBXBuildFile; productRef = E8B668C924D1955500117833 /* Files */; };
 		E8EDD15323C8C0E800806CCD /* Validatenewconfigs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EDD15223C8C0E800806CCD /* Validatenewconfigs.swift */; };
 		E9005014248FA06E00FAD2BC /* Keypathidentityfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9005013248FA06E00FAD2BC /* Keypathidentityfile.swift */; };
 		E905DC111EACF7550003BF37 /* ViewControllerSsh.swift in Sources */ = {isa = PBXBuildFile; fileRef = E905DC101EACF7550003BF37 /* ViewControllerSsh.swift */; };
@@ -122,6 +121,7 @@
 		E98FA9E522C5F78300D6D103 /* RsyncGUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98FA9E422C5F78300D6D103 /* RsyncGUITests.swift */; };
 		E996431E231AF0EF00E05B40 /* ViewControllerSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E996431D231AF0EF00E05B40 /* ViewControllerSource.swift */; };
 		E9A8D81C1ED20AEB009648DE /* GetRemoteFileListingsArguments.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A8D81B1ED20AEB009648DE /* GetRemoteFileListingsArguments.swift */; };
+		E9AC133A254A0FFB00835A3F /* Files in Frameworks */ = {isa = PBXBuildFile; productRef = E9AC1339254A0FFB00835A3F /* Files */; };
 		E9B9CCA621BC46B00042D5CE /* extensionDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B9CCA521BC46B00042D5CE /* extensionDate.swift */; };
 		E9BBE8C32273131F00404D7A /* ConvertConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BBE8C02273131F00404D7A /* ConvertConfigurations.swift */; };
 		E9BBE8C42273131F00404D7A /* ConvertSchedules.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BBE8C12273131F00404D7A /* ConvertSchedules.swift */; };
@@ -297,7 +297,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E8B668CA24D1955500117833 /* Files in Frameworks */,
+				E9AC133A254A0FFB00835A3F /* Files in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -784,7 +784,7 @@
 			);
 			name = RsyncGUI;
 			packageProductDependencies = (
-				E8B668C924D1955500117833 /* Files */,
+				E9AC1339254A0FFB00835A3F /* Files */,
 			);
 			productName = RsyncGUI;
 			productReference = A04492821D658EE800B3CE17 /* RsyncGUI.app */;
@@ -848,7 +848,7 @@
 			);
 			mainGroup = A04492791D658EE800B3CE17;
 			packageReferences = (
-				E8B668C824D1955500117833 /* XCRemoteSwiftPackageReference "Files" */,
+				E9AC1338254A0FFB00835A3F /* XCRemoteSwiftPackageReference "Files" */,
 			);
 			productRefGroup = A04492831D658EE800B3CE17 /* Products */;
 			projectDirPath = "";
@@ -1318,20 +1318,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		E8B668C824D1955500117833 /* XCRemoteSwiftPackageReference "Files" */ = {
+		E9AC1338254A0FFB00835A3F /* XCRemoteSwiftPackageReference "Files" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/rsyncOSX/Files";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 4.1.1;
+				minimumVersion = 4.2.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		E8B668C924D1955500117833 /* Files */ = {
+		E9AC1339254A0FFB00835A3F /* Files */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = E8B668C824D1955500117833 /* XCRemoteSwiftPackageReference "Files" */;
+			package = E9AC1338254A0FFB00835A3F /* XCRemoteSwiftPackageReference "Files" */;
 			productName = Files;
 		};
 /* End XCSwiftPackageProductDependency section */
