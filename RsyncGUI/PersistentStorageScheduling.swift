@@ -9,10 +9,13 @@
 //   presistent store. Class is a interface
 //   for Schedule.
 //
+// swiftlint:disable line_length
 
+import Files
 import Foundation
 
-final class PersistentStorageScheduling: ReadWriteDictionary, SetSchedules {
+class PersistentStorageScheduling: ReadWriteDictionary, SetSchedules {
+    // Variable holds all schedule data from persisten storage
     var schedulesasdictionary: [NSDictionary]?
 
     // Read schedules and history
@@ -54,8 +57,10 @@ final class PersistentStorageScheduling: ReadWriteDictionary, SetSchedules {
         }
     }
 
-    init(profile: String?, allprofiles _: Bool) {
+    init(profile: String?, readonly: Bool) {
         super.init(whattoreadwrite: .schedule, profile: profile)
-        self.schedulesasdictionary = self.readNSDictionaryFromPersistentStore()
+        if readonly == true {
+            self.schedulesasdictionary = self.readNSDictionaryFromPersistentStore()
+        }
     }
 }
