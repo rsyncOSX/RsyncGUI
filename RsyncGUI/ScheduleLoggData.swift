@@ -38,23 +38,32 @@ final class ScheduleLoggData: SetConfigurations, SetSchedules, Sorting {
         }
     }
 
+    /*
+     let dateformatter = Dateandtime().setDateformat()
+     let date = dateformatter.string(from: currendate)
+     */
+
     private func readandsortallloggdata(hiddenID: Int?, sortascending: Bool) {
         var data = [NSMutableDictionary]()
         if let input: [ConfigurationSchedule] = self.schedules?.getSchedule() {
             for i in 0 ..< input.count {
-                for j in 0 ..< input[i].logrecords.count {
+                for j in 0 ..< (input[i].logrecords?.count ?? 0) {
                     if let hiddenID = self.schedules?.getSchedule()?[i].hiddenID {
-                        let dict = input[i].logrecords[j]
-                        let date = dict.value(forKey: "dateExecuted") as? String ?? ""
+                        var date: String?
+                        if let stringdate = input[i].logrecords?[j].dateExecuted {
+                            if stringdate.isEmpty == false {
+                                date = stringdate
+                            }
+                        }
                         let logdetail: NSMutableDictionary = [
                             "localCatalog": self.configurations?.getResourceConfiguration(hiddenID, resource: .localCatalog) ?? "",
                             "remoteCatalog": self.configurations?.getResourceConfiguration(hiddenID, resource: .offsiteCatalog) ?? "",
                             "offsiteServer": self.configurations?.getResourceConfiguration(hiddenID, resource: .offsiteServer) ?? "",
                             "task": self.configurations?.getResourceConfiguration(hiddenID, resource: .task) ?? "",
                             "backupID": self.configurations?.getResourceConfiguration(hiddenID, resource: .backupid) ?? "",
-                            "dateExecuted": date,
-                            "resultExecuted": dict.value(forKey: "resultExecuted") as? String ?? "",
-                            "deleteCellID": dict.value(forKey: "deleteCellID") as? Int ?? 0,
+                            "dateExecuted": date ?? "",
+                            "resultExecuted": input[i].logrecords?[j].resultExecuted ?? "",
+                            "deleteCellID": self.loggdata?[j].value(forKey: "deleteCellID") as? Int ?? 0,
                             "hiddenID": hiddenID,
                             "snapCellID": 0,
                             "parent": i,
@@ -69,22 +78,6 @@ final class ScheduleLoggData: SetConfigurations, SetSchedules, Sorting {
             data = data.filter { ($0.value(forKey: "hiddenID") as? Int) == hiddenID }
         }
         self.loggdata = self.sortbydate(notsortedlist: data, sortdirection: sortascending)
-    }
-
-    private func allreadAndSortAllLoggdata() {
-        var data = [NSMutableDictionary]()
-        let input: [ConfigurationSchedule]? = self.scheduleConfiguration
-        guard input != nil else { return }
-        for i in 0 ..< (input?.count ?? 0) where (input?[i].logrecords.count ?? 0) > 0 {
-            let profilename = input?[i].profilename ?? ""
-            for j in 0 ..< (input?[i].logrecords.count ?? 0) {
-                if let dict = input?[i].logrecords[j] {
-                    dict.setValue(profilename, forKey: "profilename")
-                    data.append(dict)
-                }
-            }
-        }
-        self.loggdata = self.sortbydate(notsortedlist: data, sortdirection: true)
     }
 
     let compare: (NSMutableDictionary, NSMutableDictionary) -> Bool = { number1, number2 in
@@ -107,11 +100,5 @@ final class ScheduleLoggData: SetConfigurations, SetSchedules, Sorting {
         if self.loggdata == nil {
             self.readandsortallloggdata(hiddenID: hiddenID, sortascending: sortascending)
         }
-    }
-
-    init(allschedules: Allschedules?) {
-        guard allschedules != nil else { return }
-        self.scheduleConfiguration = allschedules?.getallschedules()
-        self.allreadAndSortAllLoggdata()
     }
 }
