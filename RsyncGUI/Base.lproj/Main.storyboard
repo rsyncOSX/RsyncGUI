@@ -2885,17 +2885,17 @@ DQ
             <objects>
                 <viewController title="All output" storyboardIdentifier="StoryboardOutputID" id="mal-sc-mlY" customClass="ViewControllerAllOutput" customModule="RsyncGUI" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" misplaced="YES" id="sfF-Cw-fbW">
-                        <rect key="frame" x="0.0" y="0.0" width="802" height="513"/>
+                        <rect key="frame" x="0.0" y="0.0" width="802" height="490"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <scrollView misplaced="YES" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JxY-5V-aG6">
-                                <rect key="frame" x="20" y="61" width="762" height="432"/>
+                            <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JxY-5V-aG6">
+                                <rect key="frame" x="20" y="61" width="762" height="409"/>
                                 <clipView key="contentView" id="9de-ez-sUR">
-                                    <rect key="frame" x="1" y="0.0" width="760" height="431"/>
+                                    <rect key="frame" x="1" y="0.0" width="760" height="408"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="C3F-Rb-k7G" viewBased="YES" id="Jq5-FS-rlQ">
-                                            <rect key="frame" x="0.0" y="0.0" width="760" height="408"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="760" height="385"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -2983,11 +2983,10 @@ DQ
                                     <action selector="rsyncorlogfile:" target="mal-sc-mlY" id="cOz-1I-btJ"/>
                                 </connections>
                             </switch>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G5X-6c-qvW">
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G5X-6c-qvW">
                                 <rect key="frame" x="66" y="23" width="84" height="14"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="Rsync output..." id="GGE-BX-mWY">
-                                    <font key="font" metaFont="system" size="11"/>
+                                    <font key="font" metaFont="smallSystem"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -2997,6 +2996,8 @@ DQ
                             <constraint firstAttribute="trailing" secondItem="JxY-5V-aG6" secondAttribute="trailing" constant="20" symbolic="YES" id="2Ci-rR-oTS"/>
                             <constraint firstItem="kZW-Nj-Df8" firstAttribute="leading" secondItem="dVg-TQ-1xp" secondAttribute="trailing" constant="12" symbolic="YES" id="Jan-Dc-0V1"/>
                             <constraint firstItem="YYD-mO-xO4" firstAttribute="leading" secondItem="JxY-5V-aG6" secondAttribute="leading" id="MsR-FD-9kl"/>
+                            <constraint firstItem="G5X-6c-qvW" firstAttribute="top" secondItem="JxY-5V-aG6" secondAttribute="bottom" constant="24" id="Ooo-wz-csn"/>
+                            <constraint firstAttribute="bottom" secondItem="G5X-6c-qvW" secondAttribute="bottom" constant="23" id="RB8-vx-F7u"/>
                             <constraint firstItem="dVg-TQ-1xp" firstAttribute="leading" secondItem="sfF-Cw-fbW" secondAttribute="leading" constant="179" id="ViE-5Q-V1o"/>
                             <constraint firstItem="dVg-TQ-1xp" firstAttribute="top" secondItem="JxY-5V-aG6" secondAttribute="bottom" constant="20" symbolic="YES" id="Xop-i6-K6C"/>
                             <constraint firstItem="JxY-5V-aG6" firstAttribute="top" secondItem="sfF-Cw-fbW" secondAttribute="top" constant="20" symbolic="YES" id="eie-fl-xDW"/>
