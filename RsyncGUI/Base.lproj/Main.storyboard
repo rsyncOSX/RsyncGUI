@@ -2885,17 +2885,17 @@ DQ
             <objects>
                 <viewController title="All output" storyboardIdentifier="StoryboardOutputID" id="mal-sc-mlY" customClass="ViewControllerAllOutput" customModule="RsyncGUI" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" misplaced="YES" id="sfF-Cw-fbW">
-                        <rect key="frame" x="0.0" y="0.0" width="802" height="423"/>
+                        <rect key="frame" x="0.0" y="0.0" width="802" height="513"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JxY-5V-aG6">
-                                <rect key="frame" x="20" y="61" width="762" height="342"/>
+                            <scrollView misplaced="YES" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JxY-5V-aG6">
+                                <rect key="frame" x="20" y="61" width="762" height="432"/>
                                 <clipView key="contentView" id="9de-ez-sUR">
-                                    <rect key="frame" x="1" y="0.0" width="760" height="341"/>
+                                    <rect key="frame" x="1" y="0.0" width="760" height="431"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="C3F-Rb-k7G" viewBased="YES" id="Jq5-FS-rlQ">
-                                            <rect key="frame" x="0.0" y="0.0" width="760" height="318"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="760" height="408"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -2957,31 +2957,8 @@ DQ
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableHeaderView>
                             </scrollView>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0fU-ki-tKf">
-                                <rect key="frame" x="274" y="13" width="81" height="32"/>
-                                <buttonCell key="cell" type="push" title="Logfile" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="4OJ-CT-uFi">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                    <string key="keyEquivalent" base64-UTF8="YES">
-DQ
-</string>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="readloggfile:" target="mal-sc-mlY" id="Qzo-Ke-R1M"/>
-                                </connections>
-                            </button>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xlw-rR-ni0">
-                                <rect key="frame" x="14" y="13" width="77" height="32"/>
-                                <buttonCell key="cell" type="push" title="Rsync" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="VJs-ja-KpP">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="reloadoutput:" target="mal-sc-mlY" id="SLi-3O-bOb"/>
-                                </connections>
-                            </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dVg-TQ-1xp">
-                                <rect key="frame" x="84" y="13" width="72" height="32"/>
+                                <rect key="frame" x="173" y="13" width="72" height="32"/>
                                 <buttonCell key="cell" type="push" title="Copy" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="G70-Le-Jgu">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -2991,7 +2968,7 @@ DQ
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kZW-Nj-Df8">
-                                <rect key="frame" x="348" y="13" width="67" height="32"/>
+                                <rect key="frame" x="245" y="13" width="67" height="32"/>
                                 <buttonCell key="cell" type="push" title="New" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="wry-iR-4KQ">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -3000,30 +2977,44 @@ DQ
                                     <action selector="newcleanlogfile:" target="mal-sc-mlY" id="fn3-cZ-glI"/>
                                 </connections>
                             </button>
+                            <switch horizontalHuggingPriority="750" verticalHuggingPriority="750" baseWritingDirection="leftToRight" alignment="left" state="on" translatesAutoresizingMaskIntoConstraints="NO" id="YYD-mO-xO4">
+                                <rect key="frame" x="18" y="18" width="42" height="24"/>
+                                <connections>
+                                    <action selector="rsyncorlogfile:" target="mal-sc-mlY" id="cOz-1I-btJ"/>
+                                </connections>
+                            </switch>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G5X-6c-qvW">
+                                <rect key="frame" x="66" y="23" width="84" height="14"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="Rsync output..." id="GGE-BX-mWY">
+                                    <font key="font" metaFont="system" size="11"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="JxY-5V-aG6" secondAttribute="trailing" constant="20" symbolic="YES" id="2Ci-rR-oTS"/>
-                            <constraint firstItem="kZW-Nj-Df8" firstAttribute="leading" secondItem="0fU-ki-tKf" secondAttribute="trailing" constant="5" id="36t-ie-kbm"/>
-                            <constraint firstItem="xlw-rR-ni0" firstAttribute="baseline" secondItem="dVg-TQ-1xp" secondAttribute="baseline" id="9po-J3-H5D"/>
-                            <constraint firstItem="dVg-TQ-1xp" firstAttribute="leading" secondItem="xlw-rR-ni0" secondAttribute="trailing" constant="5" id="IFT-8Q-eZU"/>
-                            <constraint firstItem="xlw-rR-ni0" firstAttribute="leading" secondItem="JxY-5V-aG6" secondAttribute="leading" id="Ig2-hN-xBz"/>
-                            <constraint firstItem="xlw-rR-ni0" firstAttribute="top" secondItem="JxY-5V-aG6" secondAttribute="bottom" constant="20" symbolic="YES" id="KNA-Vf-U9Z"/>
+                            <constraint firstItem="kZW-Nj-Df8" firstAttribute="leading" secondItem="dVg-TQ-1xp" secondAttribute="trailing" constant="12" symbolic="YES" id="Jan-Dc-0V1"/>
+                            <constraint firstItem="YYD-mO-xO4" firstAttribute="leading" secondItem="JxY-5V-aG6" secondAttribute="leading" id="MsR-FD-9kl"/>
+                            <constraint firstItem="dVg-TQ-1xp" firstAttribute="leading" secondItem="sfF-Cw-fbW" secondAttribute="leading" constant="179" id="ViE-5Q-V1o"/>
+                            <constraint firstItem="dVg-TQ-1xp" firstAttribute="top" secondItem="JxY-5V-aG6" secondAttribute="bottom" constant="20" symbolic="YES" id="Xop-i6-K6C"/>
                             <constraint firstItem="JxY-5V-aG6" firstAttribute="top" secondItem="sfF-Cw-fbW" secondAttribute="top" constant="20" symbolic="YES" id="eie-fl-xDW"/>
-                            <constraint firstItem="dVg-TQ-1xp" firstAttribute="baseline" secondItem="0fU-ki-tKf" secondAttribute="baseline" id="fAC-pK-MZ9"/>
+                            <constraint firstItem="dVg-TQ-1xp" firstAttribute="baseline" secondItem="kZW-Nj-Df8" secondAttribute="baseline" id="hf9-Vx-6iF"/>
                             <constraint firstItem="JxY-5V-aG6" firstAttribute="leading" secondItem="sfF-Cw-fbW" secondAttribute="leading" constant="20" symbolic="YES" id="ia3-N9-jtA"/>
-                            <constraint firstItem="0fU-ki-tKf" firstAttribute="baseline" secondItem="kZW-Nj-Df8" secondAttribute="baseline" id="idL-De-EOq"/>
-                            <constraint firstItem="xlw-rR-ni0" firstAttribute="leading" secondItem="sfF-Cw-fbW" secondAttribute="leading" constant="20" symbolic="YES" id="svl-JB-WXi"/>
-                            <constraint firstAttribute="bottom" secondItem="xlw-rR-ni0" secondAttribute="bottom" constant="20" symbolic="YES" id="tMV-5K-9Ta"/>
-                            <constraint firstItem="0fU-ki-tKf" firstAttribute="leading" secondItem="sfF-Cw-fbW" secondAttribute="leading" constant="280" id="uI0-Vg-Vm2"/>
+                            <constraint firstAttribute="bottom" secondItem="dVg-TQ-1xp" secondAttribute="bottom" constant="20" symbolic="YES" id="mHu-MA-drO"/>
+                            <constraint firstItem="YYD-mO-xO4" firstAttribute="top" secondItem="dVg-TQ-1xp" secondAttribute="top" id="reA-4b-0hV"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="outputrsyncorlofile" destination="G5X-6c-qvW" id="XLa-DN-sY1"/>
                         <outlet property="outputtable" destination="Jq5-FS-rlQ" id="wiR-Kv-YLb"/>
+                        <outlet property="rsyncorlog" destination="YYD-mO-xO4" id="Ars-AM-yPI"/>
                     </connections>
                 </viewController>
                 <customObject id="Q22-JH-0wK" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2315" y="-37.5"/>
+            <point key="canvasLocation" x="-2337" y="-58.5"/>
         </scene>
         <!--All profiles-->
         <scene sceneID="AnB-2j-8Cc">
