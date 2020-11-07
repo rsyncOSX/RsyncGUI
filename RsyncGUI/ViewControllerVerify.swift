@@ -156,7 +156,7 @@ class ViewControllerVerify: NSViewController, SetConfigurations, Index, VcMain, 
             self.gotremoteinfo = false
             self.complete = false
             if let index = self.index() {
-                let datelastbackup = self.configurations?.getConfigurations()[index].dateRun ?? ""
+                let datelastbackup = self.configurations?.getConfigurations()?[index].dateRun ?? ""
                 if datelastbackup.isEmpty == false {
                     let date = datelastbackup
                     self.datelastbackup.stringValue = NSLocalizedString("Date last synchronize:", comment: "Remote Info")
@@ -164,7 +164,7 @@ class ViewControllerVerify: NSViewController, SetConfigurations, Index, VcMain, 
                 } else {
                     self.datelastbackup.stringValue = NSLocalizedString("Date last synchronize:", comment: "Remote Info")
                 }
-                let numberlastbackup = self.configurations?.getConfigurations()[index].dayssincelastbackup ?? ""
+                let numberlastbackup = self.configurations?.getConfigurations()?[index].dayssincelastbackup ?? ""
                 self.dayslastbackup.stringValue = self.dayssince + " " + numberlastbackup
             }
         } else {
@@ -174,23 +174,24 @@ class ViewControllerVerify: NSViewController, SetConfigurations, Index, VcMain, 
 
     private func reload() -> Bool {
         if let index = self.index() {
-            let config = self.configurations!.getConfigurations()[index]
-            guard config.task != ViewControllerReference.shared.syncremote else {
-                self.gotit.textColor = setcolor(nsviewcontroller: self, color: .red)
-                let message: String = NSLocalizedString("Cannot verify a syncremote task...", comment: "Verify")
-                self.gotit.stringValue = message
-                self.resetinfo()
-                return false
+            if let config = self.configurations?.getConfigurations()?[index] {
+                guard config.task != ViewControllerReference.shared.syncremote else {
+                    self.gotit.textColor = setcolor(nsviewcontroller: self, color: .red)
+                    let message: String = NSLocalizedString("Cannot verify a syncremote task...", comment: "Verify")
+                    self.gotit.stringValue = message
+                    self.resetinfo()
+                    return false
+                }
+                guard self.connected(config: config) == true else {
+                    self.gotit.textColor = setcolor(nsviewcontroller: self, color: .red)
+                    let dontgotit: String = NSLocalizedString("Seems not to be connected...", comment: "Verify")
+                    self.gotit.stringValue = dontgotit
+                    self.resetinfo()
+                    return false
+                }
+                guard self.index() != self.lastindex ?? -1 else { return false }
+                guard self.estimatedindex ?? -1 != index else { return false }
             }
-            guard self.connected(config: config) == true else {
-                self.gotit.textColor = setcolor(nsviewcontroller: self, color: .red)
-                let dontgotit: String = NSLocalizedString("Seems not to be connected...", comment: "Verify")
-                self.gotit.stringValue = dontgotit
-                self.resetinfo()
-                return false
-            }
-            guard self.index() != self.lastindex ?? -1 else { return false }
-            guard self.estimatedindex ?? -1 != index else { return false }
         } else {
             self.gotit.textColor = setcolor(nsviewcontroller: self, color: .green)
             let task: String = NSLocalizedString("Please select a task in Synchronize ...", comment: "Verify")
