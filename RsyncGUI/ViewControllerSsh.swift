@@ -5,7 +5,7 @@
 //  Created by Thomas Evensen on 23.04.2017.
 //  Copyright © 2017 Thomas Evensen. All rights reserved.
 //
-//  swiftlint:disable line_length
+//  swiftlint:disable line_length cyclomatic_complexity
 
 import Cocoa
 import Foundation
@@ -156,11 +156,12 @@ extension ViewControllerSsh: DismissViewController {
 extension ViewControllerSsh: GetSource {
     func getSourceindex(index: Int) {
         self.hiddenID = index
-        let config = self.configurations!.getConfigurations()[self.configurations!.getIndex(hiddenID!)]
-        if config.offsiteServer.isEmpty == true {
-            self.execute = false
-        } else {
-            self.execute = true
+        if let config = self.configurations?.getConfigurations()?[self.configurations?.getIndex(hiddenID ?? 0) ?? 0] {
+            if config.offsiteServer.isEmpty == true {
+                self.execute = false
+            } else {
+                self.execute = true
+            }
         }
     }
 }

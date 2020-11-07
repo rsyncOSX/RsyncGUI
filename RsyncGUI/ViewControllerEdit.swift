@@ -68,7 +68,7 @@ class ViewControllerEdit: NSViewController, SetConfigurations, SetDismisser, Ind
         self.backupID.stringValue = ""
         if let index = self.index() {
             self.index = index
-            if let config: Configuration = self.configurations?.getConfigurations()[index] {
+            if let config: Configuration = self.configurations?.getConfigurations()?[index] {
                 self.localCatalog.stringValue = config.localCatalog
                 self.offsiteCatalog.stringValue = config.offsiteCatalog
                 self.offsiteUsername.stringValue = config.offsiteUsername
@@ -85,14 +85,17 @@ class ViewControllerEdit: NSViewController, SetConfigurations, SetDismisser, Ind
     }
 
     private func changelabels() {
-        let config: Configuration = self.configurations!.getConfigurations()[self.index!]
-        switch config.task {
-        case ViewControllerReference.shared.syncremote:
-            self.stringlocalcatalog.stringValue = "Source catalog:"
-            self.stringremotecatalog.stringValue = "Destination catalog:"
-        default:
-            self.stringlocalcatalog.stringValue = "Local catalog:"
-            self.stringremotecatalog.stringValue = "Remote catalog:"
+        if let index = self.index {
+            if let config: Configuration = self.configurations?.getConfigurations()?[index] {
+                switch config.task {
+                case ViewControllerReference.shared.syncremote:
+                    self.stringlocalcatalog.stringValue = "Source catalog:"
+                    self.stringremotecatalog.stringValue = "Destination catalog:"
+                default:
+                    self.stringlocalcatalog.stringValue = "Local catalog:"
+                    self.stringremotecatalog.stringValue = "Remote catalog:"
+                }
+            }
         }
     }
 }

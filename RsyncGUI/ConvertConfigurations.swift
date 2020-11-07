@@ -23,7 +23,7 @@ struct ConvertConfigurations: SetConfigurations {
 
     // Function for returning a NSMutabledictionary from a configuration record
     init(index: Int) {
-        if var config: Configuration = self.configurations?.getConfigurations()[index] {
+        if var config: Configuration = self.configurations?.getConfigurations()?[index] {
             let dict: NSMutableDictionary = [
                 "task": config.task,
                 "backupID": config.backupID,
