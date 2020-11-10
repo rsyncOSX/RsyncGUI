@@ -60,8 +60,8 @@ class Configurations: ReloadTable, SetSchedules {
     // Function for getting arguments for all Configurations read into memory
     // - parameter none: none
     // - returns : Array of arguments
-    func getargumentAllConfigurations() -> [ArgumentsOneConfiguration] {
-        return self.argumentAllConfigurations ?? []
+    func getargumentAllConfigurations() -> [ArgumentsOneConfiguration]? {
+        return self.argumentAllConfigurations
     }
 
     // Function for getting the number of configurations used in NSTableViews
