@@ -63,8 +63,6 @@ class ViewControllerProfile: NSViewController, SetConfigurations, SetDismisser, 
             self.dismissview(viewcontroller: self, vcontroller: .vcnewconfigurations)
         } else if (self.presentingViewController as? ViewControllerSsh) != nil {
             self.dismissview(viewcontroller: self, vcontroller: .vcssh)
-        } else if (self.presentingViewController as? ViewControllerVerify) != nil {
-            self.dismissview(viewcontroller: self, vcontroller: .vcverify)
         } else if (self.presentingViewController as? ViewControllerLoggData) != nil {
             self.dismissview(viewcontroller: self, vcontroller: .vcloggdata)
         } else if (self.presentingViewController as? ViewControllerRestore) != nil {
