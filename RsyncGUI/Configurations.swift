@@ -36,6 +36,8 @@ class Configurations: ReloadTable, SetSchedules {
     var SequrityScopedURLs: [NSDictionary]?
     // Reference to check TCP-connections
     var tcpconnections: TCPconnections?
+    // valid hiddenIDs
+    var validhiddenID: Set<Int>?
 
     func setestimatedlistnil() -> Bool {
         if (self.estimatedlist?.count ?? 0) == (self.configurations?.count ?? 0) {
@@ -351,11 +353,16 @@ class Configurations: ReloadTable, SetSchedules {
         self.SequrityScopedURLs = [NSDictionary]()
         self.SequrityScopedURLs?.append(RootcatalogSequrityscopedURLs(suffix: nil).dictionary!)
         // initial Sandbox
-        self.configurations = [Configuration]()
+        self.profile = profile
+        self.configurations = nil
         self.argumentAllConfigurations = nil
         self.configurationsDataSource = nil
-        self.profile = profile
-        self.readconfigurations()
+        // Read and prepare configurations and rsync parameters
+        let configurationsdata = ConfigurationsData(profile: profile)
+        self.configurations = configurationsdata.configurations
+        self.argumentAllConfigurations = configurationsdata.argumentAllConfigurations
+        self.configurationsDataSource = configurationsdata.configurationsDataSource
+        self.validhiddenID = configurationsdata.validhiddenID
         ViewControllerReference.shared.process = nil
     }
 }

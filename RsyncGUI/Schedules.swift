@@ -55,7 +55,7 @@ class Schedules: ScheduleWriteLoggData {
     // Function for reading all jobs for schedule and all history of past executions.
     // Schedules are stored in self.schedules. Schedules are sorted after hiddenID.
     private func readschedules() {
-        var store = PersistentStorageScheduling(profile: self.profile).getScheduleandhistory(nolog: false)
+        var store = PersistentStorageScheduling(profile: self.profile).getScheduleandhistory(includelog: true)
         guard store != nil else { return }
         var data = [ConfigurationSchedule]()
         for i in 0 ..< (store?.count ?? 0) where store?[i].logrecords?.isEmpty == false || store?[i].dateStop != nil {
@@ -79,6 +79,8 @@ class Schedules: ScheduleWriteLoggData {
     override init(profile: String?) {
         super.init(profile: profile)
         self.profile = profile
-        self.readschedules()
+        let schedulesdata = SchedulesData(profile: profile,
+                                          validhiddenID: self.configurations?.validhiddenID)
+        self.schedules = schedulesdata.schedules
     }
 }
