@@ -21,9 +21,9 @@ class RemoteinfonumbersOnetask {
     func record() -> NSMutableDictionary {
         let dict: NSMutableDictionary = [
             DictionaryStrings.transferredNumber.rawValue: self.transferredNumber ?? "",
-            "transferredNumberSizebytes": self.transferredNumberSizebytes ?? "",
-            "totalNumber": self.totalNumber ?? "",
-            "totalNumberSizebytes": self.totalNumberSizebytes ?? "",
+            DictionaryStrings.transferredNumberSizebytes.rawValue: self.transferredNumberSizebytes ?? "",
+            DictionaryStrings.totalNumber.rawValue: self.totalNumber ?? "",
+            DictionaryStrings.totalNumberSizebytes.rawValue: self.totalNumberSizebytes ?? "",
             "totalDirs": self.totalDirs ?? "",
             "newfiles": self.newfiles ?? "",
         ]
@@ -35,9 +35,9 @@ class RemoteinfonumbersOnetask {
     func recordremotenumbers(index: Int) -> NSMutableDictionary {
         let dict: NSMutableDictionary = [
             DictionaryStrings.transferredNumber.rawValue: self.transferredNumber ?? "",
-            "transferredNumberSizebytes": self.transferredNumberSizebytes ?? "",
-            "totalNumber": self.totalNumber ?? "",
-            "totalNumberSizebytes": self.totalNumberSizebytes ?? "",
+            DictionaryStrings.transferredNumberSizebytes.rawValue: self.transferredNumberSizebytes ?? "",
+            DictionaryStrings.totalNumber.rawValue: self.totalNumber ?? "",
+            DictionaryStrings.totalNumberSizebytes.rawValue: self.totalNumberSizebytes ?? "",
             "totalDirs": self.totalDirs ?? "",
             "newfiles": self.newfiles ?? "",
             "deletefiles": self.deletefiles ?? "",

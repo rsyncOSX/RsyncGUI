@@ -180,7 +180,7 @@ extension ViewControllerRemoteInfo: NSTableViewDelegate, Attributedestring {
         case DictionaryStrings.transferredNumber.rawValue:
             let celltext = object[tableColumn!.identifier] as? String
             return self.attributedstring(str: celltext!, color: NSColor.red, align: .right)
-        case "transferredNumberSizebytes":
+        case DictionaryStrings.transferredNumberSizebytes.rawValue:
             let celltext = object[tableColumn!.identifier] as? String
             return self.attributedstring(str: celltext!, color: NSColor.red, align: .right)
         case "newfiles":

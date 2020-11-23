@@ -319,4 +319,7 @@ enum DictionaryStrings: String {
     case completeCellID
     case inprogressCellID
     case profilename
+    case SecurityScoped
+    case rootcatalog
+    case localcatalog
 }

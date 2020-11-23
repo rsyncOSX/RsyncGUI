@@ -191,16 +191,16 @@ extension ViewControllerSsh: NSTableViewDelegate {
                 guard row < (self.configurations?.SequrityScopedURLs?.unique().count ?? -1) else { return nil }
                 if let object: NSDictionary = self.configurations?.SequrityScopedURLs?.unique()[row] {
                     switch tableColumn.identifier.rawValue {
-                    case "SecurityScoped":
-                        if (object.value(forKey: "SecurityScoped") as? Bool) == true {
+                    case DictionaryStrings.SecurityScoped.rawValue:
+                        if (object.value(forKey: DictionaryStrings.SecurityScoped.rawValue) as? Bool) == true {
                             return #imageLiteral(resourceName: "green")
                         } else {
                             return #imageLiteral(resourceName: "red")
                         }
-                    case "rootcatalog":
-                        return (object.value(forKey: "rootcatalog") as? NSURL)?.absoluteString ?? ""
-                    case "localcatalog":
-                        return (object.value(forKey: "localcatalog") as? NSURL)?.absoluteString ?? ""
+                    case DictionaryStrings.rootcatalog.rawValue:
+                        return (object.value(forKey: DictionaryStrings.rootcatalog.rawValue) as? NSURL)?.absoluteString ?? ""
+                    case DictionaryStrings.localcatalog.rawValue:
+                        return (object.value(forKey: DictionaryStrings.localcatalog.rawValue) as? NSURL)?.absoluteString ?? ""
                     default:
                         return nil
                     }
