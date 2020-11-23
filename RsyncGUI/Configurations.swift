@@ -98,7 +98,7 @@ class Configurations: ReloadTable, SetSchedules {
                 if self.quickbackuplist != nil {
                     let quickbackup = self.quickbackuplist!.filter { $0 == config.hiddenID }
                     if quickbackup.count > 0 {
-                        row.setValue(1, forKey: "selectCellID")
+                        row.setValue(1, forKey: DictionaryStrings.selectCellID.rawValue)
                     }
                 }
                 data.append(row)
@@ -122,7 +122,7 @@ class Configurations: ReloadTable, SetSchedules {
                 let server = config.offsiteServer
                 let user = config.offsiteUsername
                 if server != "localhost" {
-                    if data.filter({ $0.value(forKey: "offsiteServerCellID") as? String ?? "" == server && $0.value(forKey: "offsiteUsernameID") as? String ?? "" == user }).count == 0 {
+                    if data.filter({ $0.value(forKey: DictionaryStrings.offsiteServerCellID.rawValue) as? String ?? "" == server && $0.value(forKey: DictionaryStrings.offsiteUsernameID.rawValue) as? String ?? "" == user }).count == 0 {
                         data.append(row)
                     }
                 }

@@ -68,7 +68,7 @@ final class PersistentStorageConfiguration: ReadWriteDictionary, SetConfiguratio
                     array.append(dict)
                 }
             }
-            dict.setObject(self.maxhiddenID + 1, forKey: "hiddenID" as NSCopying)
+            dict.setObject(self.maxhiddenID + 1, forKey: DictionaryStrings.hiddenID.rawValue as NSCopying)
             array.append(dict)
             self.configurations?.appendconfigurationstomemory(dict: array[array.count - 1])
             self.saveconfigInMemoryToPersistentStore()

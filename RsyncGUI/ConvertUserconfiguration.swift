@@ -78,10 +78,10 @@ struct ConvertUserconfiguration {
             dict.setObject("", forKey: "restorePath" as NSCopying)
         }
         if let sshkeypathandidentityfile = ViewControllerReference.shared.sshkeypathandidentityfile {
-            dict.setObject(sshkeypathandidentityfile, forKey: "sshkeypathandidentityfile" as NSCopying)
+            dict.setObject(sshkeypathandidentityfile, forKey: DictionaryStrings.sshkeypathandidentityfile.rawValue as NSCopying)
         }
         if let sshport = ViewControllerReference.shared.sshport {
-            dict.setObject(sshport, forKey: "sshport" as NSCopying)
+            dict.setObject(sshport, forKey: DictionaryStrings.sshport.rawValue as NSCopying)
         }
         array.append(dict)
         self.userconfiguration = array

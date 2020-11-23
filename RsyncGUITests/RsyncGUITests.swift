@@ -106,20 +106,20 @@ class RsyncGUITests: XCTestCase, SetConfigurations {
     func testaddconfig() {
         let configurations = ConfigurationsXCTEST(profile: "XCTest")
         let dict: NSMutableDictionary = [
-            "task": ViewControllerReference.shared.synchronize,
-            "backupID": "backupID",
-            "localCatalog": "localCatalog",
-            "offsiteCatalog": "offsiteCatalog",
-            "offsiteServer": "offsiteServer",
-            "offsiteUsername": "offsiteUsername",
-            "parameter1": "parameter1",
-            "parameter2": "parameter2",
-            "parameter3": "parameter3",
-            "parameter4": "parameter4",
-            "parameter5": "parameter5",
-            "parameter6": "parameter6",
-            "dryrun": "dryrun",
-            "dateRun": "",
+            DictionaryStrings.task.rawValue: ViewControllerReference.shared.synchronize,
+            DictionaryStrings.backupID.rawValue: DictionaryStrings.backupID.rawValue,
+            DictionaryStrings.localCatalog.rawValue: DictionaryStrings.localCatalog.rawValue,
+            DictionaryStrings.offsiteCatalog.rawValue: DictionaryStrings.offsiteCatalog.rawValue,
+            DictionaryStrings.offsiteServer.rawValue: DictionaryStrings.offsiteServer.rawValue,
+            DictionaryStrings.offsiteUsername.rawValue: DictionaryStrings.offsiteUsername.rawValue,
+            DictionaryStrings.parameter1.rawValue: DictionaryStrings.parameter1.rawValue,
+            DictionaryStrings.parameter2.rawValue: DictionaryStrings.parameter2.rawValue,
+            DictionaryStrings.parameter3.rawValue: DictionaryStrings.parameter3.rawValue,
+            DictionaryStrings.parameter4.rawValue: DictionaryStrings.parameter4.rawValue,
+            DictionaryStrings.parameter5.rawValue: DictionaryStrings.parameter5.rawValue,
+            DictionaryStrings.parameter6.rawValue: DictionaryStrings.parameter6.rawValue,
+            DictionaryStrings.dryrun.rawValue: DictionaryStrings.dryrun.rawValue,
+            DictionaryStrings.dateRun.rawValue: "",
             "singleFile": 0,
         ]
         dict.setValue(1, forKey: "snapshotnum")
@@ -129,22 +129,22 @@ class RsyncGUITests: XCTestCase, SetConfigurations {
     }
 
     func testaddnoconfig1() {
-        // Missing "offsiteUsername": "offsiteUsername",
+        // Missing DictionaryStrings.offsiteUsername.rawValue: DictionaryStrings.offsiteUsername.rawValue,
         let configurations = ConfigurationsXCTEST(profile: "XCTest")
         let dict: NSMutableDictionary = [
-            "task": ViewControllerReference.shared.syncremote,
-            "backupID": "backupID",
-            "localCatalog": "localCatalog",
-            "offsiteCatalog": "offsiteCatalog",
-            "offsiteServer": "offsiteServer",
-            "parameter1": "parameter1",
-            "parameter2": "parameter2",
-            "parameter3": "parameter3",
-            "parameter4": "parameter4",
-            "parameter5": "parameter5",
-            "parameter6": "parameter6",
-            "dryrun": "dryrun",
-            "dateRun": "",
+            DictionaryStrings.task.rawValue: ViewControllerReference.shared.syncremote,
+            DictionaryStrings.backupID.rawValue: DictionaryStrings.backupID.rawValue,
+            DictionaryStrings.localCatalog.rawValue: DictionaryStrings.localCatalog.rawValue,
+            DictionaryStrings.offsiteCatalog.rawValue: DictionaryStrings.offsiteCatalog.rawValue,
+            DictionaryStrings.offsiteServer.rawValue: DictionaryStrings.offsiteServer.rawValue,
+            DictionaryStrings.parameter1.rawValue: DictionaryStrings.parameter1.rawValue,
+            DictionaryStrings.parameter2.rawValue: DictionaryStrings.parameter2.rawValue,
+            DictionaryStrings.parameter3.rawValue: DictionaryStrings.parameter3.rawValue,
+            DictionaryStrings.parameter4.rawValue: DictionaryStrings.parameter4.rawValue,
+            DictionaryStrings.parameter5.rawValue: DictionaryStrings.parameter5.rawValue,
+            DictionaryStrings.parameter6.rawValue: DictionaryStrings.parameter6.rawValue,
+            DictionaryStrings.dryrun.rawValue: DictionaryStrings.dryrun.rawValue,
+            DictionaryStrings.dateRun.rawValue: "",
             "singleFile": 0,
         ]
         dict.setValue(1, forKey: "snapshotnum")
@@ -154,22 +154,22 @@ class RsyncGUITests: XCTestCase, SetConfigurations {
     }
 
     func testaddnoconfig2() {
-        // Missing  "offsiteServer": "offsiteServer"
+        // Missing  DictionaryStrings.offsiteServer.rawValue: DictionaryStrings.offsiteServer.rawValue
         let configurations = ConfigurationsXCTEST(profile: "XCTest")
         let dict: NSMutableDictionary = [
-            "task": ViewControllerReference.shared.syncremote,
-            "backupID": "backupID",
-            "localCatalog": "localCatalog",
-            "offsiteCatalog": "offsiteCatalog",
-            "offsiteUsername": "offsiteUsername",
-            "parameter1": "parameter1",
-            "parameter2": "parameter2",
-            "parameter3": "parameter3",
-            "parameter4": "parameter4",
-            "parameter5": "parameter5",
-            "parameter6": "parameter6",
-            "dryrun": "dryrun",
-            "dateRun": "",
+            DictionaryStrings.task.rawValue: ViewControllerReference.shared.syncremote,
+            DictionaryStrings.backupID.rawValue: DictionaryStrings.backupID.rawValue,
+            DictionaryStrings.localCatalog.rawValue: DictionaryStrings.localCatalog.rawValue,
+            DictionaryStrings.offsiteCatalog.rawValue: DictionaryStrings.offsiteCatalog.rawValue,
+            DictionaryStrings.offsiteUsername.rawValue: DictionaryStrings.offsiteUsername.rawValue,
+            DictionaryStrings.parameter1.rawValue: DictionaryStrings.parameter1.rawValue,
+            DictionaryStrings.parameter2.rawValue: DictionaryStrings.parameter2.rawValue,
+            DictionaryStrings.parameter3.rawValue: DictionaryStrings.parameter3.rawValue,
+            DictionaryStrings.parameter4.rawValue: DictionaryStrings.parameter4.rawValue,
+            DictionaryStrings.parameter5.rawValue: DictionaryStrings.parameter5.rawValue,
+            DictionaryStrings.parameter6.rawValue: DictionaryStrings.parameter6.rawValue,
+            DictionaryStrings.dryrun.rawValue: DictionaryStrings.dryrun.rawValue,
+            DictionaryStrings.dateRun.rawValue: "",
             "singleFile": 0,
         ]
         dict.setValue(1, forKey: "snapshotnum")

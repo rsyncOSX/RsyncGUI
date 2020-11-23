@@ -17,16 +17,16 @@ struct ConvertSchedules: SetSchedules {
         if let schedules = self.schedules?.getSchedule() {
             for i in 0 ..< schedules.count {
                 let dict: NSMutableDictionary = [
-                    "hiddenID": schedules[i].hiddenID,
-                    "dateStart": schedules[i].dateStart,
-                    "schedule": schedules[i].schedule,
+                    DictionaryStrings.hiddenID.rawValue: schedules[i].hiddenID,
+                    DictionaryStrings.dateStart.rawValue: schedules[i].dateStart,
+                    DictionaryStrings.schedule.rawValue: schedules[i].schedule,
                     "offsiteserver": schedules[i].offsiteserver ?? "localhost",
                 ]
                 if let log = schedules[i].logrecords {
                     var logrecords = [NSDictionary]()
                     for i in 0 ..< log.count {
                         let dict: NSDictionary = [
-                            "dateExecuted": log[i].dateExecuted ?? "",
+                            DictionaryStrings.dateExecuted.rawValue: log[i].dateExecuted ?? "",
                             "resultExecuted": log[i].resultExecuted ?? "",
                         ]
                         logrecords.append(dict)

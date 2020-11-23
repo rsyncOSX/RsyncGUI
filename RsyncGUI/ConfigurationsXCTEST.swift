@@ -39,7 +39,7 @@ class ConfigurationsXCTEST: Configurations {
                     array.append(dict)
                 }
             }
-            dict.setObject(self.maxhiddenID + 1, forKey: "hiddenID" as NSCopying)
+            dict.setObject(self.maxhiddenID + 1, forKey: DictionaryStrings.hiddenID.rawValue as NSCopying)
             array.append(dict)
             guard Validatenewconfigs(dict: dict).validated == true else { return }
             self.appendconfigurationstomemory(dict: array[array.count - 1])

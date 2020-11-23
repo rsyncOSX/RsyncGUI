@@ -38,9 +38,9 @@ class Schedules: ScheduleWriteLoggData {
 
     // Test if Schedule record in memory is set to delete or not
     func delete(dict: NSDictionary) {
-        if let hiddenID = dict.value(forKey: "hiddenID") as? Int {
-            if let schedule = dict.value(forKey: "schedule") as? String {
-                if let datestart = dict.value(forKey: "dateStart") as? String {
+        if let hiddenID = dict.value(forKey: DictionaryStrings.hiddenID.rawValue) as? Int {
+            if let schedule = dict.value(forKey: DictionaryStrings.schedule.rawValue) as? String {
+                if let datestart = dict.value(forKey: DictionaryStrings.dateStart.rawValue) as? String {
                     if let i = self.schedules?.firstIndex(where: { $0.hiddenID == hiddenID
                             && $0.schedule == schedule
                             && $0.dateStart == datestart

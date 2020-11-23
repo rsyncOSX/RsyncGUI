@@ -15,16 +15,16 @@ struct ConvertOneConfig {
     var dict: NSMutableDictionary {
         let row: NSMutableDictionary = [
             "taskCellID": self.config?.task ?? "",
-            "hiddenID": self.config?.hiddenID ?? "",
-            "localCatalogCellID": self.config?.localCatalog ?? "",
-            "offsiteCatalogCellID": self.config?.offsiteCatalog ?? "",
-            "offsiteUsernameID": self.config?.offsiteUsername ?? "",
-            "offsiteServerCellID": self.config?.offsiteServer ?? "",
+            DictionaryStrings.hiddenID.rawValue: self.config?.hiddenID ?? "",
+            DictionaryStrings.localCatalogCellID.rawValue: self.config?.localCatalog ?? "",
+            DictionaryStrings.offsiteCatalogCellID.rawValue: self.config?.offsiteCatalog ?? "",
+            DictionaryStrings.offsiteUsernameID.rawValue: self.config?.offsiteUsername ?? "",
+            DictionaryStrings.offsiteServerCellID.rawValue: self.config?.offsiteServer ?? "",
             "backupIDCellID": self.config?.backupID ?? "",
             "runDateCellID": self.config?.dateRun ?? "",
-            "daysID": self.config?.dayssincelastbackup ?? "",
-            "markdays": self.config?.markdays ?? "",
-            "selectCellID": 0,
+            DictionaryStrings.daysID.rawValue: self.config?.dayssincelastbackup ?? "",
+            DictionaryStrings.markdays.rawValue: self.config?.markdays ?? "",
+            DictionaryStrings.selectCellID.rawValue: 0,
         ]
         return row
     }

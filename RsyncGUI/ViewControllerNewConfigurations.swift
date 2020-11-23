@@ -24,7 +24,6 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, Dela
     let delete: String = "--delete"
     let eparam: String = "-e"
     let ssh: String = "ssh"
-    let dryrun: String = "--dry-run"
     var outputprocess: OutputProcess?
     var index: Int?
     // Reference to rsync parameters to use in combox
@@ -178,33 +177,32 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, Dela
 
     @IBAction func addConfig(_: NSButton) {
         let dict: NSMutableDictionary = [
-            "task": ViewControllerReference.shared.synchronize,
-            "backupID": backupID.stringValue,
-            "localCatalog": localCatalog.stringValue,
-            "offsiteCatalog": offsiteCatalog.stringValue,
-            "offsiteServer": offsiteServer.stringValue,
-            "offsiteUsername": offsiteUsername.stringValue,
-            "parameter1": self.archive,
-            "parameter2": self.verbose,
-            "parameter3": self.compress,
-            "parameter4": self.delete,
-            "parameter5": self.eparam,
-            "parameter6": self.ssh,
-            "dryrun": self.dryrun,
-            "dateRun": "",
+            DictionaryStrings.task.rawValue: ViewControllerReference.shared.synchronize,
+            DictionaryStrings.backupID.rawValue: backupID.stringValue,
+            DictionaryStrings.localCatalog.rawValue: localCatalog.stringValue,
+            DictionaryStrings.offsiteCatalog.rawValue: offsiteCatalog.stringValue,
+            DictionaryStrings.offsiteServer.rawValue: offsiteServer.stringValue,
+            DictionaryStrings.offsiteUsername.rawValue: offsiteUsername.stringValue,
+            DictionaryStrings.parameter1.rawValue: self.archive,
+            DictionaryStrings.parameter2.rawValue: self.verbose,
+            DictionaryStrings.parameter3.rawValue: self.compress,
+            DictionaryStrings.parameter4.rawValue: self.delete,
+            DictionaryStrings.parameter5.rawValue: self.eparam,
+            DictionaryStrings.parameter6.rawValue: self.ssh,
+            DictionaryStrings.dateRun.rawValue: "",
         ]
         guard Validatenewconfigs(dict: dict).validated == true else { return }
         if self.localCatalog.stringValue.hasSuffix("/") == false {
             self.localCatalog.stringValue += "/"
-            dict.setValue(self.localCatalog.stringValue, forKey: "localCatalog")
+            dict.setValue(self.localCatalog.stringValue, forKey: DictionaryStrings.localCatalog.rawValue)
         }
         if self.offsiteCatalog.stringValue.hasSuffix("/") == false {
             self.offsiteCatalog.stringValue += "/"
-            dict.setValue(self.offsiteCatalog.stringValue, forKey: "offsiteCatalog")
+            dict.setValue(self.offsiteCatalog.stringValue, forKey: DictionaryStrings.offsiteCatalog.rawValue)
         }
         if self.backuptypeselected == .syncremote {
             guard self.offsiteServer.stringValue.isEmpty == false else { return }
-            dict.setValue(ViewControllerReference.shared.syncremote, forKey: "task")
+            dict.setValue(ViewControllerReference.shared.syncremote, forKey: DictionaryStrings.task.rawValue)
         }
         self.configurations?.addNewConfigurations(dict: dict)
         self.newconfigurations?.appendnewConfigurations(dict: dict)
