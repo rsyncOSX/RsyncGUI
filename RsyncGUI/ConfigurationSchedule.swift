@@ -36,7 +36,7 @@ struct ConfigurationSchedule {
                 var logrecord = Log()
                 if let dict = log?[i] as? NSDictionary {
                     logrecord.dateExecuted = dict.object(forKey: DictionaryStrings.dateExecuted.rawValue) as? String
-                    logrecord.resultExecuted = dict.object(forKey: "resultExecuted") as? String
+                    logrecord.resultExecuted = dict.object(forKey: DictionaryStrings.resultExecuted.rawValue) as? String
                 }
                 self.logrecords?.append(logrecord)
             }

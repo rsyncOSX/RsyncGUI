@@ -27,11 +27,11 @@ struct ConvertSchedules: SetSchedules {
                     for i in 0 ..< log.count {
                         let dict: NSDictionary = [
                             DictionaryStrings.dateExecuted.rawValue: log[i].dateExecuted ?? "",
-                            "resultExecuted": log[i].resultExecuted ?? "",
+                            DictionaryStrings.resultExecuted.rawValue: log[i].resultExecuted ?? "",
                         ]
                         logrecords.append(dict)
                     }
-                    dict.setObject(logrecords, forKey: "executed" as NSCopying)
+                    dict.setObject(logrecords, forKey: DictionaryStrings.executed.rawValue as NSCopying)
                 }
                 if schedules[i].dateStop != nil {
                     dict.setValue(schedules[i].dateStop, forKey: "dateStop")

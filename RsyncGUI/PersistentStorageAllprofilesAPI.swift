@@ -30,7 +30,7 @@ class PersistentStorageAllprofilesAPI: SetConfigurations, SetSchedules {
         let read = PersistentStorageScheduling(profile: self.profile, readonly: true)
         guard read.schedulesasdictionary != nil else { return nil }
         for dict in read.schedulesasdictionary! {
-            if let log = dict.value(forKey: "executed") {
+            if let log = dict.value(forKey: DictionaryStrings.executed.rawValue) {
                 let conf = ConfigurationSchedule(dictionary: dict, log: log as? NSArray, includelog: includelog)
                 schedule.append(conf)
             } else {
