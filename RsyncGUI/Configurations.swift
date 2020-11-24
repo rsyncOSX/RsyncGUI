@@ -298,24 +298,6 @@ class Configurations: ReloadTable, SetSchedules {
         }
     }
 
-    // Sandbox
-    private func appendsequrityscopedurls(config: Configuration) {
-        let append = AppendSequrityscopedURLs(path: config.localCatalog)
-        let dict: NSMutableDictionary = [
-            DictionaryStrings.localcatalog.rawValue: append.urlpath ?? "",
-            DictionaryStrings.SecurityScoped.rawValue: append.success,
-        ]
-        self.SequrityScopedURLs?.append(dict)
-        if config.offsiteServer.isEmpty == true {
-            let append = AppendSequrityscopedURLs(path: config.offsiteCatalog)
-            let dict: NSMutableDictionary = [
-                DictionaryStrings.localcatalog.rawValue: append.urlpath ?? "",
-                DictionaryStrings.SecurityScoped.rawValue: append.success,
-            ]
-            self.SequrityScopedURLs?.append(dict)
-        }
-    }
-
     init(profile: String?) {
         // initial Sandbox
         self.SequrityScopedURLs = [NSDictionary]()

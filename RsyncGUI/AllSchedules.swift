@@ -35,10 +35,6 @@ class Allschedules {
         }
     }
 
-    func getallschedules() -> [ConfigurationSchedule]? {
-        return self.allschedules
-    }
-
     init(includelog: Bool) {
         self.allprofiles = AllProfilenames().allprofiles
         self.readallschedules(includelog: includelog)
