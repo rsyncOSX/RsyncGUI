@@ -28,8 +28,8 @@ struct ConfigurationSchedule {
         self.hiddenID = dictionary.object(forKey: DictionaryStrings.hiddenID.rawValue) as? Int ?? -1
         self.dateStart = dictionary.object(forKey: DictionaryStrings.dateStart.rawValue) as? String ?? ""
         self.schedule = dictionary.object(forKey: DictionaryStrings.schedule.rawValue) as? String ?? ""
-        self.offsiteserver = dictionary.object(forKey: "offsiteserver") as? String ?? ""
-        if let date = dictionary.object(forKey: "dateStop") as? String { self.dateStop = date }
+        self.offsiteserver = dictionary.object(forKey: DictionaryStrings.offsiteserver.rawValue) as? String ?? ""
+        if let date = dictionary.object(forKey: DictionaryStrings.dateStop.rawValue) as? String { self.dateStop = date }
         if log != nil, includelog == true {
             for i in 0 ..< (log?.count ?? 0) {
                 if i == 0 { self.logrecords = [Log]() }

@@ -20,7 +20,7 @@ struct ConvertSchedules: SetSchedules {
                     DictionaryStrings.hiddenID.rawValue: schedules[i].hiddenID,
                     DictionaryStrings.dateStart.rawValue: schedules[i].dateStart,
                     DictionaryStrings.schedule.rawValue: schedules[i].schedule,
-                    "offsiteserver": schedules[i].offsiteserver ?? "localhost",
+                    DictionaryStrings.offsiteserver.rawValue: schedules[i].offsiteserver ?? "localhost",
                 ]
                 if let log = schedules[i].logrecords {
                     var logrecords = [NSDictionary]()
@@ -34,7 +34,7 @@ struct ConvertSchedules: SetSchedules {
                     dict.setObject(logrecords, forKey: DictionaryStrings.executed.rawValue as NSCopying)
                 }
                 if schedules[i].dateStop != nil {
-                    dict.setValue(schedules[i].dateStop, forKey: "dateStop")
+                    dict.setValue(schedules[i].dateStop, forKey: DictionaryStrings.dateStop.rawValue)
                 }
                 if schedules[i].delete ?? false == false {
                     array.append(dict)

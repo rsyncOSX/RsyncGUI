@@ -322,4 +322,5 @@ enum DictionaryStrings: String {
     case SecurityScoped
     case rootcatalog
     case localcatalog
+    case index
 }
