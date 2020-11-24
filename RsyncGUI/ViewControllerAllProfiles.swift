@@ -103,7 +103,7 @@ class ViewControllerAllProfiles: NSViewController, Delay, Abort {
 
     func reloadallprofiles() {
         self.allprofiles = AllConfigurations()
-        self.allschedules = Allschedules(nolog: true)
+        self.allschedules = Allschedules(includelog: false)
         self.sortdirection.image = #imageLiteral(resourceName: "up")
         self.sortascending = true
         self.allprofiles?.allconfigurationsasdictionary = self.allprofiles!.sortbydate(notsortedlist: self.allprofiles?.allconfigurationsasdictionary, sortdirection: self.sortascending)

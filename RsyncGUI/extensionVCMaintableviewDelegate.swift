@@ -46,13 +46,13 @@ extension ViewControllerMain: NSTableViewDelegate, Attributedestring {
            let tableColumn = tableColumn
         {
             let celltext = object[tableColumn.identifier] as? String
-            if tableColumn.identifier.rawValue == "daysID" {
+            if tableColumn.identifier.rawValue == DictionaryStrings.daysID.rawValue {
                 if markdays {
                     return self.attributedstring(str: celltext!, color: NSColor.red, align: .right)
                 } else {
                     return object[tableColumn.identifier] as? String
                 }
-            } else if tableColumn.identifier.rawValue == "offsiteServerCellID",
+            } else if tableColumn.identifier.rawValue == DictionaryStrings.offsiteServerCellID.rawValue,
                       ((object[tableColumn.identifier] as? String)?.isEmpty) == true
             {
                 return "localhost"
@@ -68,7 +68,7 @@ extension ViewControllerMain: NSTableViewDelegate, Attributedestring {
                 // Check if test for connections is selected
                 if self.configurations?.tcpconnections?.connectionscheckcompleted ?? false == true {
                     if (self.configurations?.tcpconnections?.gettestAllremoteserverConnections()?[row]) ?? false,
-                       tableColumn.identifier.rawValue == "offsiteServerCellID"
+                       tableColumn.identifier.rawValue == DictionaryStrings.offsiteServerCellID.rawValue
                     {
                         return self.attributedstring(str: celltext ?? "", color: NSColor.red, align: .left)
                     } else {

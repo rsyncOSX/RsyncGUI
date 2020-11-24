@@ -16,8 +16,8 @@ struct RootcatalogSequrityscopedURLs {
         let rootcatalog = NamesandPaths(profileorsshrootpath: .sandboxroot).userHomeDirectoryPath ?? ""
         let append = AppendSequrityscopedURLs(path: rootcatalog + (suffix ?? ""))
         self.dictionary = [
-            "rootcatalog": append.urlpath ?? "",
-            "SecurityScoped": append.success,
+            DictionaryStrings.rootcatalog.rawValue: append.urlpath ?? "",
+            DictionaryStrings.SecurityScoped.rawValue: append.success,
         ]
     }
 }

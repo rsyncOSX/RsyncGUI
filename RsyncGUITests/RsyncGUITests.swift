@@ -5,7 +5,6 @@
 //  Created by Thomas Evensen on 28/06/2019.
 //  Copyright © 2019 Thomas Evensen. All rights reserved.
 //
-// swiftlint:disable trailing_comma
 
 @testable import RsyncGUI
 import XCTest
@@ -28,7 +27,7 @@ class RsyncGUITests: XCTestCase, SetConfigurations {
     }
 
     func testnumberofconfigurations() {
-        let count = self.configurations?.getConfigurations().count
+        let count = self.configurations?.getConfigurations()?.count
         XCTAssertEqual(count, 3, "Should be equal to 3")
     }
 
@@ -86,95 +85,5 @@ class RsyncGUITests: XCTestCase, SetConfigurations {
                          "--stats", "thomas@web:~/remotecatalog/", "/Users/thomas/localcatalog/"]
         XCTAssertEqual(arguments, self.configurations?.arguments4rsync(index: 2, argtype: .arg),
                        "Arguments should be equal")
-    }
-
-    func testalllogs() {
-        let schedules = ScheduleLoggData(sortascending: true)
-        XCTAssertEqual(1, schedules.loggdata?.count, "Should be one")
-    }
-
-    func testselectedlog() {
-        let schedules = ScheduleLoggData(hiddenID: 2, sortascending: true)
-        XCTAssertEqual(1, schedules.loggdata?.count, "Should be one")
-    }
-
-    func testnologg() {
-        let schedules = ScheduleLoggData(hiddenID: 1, sortascending: true)
-        XCTAssertEqual(0, schedules.loggdata?.count, "Should be zero")
-    }
-
-    func testaddconfig() {
-        let configurations = ConfigurationsXCTEST(profile: "XCTest")
-        let dict: NSMutableDictionary = [
-            "task": ViewControllerReference.shared.synchronize,
-            "backupID": "backupID",
-            "localCatalog": "localCatalog",
-            "offsiteCatalog": "offsiteCatalog",
-            "offsiteServer": "offsiteServer",
-            "offsiteUsername": "offsiteUsername",
-            "parameter1": "parameter1",
-            "parameter2": "parameter2",
-            "parameter3": "parameter3",
-            "parameter4": "parameter4",
-            "parameter5": "parameter5",
-            "parameter6": "parameter6",
-            "dryrun": "dryrun",
-            "dateRun": "",
-            "singleFile": 0,
-        ]
-        dict.setValue(1, forKey: "snapshotnum")
-        configurations.addNewConfigurations(dict: dict)
-        let count = configurations.getConfigurations().count
-        XCTAssertEqual(count, 4, "Should be equal to 4")
-    }
-
-    func testaddnoconfig1() {
-        // Missing "offsiteUsername": "offsiteUsername",
-        let configurations = ConfigurationsXCTEST(profile: "XCTest")
-        let dict: NSMutableDictionary = [
-            "task": ViewControllerReference.shared.syncremote,
-            "backupID": "backupID",
-            "localCatalog": "localCatalog",
-            "offsiteCatalog": "offsiteCatalog",
-            "offsiteServer": "offsiteServer",
-            "parameter1": "parameter1",
-            "parameter2": "parameter2",
-            "parameter3": "parameter3",
-            "parameter4": "parameter4",
-            "parameter5": "parameter5",
-            "parameter6": "parameter6",
-            "dryrun": "dryrun",
-            "dateRun": "",
-            "singleFile": 0,
-        ]
-        dict.setValue(1, forKey: "snapshotnum")
-        configurations.addNewConfigurations(dict: dict)
-        let count = configurations.getConfigurations().count
-        XCTAssertEqual(count, 3, "Should be equal to 3")
-    }
-
-    func testaddnoconfig2() {
-        // Missing  "offsiteServer": "offsiteServer"
-        let configurations = ConfigurationsXCTEST(profile: "XCTest")
-        let dict: NSMutableDictionary = [
-            "task": ViewControllerReference.shared.syncremote,
-            "backupID": "backupID",
-            "localCatalog": "localCatalog",
-            "offsiteCatalog": "offsiteCatalog",
-            "offsiteUsername": "offsiteUsername",
-            "parameter1": "parameter1",
-            "parameter2": "parameter2",
-            "parameter3": "parameter3",
-            "parameter4": "parameter4",
-            "parameter5": "parameter5",
-            "parameter6": "parameter6",
-            "dryrun": "dryrun",
-            "dateRun": "",
-            "singleFile": 0,
-        ]
-        dict.setValue(1, forKey: "snapshotnum")
-        configurations.addNewConfigurations(dict: dict)
-        let count = configurations.getConfigurations().count
-        XCTAssertEqual(count, 3, "Should be equal to 3")
     }
 }

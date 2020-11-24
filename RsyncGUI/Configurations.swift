@@ -36,6 +36,8 @@ class Configurations: ReloadTable, SetSchedules {
     var SequrityScopedURLs: [NSDictionary]?
     // Reference to check TCP-connections
     var tcpconnections: TCPconnections?
+    // valid hiddenIDs
+    var validhiddenID: Set<Int>?
 
     func setestimatedlistnil() -> Bool {
         if (self.estimatedlist?.count ?? 0) == (self.configurations?.count ?? 0) {
@@ -98,7 +100,7 @@ class Configurations: ReloadTable, SetSchedules {
                 if self.quickbackuplist != nil {
                     let quickbackup = self.quickbackuplist!.filter { $0 == config.hiddenID }
                     if quickbackup.count > 0 {
-                        row.setValue(1, forKey: "selectCellID")
+                        row.setValue(1, forKey: DictionaryStrings.selectCellID.rawValue)
                     }
                 }
                 data.append(row)
@@ -122,7 +124,7 @@ class Configurations: ReloadTable, SetSchedules {
                 let server = config.offsiteServer
                 let user = config.offsiteUsername
                 if server != "localhost" {
-                    if data.filter({ $0.value(forKey: "offsiteServerCellID") as? String ?? "" == server && $0.value(forKey: "offsiteUsernameID") as? String ?? "" == user }).count == 0 {
+                    if data.filter({ $0.value(forKey: DictionaryStrings.offsiteServerCellID.rawValue) as? String ?? "" == server && $0.value(forKey: DictionaryStrings.offsiteUsernameID.rawValue) as? String ?? "" == user }).count == 0 {
                         data.append(row)
                     }
                 }
@@ -300,50 +302,18 @@ class Configurations: ReloadTable, SetSchedules {
     private func appendsequrityscopedurls(config: Configuration) {
         let append = AppendSequrityscopedURLs(path: config.localCatalog)
         let dict: NSMutableDictionary = [
-            "localcatalog": append.urlpath ?? "",
-            "SecurityScoped": append.success,
+            DictionaryStrings.localcatalog.rawValue: append.urlpath ?? "",
+            DictionaryStrings.SecurityScoped.rawValue: append.success,
         ]
         self.SequrityScopedURLs?.append(dict)
         if config.offsiteServer.isEmpty == true {
             let append = AppendSequrityscopedURLs(path: config.offsiteCatalog)
             let dict: NSMutableDictionary = [
-                "localcatalog": append.urlpath ?? "",
-                "SecurityScoped": append.success,
+                DictionaryStrings.localcatalog.rawValue: append.urlpath ?? "",
+                DictionaryStrings.SecurityScoped.rawValue: append.success,
             ]
             self.SequrityScopedURLs?.append(dict)
         }
-    }
-
-    // Function is reading all Configurations into memory from permanent store and
-    // prepare all arguments for rsync. All configurations are stored in the private
-    // variable within object.
-    // Function is destroying any previous Configurations before loading new and computing new arguments.
-    // - parameter none: none
-    func readconfigurations() {
-        self.argumentAllConfigurations = [ArgumentsOneConfiguration]()
-        let store: [Configuration]? = PersistentStorageConfiguration(profile: self.profile).getConfigurations()
-        for i in 0 ..< (store?.count ?? 0) {
-            if ViewControllerReference.shared.synctasks.contains(store?[i].task ?? "") {
-                if let config = store?[i] {
-                    self.configurations?.append(config)
-                    let rsyncArgumentsOneConfig = ArgumentsOneConfiguration(config: config)
-                    self.argumentAllConfigurations?.append(rsyncArgumentsOneConfig)
-                    // Sequrity scoped URLS
-                    self.appendsequrityscopedurls(config: config)
-                }
-            }
-        }
-        // Then prepare the datasource for use in tableviews as Dictionarys
-        var data = [NSMutableDictionary]()
-        for i in 0 ..< (self.configurations?.count ?? 0) {
-            let task = self.configurations?[i].task
-            if ViewControllerReference.shared.synctasks.contains(task ?? "") {
-                if let config = self.configurations?[i] {
-                    data.append(ConvertOneConfig(config: config).dict)
-                }
-            }
-        }
-        self.configurationsDataSource = data
     }
 
     init(profile: String?) {
@@ -351,11 +321,16 @@ class Configurations: ReloadTable, SetSchedules {
         self.SequrityScopedURLs = [NSDictionary]()
         self.SequrityScopedURLs?.append(RootcatalogSequrityscopedURLs(suffix: nil).dictionary!)
         // initial Sandbox
-        self.configurations = [Configuration]()
+        self.profile = profile
+        self.configurations = nil
         self.argumentAllConfigurations = nil
         self.configurationsDataSource = nil
-        self.profile = profile
-        self.readconfigurations()
+        // Read and prepare configurations and rsync parameters
+        let configurationsdata = ConfigurationsData(profile: profile)
+        self.configurations = configurationsdata.configurations
+        self.argumentAllConfigurations = configurationsdata.argumentAllConfigurations
+        self.configurationsDataSource = configurationsdata.configurationsDataSource
+        self.validhiddenID = configurationsdata.validhiddenID
         ViewControllerReference.shared.process = nil
     }
 }

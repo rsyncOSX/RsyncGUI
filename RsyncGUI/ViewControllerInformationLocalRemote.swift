@@ -96,12 +96,12 @@ class ViewControllerInformationLocalRemote: NSViewController, SetDismisser, Inde
     private func setcachedNumbers(dict: [NSDictionary]?) {
         if let infodictes = dict {
             guard infodictes.count == 2 else { return }
-            self.localtotalNumber.stringValue = (infodictes[0].value(forKey: "totalNumber") as? String) ?? ""
-            self.localtotalNumberSizebytes.stringValue = (infodictes[0].value(forKey: "totalNumberSizebytes") as? String) ?? ""
-            self.transferredNumber.stringValue = (infodictes[1].value(forKey: "transferredNumber") as? String) ?? ""
-            self.transferredNumberSizebytes.stringValue = (infodictes[1].value(forKey: "transferredNumberSizebytes") as? String) ?? ""
-            self.totalNumber.stringValue = (infodictes[1].value(forKey: "totalNumber") as? String) ?? ""
-            self.totalNumberSizebytes.stringValue = (infodictes[1].value(forKey: "totalNumberSizebytes") as? String) ?? ""
+            self.localtotalNumber.stringValue = (infodictes[0].value(forKey: DictionaryStrings.totalNumber.rawValue) as? String) ?? ""
+            self.localtotalNumberSizebytes.stringValue = (infodictes[0].value(forKey: DictionaryStrings.totalNumberSizebytes.rawValue) as? String) ?? ""
+            self.transferredNumber.stringValue = (infodictes[1].value(forKey: DictionaryStrings.transferredNumber.rawValue) as? String) ?? ""
+            self.transferredNumberSizebytes.stringValue = (infodictes[1].value(forKey: DictionaryStrings.transferredNumberSizebytes.rawValue) as? String) ?? ""
+            self.totalNumber.stringValue = (infodictes[1].value(forKey: DictionaryStrings.totalNumber.rawValue) as? String) ?? ""
+            self.totalNumberSizebytes.stringValue = (infodictes[1].value(forKey: DictionaryStrings.totalNumberSizebytes.rawValue) as? String) ?? ""
             self.gotit.stringValue = NSLocalizedString("Loaded cached data...", comment: "Remote Info")
             self.gotit.textColor = self.setcolor(nsviewcontroller: self, color: .green)
         }

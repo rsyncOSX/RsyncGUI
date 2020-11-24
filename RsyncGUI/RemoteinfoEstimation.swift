@@ -55,13 +55,13 @@ final class RemoteinfoEstimation: SetConfigurations {
     func selectalltaskswithnumbers(deselect: Bool) {
         guard self.records != nil else { return }
         for i in 0 ..< (self.records?.count ?? 0) {
-            let number = (self.records![i].value(forKey: "transferredNumber") as? String) ?? "0"
+            let number = (self.records![i].value(forKey: DictionaryStrings.transferredNumber.rawValue) as? String) ?? "0"
             let delete = (self.records![i].value(forKey: "deletefiles") as? String) ?? "0"
             if Int(number) ?? 0 > 0 || Int(delete) ?? 0 > 0 {
                 if deselect {
-                    self.records![i].setValue(0, forKey: "select")
+                    self.records![i].setValue(0, forKey: DictionaryStrings.select.rawValue)
                 } else {
-                    self.records![i].setValue(1, forKey: "select")
+                    self.records![i].setValue(1, forKey: DictionaryStrings.select.rawValue)
                 }
             }
         }
@@ -70,7 +70,7 @@ final class RemoteinfoEstimation: SetConfigurations {
     func setbackuplist(list: [NSMutableDictionary]) {
         self.configurations?.quickbackuplist = [Int]()
         for i in 0 ..< list.count {
-            self.configurations?.quickbackuplist!.append((list[i].value(forKey: "hiddenID") as? Int)!)
+            self.configurations?.quickbackuplist!.append((list[i].value(forKey: DictionaryStrings.hiddenID.rawValue) as? Int)!)
         }
     }
 
@@ -78,8 +78,8 @@ final class RemoteinfoEstimation: SetConfigurations {
         guard self.records != nil else { return }
         self.configurations?.quickbackuplist = [Int]()
         for i in 0 ..< (self.records?.count ?? 0) {
-            if self.records![i].value(forKey: "select") as? Int == 1 {
-                self.configurations?.quickbackuplist?.append((self.records![i].value(forKey: "hiddenID") as? Int)!)
+            if self.records![i].value(forKey: DictionaryStrings.select.rawValue) as? Int == 1 {
+                self.configurations?.quickbackuplist?.append((self.records![i].value(forKey: DictionaryStrings.hiddenID.rawValue) as? Int)!)
             }
         }
     }
@@ -119,13 +119,13 @@ extension RemoteinfoEstimation {
     func processtermination() {
         if let index = self.index {
             let record = RemoteinfonumbersOnetask(outputprocess: self.outputprocess).record()
-            record.setValue(self.configurations?.getConfigurations()?[index].localCatalog, forKey: "localCatalog")
-            record.setValue(self.configurations?.getConfigurations()?[index].offsiteCatalog, forKey: "offsiteCatalog")
-            record.setValue(self.configurations?.getConfigurations()?[index].hiddenID, forKey: "hiddenID")
+            record.setValue(self.configurations?.getConfigurations()?[index].localCatalog, forKey: DictionaryStrings.localCatalog.rawValue)
+            record.setValue(self.configurations?.getConfigurations()?[index].offsiteCatalog, forKey: DictionaryStrings.offsiteCatalog.rawValue)
+            record.setValue(self.configurations?.getConfigurations()?[index].hiddenID, forKey: DictionaryStrings.hiddenID.rawValue)
             if self.configurations?.getConfigurations()?[index].offsiteServer.isEmpty == true {
-                record.setValue("localhost", forKey: "offsiteServer")
+                record.setValue("localhost", forKey: DictionaryStrings.offsiteServer.rawValue)
             } else {
-                record.setValue(self.configurations?.getConfigurations()?[index].offsiteServer, forKey: "offsiteServer")
+                record.setValue(self.configurations?.getConfigurations()?[index].offsiteServer, forKey: DictionaryStrings.offsiteServer.rawValue)
             }
             self.records?.append(record)
             self.configurations?.estimatedlist?.append(record)

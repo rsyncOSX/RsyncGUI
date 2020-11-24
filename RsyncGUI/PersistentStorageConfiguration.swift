@@ -68,7 +68,7 @@ final class PersistentStorageConfiguration: ReadWriteDictionary, SetConfiguratio
                     array.append(dict)
                 }
             }
-            dict.setObject(self.maxhiddenID + 1, forKey: "hiddenID" as NSCopying)
+            dict.setObject(self.maxhiddenID + 1, forKey: DictionaryStrings.hiddenID.rawValue as NSCopying)
             array.append(dict)
             self.configurations?.appendconfigurationstomemory(dict: array[array.count - 1])
             self.saveconfigInMemoryToPersistentStore()
@@ -84,14 +84,14 @@ final class PersistentStorageConfiguration: ReadWriteDictionary, SetConfiguratio
     }
 
     init(profile: String?) {
-        super.init(whattoreadwrite: .configuration, profile: profile)
+        super.init(profile: profile, whattoreadwrite: .configuration)
         if self.configurations == nil {
             self.configurationsasdictionary = self.readNSDictionaryFromPersistentStore()
         }
     }
 
-    init(profile: String?, allprofiles _: Bool) {
-        super.init(whattoreadwrite: .configuration, profile: profile)
+    init(profile: String?, readonly _: Bool) {
+        super.init(profile: profile, whattoreadwrite: .configuration)
         self.configurationsasdictionary = self.readNSDictionaryFromPersistentStore()
     }
 }
