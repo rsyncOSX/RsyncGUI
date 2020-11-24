@@ -5,7 +5,6 @@
 //  Created by Thomas Evensen on 28/06/2019.
 //  Copyright © 2019 Thomas Evensen. All rights reserved.
 //
-// swiftlint:disable trailing_comma
 
 @testable import RsyncGUI
 import XCTest
@@ -28,7 +27,7 @@ class RsyncGUITests: XCTestCase, SetConfigurations {
     }
 
     func testnumberofconfigurations() {
-        let count = self.configurations?.getConfigurations().count
+        let count = self.configurations?.getConfigurations()?.count
         XCTAssertEqual(count, 3, "Should be equal to 3")
     }
 
@@ -86,77 +85,5 @@ class RsyncGUITests: XCTestCase, SetConfigurations {
                          "--stats", "thomas@web:~/remotecatalog/", "/Users/thomas/localcatalog/"]
         XCTAssertEqual(arguments, self.configurations?.arguments4rsync(index: 2, argtype: .arg),
                        "Arguments should be equal")
-    }
-
-    func testaddconfig() {
-        let configurations = ConfigurationsXCTEST(profile: "XCTest")
-        let dict: NSMutableDictionary = [
-            DictionaryStrings.task.rawValue: ViewControllerReference.shared.synchronize,
-            DictionaryStrings.backupID.rawValue: DictionaryStrings.backupID.rawValue,
-            DictionaryStrings.localCatalog.rawValue: DictionaryStrings.localCatalog.rawValue,
-            DictionaryStrings.offsiteCatalog.rawValue: DictionaryStrings.offsiteCatalog.rawValue,
-            DictionaryStrings.offsiteServer.rawValue: DictionaryStrings.offsiteServer.rawValue,
-            DictionaryStrings.offsiteUsername.rawValue: DictionaryStrings.offsiteUsername.rawValue,
-            DictionaryStrings.parameter1.rawValue: DictionaryStrings.parameter1.rawValue,
-            DictionaryStrings.parameter2.rawValue: DictionaryStrings.parameter2.rawValue,
-            DictionaryStrings.parameter3.rawValue: DictionaryStrings.parameter3.rawValue,
-            DictionaryStrings.parameter4.rawValue: DictionaryStrings.parameter4.rawValue,
-            DictionaryStrings.parameter5.rawValue: DictionaryStrings.parameter5.rawValue,
-            DictionaryStrings.parameter6.rawValue: DictionaryStrings.parameter6.rawValue,
-            DictionaryStrings.dryrun.rawValue: DictionaryStrings.dryrun.rawValue,
-            DictionaryStrings.dateRun.rawValue: "",
-            "singleFile": 0,
-        ]
-        configurations.addNewConfigurations(dict: dict)
-        let count = configurations.getConfigurations().count
-        XCTAssertEqual(count, 4, "Should be equal to 4")
-    }
-
-    func testaddnoconfig1() {
-        // Missing DictionaryStrings.offsiteUsername.rawValue: DictionaryStrings.offsiteUsername.rawValue,
-        let configurations = ConfigurationsXCTEST(profile: "XCTest")
-        let dict: NSMutableDictionary = [
-            DictionaryStrings.task.rawValue: ViewControllerReference.shared.syncremote,
-            DictionaryStrings.backupID.rawValue: DictionaryStrings.backupID.rawValue,
-            DictionaryStrings.localCatalog.rawValue: DictionaryStrings.localCatalog.rawValue,
-            DictionaryStrings.offsiteCatalog.rawValue: DictionaryStrings.offsiteCatalog.rawValue,
-            DictionaryStrings.offsiteServer.rawValue: DictionaryStrings.offsiteServer.rawValue,
-            DictionaryStrings.parameter1.rawValue: DictionaryStrings.parameter1.rawValue,
-            DictionaryStrings.parameter2.rawValue: DictionaryStrings.parameter2.rawValue,
-            DictionaryStrings.parameter3.rawValue: DictionaryStrings.parameter3.rawValue,
-            DictionaryStrings.parameter4.rawValue: DictionaryStrings.parameter4.rawValue,
-            DictionaryStrings.parameter5.rawValue: DictionaryStrings.parameter5.rawValue,
-            DictionaryStrings.parameter6.rawValue: DictionaryStrings.parameter6.rawValue,
-            DictionaryStrings.dryrun.rawValue: DictionaryStrings.dryrun.rawValue,
-            DictionaryStrings.dateRun.rawValue: "",
-            "singleFile": 0,
-        ]
-        configurations.addNewConfigurations(dict: dict)
-        let count = configurations.getConfigurations().count
-        XCTAssertEqual(count, 3, "Should be equal to 3")
-    }
-
-    func testaddnoconfig2() {
-        // Missing  DictionaryStrings.offsiteServer.rawValue: DictionaryStrings.offsiteServer.rawValue
-        let configurations = ConfigurationsXCTEST(profile: "XCTest")
-        let dict: NSMutableDictionary = [
-            DictionaryStrings.task.rawValue: ViewControllerReference.shared.syncremote,
-            DictionaryStrings.backupID.rawValue: DictionaryStrings.backupID.rawValue,
-            DictionaryStrings.localCatalog.rawValue: DictionaryStrings.localCatalog.rawValue,
-            DictionaryStrings.offsiteCatalog.rawValue: DictionaryStrings.offsiteCatalog.rawValue,
-            DictionaryStrings.offsiteUsername.rawValue: DictionaryStrings.offsiteUsername.rawValue,
-            DictionaryStrings.parameter1.rawValue: DictionaryStrings.parameter1.rawValue,
-            DictionaryStrings.parameter2.rawValue: DictionaryStrings.parameter2.rawValue,
-            DictionaryStrings.parameter3.rawValue: DictionaryStrings.parameter3.rawValue,
-            DictionaryStrings.parameter4.rawValue: DictionaryStrings.parameter4.rawValue,
-            DictionaryStrings.parameter5.rawValue: DictionaryStrings.parameter5.rawValue,
-            DictionaryStrings.parameter6.rawValue: DictionaryStrings.parameter6.rawValue,
-            DictionaryStrings.dryrun.rawValue: DictionaryStrings.dryrun.rawValue,
-            DictionaryStrings.dateRun.rawValue: "",
-            "singleFile": 0,
-        ]
-        configurations.addNewConfigurations(dict: dict)
-        let count = configurations.getConfigurations().count
-        XCTAssertEqual(count, 3, "Should be equal to 3")
     }
 }

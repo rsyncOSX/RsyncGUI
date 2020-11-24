@@ -316,38 +316,6 @@ class Configurations: ReloadTable, SetSchedules {
         }
     }
 
-    // Function is reading all Configurations into memory from permanent store and
-    // prepare all arguments for rsync. All configurations are stored in the private
-    // variable within object.
-    // Function is destroying any previous Configurations before loading new and computing new arguments.
-    // - parameter none: none
-    func readconfigurations() {
-        self.argumentAllConfigurations = [ArgumentsOneConfiguration]()
-        let store: [Configuration]? = PersistentStorageConfiguration(profile: self.profile).getConfigurations()
-        for i in 0 ..< (store?.count ?? 0) {
-            if ViewControllerReference.shared.synctasks.contains(store?[i].task ?? "") {
-                if let config = store?[i] {
-                    self.configurations?.append(config)
-                    let rsyncArgumentsOneConfig = ArgumentsOneConfiguration(config: config)
-                    self.argumentAllConfigurations?.append(rsyncArgumentsOneConfig)
-                    // Sequrity scoped URLS
-                    self.appendsequrityscopedurls(config: config)
-                }
-            }
-        }
-        // Then prepare the datasource for use in tableviews as Dictionarys
-        var data = [NSMutableDictionary]()
-        for i in 0 ..< (self.configurations?.count ?? 0) {
-            let task = self.configurations?[i].task
-            if ViewControllerReference.shared.synctasks.contains(task ?? "") {
-                if let config = self.configurations?[i] {
-                    data.append(ConvertOneConfig(config: config).dict)
-                }
-            }
-        }
-        self.configurationsDataSource = data
-    }
-
     init(profile: String?) {
         // initial Sandbox
         self.SequrityScopedURLs = [NSDictionary]()
