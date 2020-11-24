@@ -13,14 +13,14 @@ class PersistentStorageAllprofilesAPI: SetConfigurations, SetSchedules {
 
     // Read configurations from persisten store
     func getConfigurations() -> [Configuration]? {
-        let read = PersistentStorageConfiguration(profile: self.profile, allprofiles: true)
+        var configurations = [Configuration]()
+        let read = PersistentStorageConfiguration(profile: self.profile, readonly: true)
         guard read.configurationsasdictionary != nil else { return nil }
-        var Configurations = [Configuration]()
         for dict in read.configurationsasdictionary! {
             let conf = Configuration(dictionary: dict)
-            Configurations.append(conf)
+            configurations.append(conf)
         }
-        return Configurations
+        return configurations
     }
 
     // Read schedules and history
