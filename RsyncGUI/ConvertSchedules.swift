@@ -34,7 +34,7 @@ struct ConvertSchedules: SetSchedules {
                     dict.setObject(logrecords, forKey: DictionaryStrings.executed.rawValue as NSCopying)
                 }
                 if schedules[i].dateStop != nil {
-                    dict.setValue(schedules[i].dateStop, forKey: "dateStop")
+                    dict.setValue(schedules[i].dateStop, forKey: DictionaryStrings.dateStop.rawValue)
                 }
                 if schedules[i].delete ?? false == false {
                     array.append(dict)

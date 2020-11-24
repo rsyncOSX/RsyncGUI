@@ -186,7 +186,7 @@ extension ViewControllerRemoteInfo: NSTableViewDelegate, Attributedestring {
         case "newfiles":
             let celltext = object[tableColumn!.identifier] as? String
             return self.attributedstring(str: celltext!, color: NSColor.red, align: .right)
-        case "deletefiles":
+        case DictionaryStrings.deletefiles.rawValue:
             let celltext = object[tableColumn!.identifier] as? String
             return self.attributedstring(str: celltext!, color: NSColor.red, align: .right)
         case DictionaryStrings.select.rawValue:

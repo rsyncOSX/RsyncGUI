@@ -61,21 +61,21 @@ struct ConvertUserconfiguration {
         }
         marknumberofdayssince = String(ViewControllerReference.shared.marknumberofdayssince)
         let dict: NSMutableDictionary = [
-            "version3Rsync": version3Rsync ?? 0 as Int,
-            "detailedlogging": detailedlogging ?? 0 as Int,
-            "minimumlogging": minimumlogging ?? 0 as Int,
-            "fulllogging": fulllogging ?? 0 as Int,
-            "marknumberofdayssince": marknumberofdayssince ?? "5.0",
-            "haltonerror": haltonerror ?? 0 as Int,
+            DictionaryStrings.version3Rsync.rawValue: version3Rsync ?? 0 as Int,
+            DictionaryStrings.detailedlogging.rawValue: detailedlogging ?? 0 as Int,
+            DictionaryStrings.minimumlogging.rawValue: minimumlogging ?? 0 as Int,
+            DictionaryStrings.fulllogging.rawValue: fulllogging ?? 0 as Int,
+            DictionaryStrings.marknumberofdayssince.rawValue: marknumberofdayssince ?? "5.0",
+            DictionaryStrings.haltonerror.rawValue: haltonerror ?? 0 as Int,
             "monitornetworkconnection": monitornetworkconnection ?? 0 as Int,
         ]
         if rsyncPath != nil {
-            dict.setObject(rsyncPath!, forKey: "rsyncPath" as NSCopying)
+            dict.setObject(rsyncPath!, forKey: DictionaryStrings.rsyncPath.rawValue as NSCopying)
         }
         if restorePath != nil {
-            dict.setObject(restorePath!, forKey: "restorePath" as NSCopying)
+            dict.setObject(restorePath!, forKey: DictionaryStrings.restorePath.rawValue as NSCopying)
         } else {
-            dict.setObject("", forKey: "restorePath" as NSCopying)
+            dict.setObject("", forKey: DictionaryStrings.restorePath.rawValue as NSCopying)
         }
         if let sshkeypathandidentityfile = ViewControllerReference.shared.sshkeypathandidentityfile {
             dict.setObject(sshkeypathandidentityfile, forKey: DictionaryStrings.sshkeypathandidentityfile.rawValue as NSCopying)
