@@ -183,7 +183,7 @@ extension ViewControllerRemoteInfo: NSTableViewDelegate, Attributedestring {
         case DictionaryStrings.transferredNumberSizebytes.rawValue:
             let celltext = object[tableColumn!.identifier] as? String
             return self.attributedstring(str: celltext!, color: NSColor.red, align: .right)
-        case "newfiles":
+        case DictionaryStrings.newfiles.rawValue:
             let celltext = object[tableColumn!.identifier] as? String
             return self.attributedstring(str: celltext!, color: NSColor.red, align: .right)
         case DictionaryStrings.deletefiles.rawValue:

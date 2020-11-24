@@ -24,8 +24,8 @@ class RemoteinfonumbersOnetask {
             DictionaryStrings.transferredNumberSizebytes.rawValue: self.transferredNumberSizebytes ?? "",
             DictionaryStrings.totalNumber.rawValue: self.totalNumber ?? "",
             DictionaryStrings.totalNumberSizebytes.rawValue: self.totalNumberSizebytes ?? "",
-            "totalDirs": self.totalDirs ?? "",
-            "newfiles": self.newfiles ?? "",
+            DictionaryStrings.totalDirs.rawValue: self.totalDirs ?? "",
+            DictionaryStrings.newfiles.rawValue: self.newfiles ?? "",
         ]
         dict.setValue(self.deletefiles ?? "", forKey: DictionaryStrings.deletefiles.rawValue)
         dict.setValue(0, forKey: DictionaryStrings.select.rawValue)
@@ -38,10 +38,10 @@ class RemoteinfonumbersOnetask {
             DictionaryStrings.transferredNumberSizebytes.rawValue: self.transferredNumberSizebytes ?? "",
             DictionaryStrings.totalNumber.rawValue: self.totalNumber ?? "",
             DictionaryStrings.totalNumberSizebytes.rawValue: self.totalNumberSizebytes ?? "",
-            "totalDirs": self.totalDirs ?? "",
-            "newfiles": self.newfiles ?? "",
+            DictionaryStrings.totalDirs.rawValue: self.totalDirs ?? "",
+            DictionaryStrings.newfiles.rawValue: self.newfiles ?? "",
             DictionaryStrings.deletefiles.rawValue: self.deletefiles ?? "",
-            "index": index,
+            DictionaryStrings.index.rawValue: index,
         ]
         return dict
     }
