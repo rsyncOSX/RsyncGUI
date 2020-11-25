@@ -298,6 +298,28 @@ class Configurations: ReloadTable, SetSchedules {
         }
     }
 
+    // Sandbox
+    private func appendsequrityscopedurls() {
+        if let configurations = self.configurations {
+            for i in 0 ..< configurations.count {
+                let append = AppendSequrityscopedURLs(path: configurations[i].localCatalog)
+                let dict: NSMutableDictionary = [
+                    DictionaryStrings.localcatalog.rawValue: append.urlpath ?? "",
+                    DictionaryStrings.SecurityScoped.rawValue: append.success,
+                ]
+                self.SequrityScopedURLs?.append(dict)
+                if configurations[i].offsiteServer.isEmpty == true {
+                    let append = AppendSequrityscopedURLs(path: configurations[i].offsiteCatalog)
+                    let dict: NSMutableDictionary = [
+                        DictionaryStrings.localcatalog.rawValue: append.urlpath ?? "",
+                        DictionaryStrings.SecurityScoped.rawValue: append.success,
+                    ]
+                    self.SequrityScopedURLs?.append(dict)
+                }
+            }
+        }
+    }
+
     init(profile: String?) {
         // initial Sandbox
         self.SequrityScopedURLs = [NSDictionary]()
@@ -314,6 +336,7 @@ class Configurations: ReloadTable, SetSchedules {
         self.configurationsDataSource = configurationsdata.configurationsDataSource
         self.validhiddenID = configurationsdata.validhiddenID
         ViewControllerReference.shared.process = nil
+        self.appendsequrityscopedurls()
     }
 }
 
