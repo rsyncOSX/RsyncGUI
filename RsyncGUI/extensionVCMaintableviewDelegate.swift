@@ -102,7 +102,7 @@ extension ViewControllerMain: NSTableViewDelegate, Attributedestring {
         }
         self.reset()
         self.showrsynccommandmainview()
-        self.reloadtabledata()
+        // self.reloadtabledata()
     }
 
     func tableView(_: NSTableView, rowActionsForRow _: Int, edge: NSTableView.RowActionEdge) -> [NSTableViewRowAction] {
@@ -124,7 +124,39 @@ extension ViewControllerMain: NSTableViewDelegate, Attributedestring {
     }
 
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        
+        guard self.configurations != nil else { return nil }
+        if row > (self.configurations?.configurationsDataSourcecount() ?? 0) - 1 { return nil }
+        if let object: NSDictionary = self.configurations?.getConfigurationsDataSource()?[row],
+           let markdays: Bool = self.configurations?.getConfigurations()?[row].markdays,
+           let tableColumn = tableColumn
+        {
+            let cellIdentifier: String = tableColumn.identifier.rawValue
+            print(cellIdentifier)
+            switch cellIdentifier {
+            case "statCellID":
+                if row == self.index {
+                    if self.singletask == nil {
+                        // return #imageLiteral(resourceName: "yellow")
+                    } else {
+                        // return #imageLiteral(resourceName: "green")
+                    }
+                    return nil
+                }
+            case "offsiteServerCellID":
+                if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: cellIdentifier), owner: self) as? NSTableCellView {
+                    cell.textField?.stringValue = object.value(forKey: cellIdentifier) as? String ?? ""
+                    if cell.textField?.stringValue.isEmpty ?? true {
+                        cell.textField?.stringValue = "localhost"
+                    }
+                    return cell
+                }
+            default:
+                if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: cellIdentifier), owner: self) as? NSTableCellView {
+                    cell.textField?.stringValue = object.value(forKey: cellIdentifier) as? String ?? ""
+                    return cell
+                }
+            }
+        }
         return nil
     }
 }
