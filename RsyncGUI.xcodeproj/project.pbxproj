@@ -116,7 +116,6 @@
 		E98997F521E265F300B5D5A3 /* PermissionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98997F021E265F300B5D5A3 /* PermissionManager.swift */; };
 		E98997F621E265F300B5D5A3 /* OpenPanelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98997F121E265F300B5D5A3 /* OpenPanelDelegate.swift */; };
 		E98997F721E265F300B5D5A3 /* BookmarksManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98997F221E265F300B5D5A3 /* BookmarksManager.swift */; };
-		E989CE961EF948D0000CB7C2 /* ChmodPubKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E989CE951EF948D0000CB7C2 /* ChmodPubKey.swift */; };
 		E98D6C2F21DFAF9400F4BB67 /* FileDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98D6C2E21DFAF9400F4BB67 /* FileDialog.swift */; };
 		E98FA9E522C5F78300D6D103 /* RsyncGUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98FA9E422C5F78300D6D103 /* RsyncGUITests.swift */; };
 		E996431E231AF0EF00E05B40 /* ViewControllerSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E996431D231AF0EF00E05B40 /* ViewControllerSource.swift */; };
@@ -265,7 +264,6 @@
 		E98997F021E265F300B5D5A3 /* PermissionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PermissionManager.swift; sourceTree = "<group>"; };
 		E98997F121E265F300B5D5A3 /* OpenPanelDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenPanelDelegate.swift; sourceTree = "<group>"; };
 		E98997F221E265F300B5D5A3 /* BookmarksManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarksManager.swift; sourceTree = "<group>"; };
-		E989CE951EF948D0000CB7C2 /* ChmodPubKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChmodPubKey.swift; sourceTree = "<group>"; };
 		E98D6C2E21DFAF9400F4BB67 /* FileDialog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileDialog.swift; sourceTree = "<group>"; };
 		E98FA9E222C5F78300D6D103 /* RsyncGUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RsyncGUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E98FA9E422C5F78300D6D103 /* RsyncGUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RsyncGUITests.swift; sourceTree = "<group>"; };
@@ -756,7 +754,6 @@
 			isa = PBXGroup;
 			children = (
 				E9EC78701EACE082001EED9B /* Ssh.swift */,
-				E989CE951EF948D0000CB7C2 /* ChmodPubKey.swift */,
 			);
 			name = Ssh;
 			sourceTree = "<group>";
@@ -927,7 +924,6 @@
 				E94AEF3E24A09C61002D3757 /* InterruptProcess.swift in Sources */,
 				E92755A62130539400B1F781 /* Dispatchqueues.swift in Sources */,
 				E94DC3112313E72200E7CE7E /* extensionVCMaintableviewDelegate.swift in Sources */,
-				E989CE961EF948D0000CB7C2 /* ChmodPubKey.swift in Sources */,
 				E9E70A3C1FF3BCB30099554D /* RsyncVersionString.swift in Sources */,
 				E9E88FD01EB25A080028432F /* ArgumentsSsh.swift in Sources */,
 				E98997F721E265F300B5D5A3 /* BookmarksManager.swift in Sources */,
