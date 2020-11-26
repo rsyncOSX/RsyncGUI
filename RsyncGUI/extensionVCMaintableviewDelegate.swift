@@ -104,4 +104,27 @@ extension ViewControllerMain: NSTableViewDelegate, Attributedestring {
         self.showrsynccommandmainview()
         self.reloadtabledata()
     }
+
+    func tableView(_: NSTableView, rowActionsForRow _: Int, edge: NSTableView.RowActionEdge) -> [NSTableViewRowAction] {
+        if edge == .leading {
+            let printAction = NSTableViewRowAction(style: .regular, title: "Print") { _, _ in
+                print("Now printing...")
+            }
+            printAction.backgroundColor = NSColor.gray
+            return [printAction]
+
+        } else {
+            let deleteAction = NSTableViewRowAction(style: .destructive, title: "Delete") { _, _ in
+                // self.viewModel.removePurchase(atIndex: row)
+                // self.tableView.reloadData()
+            }
+
+            return [deleteAction]
+        }
+    }
+
+    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+        
+        return nil
+    }
 }
