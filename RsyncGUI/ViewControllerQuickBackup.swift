@@ -28,14 +28,12 @@ class ViewControllerQuickBackup: NSViewController, SetDismisser, Abort, Delay, S
     @IBOutlet var mainTableView: NSTableView!
     @IBOutlet var abortbutton: NSButton!
     @IBOutlet var completed: NSTextField!
-    @IBOutlet var working: NSProgressIndicator!
 
     // Either abort or close
     @IBAction func abort(_: NSButton) {
         if self.executing {
             self.quickbackup = nil
             self.abort()
-            self.working.stopAnimation(nil)
         }
         if (self.presentingViewController as? ViewControllerMain) != nil {
             self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
@@ -55,7 +53,6 @@ class ViewControllerQuickBackup: NSViewController, SetDismisser, Abort, Delay, S
         ViewControllerReference.shared.setvcref(viewcontroller: .vcquickbackup, nsviewcontroller: self)
         self.mainTableView.delegate = self
         self.mainTableView.dataSource = self
-        self.working.usesThreadedAnimation = true
         self.completed.isHidden = true
         self.quickbackup = QuickBackup()
     }
@@ -79,8 +76,6 @@ class ViewControllerQuickBackup: NSViewController, SetDismisser, Abort, Delay, S
         globalMainQueue.async { () -> Void in
             self.mainTableView.reloadData()
         }
-        self.working.isHidden = false
-        self.working.startAnimation(nil)
     }
 
     override func viewDidDisappear() {
@@ -166,7 +161,6 @@ extension ViewControllerQuickBackup: ReportonandhaltonError {
     func reportandhaltonerror() {
         self.quickbackup = nil
         self.abort()
-        self.working.stopAnimation(nil)
         self.completed.isHidden = false
         self.completed.stringValue = "Error"
         self.completed.textColor = setcolor(nsviewcontroller: self, color: .red)
@@ -177,7 +171,6 @@ extension ViewControllerQuickBackup: QuickBackupCompleted {
     func quickbackupcompleted() {
         self.completed.isHidden = false
         self.completed.textColor = setcolor(nsviewcontroller: self, color: .green)
-        self.working.stopAnimation(nil)
         self.executing = false
     }
 }
