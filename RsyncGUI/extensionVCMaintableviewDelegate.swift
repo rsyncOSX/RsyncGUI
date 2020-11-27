@@ -102,7 +102,7 @@ extension ViewControllerMain: NSTableViewDelegate, Attributedestring {
         }
         self.reset()
         self.showrsynccommandmainview()
-        // self.reloadtabledata()
+        self.reloadtabledata()
     }
 
     func tableView(_: NSTableView, rowActionsForRow _: Int, edge: NSTableView.RowActionEdge) -> [NSTableViewRowAction] {
@@ -131,16 +131,18 @@ extension ViewControllerMain: NSTableViewDelegate, Attributedestring {
            let tableColumn = tableColumn
         {
             let cellIdentifier: String = tableColumn.identifier.rawValue
-            print(cellIdentifier)
             switch cellIdentifier {
-            case "statCellID":
-                if row == self.index {
-                    if self.singletask == nil {
-                        // return #imageLiteral(resourceName: "yellow")
-                    } else {
-                        // return #imageLiteral(resourceName: "green")
+            case "taskCellID":
+                if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: cellIdentifier), owner: self) as? NSTableCellView {
+                    cell.textField?.stringValue = object.value(forKey: cellIdentifier) as? String ?? ""
+                    if row == self.index {
+                        if self.singletask == nil {
+                            cell.imageView?.image = NSImage(#imageLiteral(resourceName: "yellow"))
+                        } else {
+                            cell.imageView?.image = NSImage(#imageLiteral(resourceName: "green"))
+                        }
                     }
-                    return nil
+                    return cell
                 }
             case "offsiteServerCellID":
                 if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: cellIdentifier), owner: self) as? NSTableCellView {
