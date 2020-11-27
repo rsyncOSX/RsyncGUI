@@ -5,7 +5,7 @@
 //  Created by Thomas Evensen on 26/08/2019.
 //  Copyright © 2019 Thomas Evensen. All rights reserved.
 //
-//  swiftlint:disable cyclomatic_complexity
+//  swiftlint:disable cyclomatic_complexity line_length
 
 import Cocoa
 import Foundation
@@ -127,7 +127,7 @@ extension ViewControllerMain: NSTableViewDelegate, Attributedestring {
         guard self.configurations != nil else { return nil }
         if row > (self.configurations?.configurationsDataSourcecount() ?? 0) - 1 { return nil }
         if let object: NSDictionary = self.configurations?.getConfigurationsDataSource()?[row],
-           let markdays: Bool = self.configurations?.getConfigurations()?[row].markdays,
+           // let markdays: Bool = self.configurations?.getConfigurations()?[row].markdays,
            let tableColumn = tableColumn
         {
             let cellIdentifier: String = tableColumn.identifier.rawValue
