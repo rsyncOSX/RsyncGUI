@@ -53,6 +53,7 @@ extension ViewControllerMain: NewProfile {
             self.initpopupbutton()
         }
         self.reset()
+        self.singletask = nil
         self.showrsynccommandmainview()
         self.deselect()
         // Read configurations and Scheduledata

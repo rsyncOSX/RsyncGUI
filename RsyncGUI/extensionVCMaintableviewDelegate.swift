@@ -96,30 +96,32 @@ extension ViewControllerMain: NSTableViewDelegate, Attributedestring {
         if let index = indexes.first {
             self.index = index
             self.indexes = self.mainTableView.selectedRowIndexes
+            if self.lastindex != index {
+                self.singletask = nil
+            }
+            self.lastindex = index
         } else {
             self.index = nil
             self.indexes = nil
+            self.singletask = nil
+            self.reloadtabledata()
         }
         self.reset()
         self.showrsynccommandmainview()
-        self.reloadtabledata()
     }
 
-    func tableView(_: NSTableView, rowActionsForRow _: Int, edge: NSTableView.RowActionEdge) -> [NSTableViewRowAction] {
+    func tableView(_: NSTableView, rowActionsForRow row: Int, edge: NSTableView.RowActionEdge) -> [NSTableViewRowAction] {
         if edge == .leading {
-            let printAction = NSTableViewRowAction(style: .regular, title: "Print") { _, _ in
-                print("Now printing...")
+            let delete = NSTableViewRowAction(style: .destructive, title: NSLocalizedString("Delete", comment: "Main")) { _, _ in
+                self.deleterow(index: row)
             }
-            printAction.backgroundColor = NSColor.gray
-            return [printAction]
-
+            return [delete]
         } else {
-            let deleteAction = NSTableViewRowAction(style: .destructive, title: "Delete") { _, _ in
-                // self.viewModel.removePurchase(atIndex: row)
-                // self.tableView.reloadData()
+            let execute = NSTableViewRowAction(style: .regular, title: NSLocalizedString("Execute", comment: "Main")) { _, _ in
+                self.executetask(index: row)
             }
-
-            return [deleteAction]
+            execute.backgroundColor = NSColor.gray
+            return [execute]
         }
     }
 
@@ -127,7 +129,7 @@ extension ViewControllerMain: NSTableViewDelegate, Attributedestring {
         guard self.configurations != nil else { return nil }
         if row > (self.configurations?.configurationsDataSourcecount() ?? 0) - 1 { return nil }
         if let object: NSDictionary = self.configurations?.getConfigurationsDataSource()?[row],
-           // let markdays: Bool = self.configurations?.getConfigurations()?[row].markdays,
+           let markdays: Bool = self.configurations?.getConfigurations()?[row].markdays,
            let tableColumn = tableColumn
         {
             let cellIdentifier: String = tableColumn.identifier.rawValue
@@ -135,10 +137,10 @@ extension ViewControllerMain: NSTableViewDelegate, Attributedestring {
             case "taskCellID":
                 if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: cellIdentifier), owner: self) as? NSTableCellView {
                     cell.textField?.stringValue = object.value(forKey: cellIdentifier) as? String ?? ""
+                    cell.imageView?.image = nil
+                    cell.imageView?.alignment = .right
                     if row == self.index {
-                        if self.singletask == nil {
-                            cell.imageView?.image = NSImage(#imageLiteral(resourceName: "yellow"))
-                        } else {
+                        if self.singletask != nil {
                             cell.imageView?.image = NSImage(#imageLiteral(resourceName: "green"))
                         }
                     }
@@ -149,6 +151,17 @@ extension ViewControllerMain: NSTableViewDelegate, Attributedestring {
                     cell.textField?.stringValue = object.value(forKey: cellIdentifier) as? String ?? ""
                     if cell.textField?.stringValue.isEmpty ?? true {
                         cell.textField?.stringValue = "localhost"
+                    }
+                    return cell
+                }
+            case "daysID":
+                if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: cellIdentifier), owner: self) as? NSTableCellView {
+                    cell.textField?.stringValue = object.value(forKey: cellIdentifier) as? String ?? ""
+                    cell.textField?.alignment = .right
+                    if markdays {
+                        cell.textField?.textColor = setcolor(nsviewcontroller: self, color: .red)
+                    } else {
+                        cell.textField?.textColor = setcolor(nsviewcontroller: self, color: .black)
                     }
                     return cell
                 }
