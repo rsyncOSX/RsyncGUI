@@ -37,7 +37,6 @@ extension ViewControllerMain: NSTableViewDataSource {
 }
 
 extension ViewControllerMain: NSTableViewDelegate {
-
     func tableViewSelectionDidChange(_ notification: Notification) {
         self.seterrorinfo(info: "")
         // If change row during estimation
@@ -64,6 +63,7 @@ extension ViewControllerMain: NSTableViewDelegate {
     }
 
     func tableView(_: NSTableView, rowActionsForRow row: Int, edge: NSTableView.RowActionEdge) -> [NSTableViewRowAction] {
+        guard ViewControllerReference.shared.process == nil else { return [] }
         if edge == .leading {
             let delete = NSTableViewRowAction(style: .destructive, title: NSLocalizedString("Delete", comment: "Main")) { _, _ in
                 self.deleterow(index: row)
