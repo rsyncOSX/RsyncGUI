@@ -43,7 +43,7 @@ final class AllConfigurations: Sorting {
         var data = [NSMutableDictionary]()
         for i in 0 ..< configurations.count {
             if configurations[i].offsiteServer.isEmpty == true {
-                configurations[i].offsiteServer = "localhost"
+                configurations[i].offsiteServer = DictionaryStrings.localhost.rawValue
             }
             let row: NSMutableDictionary = [
                 DictionaryStrings.profile.rawValue: configurations[i].profile ?? "",

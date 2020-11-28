@@ -41,6 +41,7 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
     var executetasknow: ExecuteTaskNow?
     // Index to selected row, index is set when row is selected
     var index: Int?
+    var lastindex: Int?
     // Getting output from rsync
     // Indexes, multiple selection
     var indexes: IndexSet?
@@ -92,24 +93,32 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
             return
         }
         if let index = self.index {
+            self.deleterow(index: index)
+        }
+    }
+
+    func deleterow(index: Int?) {
+        if let index = index {
             if let hiddenID = self.configurations?.gethiddenID(index: index) {
-                let answer = Alerts.dialogOrCancel(question: "Delete selected task?", text: "Cancel or Delete", dialog: "Delete")
+                let question: String = NSLocalizedString("Delete selected task?", comment: "Execute")
+                let text: String = NSLocalizedString("Cancel or Delete", comment: "Execute")
+                let dialog: String = NSLocalizedString("Delete", comment: "Execute")
+                let answer = Alerts.dialogOrCancel(question: question, text: text, dialog: dialog)
                 if answer {
                     // Delete Configurations and Schedules by hiddenID
                     self.configurations?.deleteConfigurationsByhiddenID(hiddenID: hiddenID)
                     self.schedules?.deletescheduleonetask(hiddenID: hiddenID)
                     self.deselect()
-                    self.index = nil
                     self.reloadtabledata()
                 }
             }
             self.reset()
+            self.singletask = nil
         }
     }
 
     func reset() {
         self.setNumbers(outputprocess: nil)
-        self.singletask = nil
         self.seterrorinfo(info: "")
         // Close edit and parameters view if open
         if let view = ViewControllerReference.shared.getvcref(viewcontroller: .vcrsyncparameters) as? ViewControllerRsyncParameters {
@@ -184,6 +193,12 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
             return
         }
         if let index = self.index {
+            self.executetask(index: index)
+        }
+    }
+
+    func executetask(index: Int?) {
+        if let index = index {
             if let task = self.configurations?.getConfigurations()?[index].task {
                 guard ViewControllerReference.shared.synctasks.contains(task) else { return }
                 self.executetasknow = ExecuteTaskNow(index: index)

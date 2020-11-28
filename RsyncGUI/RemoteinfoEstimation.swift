@@ -123,7 +123,7 @@ extension RemoteinfoEstimation {
             record.setValue(self.configurations?.getConfigurations()?[index].offsiteCatalog, forKey: DictionaryStrings.offsiteCatalog.rawValue)
             record.setValue(self.configurations?.getConfigurations()?[index].hiddenID, forKey: DictionaryStrings.hiddenID.rawValue)
             if self.configurations?.getConfigurations()?[index].offsiteServer.isEmpty == true {
-                record.setValue("localhost", forKey: DictionaryStrings.offsiteServer.rawValue)
+                record.setValue(DictionaryStrings.localhost.rawValue, forKey: DictionaryStrings.offsiteServer.rawValue)
             } else {
                 record.setValue(self.configurations?.getConfigurations()?[index].offsiteServer, forKey: DictionaryStrings.offsiteServer.rawValue)
             }

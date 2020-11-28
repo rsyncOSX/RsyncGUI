@@ -323,4 +323,6 @@ enum DictionaryStrings: String {
     case rootcatalog
     case localcatalog
     case index
+    case localhost
+    case statCellID
 }

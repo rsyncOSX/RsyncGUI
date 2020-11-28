@@ -20,7 +20,7 @@ struct ConvertSchedules: SetSchedules {
                     DictionaryStrings.hiddenID.rawValue: schedules[i].hiddenID,
                     DictionaryStrings.dateStart.rawValue: schedules[i].dateStart,
                     DictionaryStrings.schedule.rawValue: schedules[i].schedule,
-                    DictionaryStrings.offsiteserver.rawValue: schedules[i].offsiteserver ?? "localhost",
+                    DictionaryStrings.offsiteserver.rawValue: schedules[i].offsiteserver ?? DictionaryStrings.localhost.rawValue,
                 ]
                 if let log = schedules[i].logrecords {
                     var logrecords = [NSDictionary]()

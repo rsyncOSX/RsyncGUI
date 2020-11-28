@@ -14,7 +14,7 @@ struct ConvertOneConfig {
 
     var dict: NSMutableDictionary {
         let row: NSMutableDictionary = [
-            "taskCellID": self.config?.task ?? "",
+            DictionaryStrings.taskCellID.rawValue: self.config?.task ?? "",
             DictionaryStrings.hiddenID.rawValue: self.config?.hiddenID ?? "",
             DictionaryStrings.localCatalogCellID.rawValue: self.config?.localCatalog ?? "",
             DictionaryStrings.offsiteCatalogCellID.rawValue: self.config?.offsiteCatalog ?? "",
