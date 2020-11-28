@@ -176,7 +176,7 @@ extension ViewControllerMain: NSTableViewDelegate, Attributedestring {
                 }
             }
         }
-        
+
         return nil
     }
 }
