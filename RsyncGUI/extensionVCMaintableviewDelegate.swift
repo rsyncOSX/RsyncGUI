@@ -55,8 +55,8 @@ extension ViewControllerMain: NSTableViewDelegate, Attributedestring {
             } else if tableColumn.identifier.rawValue == DictionaryStrings.offsiteServerCellID.rawValue,
                       ((object[tableColumn.identifier] as? String)?.isEmpty) == true
             {
-                return "localhost"
-            } else if tableColumn.identifier.rawValue == "statCellID" {
+                return DictionaryStrings.localhost.rawValue
+            } else if tableColumn.identifier.rawValue == DictionaryStrings.statCellID.rawValue {
                 if row == self.index {
                     if self.singletask == nil {
                         return #imageLiteral(resourceName: "yellow")
@@ -138,7 +138,7 @@ extension ViewControllerMain: NSTableViewDelegate, Attributedestring {
         {
             let cellIdentifier: String = tableColumn.identifier.rawValue
             switch cellIdentifier {
-            case "taskCellID":
+            case DictionaryStrings.taskCellID.rawValue:
                 if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: cellIdentifier), owner: self) as? NSTableCellView {
                     cell.textField?.stringValue = object.value(forKey: cellIdentifier) as? String ?? ""
                     cell.imageView?.image = nil
@@ -150,15 +150,15 @@ extension ViewControllerMain: NSTableViewDelegate, Attributedestring {
                     }
                     return cell
                 }
-            case "offsiteServerCellID":
+            case DictionaryStrings.offsiteServerCellID.rawValue:
                 if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: cellIdentifier), owner: self) as? NSTableCellView {
                     cell.textField?.stringValue = object.value(forKey: cellIdentifier) as? String ?? ""
                     if cell.textField?.stringValue.isEmpty ?? true {
-                        cell.textField?.stringValue = "localhost"
+                        cell.textField?.stringValue = DictionaryStrings.localhost.rawValue
                     }
                     return cell
                 }
-            case "daysID":
+            case DictionaryStrings.daysID.rawValue:
                 if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: cellIdentifier), owner: self) as? NSTableCellView {
                     cell.textField?.stringValue = object.value(forKey: cellIdentifier) as? String ?? ""
                     cell.textField?.alignment = .right
@@ -176,6 +176,7 @@ extension ViewControllerMain: NSTableViewDelegate, Attributedestring {
                 }
             }
         }
+        
         return nil
     }
 }

@@ -92,7 +92,7 @@ class Configurations: ReloadTable, SetSchedules {
         var data = [NSMutableDictionary]()
         for i in 0 ..< (configurations?.count ?? 0) {
             if configurations?[i].offsiteServer.isEmpty == true {
-                configurations?[i].offsiteServer = "localhost"
+                configurations?[i].offsiteServer = DictionaryStrings.localhost.rawValue
             }
             if let config = self.configurations?[i] {
                 let row: NSMutableDictionary = ConvertOneConfig(config: config).dict
@@ -117,13 +117,13 @@ class Configurations: ReloadTable, SetSchedules {
         var data = [NSDictionary]()
         for i in 0 ..< (configurations?.count ?? 0) {
             if configurations?[i].offsiteServer.isEmpty == true {
-                configurations?[i].offsiteServer = "localhost"
+                configurations?[i].offsiteServer = DictionaryStrings.localhost.rawValue
             }
             if let config = self.configurations?[i] {
                 let row: NSDictionary = ConvertOneConfig(config: config).dict
                 let server = config.offsiteServer
                 let user = config.offsiteUsername
-                if server != "localhost" {
+                if server != DictionaryStrings.localhost.rawValue {
                     if data.filter({ $0.value(forKey: DictionaryStrings.offsiteServerCellID.rawValue) as? String ?? "" == server && $0.value(forKey: DictionaryStrings.offsiteUsernameID.rawValue) as? String ?? "" == user }).count == 0 {
                         data.append(row)
                     }
@@ -240,7 +240,7 @@ class Configurations: ReloadTable, SetSchedules {
                 return result[0].offsiteCatalog
             case .offsiteServer:
                 if result[0].offsiteServer.isEmpty {
-                    return "localhost"
+                    return DictionaryStrings.localhost.rawValue
                 } else {
                     return result[0].offsiteServer
                 }
