@@ -36,55 +36,8 @@ extension ViewControllerMain: NSTableViewDataSource {
     }
 }
 
-extension ViewControllerMain: NSTableViewDelegate, Attributedestring {
-    // TableView delegates
-    func tableView(_: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
-        guard self.configurations != nil else { return nil }
-        if row > (self.configurations?.configurationsDataSourcecount() ?? 0) - 1 { return nil }
-        if let object: NSDictionary = self.configurations?.getConfigurationsDataSource()?[row],
-           let markdays: Bool = self.configurations?.getConfigurations()?[row].markdays,
-           let tableColumn = tableColumn
-        {
-            let celltext = object[tableColumn.identifier] as? String
-            if tableColumn.identifier.rawValue == DictionaryStrings.daysID.rawValue {
-                if markdays {
-                    return self.attributedstring(str: celltext!, color: NSColor.red, align: .right)
-                } else {
-                    return object[tableColumn.identifier] as? String
-                }
-            } else if tableColumn.identifier.rawValue == DictionaryStrings.offsiteServerCellID.rawValue,
-                      ((object[tableColumn.identifier] as? String)?.isEmpty) == true
-            {
-                return DictionaryStrings.localhost.rawValue
-            } else if tableColumn.identifier.rawValue == DictionaryStrings.statCellID.rawValue {
-                if row == self.index {
-                    if self.singletask == nil {
-                        return #imageLiteral(resourceName: "yellow")
-                    } else {
-                        return #imageLiteral(resourceName: "green")
-                    }
-                }
-            } else {
-                // Check if test for connections is selected
-                if self.configurations?.tcpconnections?.connectionscheckcompleted ?? false == true {
-                    if (self.configurations?.tcpconnections?.gettestAllremoteserverConnections()?[row]) ?? false,
-                       tableColumn.identifier.rawValue == DictionaryStrings.offsiteServerCellID.rawValue
-                    {
-                        return self.attributedstring(str: celltext ?? "", color: NSColor.red, align: .left)
-                    } else {
-                        return object[tableColumn.identifier] as? String
-                    }
-                } else {
-                    return object[tableColumn.identifier] as? String
-                }
-            }
-            return nil
-        }
-        return nil
-    }
+extension ViewControllerMain: NSTableViewDelegate {
 
-    // when row is selected
-    // setting which table row is selected, force new estimation
     func tableViewSelectionDidChange(_ notification: Notification) {
         self.seterrorinfo(info: "")
         // If change row during estimation
@@ -155,6 +108,15 @@ extension ViewControllerMain: NSTableViewDelegate, Attributedestring {
                     cell.textField?.stringValue = object.value(forKey: cellIdentifier) as? String ?? ""
                     if cell.textField?.stringValue.isEmpty ?? true {
                         cell.textField?.stringValue = DictionaryStrings.localhost.rawValue
+                    }
+                    if self.configurations?.tcpconnections?.connectionscheckcompleted ?? false == true {
+                        if (self.configurations?.tcpconnections?.gettestAllremoteserverConnections()?[row]) ?? false,
+                           tableColumn.identifier.rawValue == DictionaryStrings.offsiteServerCellID.rawValue
+                        {
+                            cell.textField?.textColor = setcolor(nsviewcontroller: self, color: .red)
+                        } else {
+                            cell.textField?.textColor = setcolor(nsviewcontroller: self, color: .black)
+                        }
                     }
                     return cell
                 }
