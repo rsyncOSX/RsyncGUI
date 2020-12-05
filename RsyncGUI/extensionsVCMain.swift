@@ -164,15 +164,10 @@ extension ViewControllerMain: Abort {
     // Abort any task
     func abortOperations() {
         // Terminates the running process
-        if ViewControllerReference.shared.process != nil {
-            _ = InterruptProcess()
-            self.seterrorinfo(info: "Abort")
-            self.rsyncCommand.stringValue = ""
-            if self.configurations?.remoteinfoestimation != nil, self.configurations?.estimatedlist != nil {
-                self.configurations?.remoteinfoestimation = nil
-            }
-        } else {
-            self.rsyncCommand.stringValue = NSLocalizedString("Selection out of range - aborting", comment: "Execute")
+        _ = InterruptProcess()
+        self.rsyncCommand.stringValue = ""
+        if self.configurations?.remoteinfoestimation != nil, self.configurations?.estimatedlist != nil {
+            self.configurations?.remoteinfoestimation = nil
         }
         self.working.stopAnimation(nil)
         self.workinglabel.isHidden = true
@@ -364,7 +359,6 @@ extension ViewControllerMain: SaveSequrityScopedURL {
 protocol StartStopProgressIndicator: AnyObject {
     func start()
     func stop()
-    func complete()
 }
 
 // Protocol for either completion of work or update progress when Process discovers a

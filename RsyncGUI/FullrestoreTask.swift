@@ -1,11 +1,6 @@
-//
-//  RestoreTask.swift
-//  RsyncOSX
-//
-//  Created by Thomas Evensen on 11.06.2018.
-//  Copyright © 2018 Thomas Evensen. All rights reserved.
-//
 // swiftlint:disable line_length
+
+import Foundation
 
 final class FullrestoreTask: SetConfigurations {
     private var config: Configuration?

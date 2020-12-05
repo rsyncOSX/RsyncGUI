@@ -21,10 +21,8 @@ class ViewControllerRemoteInfo: NSViewController, SetDismisser, Abort, Setcolor 
     @IBOutlet var abortbutton: NSButton!
     @IBOutlet var count: NSTextField!
 
-    // remote info tasks
     private var remoteinfotask: RemoteinfoEstimation?
     weak var remoteinfotaskDelegate: SetRemoteInfo?
-    var selected: Bool = false
     var loaded: Bool = false
     var diddissappear: Bool = false
 
@@ -39,24 +37,25 @@ class ViewControllerRemoteInfo: NSViewController, SetDismisser, Abort, Setcolor 
                     openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcnewconfigurations) as? ViewControllerNewConfigurations
                 } else if (self.presentingViewController as? ViewControllerRestore) != nil {
                     openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcrestore) as? ViewControllerRestore
-                } else if (self.presentingViewController as? ViewControllerSsh) != nil {
-                    openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcssh) as? ViewControllerSsh
                 } else if (self.presentingViewController as? ViewControllerLoggData) != nil {
                     openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcloggdata) as? ViewControllerLoggData
                 }
                 openDelegate?.openquickbackup()
             }
         }
+        self.remoteinfotask = nil
         self.closeview()
     }
 
     // Either abort or close
     @IBAction func abort(_: NSButton) {
-        if self.remoteinfotask?.stackoftasktobeestimated?.count ?? 0 > 0 {
-            self.remoteinfotask?.stackoftasktobeestimated = nil
-            self.abort()
-            self.remoteinfotaskDelegate?.setremoteinfo(remoteinfotask: nil)
-        }
+        // if self.remoteinfotask?.stackoftasktobeestimated?.count ?? 0 > 0 {
+        self.remoteinfotask?.abort()
+        self.remoteinfotask?.stackoftasktobeestimated = nil
+        self.remoteinfotask = nil
+        self.abort()
+        self.remoteinfotaskDelegate?.setremoteinfo(remoteinfotask: nil)
+        // }
         self.closeview()
     }
 
@@ -74,20 +73,6 @@ class ViewControllerRemoteInfo: NSViewController, SetDismisser, Abort, Setcolor 
         }
     }
 
-    @IBAction func selectalltaskswithfilestobackup(_: NSButton) {
-        self.remoteinfotask?.selectalltaskswithnumbers(deselect: self.selected)
-        if self.selected == true {
-            self.selected = false
-        } else {
-            self.selected = true
-        }
-        globalMainQueue.async { () -> Void in
-            self.mainTableView.reloadData()
-        }
-        self.enableexecutebutton()
-    }
-
-    // Initial functions viewDidLoad and viewDidAppear
     override func viewDidLoad() {
         super.viewDidLoad()
         self.mainTableView.delegate = self
@@ -125,6 +110,9 @@ class ViewControllerRemoteInfo: NSViewController, SetDismisser, Abort, Setcolor 
     override func viewDidDisappear() {
         super.viewDidDisappear()
         self.diddissappear = true
+        // Release the estimating object
+        self.remoteinfotask?.abort()
+        self.remoteinfotask = nil
     }
 
     private func number() -> String {
@@ -229,13 +217,8 @@ extension ViewControllerRemoteInfo: StartStopProgressIndicator {
         }
         self.progress.stopAnimation(nil)
         self.progress.isHidden = true
-        self.count.stringValue = NSLocalizedString("Completed", comment: "Remote info")
+        self.count.stringValue = NSLocalizedString("Estimation completed", comment: "Remote info") + "..."
         self.count.textColor = setcolor(nsviewcontroller: self, color: .green)
-        self.selected = true
         self.enableexecutebutton()
-    }
-
-    func complete() {
-        //
     }
 }
