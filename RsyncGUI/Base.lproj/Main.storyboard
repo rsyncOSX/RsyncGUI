@@ -203,7 +203,7 @@
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="1705" y="-141" width="480" height="241"/>
                         <rect key="screenRect" x="1280" y="-640" width="2560" height="1440"/>
-                        <toolbar key="toolbar" implicitIdentifier="51D9436B-B5BB-4558-9639-8FADD388211E" autosavesConfiguration="NO" displayMode="iconOnly" sizeMode="regular" id="V2V-E5-Ln9">
+                        <toolbar key="toolbar" implicitIdentifier="51D9436B-B5BB-4558-9639-8FADD388211E" autosavesConfiguration="NO" allowsUserCustomization="NO" showsBaselineSeparator="NO" displayMode="iconOnly" sizeMode="regular" id="V2V-E5-Ln9">
                             <allowedToolbarItems>
                                 <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="wiK-ZO-ZDm"/>
                                 <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="zs6-ub-LOa"/>
