@@ -96,6 +96,12 @@ extension VcMain {
         return (self.storyboard?.instantiateController(withIdentifier: "StoryboardOutputID")
             as? NSViewController)
     }
+
+    // All profiles
+    var allprofiles: NSViewController? {
+        return (self.storyboard?.instantiateController(withIdentifier: "ViewControllerAllProfilesID")
+            as? NSViewController)
+    }
 }
 
 // Protocol for dismissing a viewcontroller

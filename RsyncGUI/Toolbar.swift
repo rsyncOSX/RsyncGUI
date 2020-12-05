@@ -20,12 +20,12 @@ extension NSToolbarItem.Identifier {
 }
 
 extension Selector {
-    static let allprofiles = #selector(ViewControllerSideBar.allprofiles(_:))
-    static let backupnow = #selector(ViewControllerSideBar.automaticbackup(_:))
-    static let estimateandquickbackup = #selector(ViewControllerSideBar.totinfo(_:))
+    static let allprofiles = #selector(ViewControllerMain.allprofiles(_:))
+    static let backupnow = #selector(ViewControllerMain.automaticbackup(_:))
+    static let estimateandquickbackup = #selector(ViewControllerMain.totinfo(_:))
     static let executetasknow = #selector(ViewControllerMain.executemultipleselectedindexes(_:))
     static let abort = #selector(ViewControllerMain.abort(_:))
-    static let userconfig = #selector(ViewControllerSideBar.userconfiguration(_:))
+    static let userconfig = #selector(ViewControllerMain.userconfiguration(_:))
 }
 
 extension MainWindowsController: NSToolbarDelegate {

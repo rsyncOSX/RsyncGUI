@@ -9,7 +9,6 @@
 import Cocoa
 import Foundation
 
-
 extension ViewControllerNewConfigurations {
     @IBAction func allprofiles(_: NSButton) {
         self.presentAsModalWindow(self.allprofiles!)
