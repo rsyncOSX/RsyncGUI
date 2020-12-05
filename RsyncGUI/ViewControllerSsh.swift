@@ -72,7 +72,7 @@ class ViewControllerSsh: NSViewController, SetConfigurations, VcMain, Checkforrs
 
     func source() {
         guard self.sshcmd != nil else { return }
-        self.presentAsSheet(self.viewControllerSource!)
+        self.presentAsModalWindow(self.viewControllerSource!)
     }
 
     var viewControllerSource: NSViewController? {
