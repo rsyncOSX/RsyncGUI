@@ -104,6 +104,7 @@ final class QuickBackup: SetConfigurations {
 
     deinit {
         self.stackoftasktobeexecuted = nil
+        print("deinit QuickBackup")
     }
 
     func abort() {
