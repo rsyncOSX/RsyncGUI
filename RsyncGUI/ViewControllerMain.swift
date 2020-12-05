@@ -11,26 +11,9 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
     @IBOutlet var mainTableView: NSTableView!
     // Progressbar indicating work
     @IBOutlet var working: NSProgressIndicator!
-    @IBOutlet var workinglabel: NSTextField!
-    // Displays the rsyncCommand
-    @IBOutlet var rsyncCommand: NSTextField!
-    // If On result of Dryrun is presented before
-    // executing the real run
-    @IBOutlet var dryRunOrRealRun: NSTextField!
-    // number of files to be transferred
-    @IBOutlet var transferredNumber: NSTextField!
-    // size of files to be transferred
-    @IBOutlet var transferredNumberSizebytes: NSTextField!
-    // total number of files in remote volume
-    @IBOutlet var totalNumber: NSTextField!
-    // total size of files in remote volume
-    @IBOutlet var totalNumberSizebytes: NSTextField!
     // Showing info about profile
     @IBOutlet var profilInfo: NSTextField!
     @IBOutlet var rsyncversionshort: NSTextField!
-    @IBOutlet var backupdryrun: NSButton!
-    @IBOutlet var restoredryrun: NSButton!
-    @IBOutlet var verifydryrun: NSButton!
     @IBOutlet var profilepopupbutton: NSPopUpButton!
 
     // Configurations object
@@ -153,8 +136,6 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
     }
 
     func reset() {
-        self.setNumbers(outputprocess: nil)
-        self.seterrorinfo(info: "")
         // Close edit and parameters view if open
         if let view = ViewControllerReference.shared.getvcref(viewcontroller: .vcrsyncparameters) as? ViewControllerRsyncParameters {
             weak var closeview: ViewControllerRsyncParameters?
@@ -236,27 +217,6 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
         self.presentAsSheet(self.viewControllerEstimating!)
     }
 
-    // Function for display rsync command
-    @IBAction func showrsynccommand(_: NSButton) {
-        self.showrsynccommandmainview()
-    }
-
-    // Display correct rsync command in view
-    func showrsynccommandmainview() {
-        if let index = self.index {
-            guard index <= (self.configurations?.getConfigurations()?.count ?? 0) else { return }
-            if self.backupdryrun.state == .on {
-                self.rsyncCommand.stringValue = Displayrsyncpath(index: index, display: .synchronize).displayrsyncpath ?? ""
-            } else if self.restoredryrun.state == .on {
-                self.rsyncCommand.stringValue = Displayrsyncpath(index: index, display: .restore).displayrsyncpath ?? ""
-            } else {
-                self.rsyncCommand.stringValue = Displayrsyncpath(index: index, display: .verify).displayrsyncpath ?? ""
-            }
-        } else {
-            self.rsyncCommand.stringValue = ""
-        }
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         // Decide if:
@@ -281,7 +241,6 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
         _ = RsyncVersionString()
         self.mainTableView.target = self
         self.mainTableView.doubleAction = #selector(ViewControllerMain.tableViewDoubleClick(sender:))
-        self.backupdryrun.state = .on
         // configurations and schedules
         self.createandreloadconfigurations()
         self.createandreloadschedules()
@@ -356,7 +315,6 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
         localprofileinfoadd = ViewControllerReference.shared.getvcref(viewcontroller: .vcnewconfigurations) as? ViewControllerNewConfigurations
         localprofileinfomain?.setprofile(profile: self.profilInfo.stringValue, color: self.profilInfo.textColor!)
         localprofileinfoadd?.setprofile(profile: self.profilInfo.stringValue, color: self.profilInfo.textColor!)
-        self.showrsynccommandmainview()
     }
 
     func createandreloadschedules() {

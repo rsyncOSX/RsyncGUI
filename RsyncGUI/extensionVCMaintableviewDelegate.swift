@@ -38,10 +38,8 @@ extension ViewControllerMain: NSTableViewDataSource {
 
 extension ViewControllerMain: NSTableViewDelegate {
     func tableViewSelectionDidChange(_ notification: Notification) {
-        self.seterrorinfo(info: "")
         // If change row during estimation
         if ViewControllerReference.shared.process != nil, self.index != nil { self.abortOperations() }
-        self.backupdryrun.state = .on
         self.info.stringValue = Infoexecute().info(num: 0)
         let myTableViewFromNotification = (notification.object as? NSTableView)!
         let indexes = myTableViewFromNotification.selectedRowIndexes
@@ -59,7 +57,6 @@ extension ViewControllerMain: NSTableViewDelegate {
             self.reloadtabledata()
         }
         self.reset()
-        self.showrsynccommandmainview()
     }
 
     func tableView(_: NSTableView, rowActionsForRow row: Int, edge: NSTableView.RowActionEdge) -> [NSTableViewRowAction] {

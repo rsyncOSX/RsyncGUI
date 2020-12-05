@@ -25,7 +25,6 @@ protocol SingleTaskProcess: AnyObject {
     func presentViewProgress()
     func presentViewInformation(outputprocess: OutputProcess?)
     func terminateProgressProcess()
-    func seterrorinfo(info: String)
 }
 
 final class SingleTask: SetSchedules, SetConfigurations {
@@ -72,7 +71,6 @@ final class SingleTask: SetSchedules, SetConfigurations {
             }
         case .abort:
             self.workload = nil
-            self.singletaskDelegate?.seterrorinfo(info: "Abort")
         case .empty:
             self.workload = nil
         default:
