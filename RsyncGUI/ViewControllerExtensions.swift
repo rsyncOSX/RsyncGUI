@@ -19,21 +19,14 @@ extension VcMain {
         return NSStoryboard(name: "Main", bundle: nil)
     }
 
-    // Information about rsync output
-    var viewControllerInformation: NSViewController? {
-        return (self.storyboard?.instantiateController(withIdentifier: "StoryboardInformationID")
-            as? NSViewController)
+    // SheetViews
+    var sheetviewsstoryboard: NSStoryboard? {
+        return NSStoryboard(name: "SheetViews", bundle: nil)
     }
 
-    // Progressbar process
-    var viewControllerProgress: NSViewController? {
-        return (self.storyboard?.instantiateController(withIdentifier: "StoryboardProgressID")
-            as? NSViewController)
-    }
-
-    // Userconfiguration
-    var viewControllerUserconfiguration: NSViewController? {
-        return (self.storyboard?.instantiateController(withIdentifier: "StoryboardUserconfigID")
+    // StoryboardOutputID
+    var viewControllerAllOutput: NSViewController? {
+        return (self.storyboard?.instantiateController(withIdentifier: "StoryboardOutputID")
             as? NSViewController)
     }
 
@@ -49,59 +42,73 @@ extension VcMain {
             as? NSViewController)
     }
 
+    // Information about rsync output
+    var viewControllerInformation: NSViewController? {
+        return (self.sheetviewsstoryboard?.instantiateController(withIdentifier: "StoryboardInformationID")
+            as? NSViewController)
+    }
+
+    // Progressbar process
+    var viewControllerProgress: NSViewController? {
+        return (self.sheetviewsstoryboard?.instantiateController(withIdentifier: "StoryboardProgressID")
+            as? NSViewController)
+    }
+
+    // Userconfiguration
+    var viewControllerUserconfiguration: NSViewController? {
+        return (self.sheetviewsstoryboard?.instantiateController(withIdentifier: "StoryboardUserconfigID")
+            as? NSViewController)
+    }
+
     // Profile
     var viewControllerProfile: NSViewController? {
-        return (self.storyboard?.instantiateController(withIdentifier: "ProfileID")
+        return (self.sheetviewsstoryboard?.instantiateController(withIdentifier: "ProfileID")
             as? NSViewController)
     }
 
     // About
     var viewControllerAbout: NSViewController? {
-        return (self.storyboard?.instantiateController(withIdentifier: "AboutID")
+        return (self.sheetviewsstoryboard?.instantiateController(withIdentifier: "AboutID")
             as? NSViewController)
     }
 
     // Quick backup process
     var viewControllerQuickBackup: NSViewController? {
-        return (self.storyboard?.instantiateController(withIdentifier: "StoryboardQuickBackupID")
+        return (self.sheetviewsstoryboard?.instantiateController(withIdentifier: "StoryboardQuickBackupID")
             as? NSViewController)
     }
 
     // Remote Info
     var viewControllerRemoteInfo: NSViewController? {
-        return (self.storyboard?.instantiateController(withIdentifier: "StoryboardRemoteInfoID")
+        return (self.sheetviewsstoryboard?.instantiateController(withIdentifier: "StoryboardRemoteInfoID")
             as? NSViewController)
     }
 
     // Estimating
     var viewControllerEstimating: NSViewController? {
-        return (self.storyboard?.instantiateController(withIdentifier: "StoryboardEstimatingID")
+        return (self.sheetviewsstoryboard?.instantiateController(withIdentifier: "StoryboardEstimatingID")
             as? NSViewController)
     }
 
     // local and remote info
     var viewControllerInformationLocalRemote: NSViewController? {
-        return (self.storyboard?.instantiateController(withIdentifier: "StoryboardLocalRemoteID")
+        return (self.sheetviewsstoryboard?.instantiateController(withIdentifier: "StoryboardLocalRemoteID")
             as? NSViewController)
     }
 
     // AssistID
     var viewControllerAssist: NSViewController? {
-        return (self.storyboard?.instantiateController(withIdentifier: "AssistID")
-            as? NSViewController)
-    }
-
-    // StoryboardOutputID
-    var viewControllerAllOutput: NSViewController? {
-        return (self.storyboard?.instantiateController(withIdentifier: "StoryboardOutputID")
+        return (self.sheetviewsstoryboard?.instantiateController(withIdentifier: "AssistID")
             as? NSViewController)
     }
 
     // All profiles
     var allprofiles: NSViewController? {
-        return (self.storyboard?.instantiateController(withIdentifier: "ViewControllerAllProfilesID")
+        return (self.sheetviewsstoryboard?.instantiateController(withIdentifier: "ViewControllerAllProfilesID")
             as? NSViewController)
     }
+
+    // CopyFilesID
 }
 
 // Protocol for dismissing a viewcontroller

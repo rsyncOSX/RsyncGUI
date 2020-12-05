@@ -11,7 +11,6 @@ import Foundation
 
 class ViewControllerSource: NSViewController, SetConfigurations, SetDismisser {
     @IBOutlet var mainTableView: NSTableView!
-    @IBOutlet var selectButton: NSButton!
 
     weak var getSourceDelegateSsh: ViewControllerSsh?
     private var index: Int?
@@ -57,7 +56,6 @@ class ViewControllerSource: NSViewController, SetConfigurations, SetDismisser {
     }
 
     override func viewDidAppear() {
-        self.selectButton.isEnabled = false
         globalMainQueue.async { () -> Void in
             self.mainTableView.reloadData()
         }
@@ -72,7 +70,6 @@ class ViewControllerSource: NSViewController, SetConfigurations, SetDismisser {
     func tableViewSelectionDidChange(_ notification: Notification) {
         let myTableViewFromNotification = (notification.object as? NSTableView)!
         let indexes = myTableViewFromNotification.selectedRowIndexes
-        self.selectButton.isEnabled = true
         if let index = indexes.first {
             if let object = self.configurations?.uniqueserversandlogins()?[index] {
                 if let hiddenID = object.value(forKey: DictionaryStrings.hiddenID.rawValue) as? Int {

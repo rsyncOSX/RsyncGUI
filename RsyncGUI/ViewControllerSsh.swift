@@ -41,11 +41,6 @@ class ViewControllerSsh: NSViewController, SetConfigurations, VcMain, Checkforrs
     @IBOutlet var verifykeycommand: NSTextField!
     @IBOutlet var SequrityScopedTable: NSTableView!
 
-    var viewControllerSource: NSViewController? {
-        return (self.storyboard?.instantiateController(withIdentifier: "CopyFilesID")
-            as? NSViewController)
-    }
-
     // Selecting profiles
     @IBAction func profiles(_: NSButton) {
         self.presentAsModalWindow(self.viewControllerProfile!)
@@ -76,6 +71,11 @@ class ViewControllerSsh: NSViewController, SetConfigurations, VcMain, Checkforrs
     @IBAction func source(_: NSButton) {
         guard self.sshcmd != nil else { return }
         self.presentAsSheet(self.viewControllerSource!)
+    }
+
+    var viewControllerSource: NSViewController? {
+        return (self.sheetviewsstoryboard?.instantiateController(withIdentifier: "CopyFilesID")
+            as? NSViewController)
     }
 
     override func viewDidLoad() {
