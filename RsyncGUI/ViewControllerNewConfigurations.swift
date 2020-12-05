@@ -32,6 +32,8 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, Dela
     var backuptypeselected: Typebackup = .synchronize
     var editlocalcatalog: Bool = true
     var diddissappear: Bool = false
+    // Send messages to the sidebar
+    weak var sidebaractionsDelegate: Sidebaractions?
 
     @IBOutlet var addtable: NSTableView!
     @IBOutlet var viewParameter1: NSTextField!
@@ -121,6 +123,8 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, Dela
 
     override func viewDidAppear() {
         super.viewDidAppear()
+        self.sidebaractionsDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcsidebar) as? ViewControllerSideBar
+        self.sidebaractionsDelegate?.sidebaractions(action: .addviewbuttons)
         self.backuptypeselected = .synchronize
         self.backuptype.selectItem(at: 0)
         self.useGUIbutton.state = .off

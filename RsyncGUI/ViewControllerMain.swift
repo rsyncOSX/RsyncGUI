@@ -1,7 +1,7 @@
 //  Created by Thomas Evensen on 19/08/2016.
 //  Copyright © 2016 Thomas Evensen. All rights reserved.
 //
-//  swiftlint:disable type_body_length file_length line_length
+//  swiftlint:disable type_body_length  line_length
 
 import Cocoa
 import Foundation
@@ -30,6 +30,8 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
     var indexes: IndexSet?
     var multipeselection: Bool = false
     var outputprocess: OutputProcess?
+    // Send messages to the sidebar
+    weak var sidebaractionsDelegate: Sidebaractions?
 
     // Toolbar - all profiles
     @IBAction func allprofiles(_: NSButton) {
@@ -241,15 +243,16 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
         _ = RsyncVersionString()
         self.mainTableView.target = self
         self.mainTableView.doubleAction = #selector(ViewControllerMain.tableViewDoubleClick(sender:))
-        // configurations and schedules
         self.createandreloadconfigurations()
         self.createandreloadschedules()
-        //
         self.initpopupbutton()
     }
 
     override func viewDidAppear() {
         super.viewDidAppear()
+        // For sending messages to the sidebar
+        self.sidebaractionsDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcsidebar) as? ViewControllerSideBar
+        self.sidebaractionsDelegate?.sidebaractions(action: .mainviewbuttons)
         if ViewControllerReference.shared.initialstart == 0 {
             self.view.window?.center()
             ViewControllerReference.shared.initialstart = 1

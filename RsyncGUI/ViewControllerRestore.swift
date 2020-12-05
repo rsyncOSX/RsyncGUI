@@ -25,6 +25,8 @@ class ViewControllerRestore: NSViewController, SetConfigurations, Delay, Connect
     var maxcount: Int = 0
     weak var outputeverythingDelegate: ViewOutputDetails?
     var restoreactions: RestoreActions?
+    // Send messages to the sidebar
+    weak var sidebaractionsDelegate: Sidebaractions?
 
     @IBOutlet var restoretableView: NSTableView!
     @IBOutlet var rsynctableView: NSTableView!
@@ -74,6 +76,8 @@ class ViewControllerRestore: NSViewController, SetConfigurations, Delay, Connect
 
     override func viewDidAppear() {
         super.viewDidAppear()
+        self.sidebaractionsDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcsidebar) as? ViewControllerSideBar
+        self.sidebaractionsDelegate?.sidebaractions(action: .restoreviewbuttons)
         guard self.diddissappear == false else {
             globalMainQueue.async { () -> Void in
                 self.rsynctableView.reloadData()

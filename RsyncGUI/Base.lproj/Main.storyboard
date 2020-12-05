@@ -224,11 +224,11 @@
             <objects>
                 <viewController title="Actions" id="b7K-gf-YIB" customClass="ViewControllerSideBar" customModule="RsyncGUI" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="9TF-rO-0P0">
-                        <rect key="frame" x="0.0" y="0.0" width="188" height="300"/>
+                        <rect key="frame" x="0.0" y="0.0" width="108" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wTT-JI-4YB">
-                                <rect key="frame" x="53" y="164" width="83" height="32"/>
+                                <rect key="frame" x="13" y="167" width="83" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="push" title="Button2" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="58p-Py-uXj">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -239,7 +239,7 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PcP-X2-aru">
-                                <rect key="frame" x="53" y="140" width="83" height="32"/>
+                                <rect key="frame" x="13" y="143" width="83" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="push" title="Button3" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="4cq-ES-xwX">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -250,7 +250,7 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vae-Zo-9cr">
-                                <rect key="frame" x="53" y="116" width="83" height="32"/>
+                                <rect key="frame" x="13" y="119" width="83" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="push" title="Button4" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Scn-5f-Zyc">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -261,7 +261,7 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VG8-aX-NcB">
-                                <rect key="frame" x="55" y="188" width="80" height="32"/>
+                                <rect key="frame" x="15" y="191" width="80" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="push" title="Button1" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Azd-om-311">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -273,10 +273,16 @@
                             </button>
                         </subviews>
                     </view>
+                    <connections>
+                        <outlet property="button1" destination="VG8-aX-NcB" id="Ksu-uw-cd3"/>
+                        <outlet property="button2" destination="wTT-JI-4YB" id="J6Z-DF-Fcv"/>
+                        <outlet property="button3" destination="PcP-X2-aru" id="xtJ-Tw-uRB"/>
+                        <outlet property="button4" destination="Vae-Zo-9cr" id="waj-YV-3m3"/>
+                    </connections>
                 </viewController>
                 <customObject id="Oj1-7R-CK5" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1105" y="-512"/>
+            <point key="canvasLocation" x="-1146" y="-512"/>
         </scene>
         <!--Tab View Controller-->
         <scene sceneID="Hwe-jL-WAZ">

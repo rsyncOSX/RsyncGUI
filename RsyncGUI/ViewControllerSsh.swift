@@ -32,6 +32,8 @@ class ViewControllerSsh: NSViewController, SetConfigurations, VcMain, Checkforrs
     var data: [String]?
     var outputprocess: OutputProcess?
     var execute: Bool = false
+    // Send messages to the sidebar
+    weak var sidebaractionsDelegate: Sidebaractions?
 
     @IBOutlet var rsaCheck: NSButton!
     @IBOutlet var detailsTable: NSTableView!
@@ -90,6 +92,8 @@ class ViewControllerSsh: NSViewController, SetConfigurations, VcMain, Checkforrs
 
     override func viewDidAppear() {
         super.viewDidAppear()
+        self.sidebaractionsDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcsidebar) as? ViewControllerSideBar
+        self.sidebaractionsDelegate?.sidebaractions(action: .sshviewbuttons)
         self.loadsshparameters()
         globalMainQueue.async { () -> Void in
             self.SequrityScopedTable.reloadData()

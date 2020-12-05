@@ -5,7 +5,7 @@
 //  Created by Thomas Evensen on 29/11/2020.
 //  Copyright © 2020 Thomas Evensen. All rights reserved.
 //
-// swiftlint:disable line_length function_body_length cyclomatic_complexity
+// swiftlint:disable line_length function_body_length
 
 import Cocoa
 import Foundation
@@ -17,7 +17,6 @@ enum Sidebarmessages {
     case sshviewbuttons
     case restoreviewbuttons
     case reset
-    case JSONlabel
 }
 
 enum Sidebaractionsmessages {
@@ -150,6 +149,7 @@ class ViewControllerSideBar: NSViewController, SetConfigurations, Delay, VcMain,
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        ViewControllerReference.shared.setvcref(viewcontroller: .vcsidebar, nsviewcontroller: self)
     }
 }
 

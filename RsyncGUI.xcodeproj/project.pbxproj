@@ -671,13 +671,13 @@
 		E996431A231AEAB200E05B40 /* Tabviews */ = {
 			isa = PBXGroup;
 			children = (
+				E96EA7E4257BE7F500C0949C /* ViewControllerSidebar.swift */,
 				E905DC101EACF7550003BF37 /* ViewControllerSsh.swift */,
 				A00FE1A71D6A19CF00012089 /* ViewControllerNewConfigurations.swift */,
 				A004D8191D9586580016914F /* ViewControllerLoggData.swift */,
 				A0B340B11D67077A00C6DAC3 /* ViewControllerMain.swift */,
 				E909C2F423F3D8A200FF8A52 /* ViewControllerRestore.swift */,
 				E909C2F623F3D90300FF8A52 /* extensionRestore */,
-				E96EA7E4257BE7F500C0949C /* ViewControllerSidebar.swift */,
 			);
 			name = Tabviews;
 			sourceTree = "<group>";
