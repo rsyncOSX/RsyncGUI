@@ -48,6 +48,61 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
     var multipeselection: Bool = false
     var outputprocess: OutputProcess?
 
+    // Toolbar - all profiles
+    @IBAction func allprofiles(_: NSButton) {
+        self.presentAsModalWindow(self.allprofiles!)
+    }
+
+    // Toolbar -  Find tasks and Execute backup
+    @IBAction func automaticbackup(_: NSButton) {
+        guard self.checkforrsync() == false else { return }
+        guard ViewControllerReference.shared.process == nil else { return }
+        self.presentAsSheet(self.viewControllerEstimating!)
+    }
+
+    // Toolbar - Abort button
+    @IBAction func abort(_: NSButton) {
+        globalMainQueue.async { () -> Void in
+            self.abortOperations()
+        }
+    }
+
+    // Toolbar - Userconfiguration button
+    @IBAction func userconfiguration(_: NSButton) {
+        guard ViewControllerReference.shared.process == nil else { return }
+        self.presentAsModalWindow(self.viewControllerUserconfiguration!)
+    }
+
+    // Toolbar - Estimate and Quickbackup
+    @IBAction func totinfo(_: NSButton) {
+        guard self.checkforrsync() == false else { return }
+        if self.configurations?.setestimatedlistnil() == true {
+            self.configurations?.remoteinfoestimation = nil
+            self.configurations?.estimatedlist = nil
+        }
+        self.multipeselection = false
+        globalMainQueue.async { () -> Void in
+            self.presentAsSheet(self.viewControllerRemoteInfo!)
+        }
+    }
+
+    // Toolbar - Multiple select and execute
+    // Execute multipleselected tasks, only from main view
+    @IBAction func executemultipleselectedindexes(_: NSButton) {
+        guard self.checkforrsync() == false else { return }
+        guard ViewControllerReference.shared.process == nil else { return }
+        guard self.indexes != nil else {
+            self.info.stringValue = Infoexecute().info(num: 6)
+            return
+        }
+        self.multipeselection = true
+        self.configurations?.remoteinfoestimation = nil
+        self.configurations?.estimatedlist = nil
+        globalMainQueue.async { () -> Void in
+            self.presentAsSheet(self.viewControllerRemoteInfo!)
+        }
+    }
+
     @IBOutlet var info: NSTextField!
 
     @IBAction func infoonetask(_: NSButton) {
@@ -65,26 +120,6 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
                 self.presentAsSheet(self.viewControllerInformationLocalRemote!)
             }
         }
-    }
-
-    @IBAction func totinfo(_: NSButton) {
-        guard self.checkforrsync() == false else { return }
-        if self.configurations?.setestimatedlistnil() == true {
-            self.configurations?.remoteinfoestimation = nil
-            self.configurations?.estimatedlist = nil
-        }
-        self.multipeselection = false
-        globalMainQueue.async { () -> Void in
-            self.presentAsSheet(self.viewControllerRemoteInfo!)
-        }
-    }
-
-    @IBAction func quickbackup(_: NSButton) {
-        guard self.checkforrsync() == false else { return }
-        self.configurations?.remoteinfoestimation = nil
-        self.configurations?.estimatedlist = nil
-        self.multipeselection = false
-        self.openquickbackup()
     }
 
     @IBAction func delete(_: NSButton) {
@@ -146,19 +181,6 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
         }
     }
 
-    // Abort button
-    @IBAction func abort(_: NSButton) {
-        globalMainQueue.async { () -> Void in
-            self.abortOperations()
-        }
-    }
-
-    // Userconfiguration button
-    @IBAction func userconfiguration(_: NSButton) {
-        guard ViewControllerReference.shared.process == nil else { return }
-        self.presentAsModalWindow(self.viewControllerUserconfiguration!)
-    }
-
     // Selecting profiles
     @IBAction func profiles(_: NSButton) {
         guard ViewControllerReference.shared.process == nil else { return }
@@ -179,11 +201,6 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
     @IBAction func alloutput(_: NSButton) {
         guard ViewControllerReference.shared.process == nil else { return }
         self.presentAsModalWindow(self.viewControllerAllOutput!)
-    }
-
-    // Selecting automatic backup
-    @IBAction func automaticbackup(_: NSButton) {
-        self.automaticbackup()
     }
 
     @IBAction func executetasknow(_: NSButton) {
@@ -317,21 +334,6 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
             }
             // Real run
             self.singletask?.executesingletask()
-        }
-    }
-
-    // Execute multipleselected tasks, only from main view
-    @IBAction func executemultipleselectedindexes(_: NSButton) {
-        guard self.checkforrsync() == false else { return }
-        guard self.indexes != nil else {
-            self.info.stringValue = Infoexecute().info(num: 9)
-            return
-        }
-        self.multipeselection = true
-        self.configurations?.remoteinfoestimation = nil
-        self.configurations?.estimatedlist = nil
-        globalMainQueue.async { () -> Void in
-            self.presentAsSheet(self.viewControllerRemoteInfo!)
         }
     }
 

@@ -50,30 +50,9 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, Dela
     @IBOutlet var stringlocalcatalog: NSTextField!
     @IBOutlet var stringremotecatalog: NSTextField!
 
-    @IBAction func totinfo(_: NSButton) {
-        guard self.checkforrsync() == false else { return }
-        globalMainQueue.async { () -> Void in
-            self.presentAsSheet(self.viewControllerRemoteInfo!)
-        }
-    }
-
-    @IBAction func quickbackup(_: NSButton) {
-        guard self.checkforrsync() == false else { return }
-        self.openquickbackup()
-    }
-
-    @IBAction func automaticbackup(_: NSButton) {
-        self.presentAsSheet(self.viewControllerEstimating!)
-    }
-
     // Selecting profiles
     @IBAction func profiles(_: NSButton) {
         self.presentAsModalWindow(self.viewControllerProfile!)
-    }
-
-    // Userconfiguration button
-    @IBAction func userconfiguration(_: NSButton) {
-        self.presentAsModalWindow(self.viewControllerUserconfiguration!)
     }
 
     @IBAction func showHelp(_: AnyObject?) {
