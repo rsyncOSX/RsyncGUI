@@ -22,6 +22,10 @@ protocol Loadsshparameters: AnyObject {
     func loadsshparameters()
 }
 
+protocol GetSource: AnyObject {
+    func getSourceindex(index: Int)
+}
+
 class ViewControllerSsh: NSViewController, SetConfigurations, VcMain, Checkforrsync, Help {
     var sshcmd: Ssh?
     var hiddenID: Int?

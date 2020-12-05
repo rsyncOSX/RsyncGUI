@@ -17,10 +17,6 @@ protocol CountRemoteEstimatingNumberoftasks: AnyObject {
 }
 
 class ViewControllerEstimatingTasks: NSViewController, Abort, SetConfigurations, SetDismisser {
-    var count: Double = 0
-    var maxcount: Double = 0
-    var calculatedNumberOfFiles: Int?
-
     weak var countDelegate: CountRemoteEstimatingNumberoftasks?
     private var remoteinfotask: RemoteinfoEstimation?
     var diddissappear: Bool = false
@@ -29,7 +25,9 @@ class ViewControllerEstimatingTasks: NSViewController, Abort, SetConfigurations,
     @IBOutlet var progress: NSProgressIndicator!
 
     @IBAction func abort(_: NSButton) {
+        self.remoteinfotask?.abort()
         self.abort()
+        self.remoteinfotask = nil
         self.closeview()
     }
 
@@ -49,6 +47,9 @@ class ViewControllerEstimatingTasks: NSViewController, Abort, SetConfigurations,
     override func viewWillDisappear() {
         super.viewWillDisappear()
         self.diddissappear = true
+        // Release the estimating object
+        self.remoteinfotask?.abort()
+        self.remoteinfotask = nil
     }
 
     // Progress bars
@@ -83,18 +84,10 @@ extension ViewControllerEstimatingTasks {
         let progress = Double(self.remoteinfotask?.maxCount() ?? 0) - Double(self.remoteinfotask?.inprogressCount() ?? 0)
         self.updateProgressbar(progress)
     }
-
-    func filehandler() {
-        //
-    }
 }
 
 extension ViewControllerEstimatingTasks: StartStopProgressIndicator {
     func start() {
-        //
-    }
-
-    func complete() {
         //
     }
 
@@ -106,8 +99,6 @@ extension ViewControllerEstimatingTasks: StartStopProgressIndicator {
             openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcnewconfigurations) as? ViewControllerNewConfigurations
         } else if (self.presentingViewController as? ViewControllerRestore) != nil {
             openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcrestore) as? ViewControllerRestore
-        } else if (self.presentingViewController as? ViewControllerSsh) != nil {
-            openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcssh) as? ViewControllerSsh
         } else if (self.presentingViewController as? ViewControllerLoggData) != nil {
             openDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcloggdata) as? ViewControllerLoggData
         }

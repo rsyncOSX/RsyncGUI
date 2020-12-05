@@ -46,6 +46,7 @@
 		E83B4474235F3C6700BBC793 /* ArgumentsVerify.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B446D235F3C6700BBC793 /* ArgumentsVerify.swift */; };
 		E840ED1B22D0BDC900CF62FF /* RootcatalogSequrityscopedURLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E840ED1A22D0BDC900CF62FF /* RootcatalogSequrityscopedURLs.swift */; };
 		E840ED1F22D0CD3C00CF62FF /* AppendSequrityscopedURLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E840ED1E22D0CD3C00CF62FF /* AppendSequrityscopedURLs.swift */; };
+		E871B1D6257B6A3B00C280F7 /* RestoreActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E871B1D5257B6A3B00C280F7 /* RestoreActions.swift */; };
 		E8B668C724D191C000117833 /* NamesandPaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B668C624D191C000117833 /* NamesandPaths.swift */; };
 		E8EDD15323C8C0E800806CCD /* Validatenewconfigs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EDD15223C8C0E800806CCD /* Validatenewconfigs.swift */; };
 		E9005014248FA06E00FAD2BC /* Keypathidentityfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9005013248FA06E00FAD2BC /* Keypathidentityfile.swift */; };
@@ -194,6 +195,7 @@
 		E83B446D235F3C6700BBC793 /* ArgumentsVerify.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArgumentsVerify.swift; sourceTree = "<group>"; };
 		E840ED1A22D0BDC900CF62FF /* RootcatalogSequrityscopedURLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootcatalogSequrityscopedURLs.swift; sourceTree = "<group>"; };
 		E840ED1E22D0CD3C00CF62FF /* AppendSequrityscopedURLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppendSequrityscopedURLs.swift; sourceTree = "<group>"; };
+		E871B1D5257B6A3B00C280F7 /* RestoreActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreActions.swift; sourceTree = "<group>"; };
 		E8B668C624D191C000117833 /* NamesandPaths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NamesandPaths.swift; sourceTree = "<group>"; };
 		E8EDD15223C8C0E800806CCD /* Validatenewconfigs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validatenewconfigs.swift; sourceTree = "<group>"; };
 		E9005013248FA06E00FAD2BC /* Keypathidentityfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keypathidentityfile.swift; sourceTree = "<group>"; };
@@ -534,6 +536,7 @@
 			isa = PBXGroup;
 			children = (
 				E909C2F723F3D92E00FF8A52 /* extensionRestore.swift */,
+				E871B1D5257B6A3B00C280F7 /* RestoreActions.swift */,
 			);
 			name = extensionRestore;
 			sourceTree = "<group>";
@@ -988,6 +991,7 @@
 				E9282DB722C0B050004AA0E5 /* Getrsyncpath.swift in Sources */,
 				E96A95922195D5F3000326F2 /* DuArgumentsSsh.swift in Sources */,
 				E94F0708211D8FCC00B2C3D8 /* ViewControllerAllOutput.swift in Sources */,
+				E871B1D6257B6A3B00C280F7 /* RestoreActions.swift in Sources */,
 				E98997F621E265F300B5D5A3 /* OpenPanelDelegate.swift in Sources */,
 				E958D35D25187CA80046E8F4 /* RsyncProcessCmdClosure.swift in Sources */,
 				E99A2479255E85260074D3E4 /* Checksynchronizedfiles.swift in Sources */,
