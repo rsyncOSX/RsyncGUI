@@ -311,27 +311,25 @@ class ViewControllerRestore: NSViewController, SetConfigurations, Delay, Connect
 
     // Sidebar estimate
     @IBAction func estimate(_: NSButton) {
-        if self.checkedforfullrestore.state == .on {
-            guard self.checkforrsync() == false else { return }
-            if self.restoreactions?.goforfullrestoreestimatetemporarypath() ?? false {
-                guard self.checkforfullrestore() == true else { return }
-                if let index = self.index {
-                    let gotit: String = NSLocalizedString("Getting info, please wait...", comment: "Restore")
-                    self.infolabel.stringValue = gotit
-                    self.infolabel.isHidden = false
-                    self.working.startAnimation(nil)
-                    if self.restoreactions?.goforfullrestoreestimatetemporarypath() ?? false {
-                        self.fullrestoretask = FullrestoreTask(dryrun: true, processtermination: self.processtermination, filehandler: self.filehandler)
-                        self.fullrestoretask?.executerestore(index: index)
-                        self.outputprocess = self.fullrestoretask?.outputprocess
-                    }
-                }
-            } else {
-                guard self.restoreactions?.remotefileverified ?? false else { return }
+        guard self.checkforrsync() == false else { return }
+        if self.restoreactions?.goforfullrestoreestimatetemporarypath() ?? false {
+            guard self.checkforfullrestore() == true else { return }
+            if let index = self.index {
+                let gotit: String = NSLocalizedString("Getting info, please wait...", comment: "Restore")
+                self.infolabel.stringValue = gotit
+                self.infolabel.isHidden = false
                 self.working.startAnimation(nil)
-                self.restorefilestask?.executecopyfiles(remotefile: self.remotefiles!.stringValue, localCatalog: self.tmprestorepath!.stringValue, dryrun: true)
-                self.outputprocess = self.restorefilestask?.outputprocess
+                if self.restoreactions?.goforfullrestoreestimatetemporarypath() ?? false {
+                    self.fullrestoretask = FullrestoreTask(dryrun: true, processtermination: self.processtermination, filehandler: self.filehandler)
+                    self.fullrestoretask?.executerestore(index: index)
+                    self.outputprocess = self.fullrestoretask?.outputprocess
+                }
             }
+        } else {
+            guard self.restoreactions?.remotefileverified ?? false else { return }
+            self.working.startAnimation(nil)
+            self.restorefilestask?.executecopyfiles(remotefile: self.remotefiles!.stringValue, localCatalog: self.tmprestorepath!.stringValue, dryrun: true)
+            self.outputprocess = self.restorefilestask?.outputprocess
         }
     }
 

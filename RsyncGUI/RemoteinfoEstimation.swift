@@ -106,6 +106,7 @@ final class RemoteinfoEstimation: SetConfigurations {
 
     deinit {
         self.stackoftasktobeestimated = nil
+        print("deinit RemoteinfoEstimation")
     }
 
     func abort() {
