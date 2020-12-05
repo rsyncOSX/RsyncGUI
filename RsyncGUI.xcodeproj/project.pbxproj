@@ -350,8 +350,8 @@
 				A04492BE1D658F8900B3CE17 /* Model */,
 				A04492BD1D658F7C00B3CE17 /* Controller */,
 				A04492891D658EE800B3CE17 /* Assets.xcassets */,
-				E800CEDE257BC346002F3B7E /* SheetViews.storyboard */,
 				A044928B1D658EE800B3CE17 /* Main.storyboard */,
+				E800CEDE257BC346002F3B7E /* SheetViews.storyboard */,
 				A044928E1D658EE800B3CE17 /* Info.plist */,
 			);
 			path = RsyncGUI;
