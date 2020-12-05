@@ -70,7 +70,7 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, Dela
         }
     }
 
-    @IBAction func cleartable(_: NSButton) {
+    func cleartable() {
         self.newconfigurations = nil
         self.newconfigurations = NewConfigurations()
         globalMainQueue.async { () -> Void in
@@ -154,7 +154,7 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, Dela
         self.backupID.stringValue = ""
     }
 
-    @IBAction func addConfig(_: NSButton) {
+    func addConfig() {
         let dict: NSMutableDictionary = [
             DictionaryStrings.task.rawValue: ViewControllerReference.shared.synchronize,
             DictionaryStrings.backupID.rawValue: backupID.stringValue,
@@ -259,6 +259,19 @@ extension ViewControllerNewConfigurations: AssistTransfer {
             default:
                 return
             }
+        }
+    }
+}
+
+extension ViewControllerNewConfigurations: Sidebarbuttonactions {
+    func sidebarbuttonactions(action: Sidebaractionsmessages) {
+        switch action {
+        case .Delete:
+            self.cleartable()
+        case .Add:
+            self.addConfig()
+        default:
+            return
         }
     }
 }

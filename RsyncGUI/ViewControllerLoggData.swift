@@ -69,7 +69,7 @@ class ViewControllerLoggData: NSViewController, SetConfigurations, SetSchedules,
         }
     }
 
-    @IBAction func deletealllogs(_: NSButton) {
+    func deletealllogs() {
         guard self.selectednumber() != "0" else { return }
         let question: String = NSLocalizedString("Delete", comment: "Logg")
         let text: String = NSLocalizedString("Cancel or Delete", comment: "Logg")
@@ -293,5 +293,16 @@ extension ViewControllerLoggData: NewProfile {
 
     func reloadprofilepopupbutton() {
         //
+    }
+}
+
+extension ViewControllerLoggData: Sidebarbuttonactions {
+    func sidebarbuttonactions(action: Sidebaractionsmessages) {
+        switch action {
+        case .Delete:
+            self.deletealllogs()
+        default:
+            return
+        }
     }
 }

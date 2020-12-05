@@ -196,14 +196,13 @@ class ViewControllerRestore: NSViewController, SetConfigurations, Delay, Connect
     }
 
     // Sidebar filelist
-    @IBAction func getremotefilelist(_: NSButton) {
-        self.goforrestorebyfile()
+    func getremotefilelist() {
         guard self.restoreactions?.getfilelistrestorefiles() ?? false else { return }
         self.prepareforfilesrestoreandandgetremotefilelist()
     }
 
     // Sidebar reset
-    @IBAction func resetaction(_: NSButton) {
+    func resetaction() {
         self.reset()
     }
 
@@ -297,7 +296,7 @@ class ViewControllerRestore: NSViewController, SetConfigurations, Delay, Connect
     }
 
     // Sidebar restore
-    @IBAction func restore(_: NSButton) {
+    func restore() {
         if self.checkedforfullrestore.state == .on {
             if self.restoreactions?.goforfullrestoretotemporarypath() == true {
                 self.executefullrestore()
@@ -310,7 +309,7 @@ class ViewControllerRestore: NSViewController, SetConfigurations, Delay, Connect
     }
 
     // Sidebar estimate
-    @IBAction func estimate(_: NSButton) {
+    func estimate() {
         guard self.checkforrsync() == false else { return }
         if self.restoreactions?.goforfullrestoreestimatetemporarypath() ?? false {
             guard self.checkforfullrestore() == true else { return }

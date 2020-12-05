@@ -122,7 +122,7 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
         }
     }
 
-    @IBAction func delete(_: NSButton) {
+    func delete() {
         guard self.index != nil else {
             self.info.stringValue = Infoexecute().info(num: 1)
             return

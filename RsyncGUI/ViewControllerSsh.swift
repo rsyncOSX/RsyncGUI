@@ -59,7 +59,7 @@ class ViewControllerSsh: NSViewController, SetConfigurations, VcMain, Checkforrs
         self.help()
     }
 
-    @IBAction func createPublicPrivateRSAKeyPair(_: NSButton) {
+    func createPublicPrivateRSAKeyPair() {
         self.outputprocess = OutputProcess()
         self.sshcmd = Ssh(outputprocess: self.outputprocess,
                           processtermination: self.processtermination,
@@ -68,7 +68,7 @@ class ViewControllerSsh: NSViewController, SetConfigurations, VcMain, Checkforrs
         self.sshcmd?.creatersakeypair()
     }
 
-    @IBAction func source(_: NSButton) {
+    func source() {
         guard self.sshcmd != nil else { return }
         self.presentAsSheet(self.viewControllerSource!)
     }
@@ -227,5 +227,18 @@ extension ViewControllerSsh: Loadsshparameters {
             self.sshport.stringValue = ""
         }
         self.checkforPrivateandPublicRSAKeypair()
+    }
+}
+
+extension ViewControllerSsh: Sidebarbuttonactions {
+    func sidebarbuttonactions(action: Sidebaractionsmessages) {
+        switch action {
+        case .CreateKey:
+            self.createPublicPrivateRSAKeyPair()
+        case .Remote:
+            self.source()
+        default:
+            return
+        }
     }
 }
