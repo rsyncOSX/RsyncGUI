@@ -25,6 +25,8 @@ class ViewControllerRestore: NSViewController, SetConfigurations, Delay, Connect
     var maxcount: Int = 0
     weak var outputeverythingDelegate: ViewOutputDetails?
     var restoreactions: RestoreActions?
+    // Send messages to the sidebar
+    weak var sidebaractionsDelegate: Sidebaractions?
 
     @IBOutlet var restoretableView: NSTableView!
     @IBOutlet var rsynctableView: NSTableView!
@@ -74,6 +76,8 @@ class ViewControllerRestore: NSViewController, SetConfigurations, Delay, Connect
 
     override func viewDidAppear() {
         super.viewDidAppear()
+        self.sidebaractionsDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcsidebar) as? ViewControllerSideBar
+        self.sidebaractionsDelegate?.sidebaractions(action: .restoreviewbuttons)
         guard self.diddissappear == false else {
             globalMainQueue.async { () -> Void in
                 self.rsynctableView.reloadData()
@@ -196,14 +200,13 @@ class ViewControllerRestore: NSViewController, SetConfigurations, Delay, Connect
     }
 
     // Sidebar filelist
-    @IBAction func getremotefilelist(_: NSButton) {
-        self.goforrestorebyfile()
+    func getremotefilelist() {
         guard self.restoreactions?.getfilelistrestorefiles() ?? false else { return }
         self.prepareforfilesrestoreandandgetremotefilelist()
     }
 
     // Sidebar reset
-    @IBAction func resetaction(_: NSButton) {
+    func resetaction() {
         self.reset()
     }
 
@@ -297,7 +300,7 @@ class ViewControllerRestore: NSViewController, SetConfigurations, Delay, Connect
     }
 
     // Sidebar restore
-    @IBAction func restore(_: NSButton) {
+    func restore() {
         if self.checkedforfullrestore.state == .on {
             if self.restoreactions?.goforfullrestoretotemporarypath() == true {
                 self.executefullrestore()
@@ -310,7 +313,7 @@ class ViewControllerRestore: NSViewController, SetConfigurations, Delay, Connect
     }
 
     // Sidebar estimate
-    @IBAction func estimate(_: NSButton) {
+    func estimate() {
         guard self.checkforrsync() == false else { return }
         if self.restoreactions?.goforfullrestoreestimatetemporarypath() ?? false {
             guard self.checkforfullrestore() == true else { return }

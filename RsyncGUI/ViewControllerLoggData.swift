@@ -16,6 +16,8 @@ class ViewControllerLoggData: NSViewController, SetConfigurations, SetSchedules,
     private var filterby: Sortandfilter?
     private var index: Int?
     private var sortedascending: Bool = true
+    // Send messages to the sidebar
+    weak var sidebaractionsDelegate: Sidebaractions?
 
     @IBOutlet var scheduletable: NSTableView!
     @IBOutlet var search: NSSearchField!
@@ -69,7 +71,7 @@ class ViewControllerLoggData: NSViewController, SetConfigurations, SetSchedules,
         }
     }
 
-    @IBAction func deletealllogs(_: NSButton) {
+    func deletealllogs() {
         guard self.selectednumber() != "0" else { return }
         let question: String = NSLocalizedString("Delete", comment: "Logg")
         let text: String = NSLocalizedString("Cancel or Delete", comment: "Logg")
@@ -102,6 +104,8 @@ class ViewControllerLoggData: NSViewController, SetConfigurations, SetSchedules,
 
     override func viewDidAppear() {
         super.viewDidAppear()
+        self.sidebaractionsDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcsidebar) as? ViewControllerSideBar
+        self.sidebaractionsDelegate?.sidebaractions(action: .logsviewbuttons)
         self.info.textColor = setcolor(nsviewcontroller: self, color: .green)
         self.index = self.index()
         if let index = self.index {
@@ -293,5 +297,16 @@ extension ViewControllerLoggData: NewProfile {
 
     func reloadprofilepopupbutton() {
         //
+    }
+}
+
+extension ViewControllerLoggData: Sidebarbuttonactions {
+    func sidebarbuttonactions(action: Sidebaractionsmessages) {
+        switch action {
+        case .Delete:
+            self.deletealllogs()
+        default:
+            return
+        }
     }
 }

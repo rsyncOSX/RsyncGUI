@@ -32,6 +32,8 @@ class ViewControllerSsh: NSViewController, SetConfigurations, VcMain, Checkforrs
     var data: [String]?
     var outputprocess: OutputProcess?
     var execute: Bool = false
+    // Send messages to the sidebar
+    weak var sidebaractionsDelegate: Sidebaractions?
 
     @IBOutlet var rsaCheck: NSButton!
     @IBOutlet var detailsTable: NSTableView!
@@ -59,7 +61,7 @@ class ViewControllerSsh: NSViewController, SetConfigurations, VcMain, Checkforrs
         self.help()
     }
 
-    @IBAction func createPublicPrivateRSAKeyPair(_: NSButton) {
+    func createPublicPrivateRSAKeyPair() {
         self.outputprocess = OutputProcess()
         self.sshcmd = Ssh(outputprocess: self.outputprocess,
                           processtermination: self.processtermination,
@@ -68,9 +70,9 @@ class ViewControllerSsh: NSViewController, SetConfigurations, VcMain, Checkforrs
         self.sshcmd?.creatersakeypair()
     }
 
-    @IBAction func source(_: NSButton) {
+    func source() {
         guard self.sshcmd != nil else { return }
-        self.presentAsSheet(self.viewControllerSource!)
+        self.presentAsModalWindow(self.viewControllerSource!)
     }
 
     var viewControllerSource: NSViewController? {
@@ -90,6 +92,8 @@ class ViewControllerSsh: NSViewController, SetConfigurations, VcMain, Checkforrs
 
     override func viewDidAppear() {
         super.viewDidAppear()
+        self.sidebaractionsDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcsidebar) as? ViewControllerSideBar
+        self.sidebaractionsDelegate?.sidebaractions(action: .sshviewbuttons)
         self.loadsshparameters()
         globalMainQueue.async { () -> Void in
             self.SequrityScopedTable.reloadData()
@@ -227,5 +231,18 @@ extension ViewControllerSsh: Loadsshparameters {
             self.sshport.stringValue = ""
         }
         self.checkforPrivateandPublicRSAKeypair()
+    }
+}
+
+extension ViewControllerSsh: Sidebarbuttonactions {
+    func sidebarbuttonactions(action: Sidebaractionsmessages) {
+        switch action {
+        case .CreateKey:
+            self.createPublicPrivateRSAKeyPair()
+        case .Remote:
+            self.source()
+        default:
+            return
+        }
     }
 }

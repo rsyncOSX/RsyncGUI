@@ -31,9 +31,7 @@ extension ViewControllerMain: Reloadandrefresh {
 // Parameters to rsync is changed
 extension ViewControllerMain: RsyncUserParams {
     // Do a reread of all Configurations
-    func rsyncuserparamsupdated() {
-        self.showrsynccommandmainview()
-    }
+    func rsyncuserparamsupdated() {}
 }
 
 // Get index of selected row
@@ -54,7 +52,6 @@ extension ViewControllerMain: NewProfile {
         }
         self.reset()
         self.singletask = nil
-        self.showrsynccommandmainview()
         self.deselect()
         // Read configurations and Scheduledata
         self.configurations = self.createconfigurationsobject(profile: profile)
@@ -77,7 +74,6 @@ extension ViewControllerMain: RsyncIsChanged {
     // If row is selected an update rsync command in view
     func rsyncischanged() {
         // Update rsync command in display
-        self.showrsynccommandmainview()
         self.setinfoaboutrsync()
         // Setting shortstring
         self.rsyncversionshort.stringValue = ViewControllerReference.shared.rsyncversionshort ?? ""
@@ -125,9 +121,7 @@ extension ViewControllerMain: RsyncError {
     func rsyncerror() {
         // Set on or off in user configuration
         globalMainQueue.async { () -> Void in
-            self.seterrorinfo(info: "Rsync error")
             self.info.stringValue = "See https://rsyncosx.netlify.app/post/rsyncguiintro/"
-            self.showrsynccommandmainview()
             guard ViewControllerReference.shared.haltonerror == true else { return }
             self.deselect()
             // Abort any operations
@@ -146,10 +140,8 @@ extension ViewControllerMain: Fileerror {
                 self.outputprocess = OutputProcess()
             }
             if errortype == .filesize {
-                self.seterrorinfo(info: "Logfile size")
                 self.info.stringValue = "Size logfile: " + errorstr
             } else {
-                self.seterrorinfo(info: "Some error")
                 self.outputprocess?.addlinefromoutput(str: self.errordescription(errortype: errortype) + "\n" + errorstr)
                 self.info.stringValue = "Error: see https://rsyncosx.netlify.app/post/rsyncguiintro/"
             }
@@ -165,12 +157,10 @@ extension ViewControllerMain: Abort {
     func abortOperations() {
         // Terminates the running process
         _ = InterruptProcess()
-        self.rsyncCommand.stringValue = ""
         if self.configurations?.remoteinfoestimation != nil, self.configurations?.estimatedlist != nil {
             self.configurations?.remoteinfoestimation = nil
         }
         self.working.stopAnimation(nil)
-        self.workinglabel.isHidden = true
         self.index = nil
     }
 }
@@ -183,12 +173,10 @@ extension ViewControllerMain: StartStopProgressIndicatorSingleTask {
 
     func startIndicator() {
         self.working.startAnimation(nil)
-        self.workinglabel.isHidden = false
     }
 
     func stopIndicator() {
         self.working.stopAnimation(nil)
-        self.workinglabel.isHidden = true
     }
 }
 
@@ -474,5 +462,16 @@ extension ViewControllerMain: DisableEnablePopupSelectProfile {
 
     func disableselectpopupprofile() {
         self.profilepopupbutton.isEnabled = false
+    }
+}
+
+extension ViewControllerMain: Sidebarbuttonactions {
+    func sidebarbuttonactions(action: Sidebaractionsmessages) {
+        switch action {
+        case .Delete:
+            self.delete()
+        default:
+            return
+        }
     }
 }

@@ -28,6 +28,8 @@ enum ViewController {
     case vcalloutput
     case vcedit
     case vcrsyncparameters
+    case vcsidebar
+    case vcrsynccommand
 }
 
 final class ViewControllerReference {
@@ -136,6 +138,10 @@ final class ViewControllerReference {
     private var viewControllerEdit: NSViewController?
     // Rsync parameters
     private var viewControllerRsyncParameters: NSViewController?
+    // Sidebar
+    private var viewcontrollerSideBar: NSViewController?
+    // Show rsynccommand
+    private var viewcontrollerrsynccommand: NSViewController?
     // Reference to the active process
     var process: Process?
 
@@ -175,6 +181,10 @@ final class ViewControllerReference {
             return self.viewControllerEdit
         case .vcrsyncparameters:
             return self.viewControllerRsyncParameters
+        case .vcsidebar:
+            return self.viewcontrollerSideBar
+        case .vcrsynccommand:
+            return self.viewcontrollerrsynccommand
         }
     }
 
@@ -214,6 +224,10 @@ final class ViewControllerReference {
             self.viewControllerEdit = nsviewcontroller
         case .vcrsyncparameters:
             self.viewControllerRsyncParameters = nsviewcontroller
+        case .vcsidebar:
+            self.viewcontrollerSideBar = nsviewcontroller
+        case .vcrsynccommand:
+            self.viewcontrollerrsynccommand = nsviewcontroller
         }
     }
 

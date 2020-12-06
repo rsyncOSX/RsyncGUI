@@ -32,6 +32,8 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, Dela
     var backuptypeselected: Typebackup = .synchronize
     var editlocalcatalog: Bool = true
     var diddissappear: Bool = false
+    // Send messages to the sidebar
+    weak var sidebaractionsDelegate: Sidebaractions?
 
     @IBOutlet var addtable: NSTableView!
     @IBOutlet var viewParameter1: NSTextField!
@@ -70,7 +72,7 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, Dela
         }
     }
 
-    @IBAction func cleartable(_: NSButton) {
+    func cleartable() {
         self.newconfigurations = nil
         self.newconfigurations = NewConfigurations()
         globalMainQueue.async { () -> Void in
@@ -121,6 +123,8 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, Dela
 
     override func viewDidAppear() {
         super.viewDidAppear()
+        self.sidebaractionsDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcsidebar) as? ViewControllerSideBar
+        self.sidebaractionsDelegate?.sidebaractions(action: .addviewbuttons)
         self.backuptypeselected = .synchronize
         self.backuptype.selectItem(at: 0)
         self.useGUIbutton.state = .off
@@ -154,7 +158,7 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, Dela
         self.backupID.stringValue = ""
     }
 
-    @IBAction func addConfig(_: NSButton) {
+    func addConfig() {
         let dict: NSMutableDictionary = [
             DictionaryStrings.task.rawValue: ViewControllerReference.shared.synchronize,
             DictionaryStrings.backupID.rawValue: backupID.stringValue,
@@ -259,6 +263,19 @@ extension ViewControllerNewConfigurations: AssistTransfer {
             default:
                 return
             }
+        }
+    }
+}
+
+extension ViewControllerNewConfigurations: Sidebarbuttonactions {
+    func sidebarbuttonactions(action: Sidebaractionsmessages) {
+        switch action {
+        case .Delete:
+            self.cleartable()
+        case .Add:
+            self.addConfig()
+        default:
+            return
         }
     }
 }
