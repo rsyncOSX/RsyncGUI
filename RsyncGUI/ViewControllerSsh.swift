@@ -48,7 +48,7 @@ class ViewControllerSsh: NSViewController, SetConfigurations, VcMain, Checkforrs
         self.presentAsModalWindow(self.viewControllerProfile!)
     }
 
-    @IBAction func resetsequrityscoped(_: NSButton) {
+    func resetsequrityscoped() {
         let answer = Alerts.dialogOrCancel(question: "You are about to reset RsynGUI access to your files", text: "Please close and start RsyncGUI again", dialog: "Reset")
         if answer {
             weak var resetsequrityscopedDelegate: ResetSequrityScopedURL?
@@ -241,6 +241,8 @@ extension ViewControllerSsh: Sidebarbuttonactions {
             self.createPublicPrivateRSAKeyPair()
         case .Remote:
             self.source()
+        case .Reset:
+            self.resetsequrityscoped()
         default:
             return
         }

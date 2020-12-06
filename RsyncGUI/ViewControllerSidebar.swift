@@ -89,7 +89,8 @@ class ViewControllerSideBar: NSViewController, SetConfigurations, Delay, VcMain,
             case .logsviewbuttons:
                 return
             case .sshviewbuttons:
-                return
+                weak var deleteDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcssh) as? ViewControllerSsh
+                deleteDelegate?.sidebarbuttonactions(action: .CreateKey)
             case .restoreviewbuttons:
                 weak var deleteDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcrestore) as? ViewControllerRestore
                 deleteDelegate?.sidebarbuttonactions(action: .Estimate)
@@ -115,7 +116,7 @@ class ViewControllerSideBar: NSViewController, SetConfigurations, Delay, VcMain,
                 deleteDelegate?.sidebarbuttonactions(action: .Delete)
             case .sshviewbuttons:
                 weak var deleteDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcssh) as? ViewControllerSsh
-                deleteDelegate?.sidebarbuttonactions(action: .CreateKey)
+                deleteDelegate?.sidebarbuttonactions(action: .Remote)
             case .restoreviewbuttons:
                 weak var deleteDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcrestore) as? ViewControllerRestore
                 deleteDelegate?.sidebarbuttonactions(action: .Restore)
@@ -129,7 +130,7 @@ class ViewControllerSideBar: NSViewController, SetConfigurations, Delay, VcMain,
         if let view = self.whichviewispresented {
             switch view {
             case .mainviewbuttons:
-                // self.presentAsModalWindow(self.rsynccommand!)
+                self.presentAsModalWindow(self.rsynccommand!)
                 return
             case .addviewbuttons:
                 return
@@ -137,7 +138,7 @@ class ViewControllerSideBar: NSViewController, SetConfigurations, Delay, VcMain,
                 return
             case .sshviewbuttons:
                 weak var deleteDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcssh) as? ViewControllerSsh
-                deleteDelegate?.sidebarbuttonactions(action: .Remote)
+                deleteDelegate?.sidebarbuttonactions(action: .Reset)
             case .restoreviewbuttons:
                 weak var deleteDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcrestore) as? ViewControllerRestore
                 deleteDelegate?.sidebarbuttonactions(action: .Reset)
@@ -182,11 +183,12 @@ extension ViewControllerSideBar: Sidebaractions {
             self.button3.title = NSLocalizedString("Delete", comment: "Sidebar")
         case .sshviewbuttons:
             self.button1.isHidden = true
-            self.button2.isHidden = true
+            self.button2.isHidden = false
             self.button3.isHidden = false
             self.button4.isHidden = false
-            self.button3.title = NSLocalizedString("Create k", comment: "Sidebar")
-            self.button4.title = NSLocalizedString("Remote", comment: "Sidebar")
+            self.button2.title = NSLocalizedString("Create k", comment: "Sidebar")
+            self.button3.title = NSLocalizedString("Remote", comment: "Sidebar")
+            self.button4.title = NSLocalizedString("Reset", comment: "Sidebar")
         case .restoreviewbuttons:
             self.button1.isHidden = false
             self.button2.isHidden = false
