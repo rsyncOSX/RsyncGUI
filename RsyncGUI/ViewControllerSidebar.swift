@@ -129,7 +129,7 @@ class ViewControllerSideBar: NSViewController, SetConfigurations, Delay, VcMain,
         if let view = self.whichviewispresented {
             switch view {
             case .mainviewbuttons:
-                // self.presentAsModalWindow(self.rsynccommand!)
+                self.presentAsModalWindow(self.rsynccommand!)
                 return
             case .addviewbuttons:
                 return

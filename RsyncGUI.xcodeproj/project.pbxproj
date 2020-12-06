@@ -34,6 +34,7 @@
 		A0F2E20C1D6D91AA0091E8BF /* Userconfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F2E20B1D6D91AA0091E8BF /* Userconfiguration.swift */; };
 		A0FAF5CF1DDF2E5F0009FE7A /* ViewControllerAbout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FAF5CE1DDF2E5F0009FE7A /* ViewControllerAbout.swift */; };
 		A0FC45641D9545CC005208EF /* ScheduleLoggData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FC45631D9545CC005208EF /* ScheduleLoggData.swift */; };
+		E8000DFF257CF058003A4B0D /* ViewControllerRsyncCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8000DFE257CF057003A4B0D /* ViewControllerRsyncCommand.swift */; };
 		E800CEDF257BC346002F3B7E /* SheetViews.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E800CEDE257BC346002F3B7E /* SheetViews.storyboard */; };
 		E80596EF253035AA00E9D38E /* Backupconfigfiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80596EE253035AA00E9D38E /* Backupconfigfiles.swift */; };
 		E824739B2309B18100355CEA /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = E824739A2309B18100355CEA /* Result.swift */; };
@@ -189,6 +190,7 @@
 		A0F2E20B1D6D91AA0091E8BF /* Userconfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Userconfiguration.swift; sourceTree = "<group>"; };
 		A0FAF5CE1DDF2E5F0009FE7A /* ViewControllerAbout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerAbout.swift; sourceTree = "<group>"; };
 		A0FC45631D9545CC005208EF /* ScheduleLoggData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleLoggData.swift; sourceTree = "<group>"; };
+		E8000DFE257CF057003A4B0D /* ViewControllerRsyncCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerRsyncCommand.swift; sourceTree = "<group>"; };
 		E800CEDE257BC346002F3B7E /* SheetViews.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SheetViews.storyboard; sourceTree = "<group>"; };
 		E80596EE253035AA00E9D38E /* Backupconfigfiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Backupconfigfiles.swift; sourceTree = "<group>"; };
 		E824739A2309B18100355CEA /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
@@ -664,6 +666,7 @@
 				A054F1A81D6D773E00D27688 /* ViewControllerInformation.swift */,
 				E996431D231AF0EF00E05B40 /* ViewControllerSource.swift */,
 				E977A7A6252C8C73009D9E87 /* ViewControllerAssist.swift */,
+				E8000DFE257CF057003A4B0D /* ViewControllerRsyncCommand.swift */,
 			);
 			name = Sheetviews;
 			sourceTree = "<group>";
@@ -962,6 +965,7 @@
 				E98997F321E265F300B5D5A3 /* OpenPanelBuilder.swift in Sources */,
 				A04492AA1D658F2100B3CE17 /* yudpsocket.c in Sources */,
 				E96CA1FE1E094C3000CD1D03 /* Resources.swift in Sources */,
+				E8000DFF257CF058003A4B0D /* ViewControllerRsyncCommand.swift in Sources */,
 				E9230C0E1E6DDC57001D9954 /* RsyncParametersSingleFilesArguments.swift in Sources */,
 				E9BC4DE923027F810058CB52 /* ExecuteTaskNow.swift in Sources */,
 				E964B56522C0C686004C6A15 /* Setrsyncpath.swift in Sources */,

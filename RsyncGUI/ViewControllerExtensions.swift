@@ -108,7 +108,11 @@ extension VcMain {
             as? NSViewController)
     }
 
-    // CopyFilesID
+    // RsyncCommand
+    var rsynccommand: NSViewController? {
+        return (self.sheetviewsstoryboard?.instantiateController(withIdentifier: "RsyncCommand")
+            as? NSViewController)
+    }
 }
 
 // Protocol for dismissing a viewcontroller
