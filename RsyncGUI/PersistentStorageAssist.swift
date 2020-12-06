@@ -44,6 +44,7 @@ final class PersistentStorageAssist: ReadWriteDictionary {
 
     // Writing assist to persistent store
     // Configuration is [NSDictionary]
+
     private func writeToStore(array: [NSDictionary]) {
         // Getting the object just for the write method, no read from persistent store
         self.writeNSDictionaryToPersistentStorage(array: array)
