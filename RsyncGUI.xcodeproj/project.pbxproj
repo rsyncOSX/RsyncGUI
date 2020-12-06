@@ -35,6 +35,7 @@
 		A0FAF5CF1DDF2E5F0009FE7A /* ViewControllerAbout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FAF5CE1DDF2E5F0009FE7A /* ViewControllerAbout.swift */; };
 		A0FC45641D9545CC005208EF /* ScheduleLoggData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FC45631D9545CC005208EF /* ScheduleLoggData.swift */; };
 		E8000DFF257CF058003A4B0D /* ViewControllerRsyncCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8000DFE257CF057003A4B0D /* ViewControllerRsyncCommand.swift */; };
+		E8000E07257CF7CD003A4B0D /* SplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8000E06257CF7CD003A4B0D /* SplitViewController.swift */; };
 		E800CEDF257BC346002F3B7E /* SheetViews.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E800CEDE257BC346002F3B7E /* SheetViews.storyboard */; };
 		E80596EF253035AA00E9D38E /* Backupconfigfiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80596EE253035AA00E9D38E /* Backupconfigfiles.swift */; };
 		E824739B2309B18100355CEA /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = E824739A2309B18100355CEA /* Result.swift */; };
@@ -191,6 +192,7 @@
 		A0FAF5CE1DDF2E5F0009FE7A /* ViewControllerAbout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerAbout.swift; sourceTree = "<group>"; };
 		A0FC45631D9545CC005208EF /* ScheduleLoggData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleLoggData.swift; sourceTree = "<group>"; };
 		E8000DFE257CF057003A4B0D /* ViewControllerRsyncCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerRsyncCommand.swift; sourceTree = "<group>"; };
+		E8000E06257CF7CD003A4B0D /* SplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitViewController.swift; sourceTree = "<group>"; };
 		E800CEDE257BC346002F3B7E /* SheetViews.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SheetViews.storyboard; sourceTree = "<group>"; };
 		E80596EE253035AA00E9D38E /* Backupconfigfiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Backupconfigfiles.swift; sourceTree = "<group>"; };
 		E824739A2309B18100355CEA /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
@@ -778,6 +780,7 @@
 				E9C462D8257B9FAF007B3AF7 /* Toolbar.swift */,
 				E9C462DC257B9FD2007B3AF7 /* extensionViewControllers.swift */,
 				E9C462E0257BA00E007B3AF7 /* MainWindowController.swift */,
+				E8000E06257CF7CD003A4B0D /* SplitViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -939,6 +942,7 @@
 				E9BBE8C32273131F00404D7A /* ConvertConfigurations.swift in Sources */,
 				E83B4471235F3C6700BBC793 /* ArgumentsSynchronize.swift in Sources */,
 				E939EC4A20C048A000C47F91 /* extensionsVCMain.swift in Sources */,
+				E8000E07257CF7CD003A4B0D /* SplitViewController.swift in Sources */,
 				E942FF291FED41D0004191B5 /* ViewControllerQuickBackup.swift in Sources */,
 				E909C2F823F3D92E00FF8A52 /* extensionRestore.swift in Sources */,
 				E9231AFB1F6E3D270055000C /* NewConfigurations.swift in Sources */,
@@ -1221,7 +1225,7 @@
 				CODE_SIGN_ENTITLEMENTS = RsyncGUI/RsyncGUI.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 40;
+				CURRENT_PROJECT_VERSION = 41;
 				DEVELOPMENT_TEAM = 93M47F4H9T;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = RsyncGUI/Info.plist;
@@ -1230,7 +1234,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MARKETING_VERSION = 2.3.2;
+				MARKETING_VERSION = 2.3.3;
 				PRODUCT_BUNDLE_IDENTIFIER = no.blogspot.rsyncgui;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1249,7 +1253,7 @@
 				CODE_SIGN_ENTITLEMENTS = RsyncGUI/RsyncGUI.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 40;
+				CURRENT_PROJECT_VERSION = 41;
 				DEVELOPMENT_TEAM = 93M47F4H9T;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = RsyncGUI/Info.plist;
@@ -1258,7 +1262,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MARKETING_VERSION = 2.3.2;
+				MARKETING_VERSION = 2.3.3;
 				PRODUCT_BUNDLE_IDENTIFIER = no.blogspot.rsyncgui;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
