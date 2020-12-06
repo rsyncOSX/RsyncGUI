@@ -1458,14 +1458,14 @@
                                 </textFieldCell>
                             </textField>
                             <box fixedFrame="YES" title="Default params" translatesAutoresizingMaskIntoConstraints="NO" id="Qc4-06-mOR">
-                                <rect key="frame" x="835" y="205" width="116" height="143"/>
+                                <rect key="frame" x="841" y="205" width="106" height="143"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <view key="contentView" id="LYt-vh-cql">
-                                    <rect key="frame" x="3" y="3" width="110" height="125"/>
+                                    <rect key="frame" x="3" y="3" width="100" height="125"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textField verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hWK-Iu-Vyz">
-                                            <rect key="frame" x="12" y="5" width="85" height="22"/>
+                                            <rect key="frame" x="6" y="5" width="86" height="22"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" bezelStyle="round" id="Uzg-Pw-eAr">
                                                 <font key="font" metaFont="message"/>
@@ -1499,7 +1499,7 @@
                 </viewController>
                 <customObject id="eib-cb-pn8" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-61" y="1711"/>
+            <point key="canvasLocation" x="-61" y="1710.5"/>
         </scene>
         <!--View Controller Edit-->
         <scene sceneID="5Mo-Eu-OTy">
@@ -2262,7 +2262,7 @@ DQ
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
                                                         <tableCellView id="8my-0f-y1U">
-                                                            <rect key="frame" x="1" y="1" width="464" height="20"/>
+                                                            <rect key="frame" x="11" y="1" width="464" height="20"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mtw-3p-Mfa">
@@ -2285,7 +2285,7 @@ DQ
                                         </tableView>
                                     </subviews>
                                 </clipView>
-                                <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="BhP-XP-Hb7">
+                                <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="BhP-XP-Hb7">
                                     <rect key="frame" x="1" y="287" width="456" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
