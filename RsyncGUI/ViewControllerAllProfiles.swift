@@ -55,15 +55,12 @@ class ViewControllerAllProfiles: NSViewController, Delay, Abort {
         }
     }
 
-    @IBAction func getremotesizes(_: NSButton) {
-        self.getremotesizes()
-    }
-
     @IBAction func reload(_: NSButton) {
         self.reloadallprofiles()
     }
 
-    private func getremotesizes() {
+    @objc
+    func getremotesizes() {
         guard self.index != nil else { return }
         guard ViewControllerReference.shared.process == nil else { return }
         self.outputprocess = OutputProcess()
@@ -85,7 +82,7 @@ class ViewControllerAllProfiles: NSViewController, Delay, Abort {
         self.mainTableView.dataSource = self
         self.search.delegate = self
         self.mainTableView.target = self
-        self.mainTableView.doubleAction = #selector(ViewControllerProfile.tableViewDoubleClick(sender:))
+        self.mainTableView.doubleAction = #selector(self.getremotesizes)
         self.working.usesThreadedAnimation = true
         self.initpopupbutton()
     }
