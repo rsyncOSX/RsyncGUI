@@ -20,7 +20,6 @@ class ViewControllerAllProfiles: NSViewController, Delay, Abort {
     @IBOutlet var search: NSSearchField!
     @IBOutlet var sortdirection: NSButton!
     @IBOutlet var numberOfprofiles: NSTextField!
-    @IBOutlet var working: NSProgressIndicator!
     @IBOutlet var profilepopupbutton: NSPopUpButton!
 
     private var allprofiles: AllConfigurations?
@@ -55,35 +54,12 @@ class ViewControllerAllProfiles: NSViewController, Delay, Abort {
         }
     }
 
-    @IBAction func reload(_: NSButton) {
-        self.reloadallprofiles()
-    }
-
-    @objc
-    func getremotesizes() {
-        guard self.index != nil else { return }
-        guard ViewControllerReference.shared.process == nil else { return }
-        self.outputprocess = OutputProcess()
-        let dict = self.allprofiles!.allconfigurationsasdictionary?[self.index!]
-        let config = Configuration(dictionary: dict!)
-        let duargs = DuArgumentsSsh(config: config)
-        guard duargs.getArguments() != nil || duargs.getCommand() != nil else { return }
-        self.working.startAnimation(nil)
-        self.command = OtherProcessCmdClosure(command: duargs.getCommand(),
-                                              arguments: duargs.getArguments(),
-                                              processtermination: self.processtermination,
-                                              filehandler: self.filehandler)
-        self.command?.executeProcess(outputprocess: self.outputprocess)
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         self.mainTableView.delegate = self
         self.mainTableView.dataSource = self
         self.search.delegate = self
         self.mainTableView.target = self
-        self.mainTableView.doubleAction = #selector(self.getremotesizes)
-        self.working.usesThreadedAnimation = true
         self.initpopupbutton()
     }
 
@@ -107,10 +83,6 @@ class ViewControllerAllProfiles: NSViewController, Delay, Abort {
         globalMainQueue.async { () -> Void in
             self.mainTableView.reloadData()
         }
-    }
-
-    @objc(tableViewDoubleClick:) func tableViewDoubleClick(sender _: AnyObject) {
-        self.getremotesizes()
     }
 }
 
@@ -154,10 +126,10 @@ extension ViewControllerAllProfiles: NSTableViewDelegate, Attributedestring {
         case 2:
             self.filterby = .localcatalog
         case 3:
-            self.filterby = .offsitecatalog
+            self.filterby = .offsiteserver
         case 4:
             self.filterby = .offsiteserver
-        case 8, 9:
+        case 5, 6:
             sortbystring = false
             self.filterby = .executedate
         default:
@@ -217,28 +189,6 @@ extension ViewControllerAllProfiles: NSSearchFieldDelegate {
             self.allprofiles = AllConfigurations()
             self.mainTableView.reloadData()
         }
-    }
-}
-
-extension ViewControllerAllProfiles {
-    func processtermination() {
-        self.working.stopAnimation(nil)
-        guard ViewControllerReference.shared.process != nil else { return }
-        let numbers = RemoteNumbers(outputprocess: self.outputprocess)
-        if let index = self.index {
-            self.allprofiles?.allconfigurationsasdictionary?[index].setValue(numbers.getused(), forKey: DictionaryStrings.used.rawValue)
-            self.allprofiles?.allconfigurationsasdictionary?[index].setValue(numbers.getavail(), forKey: DictionaryStrings.avail.rawValue)
-            self.allprofiles?.allconfigurationsasdictionary?[index].setValue(numbers.getpercentavaliable(), forKey: "availpercent")
-        }
-        globalMainQueue.async { () -> Void in
-            self.mainTableView.reloadData()
-        }
-        ViewControllerReference.shared.process = nil
-        self.command = nil
-    }
-
-    func filehandler() {
-        //
     }
 }
 
