@@ -15,22 +15,23 @@ final class AllConfigurations: Sorting {
     private var allprofiles: [String]?
 
     private func readallconfigurations() {
-        guard self.allprofiles != nil else { return }
         var configurations: [Configuration]?
         for i in 0 ..< (self.allprofiles?.count ?? 0) {
-            let profile = self.allprofiles![i]
+            let profile = self.allprofiles?[i]
             if self.allconfigurations == nil {
                 self.allconfigurations = []
             }
-            if profile == "Default profile" {
-                configurations = PersistentStorageAllprofilesAPI(profile: nil).getConfigurations()
+            if profile == NSLocalizedString("Default profile", comment: "default profile") {
+                configurations = PersistentStorageAllprofilesAPI(profile: nil).getallconfigurations()
             } else {
-                configurations = PersistentStorageAllprofilesAPI(profile: profile).getConfigurations()
+                configurations = PersistentStorageAllprofilesAPI(profile: profile).getallconfigurations()
             }
             guard configurations != nil else { return }
             for j in 0 ..< (configurations?.count ?? 0) {
-                configurations![j].profile = profile
-                self.allconfigurations!.append(configurations![j])
+                configurations?[j].profile = profile
+                if let config = configurations?[j] {
+                    self.allconfigurations?.append(config)
+                }
             }
         }
     }
@@ -65,7 +66,7 @@ final class AllConfigurations: Sorting {
     }
 
     // Function for filter
-    func myownfilter(search: String?, filterby: Sortandfilter?) {
+    func filter(search: String?, filterby: Sortandfilter?) {
         guard search != nil, self.allconfigurationsasdictionary != nil, filterby != nil else { return }
         globalDefaultQueue.async { () -> Void in
             let valueforkey = self.filterbystring(filterby: filterby!)

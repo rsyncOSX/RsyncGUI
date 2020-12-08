@@ -11,8 +11,7 @@ import Foundation
 class PersistentStorageAllprofilesAPI: SetConfigurations, SetSchedules {
     var profile: String?
 
-    // Read configurations from persisten store
-    func getConfigurations() -> [Configuration]? {
+    func getallconfigurations() -> [Configuration]? {
         var configurations = [Configuration]()
         let read = PersistentStorageConfiguration(profile: self.profile, readonly: true)
         guard read.configurationsasdictionary != nil else { return nil }
@@ -23,8 +22,6 @@ class PersistentStorageAllprofilesAPI: SetConfigurations, SetSchedules {
         return configurations
     }
 
-    // Read schedules and history
-    // If no Schedule from persistent store return nil
     func getScheduleandhistory(includelog: Bool) -> [ConfigurationSchedule]? {
         var schedule = [ConfigurationSchedule]()
         let read = PersistentStorageScheduling(profile: self.profile, readonly: true)
