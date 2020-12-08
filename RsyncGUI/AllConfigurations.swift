@@ -38,28 +38,26 @@ final class AllConfigurations: Sorting {
 
     private func setConfigurationsDataSourcecountBackupSnapshot() {
         guard self.allconfigurations != nil else { return }
-        var configurations = self.allconfigurations?.filter {
+        var configurations: [Configuration] = self.allconfigurations!.filter {
             ViewControllerReference.shared.synctasks.contains($0.task)
         }
         var data = [NSMutableDictionary]()
-        for i in 0 ..< (configurations?.count ?? 0) {
-            if configurations?[i].offsiteServer.isEmpty == true {
-                configurations?[i].offsiteServer = DictionaryStrings.localhost.rawValue
+        for i in 0 ..< configurations.count {
+            if configurations[i].offsiteServer.isEmpty == true {
+                configurations[i].offsiteServer = DictionaryStrings.localhost.rawValue
             }
-            var date: String = ""
-            let stringdate = configurations?[i].dateRun ?? ""
             let row: NSMutableDictionary = [
-                DictionaryStrings.profile.rawValue: configurations?[i].profile ?? "",
-                DictionaryStrings.task.rawValue: configurations?[i].task ?? "",
-                DictionaryStrings.hiddenID.rawValue: configurations?[i].hiddenID ?? -1,
-                DictionaryStrings.localCatalog.rawValue: configurations?[i].localCatalog ?? "",
-                DictionaryStrings.offsiteCatalog.rawValue: configurations?[i].offsiteCatalog ?? "",
-                DictionaryStrings.offsiteServer.rawValue: configurations?[i].offsiteServer ?? "",
-                DictionaryStrings.offsiteUsername.rawValue: configurations?[i].offsiteUsername ?? "",
-                DictionaryStrings.backupID.rawValue: configurations?[i].backupID ?? "",
-                DictionaryStrings.dateExecuted.rawValue: date,
-                DictionaryStrings.daysID.rawValue: configurations?[i].dayssincelastbackup ?? "",
-                DictionaryStrings.markdays.rawValue: configurations?[i].markdays ?? false,
+                DictionaryStrings.profile.rawValue: configurations[i].profile ?? "",
+                DictionaryStrings.task.rawValue: configurations[i].task,
+                DictionaryStrings.hiddenID.rawValue: configurations[i].hiddenID,
+                DictionaryStrings.localCatalog.rawValue: configurations[i].localCatalog,
+                DictionaryStrings.offsiteCatalog.rawValue: configurations[i].offsiteCatalog,
+                DictionaryStrings.offsiteServer.rawValue: configurations[i].offsiteServer,
+                DictionaryStrings.offsiteUsername.rawValue: configurations[i].offsiteUsername,
+                DictionaryStrings.backupID.rawValue: configurations[i].backupID,
+                DictionaryStrings.dateExecuted.rawValue: configurations[i].dateRun!,
+                DictionaryStrings.daysID.rawValue: configurations[i].dayssincelastbackup ?? "",
+                DictionaryStrings.markdays.rawValue: configurations[i].markdays,
                 DictionaryStrings.selectCellID.rawValue: 0,
             ]
             data.append(row)

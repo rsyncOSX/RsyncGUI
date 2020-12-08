@@ -88,7 +88,7 @@ class ViewControllerAllProfiles: NSViewController, Delay, Abort, Connected {
         self.allschedules = Allschedules(includelog: false)
         self.sortdirection.image = #imageLiteral(resourceName: "up")
         self.sortascending = true
-        self.allprofiles?.allconfigurationsasdictionary = self.allprofiles!.sortbydate(notsortedlist: self.allprofiles?.allconfigurationsasdictionary, sortdirection: self.sortascending)
+        self.allprofiles?.allconfigurationsasdictionary = self.allprofiles?.sortbydate(notsortedlist: self.allprofiles?.allconfigurationsasdictionary, sortdirection: self.sortascending)
         globalMainQueue.async { () -> Void in
             self.mainTableView.reloadData()
         }
@@ -126,30 +126,9 @@ extension ViewControllerAllProfiles: NSTableViewDelegate, Attributedestring {
     // TableView delegates
     func tableView(_: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
         if let tableColumn = tableColumn {
-            if row > (self.allprofiles?.allconfigurationsasdictionary?.count ?? 0) - 1 { return nil }
+            if row > (self.allprofiles?.allconfigurationsasdictionary?.count ?? -1) - 1 { return nil }
             if let object: NSDictionary = self.allprofiles?.allconfigurationsasdictionary?[row] {
-                let hiddenID = object.value(forKey: DictionaryStrings.hiddenID.rawValue) as? Int ?? -1
-                let profile = object.value(forKey: DictionaryStrings.profile.rawValue) as? String ?? NSLocalizedString("Default profile", comment: "default profile")
-                if tableColumn.identifier.rawValue == "intime" {
-                    let taskintime: String? = ""
-                    return taskintime ?? ""
-                } else if tableColumn.identifier.rawValue == DictionaryStrings.schedule.rawValue {
-                    let schedule = ""
-                    switch schedule {
-                    case Scheduletype.once.rawValue:
-                        return NSLocalizedString("once", comment: "main")
-                    case Scheduletype.daily.rawValue:
-                        return NSLocalizedString("daily", comment: "main")
-                    case Scheduletype.weekly.rawValue:
-                        return NSLocalizedString("weekly", comment: "main")
-                    case Scheduletype.manuel.rawValue:
-                        return NSLocalizedString("manuel", comment: "main")
-                    default:
-                        return ""
-                    }
-                } else {
-                    return object[tableColumn.identifier] as? String
-                }
+                return object[tableColumn.identifier] as? String
             }
         }
         return nil
