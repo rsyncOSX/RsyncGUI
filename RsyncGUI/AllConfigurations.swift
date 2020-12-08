@@ -15,48 +15,51 @@ final class AllConfigurations: Sorting {
     private var allprofiles: [String]?
 
     private func readallconfigurations() {
-        guard self.allprofiles != nil else { return }
         var configurations: [Configuration]?
         for i in 0 ..< (self.allprofiles?.count ?? 0) {
-            let profile = self.allprofiles![i]
+            let profile = self.allprofiles?[i]
             if self.allconfigurations == nil {
                 self.allconfigurations = []
             }
-            if profile == "Default profile" {
-                configurations = PersistentStorageAllprofilesAPI(profile: nil).getConfigurations()
+            if profile == NSLocalizedString("Default profile", comment: "default profile") {
+                configurations = PersistentStorageAllprofilesAPI(profile: nil).getallconfigurations()
             } else {
-                configurations = PersistentStorageAllprofilesAPI(profile: profile).getConfigurations()
+                configurations = PersistentStorageAllprofilesAPI(profile: profile).getallconfigurations()
             }
             guard configurations != nil else { return }
             for j in 0 ..< (configurations?.count ?? 0) {
-                configurations![j].profile = profile
-                self.allconfigurations!.append(configurations![j])
+                configurations?[j].profile = profile
+                if let config = configurations?[j] {
+                    self.allconfigurations?.append(config)
+                }
             }
         }
     }
 
     private func setConfigurationsDataSourcecountBackupSnapshot() {
         guard self.allconfigurations != nil else { return }
-        var configurations: [Configuration] = self.allconfigurations!.filter {
+        var configurations = self.allconfigurations?.filter {
             ViewControllerReference.shared.synctasks.contains($0.task)
         }
         var data = [NSMutableDictionary]()
-        for i in 0 ..< configurations.count {
-            if configurations[i].offsiteServer.isEmpty == true {
-                configurations[i].offsiteServer = DictionaryStrings.localhost.rawValue
+        for i in 0 ..< (configurations?.count ?? 0) {
+            if configurations?[i].offsiteServer.isEmpty == true {
+                configurations?[i].offsiteServer = DictionaryStrings.localhost.rawValue
             }
+            var date: String = ""
+            let stringdate = configurations?[i].dateRun ?? ""
             let row: NSMutableDictionary = [
-                DictionaryStrings.profile.rawValue: configurations[i].profile ?? "",
-                DictionaryStrings.task.rawValue: configurations[i].task,
-                DictionaryStrings.hiddenID.rawValue: configurations[i].hiddenID,
-                DictionaryStrings.localCatalog.rawValue: configurations[i].localCatalog,
-                DictionaryStrings.offsiteCatalog.rawValue: configurations[i].offsiteCatalog,
-                DictionaryStrings.offsiteServer.rawValue: configurations[i].offsiteServer,
-                DictionaryStrings.offsiteUsername.rawValue: configurations[i].offsiteUsername,
-                DictionaryStrings.backupID.rawValue: configurations[i].backupID,
-                DictionaryStrings.dateExecuted.rawValue: configurations[i].dateRun!,
-                DictionaryStrings.daysID.rawValue: configurations[i].dayssincelastbackup ?? "",
-                DictionaryStrings.markdays.rawValue: configurations[i].markdays,
+                DictionaryStrings.profile.rawValue: configurations?[i].profile ?? "",
+                DictionaryStrings.task.rawValue: configurations?[i].task ?? "",
+                DictionaryStrings.hiddenID.rawValue: configurations?[i].hiddenID ?? -1,
+                DictionaryStrings.localCatalog.rawValue: configurations?[i].localCatalog ?? "",
+                DictionaryStrings.offsiteCatalog.rawValue: configurations?[i].offsiteCatalog ?? "",
+                DictionaryStrings.offsiteServer.rawValue: configurations?[i].offsiteServer ?? "",
+                DictionaryStrings.offsiteUsername.rawValue: configurations?[i].offsiteUsername ?? "",
+                DictionaryStrings.backupID.rawValue: configurations?[i].backupID ?? "",
+                DictionaryStrings.dateExecuted.rawValue: date,
+                DictionaryStrings.daysID.rawValue: configurations?[i].dayssincelastbackup ?? "",
+                DictionaryStrings.markdays.rawValue: configurations?[i].markdays ?? false,
                 DictionaryStrings.selectCellID.rawValue: 0,
             ]
             data.append(row)
@@ -65,7 +68,7 @@ final class AllConfigurations: Sorting {
     }
 
     // Function for filter
-    func myownfilter(search: String?, filterby: Sortandfilter?) {
+    func filter(search: String?, filterby: Sortandfilter?) {
         guard search != nil, self.allconfigurationsasdictionary != nil, filterby != nil else { return }
         globalDefaultQueue.async { () -> Void in
             let valueforkey = self.filterbystring(filterby: filterby!)
