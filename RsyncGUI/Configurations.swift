@@ -26,8 +26,6 @@ class Configurations: ReloadTable, SetSchedules {
     var quickbackuplist: [Int]?
     // Estimated backup list, all backups
     var estimatedlist: [NSMutableDictionary]?
-    // remote and local info
-    var localremote: [NSDictionary]?
     // remote info tasks
     var remoteinfoestimation: RemoteinfoEstimation?
     // Array for holding sequrity scoped urls
