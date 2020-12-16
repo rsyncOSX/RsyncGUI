@@ -257,7 +257,7 @@ class ViewControllerMain: NSViewController, ReloadTable, Deselect, VcMain, Delay
             self.view.window?.center()
             ViewControllerReference.shared.initialstart = 1
         }
-        if (self.configurations?.configurationsDataSourcecount() ?? 0) > 0 {
+        if (self.configurations?.configurations?.count ?? 0) > 0 {
             globalMainQueue.async { () -> Void in
                 self.mainTableView.reloadData()
             }

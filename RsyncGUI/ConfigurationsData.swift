@@ -14,8 +14,6 @@ final class ConfigurationsData {
     var profile: String?
     // Initialized during startup
     var argumentAllConfigurations: [ArgumentsOneConfiguration]?
-    // Datasource for NSTableViews
-    var configurationsDataSource: [NSMutableDictionary]?
     // valid hiddenIDs
     var validhiddenID: Set<Int>?
     var persistentstorage: PersistentStorage?
@@ -35,23 +33,11 @@ final class ConfigurationsData {
                     }
                 }
             }
-            // Then prepare the datasource for use in tableviews as Dictionarys
-            var data = [NSMutableDictionary]()
-            for i in 0 ..< (self.configurations?.count ?? 0) {
-                let task = self.configurations?[i].task
-                if ViewControllerReference.shared.synctasks.contains(task ?? "") {
-                    if let config = self.configurations?[i] {
-                        data.append(ConvertOneConfig(config: config).dict)
-                    }
-                }
-            }
-            self.configurationsDataSource = data
         }
     }
 
     init(profile: String?) {
         self.profile = profile
-        self.configurationsDataSource = nil
         self.configurations = nil
         self.argumentAllConfigurations = nil
         self.configurations = [Configuration]()

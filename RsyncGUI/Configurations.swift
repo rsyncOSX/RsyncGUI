@@ -22,14 +22,10 @@ class Configurations: ReloadTable, SetSchedules {
     // Array to store argumenst for all tasks.
     // Initialized during startup
     var argumentAllConfigurations: [ArgumentsOneConfiguration]?
-    // Datasource for NSTableViews
-    var configurationsDataSource: [NSMutableDictionary]?
     // backup list from remote info view
     var quickbackuplist: [Int]?
     // Estimated backup list, all backups
     var estimatedlist: [NSMutableDictionary]?
-    // remote and local info
-    var localremote: [NSDictionary]?
     // remote info tasks
     var remoteinfoestimation: RemoteinfoEstimation?
     // Array for holding sequrity scoped urls
@@ -53,8 +49,6 @@ class Configurations: ReloadTable, SetSchedules {
     }
 
     // Function for getting Configurations read into memory
-    // - parameter none: none
-    // - returns : Array of configurations
     func getConfigurations() -> [Configuration]? {
         return self.configurations
     }
@@ -64,21 +58,6 @@ class Configurations: ReloadTable, SetSchedules {
     // - returns : Array of arguments
     func getargumentAllConfigurations() -> [ArgumentsOneConfiguration]? {
         return self.argumentAllConfigurations
-    }
-
-    // Function for getting the number of configurations used in NSTableViews
-    // - parameter none: none
-    // - returns : Int
-    func configurationsDataSourcecount() -> Int {
-        return self.configurationsDataSource?.count ?? 0
-    }
-
-    // Function for getting Configurations read into memory
-    // as datasource for tableViews
-    // - parameter none: none
-    // - returns : Array of Configurations
-    func getConfigurationsDataSource() -> [NSDictionary]? {
-        return self.configurationsDataSource
     }
 
     // Function for getting all Configurations marked as backup (not restore)
@@ -328,12 +307,10 @@ class Configurations: ReloadTable, SetSchedules {
         self.profile = profile
         self.configurations = nil
         self.argumentAllConfigurations = nil
-        self.configurationsDataSource = nil
         // Read and prepare configurations and rsync parameters
         let configurationsdata = ConfigurationsData(profile: profile)
         self.configurations = configurationsdata.configurations
         self.argumentAllConfigurations = configurationsdata.argumentAllConfigurations
-        self.configurationsDataSource = configurationsdata.configurationsDataSource
         self.validhiddenID = configurationsdata.validhiddenID
         ViewControllerReference.shared.process = nil
         self.appendsequrityscopedurls()

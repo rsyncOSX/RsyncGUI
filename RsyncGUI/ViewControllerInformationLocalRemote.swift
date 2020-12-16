@@ -1,6 +1,6 @@
 //
 //  ViewControllerInformationLocalRemote.swift
-//  RsyncGUI
+//  RsyncOSX
 //
 //  Created by Thomas Evensen on 24.05.2018.
 //  Copyright © 2018 Thomas Evensen. All rights reserved.
@@ -10,17 +10,38 @@
 import Cocoa
 import Foundation
 
-protocol SetLocalRemoteInfo: AnyObject {
-    func setlocalremoteinfo(info: NSMutableDictionary?)
-    func getlocalremoteinfo(index: Int) -> [NSDictionary]?
+struct LocaleRemoteInfo {
+    var localremote: [NSDictionary]?
+
+    func getlocalremoteinfo(index: Int) -> [NSDictionary]? {
+        if let info = self.localremote?.filter({ ($0.value(forKey: DictionaryStrings.index.rawValue) as? Int) ?? -1 == index }) {
+            return info
+        } else {
+            return nil
+        }
+    }
+
+    mutating func setlocalremoteinfo(info: NSMutableDictionary?) {
+        if let info = info {
+            if self.localremote == nil {
+                self.localremote?.append(info)
+            } else {
+                self.localremote?.append(info)
+            }
+        }
+    }
+
+    init() {
+        self.localremote = [NSDictionary]()
+    }
 }
 
 class ViewControllerInformationLocalRemote: NSViewController, SetDismisser, Index, SetConfigurations, Setcolor, Connected {
     private var index: Int?
     private var outputprocess: OutputProcess?
     private var complete: Bool = false
+    private var localremoteinfo: LocaleRemoteInfo?
 
-    weak var localremoteinfoDelegate: SetLocalRemoteInfo?
     @IBOutlet var transferredNumber: NSTextField!
     @IBOutlet var transferredNumberSizebytes: NSTextField!
     @IBOutlet var totalNumber: NSTextField!
@@ -35,7 +56,6 @@ class ViewControllerInformationLocalRemote: NSViewController, SetDismisser, Inde
     override func viewDidLoad() {
         super.viewDidLoad()
         ViewControllerReference.shared.setvcref(viewcontroller: .vcinfolocalremote, nsviewcontroller: self)
-        self.localremoteinfoDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllerMain
     }
 
     override func viewDidAppear() {
@@ -52,18 +72,15 @@ class ViewControllerInformationLocalRemote: NSViewController, SetDismisser, Inde
             let numberlastbackup = self.configurations?.getConfigurations()?[index].dayssincelastbackup ?? ""
             self.dayslastbackup.stringValue = NSLocalizedString("Days since last synchronize:", comment: "Remote Info")
                 + " " + numberlastbackup
-            if self.localremoteinfoDelegate?.getlocalremoteinfo(index: index)?.count ?? 0 > 0 {
-                self.setcachedNumbers(dict: self.localremoteinfoDelegate?.getlocalremoteinfo(index: index))
+            if self.connected(config: self.configurations?.getConfigurations()?[index]) == true {
+                self.localremoteinfo = LocaleRemoteInfo()
+                self.working.startAnimation(nil)
+                self.outputprocess = OutputProcess()
+                let estimation = EstimateremoteInformationOnetask(index: index, outputprocess: self.outputprocess, local: true, processtermination: self.processtermination, filehandler: self.filehandler)
+                estimation.startestimation()
             } else {
-                if self.connected(config: self.configurations?.getConfigurations()?[index]) == true {
-                    self.working.startAnimation(nil)
-                    self.outputprocess = OutputProcess()
-                    let estimation = EstimateremoteInformationOnetask(index: index, outputprocess: self.outputprocess, local: true, processtermination: self.processtermination, filehandler: self.filehandler)
-                    estimation.startestimation()
-                } else {
-                    self.gotit.stringValue = NSLocalizedString("Seems not to be connected...", comment: "Remote Info")
-                    self.gotit.textColor = self.setcolor(nsviewcontroller: self, color: .green)
-                }
+                self.gotit.stringValue = NSLocalizedString("Seems not to be connected...", comment: "Remote Info")
+                self.gotit.textColor = self.setcolor(nsviewcontroller: self, color: .green)
             }
         }
     }
@@ -78,33 +95,19 @@ class ViewControllerInformationLocalRemote: NSViewController, SetDismisser, Inde
         globalMainQueue.async { () -> Void in
             let infotask = RemoteinfonumbersOnetask(outputprocess: outputprocess)
             if local {
-                self.localtotalNumber.stringValue = infotask.totalNumber!
-                self.localtotalNumberSizebytes.stringValue = infotask.totalNumberSizebytes!
-                self.localremoteinfoDelegate!.setlocalremoteinfo(info: infotask.recordremotenumbers(index: self.index ?? -1))
+                self.localtotalNumber.stringValue = infotask.totalNumber ?? ""
+                self.localtotalNumberSizebytes.stringValue = infotask.totalNumberSizebytes ?? ""
+                self.localremoteinfo?.setlocalremoteinfo(info: infotask.recordremotenumbers(index: self.index ?? -1))
             } else {
-                self.transferredNumber.stringValue = infotask.transferredNumber!
-                self.transferredNumberSizebytes.stringValue = infotask.transferredNumberSizebytes!
-                self.totalNumber.stringValue = infotask.totalNumber!
-                self.totalNumberSizebytes.stringValue = infotask.totalNumberSizebytes!
-                self.localremoteinfoDelegate!.setlocalremoteinfo(info: infotask.recordremotenumbers(index: self.index ?? -1))
+                self.transferredNumber.stringValue = infotask.transferredNumber ?? ""
+                self.transferredNumberSizebytes.stringValue = infotask.transferredNumberSizebytes ?? ""
+                self.totalNumber.stringValue = infotask.totalNumber ?? ""
+                self.totalNumberSizebytes.stringValue = infotask.totalNumberSizebytes ?? ""
+                self.localremoteinfo?.setlocalremoteinfo(info: infotask.recordremotenumbers(index: self.index ?? -1))
                 self.working.stopAnimation(nil)
                 self.gotit.stringValue = NSLocalizedString("Got it...", comment: "Remote Info")
                 self.gotit.textColor = self.setcolor(nsviewcontroller: self, color: .green)
             }
-        }
-    }
-
-    private func setcachedNumbers(dict: [NSDictionary]?) {
-        if let infodictes = dict {
-            guard infodictes.count == 2 else { return }
-            self.localtotalNumber.stringValue = (infodictes[0].value(forKey: DictionaryStrings.totalNumber.rawValue) as? String) ?? ""
-            self.localtotalNumberSizebytes.stringValue = (infodictes[0].value(forKey: DictionaryStrings.totalNumberSizebytes.rawValue) as? String) ?? ""
-            self.transferredNumber.stringValue = (infodictes[1].value(forKey: DictionaryStrings.transferredNumber.rawValue) as? String) ?? ""
-            self.transferredNumberSizebytes.stringValue = (infodictes[1].value(forKey: DictionaryStrings.transferredNumberSizebytes.rawValue) as? String) ?? ""
-            self.totalNumber.stringValue = (infodictes[1].value(forKey: DictionaryStrings.totalNumber.rawValue) as? String) ?? ""
-            self.totalNumberSizebytes.stringValue = (infodictes[1].value(forKey: DictionaryStrings.totalNumberSizebytes.rawValue) as? String) ?? ""
-            self.gotit.stringValue = NSLocalizedString("Loaded cached data...", comment: "Remote Info")
-            self.gotit.textColor = self.setcolor(nsviewcontroller: self, color: .green)
         }
     }
 }

@@ -288,27 +288,6 @@ extension ViewControllerMain: Reloadsortedandrefresh {
     }
 }
 
-extension ViewControllerMain: SetLocalRemoteInfo {
-    func getlocalremoteinfo(index: Int) -> [NSDictionary]? {
-        guard self.configurations?.localremote != nil else { return nil }
-        if let info = self.configurations?.localremote?.filter({ ($0.value(forKey: DictionaryStrings.index.rawValue) as? Int)! == index }) {
-            return info
-        } else {
-            return nil
-        }
-    }
-
-    func setlocalremoteinfo(info: NSMutableDictionary?) {
-        guard info != nil else { return }
-        if self.configurations?.localremote == nil {
-            self.configurations?.localremote = [NSMutableDictionary]()
-            self.configurations?.localremote!.append(info!)
-        } else {
-            self.configurations?.localremote!.append(info!)
-        }
-    }
-}
-
 extension ViewControllerMain: ViewOutputDetails {
     func getalloutput() -> [String] {
         return self.outputprocess?.getrawOutput() ?? []
