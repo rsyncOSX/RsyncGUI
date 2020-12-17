@@ -126,6 +126,7 @@
 		E98FA9E522C5F78300D6D103 /* RsyncGUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98FA9E422C5F78300D6D103 /* RsyncGUITests.swift */; };
 		E996431E231AF0EF00E05B40 /* ViewControllerSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E996431D231AF0EF00E05B40 /* ViewControllerSource.swift */; };
 		E99A2479255E85260074D3E4 /* Checksynchronizedfiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99A2478255E85260074D3E4 /* Checksynchronizedfiles.swift */; };
+		E9A027D5258B358000704EF1 /* ConfigurationsAsDictionarys.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A027D4258B358000704EF1 /* ConfigurationsAsDictionarys.swift */; };
 		E9A8D81C1ED20AEB009648DE /* GetRemoteFileListingsArguments.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A8D81B1ED20AEB009648DE /* GetRemoteFileListingsArguments.swift */; };
 		E9AC133A254A0FFB00835A3F /* Files in Frameworks */ = {isa = PBXBuildFile; productRef = E9AC1339254A0FFB00835A3F /* Files */; };
 		E9B9CCA621BC46B00042D5CE /* extensionDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B9CCA521BC46B00042D5CE /* extensionDate.swift */; };
@@ -286,6 +287,7 @@
 		E98FA9E622C5F78300D6D103 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E996431D231AF0EF00E05B40 /* ViewControllerSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerSource.swift; sourceTree = "<group>"; };
 		E99A2478255E85260074D3E4 /* Checksynchronizedfiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checksynchronizedfiles.swift; sourceTree = "<group>"; };
+		E9A027D4258B358000704EF1 /* ConfigurationsAsDictionarys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationsAsDictionarys.swift; sourceTree = "<group>"; };
 		E9A8D81B1ED20AEB009648DE /* GetRemoteFileListingsArguments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetRemoteFileListingsArguments.swift; sourceTree = "<group>"; };
 		E9AE2E90217E3270003486E0 /* RsyncGUI.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RsyncGUI.entitlements; sourceTree = "<group>"; };
 		E9B9CCA521BC46B00042D5CE /* extensionDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensionDate.swift; sourceTree = "<group>"; };
@@ -458,6 +460,7 @@
 				E9DB9022241E047000C4C519 /* Info.swift */,
 				E80596EE253035AA00E9D38E /* Backupconfigfiles.swift */,
 				E92B0F19258B2A3D0091A770 /* Estimatedlistforsynchronization.swift */,
+				E9A027D4258B358000704EF1 /* ConfigurationsAsDictionarys.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -1034,6 +1037,7 @@
 				E9282DB722C0B050004AA0E5 /* Getrsyncpath.swift in Sources */,
 				E96A95922195D5F3000326F2 /* DuArgumentsSsh.swift in Sources */,
 				E94F0708211D8FCC00B2C3D8 /* ViewControllerAllOutput.swift in Sources */,
+				E9A027D5258B358000704EF1 /* ConfigurationsAsDictionarys.swift in Sources */,
 				E871B1D6257B6A3B00C280F7 /* RestoreActions.swift in Sources */,
 				E98997F621E265F300B5D5A3 /* OpenPanelDelegate.swift in Sources */,
 				E958D35D25187CA80046E8F4 /* RsyncProcessCmdClosure.swift in Sources */,

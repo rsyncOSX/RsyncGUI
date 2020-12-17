@@ -130,23 +130,9 @@ class ViewControllerRestore: NSViewController, SetConfigurations, Delay, Connect
             self.infolabel.isHidden = true
             self.remotefiles.stringValue = ""
             let hiddenID = Estimatedlistforsynchronization().getConfigurationsDataSourceSynchronize()?[index].value(forKey: DictionaryStrings.hiddenID.rawValue) as? Int ?? -1
-            if Estimatedlistforsynchronization().getConfigurationsDataSourceSynchronize()?[index].value(forKey: DictionaryStrings.taskCellID.rawValue) as? String ?? "" != ViewControllerReference.shared.snapshot {
-                self.restorefilestask = RestorefilesTask(hiddenID: hiddenID, processtermination: self.processtermination, filehandler: self.filehandler)
-                self.remotefilelist = Remotefilelist(hiddenID: hiddenID)
-                self.working.startAnimation(nil)
-            } else {
-                let question: String = NSLocalizedString("Filelist for snapshot tasks might be huge?", comment: "Restore")
-                let text: String = NSLocalizedString("Start getting files?", comment: "Restore")
-                let dialog: String = NSLocalizedString("Start", comment: "Restore")
-                let answer = Alerts.dialogOrCancel(question: question, text: text, dialog: dialog)
-                if answer {
-                    self.restorefilestask = RestorefilesTask(hiddenID: hiddenID, processtermination: self.processtermination, filehandler: self.filehandler)
-                    self.remotefilelist = Remotefilelist(hiddenID: hiddenID)
-                    self.working.startAnimation(nil)
-                } else {
-                    self.reset()
-                }
-            }
+            self.restorefilestask = RestorefilesTask(hiddenID: hiddenID, processtermination: self.processtermination, filehandler: self.filehandler)
+            self.remotefilelist = Remotefilelist(hiddenID: hiddenID)
+            self.working.startAnimation(nil)
         }
     }
 

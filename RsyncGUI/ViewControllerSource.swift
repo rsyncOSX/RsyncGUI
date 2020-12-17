@@ -1,6 +1,6 @@
 //
 //  ViewControllerSource.swift
-//  RsyncGUI
+//  RsyncOSX
 //
 //  Created by Thomas Evensen on 31/08/2019.
 //  Copyright © 2019 Thomas Evensen. All rights reserved.
@@ -9,28 +9,18 @@
 import Cocoa
 import Foundation
 
-class ViewControllerSource: NSViewController, SetConfigurations, SetDismisser {
+class ViewControllerSource: NSViewController, SetConfigurations {
     @IBOutlet var mainTableView: NSTableView!
 
     weak var getSourceDelegateSsh: ViewControllerSsh?
     private var index: Int?
 
-    private func dismissview() {
-        if (self.presentingViewController as? ViewControllerMain) != nil {
-            self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
-        } else if (self.presentingViewController as? ViewControllerNewConfigurations) != nil {
-            self.dismissview(viewcontroller: self, vcontroller: .vcnewconfigurations)
-        } else if (self.presentingViewController as? ViewControllerLoggData) != nil {
-            self.dismissview(viewcontroller: self, vcontroller: .vcloggdata)
-        } else if (self.presentingViewController as? ViewControllerRestore) != nil {
-            self.dismissview(viewcontroller: self, vcontroller: .vcrestore)
-        } else if (self.presentingViewController as? ViewControllerSsh) != nil {
-            self.dismissview(viewcontroller: self, vcontroller: .vcssh)
-        }
+    @IBAction func closeview(_: NSButton) {
+        self.view.window?.close()
     }
 
     private func select() {
-        if let pvc = self.presentingViewController as? ViewControllerSsh {
+        if let pvc = ViewControllerReference.shared.getvcref(viewcontroller: .vcssh) as? ViewControllerSsh {
             self.getSourceDelegateSsh = pvc
             if let index = self.index {
                 self.getSourceDelegateSsh?.getSourceindex(index: index)
@@ -38,13 +28,9 @@ class ViewControllerSource: NSViewController, SetConfigurations, SetDismisser {
         }
     }
 
-    @IBAction func close(_: NSButton) {
-        self.dismissview()
-    }
-
     @IBAction func select(_: NSButton) {
         self.select()
-        self.dismissview()
+        self.view.window?.close()
     }
 
     // Initial functions viewDidLoad and viewDidAppear
@@ -63,7 +49,7 @@ class ViewControllerSource: NSViewController, SetConfigurations, SetDismisser {
 
     @objc(tableViewDoubleClick:) func tableViewDoubleClick(sender _: AnyObject) {
         self.select()
-        self.dismissview()
+        self.view.window?.close()
     }
 
     // when row is selected, setting which table row is selected
@@ -71,7 +57,7 @@ class ViewControllerSource: NSViewController, SetConfigurations, SetDismisser {
         let myTableViewFromNotification = (notification.object as? NSTableView)!
         let indexes = myTableViewFromNotification.selectedRowIndexes
         if let index = indexes.first {
-            if let object = self.configurations?.uniqueserversandlogins()?[index] {
+            if let object = ConfigurationsAsDictionarys().uniqueserversandlogins()?[index] {
                 if let hiddenID = object.value(forKey: DictionaryStrings.hiddenID.rawValue) as? Int {
                     self.index = hiddenID
                 }
@@ -82,13 +68,17 @@ class ViewControllerSource: NSViewController, SetConfigurations, SetDismisser {
 
 extension ViewControllerSource: NSTableViewDataSource {
     func numberOfRows(in _: NSTableView) -> Int {
-        return self.configurations?.uniqueserversandlogins()?.count ?? 0
+        return ConfigurationsAsDictionarys().uniqueserversandlogins()?.count ?? 0
     }
 }
 
 extension ViewControllerSource: NSTableViewDelegate {
     func tableView(_: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
-        let object: NSDictionary = self.configurations!.uniqueserversandlogins()![row]
-        return object[tableColumn!.identifier] as? String
+        if let object: NSDictionary = ConfigurationsAsDictionarys().uniqueserversandlogins()?[row],
+           let tableColumn = tableColumn
+        {
+            return object[tableColumn.identifier] as? String
+        }
+        return nil
     }
 }
