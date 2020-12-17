@@ -27,6 +27,7 @@ class ViewControllerRestore: NSViewController, SetConfigurations, Delay, Connect
     var restoreactions: RestoreActions?
     // Send messages to the sidebar
     weak var sidebaractionsDelegate: Sidebaractions?
+    var configurations: Estimatedlistforsynchronization?
 
     @IBOutlet var restoretableView: NSTableView!
     @IBOutlet var rsynctableView: NSTableView!
@@ -60,6 +61,7 @@ class ViewControllerRestore: NSViewController, SetConfigurations, Delay, Connect
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.configurations = Estimatedlistforsynchronization()
         ViewControllerReference.shared.setvcref(viewcontroller: .vcrestore, nsviewcontroller: self)
         self.outputeverythingDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllerMain
         self.restoretableView.delegate = self
@@ -127,7 +129,7 @@ class ViewControllerRestore: NSViewController, SetConfigurations, Delay, Connect
         if let index = self.index {
             self.infolabel.isHidden = true
             self.remotefiles.stringValue = ""
-            let hiddenID = self.configurations?.getConfigurationsDataSourceSynchronize()?[index].value(forKey: DictionaryStrings.hiddenID.rawValue) as? Int ?? -1
+            let hiddenID = Estimatedlistforsynchronization().getConfigurationsDataSourceSynchronize()?[index].value(forKey: DictionaryStrings.hiddenID.rawValue) as? Int ?? -1
             self.restorefilestask = RestorefilesTask(hiddenID: hiddenID, processtermination: self.processtermination, filehandler: self.filehandler)
             self.remotefilelist = Remotefilelist(hiddenID: hiddenID)
             self.working.startAnimation(nil)
