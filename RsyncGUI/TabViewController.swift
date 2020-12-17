@@ -11,8 +11,8 @@ import Foundation
 
 class TabViewController: NSTabViewController {
     func setsize() {
-        self.view.frame.size.width = 950 + 12
-        self.view.frame.size.height = 340 + 12
+        self.view.frame.size.width = 960 + 12
+        self.view.frame.size.height = 350 + 12
         self.view.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
     }
 
