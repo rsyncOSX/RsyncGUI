@@ -16,18 +16,18 @@ class ScheduleWriteLoggData: SetConfigurations, ReloadTable, Deselect {
 
     typealias Row = (Int, Int)
     func deleteselectedrows(scheduleloggdata: ScheduleLoggData?) {
-        guard scheduleloggdata?.loggdata != nil else { return }
+        guard scheduleloggdata?.loggrecords != nil else { return }
         var deletes = [Row]()
-        let selectdeletes = scheduleloggdata?.loggdata?.filter { ($0.value(forKey: DictionaryStrings.deleteCellID.rawValue) as? Int) == 1 }.sorted { (dict1, dict2) -> Bool in
-            if (dict1.value(forKey: DictionaryStrings.parent.rawValue) as? Int) ?? 0 > (dict2.value(forKey: DictionaryStrings.parent.rawValue) as? Int) ?? 0 {
+        let selectdeletes = scheduleloggdata?.loggrecords?.filter { $0.delete == 1 }.sorted { (dict1, dict2) -> Bool in
+            if dict1.parent > dict2.parent {
                 return true
             } else {
                 return false
             }
         }
         for i in 0 ..< (selectdeletes?.count ?? 0) {
-            let parent = selectdeletes?[i].value(forKey: DictionaryStrings.parent.rawValue) as? Int ?? 0
-            let sibling = selectdeletes?[i].value(forKey: DictionaryStrings.sibling.rawValue) as? Int ?? 0
+            let parent = selectdeletes?[i].parent ?? 0
+            let sibling = selectdeletes?[i].sibling ?? 0
             deletes.append((parent, sibling))
         }
         deletes.sort(by: { (obj1, obj2) -> Bool in
@@ -39,7 +39,7 @@ class ScheduleWriteLoggData: SetConfigurations, ReloadTable, Deselect {
         for i in 0 ..< deletes.count {
             self.schedules?[deletes[i].0].logrecords?.remove(at: deletes[i].1)
         }
-        PersistentStorageScheduling(profile: self.profile).savescheduleInMemoryToPersistentStore()
+        PersistentStorage(profile: self.profile, whattoreadorwrite: .schedule).saveMemoryToPersistentStore()
         self.reloadtable(vcontroller: .vcloggdata)
     }
 
@@ -57,7 +57,7 @@ class ScheduleWriteLoggData: SetConfigurations, ReloadTable, Deselect {
                 inserted = self.addlognew(hiddenID: hiddenID, result: resultannotaded ?? "", date: date)
             }
             if inserted {
-                PersistentStorageScheduling(profile: self.profile).savescheduleInMemoryToPersistentStore()
+                PersistentStorage(profile: self.profile, whattoreadorwrite: .schedule).saveMemoryToPersistentStore()
                 self.deselectrowtable()
             }
         }
@@ -79,7 +79,7 @@ class ScheduleWriteLoggData: SetConfigurations, ReloadTable, Deselect {
         return false
     }
 
-    private func addlognew(hiddenID: Int, result: String, date: String) -> Bool {
+    func addlognew(hiddenID: Int, result: String, date: String) -> Bool {
         if ViewControllerReference.shared.synctasks.contains(self.configurations?.getResourceConfiguration(hiddenID, resource: .task) ?? "") {
             let main = NSMutableDictionary()
             main.setObject(hiddenID, forKey: DictionaryStrings.hiddenID.rawValue as NSCopying)
@@ -97,13 +97,13 @@ class ScheduleWriteLoggData: SetConfigurations, ReloadTable, Deselect {
         return false
     }
 
-    private func getconfig(hiddenID: Int) -> Configuration? {
+    func getconfig(hiddenID: Int) -> Configuration? {
         let index = self.configurations?.getIndex(hiddenID) ?? 0
         return self.configurations?.getConfigurations()?[index]
     }
 
     init(profile: String?) {
         self.profile = profile
-        self.schedules = [ConfigurationSchedule]()
+        self.schedules = nil
     }
 }

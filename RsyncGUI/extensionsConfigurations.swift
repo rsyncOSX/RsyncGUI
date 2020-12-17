@@ -67,7 +67,7 @@ enum ArgumentsRsync {
 
 // Enum which resource to return
 enum ResourceInConfiguration {
-    case offsiteCatalog
+    case remoteCatalog
     case localCatalog
     case offsiteServer
     case task
