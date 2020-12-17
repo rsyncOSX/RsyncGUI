@@ -157,15 +157,6 @@ class ViewControllerLoggData: NSViewController, SetConfigurations, SetSchedules,
             self.scheduletable.reloadData()
         }
     }
-
-    func marksnaps() {
-        print("marksnap")
-        /*
-         guard snapshotlogsandcatalogs?.logrecordssnapshot != nil else { return }
-         guard self.loggrecords != nil else { return }
-         for i in 0 ..< (self.loggrecords?.count ?? 0) {
-         */
-    }
 }
 
 extension ViewControllerLoggData: NSSearchFieldDelegate {
