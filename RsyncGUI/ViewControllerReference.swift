@@ -103,6 +103,8 @@ final class ViewControllerReference {
     var sshkeypathandidentityfile: String?
     // Check for network connection
     var monitornetworkconnection: Bool = false
+    // for automatic backup
+    var estimatedlistforsynchronization: Estimatedlistforsynchronization?
 
     // Reference to main View
     private var viewControllertabMain: NSViewController?

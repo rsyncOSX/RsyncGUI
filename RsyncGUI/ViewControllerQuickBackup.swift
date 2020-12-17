@@ -31,10 +31,9 @@ class ViewControllerQuickBackup: NSViewController, SetDismisser, Abort, Delay, S
 
     // Either abort or close
     @IBAction func abort(_: NSButton) {
-        if self.executing {
-            self.quickbackup = nil
-            self.abort()
-        }
+        self.quickbackup?.abort()
+        self.quickbackup = nil
+        self.abort()
         if (self.presentingViewController as? ViewControllerMain) != nil {
             self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
         } else if (self.presentingViewController as? ViewControllerNewConfigurations) != nil {
@@ -54,7 +53,6 @@ class ViewControllerQuickBackup: NSViewController, SetDismisser, Abort, Delay, S
         self.mainTableView.delegate = self
         self.mainTableView.dataSource = self
         self.completed.isHidden = true
-        self.quickbackup = QuickBackup()
     }
 
     override func viewDidAppear() {
@@ -65,14 +63,7 @@ class ViewControllerQuickBackup: NSViewController, SetDismisser, Abort, Delay, S
             }
             return
         }
-        guard self.quickbackup?.sortedlist?.count ?? 0 > 0 else {
-            self.completed.isHidden = false
-            self.completed.textColor = setcolor(nsviewcontroller: self, color: .green)
-            self.completed.stringValue = NSLocalizedString("There seems to be nothing to do...", comment: "Quickbackup")
-            self.executing = false
-            return
-        }
-        self.quickbackup?.prepareandstartexecutetasks()
+        self.quickbackup = QuickBackup()
         globalMainQueue.async { () -> Void in
             self.mainTableView.reloadData()
         }
@@ -81,6 +72,8 @@ class ViewControllerQuickBackup: NSViewController, SetDismisser, Abort, Delay, S
     override func viewDidDisappear() {
         super.viewDidDisappear()
         self.diddissappear = true
+        // release the quickobject
+        self.quickbackup = nil
     }
 
     private func initiateProgressbar(progress: NSProgressIndicator) {
@@ -111,9 +104,10 @@ extension ViewControllerQuickBackup: NSTableViewDelegate {
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         guard self.quickbackup?.sortedlist != nil else { return nil }
         guard row < (self.quickbackup?.sortedlist?.count ?? 0) else { return nil }
-        if let object: NSDictionary = self.quickbackup?.sortedlist?[row] {
+        if let object: NSDictionary = self.quickbackup?.sortedlist?[row],
+           let cellIdentifier: String = tableColumn?.identifier.rawValue
+        {
             let hiddenID = object.value(forKey: DictionaryStrings.hiddenID.rawValue) as? Int
-            let cellIdentifier: String = tableColumn!.identifier.rawValue
             switch cellIdentifier {
             case "percentCellID":
                 guard hiddenID == self.quickbackup?.hiddenID else { return nil }
@@ -139,6 +133,7 @@ extension ViewControllerQuickBackup: NSTableViewDelegate {
                     }
                 }
             default:
+                print(cellIdentifier)
                 if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: cellIdentifier), owner: self) as? NSTableCellView {
                     cell.textField?.stringValue = object.value(forKey: cellIdentifier) as? String ?? ""
                     return cell
@@ -154,16 +149,6 @@ extension ViewControllerQuickBackup: Reloadandrefresh {
         globalMainQueue.async { () -> Void in
             self.mainTableView.reloadData()
         }
-    }
-}
-
-extension ViewControllerQuickBackup: ReportonandhaltonError {
-    func reportandhaltonerror() {
-        self.quickbackup = nil
-        self.abort()
-        self.completed.isHidden = false
-        self.completed.stringValue = "Error"
-        self.completed.textColor = setcolor(nsviewcontroller: self, color: .red)
     }
 }
 

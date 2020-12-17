@@ -70,6 +70,7 @@
 		E9282DB522C0AF99004AA0E5 /* Displayrsyncpath.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9282DB422C0AF99004AA0E5 /* Displayrsyncpath.swift */; };
 		E9282DB722C0B050004AA0E5 /* Getrsyncpath.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9282DB622C0B050004AA0E5 /* Getrsyncpath.swift */; };
 		E9284CF621308AE9006648C1 /* extensionsConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9284CF521308AE9006648C1 /* extensionsConfigurations.swift */; };
+		E92B0F1A258B2A3D0091A770 /* Estimatedlistforsynchronization.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92B0F19258B2A3D0091A770 /* Estimatedlistforsynchronization.swift */; };
 		E92F368D22B4022800B9C3AB /* Remotefilelist.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92F368C22B4022800B9C3AB /* Remotefilelist.swift */; };
 		E933B6CD2196B30D0033D7D2 /* RemoteNumbers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E933B6CC2196B30D0033D7D2 /* RemoteNumbers.swift */; };
 		E9374D2E1E329A5800CD3945 /* CompleteQuickbackupTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9374D2D1E329A5800CD3945 /* CompleteQuickbackupTask.swift */; };
@@ -227,6 +228,7 @@
 		E9282DB422C0AF99004AA0E5 /* Displayrsyncpath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Displayrsyncpath.swift; sourceTree = "<group>"; };
 		E9282DB622C0B050004AA0E5 /* Getrsyncpath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Getrsyncpath.swift; sourceTree = "<group>"; };
 		E9284CF521308AE9006648C1 /* extensionsConfigurations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensionsConfigurations.swift; sourceTree = "<group>"; };
+		E92B0F19258B2A3D0091A770 /* Estimatedlistforsynchronization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Estimatedlistforsynchronization.swift; sourceTree = "<group>"; };
 		E92F368C22B4022800B9C3AB /* Remotefilelist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Remotefilelist.swift; sourceTree = "<group>"; };
 		E933B6CC2196B30D0033D7D2 /* RemoteNumbers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNumbers.swift; sourceTree = "<group>"; };
 		E9374D2D1E329A5800CD3945 /* CompleteQuickbackupTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompleteQuickbackupTask.swift; sourceTree = "<group>"; };
@@ -455,6 +457,7 @@
 				E8EDD15223C8C0E800806CCD /* Validatenewconfigs.swift */,
 				E9DB9022241E047000C4C519 /* Info.swift */,
 				E80596EE253035AA00E9D38E /* Backupconfigfiles.swift */,
+				E92B0F19258B2A3D0091A770 /* Estimatedlistforsynchronization.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -939,6 +942,7 @@
 				E9005014248FA06E00FAD2BC /* Keypathidentityfile.swift in Sources */,
 				A04972511D6595B200086EFD /* OutputProcess.swift in Sources */,
 				E943DC6A1FF9141D00E6B8B7 /* RemoteinfoEstimation.swift in Sources */,
+				E92B0F1A258B2A3D0091A770 /* Estimatedlistforsynchronization.swift in Sources */,
 				E9BBE8C32273131F00404D7A /* ConvertConfigurations.swift in Sources */,
 				E83B4471235F3C6700BBC793 /* ArgumentsSynchronize.swift in Sources */,
 				E939EC4A20C048A000C47F91 /* extensionsVCMain.swift in Sources */,

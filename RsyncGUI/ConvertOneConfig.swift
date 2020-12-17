@@ -1,8 +1,8 @@
 //
 //  ConvertOneConfig.swift
-//  RsyncGUI
+//  RsyncOSX
 //
-//  Created by Thomas Evensen on 30/05/2019.
+//  Created by Thomas Evensen on 25/05/2019.
 //  Copyright © 2019 Thomas Evensen. All rights reserved.
 //
 // swiftlint:disable trailing_comma
@@ -20,8 +20,8 @@ struct ConvertOneConfig {
             DictionaryStrings.offsiteCatalogCellID.rawValue: self.config?.offsiteCatalog ?? "",
             DictionaryStrings.offsiteUsernameID.rawValue: self.config?.offsiteUsername ?? "",
             DictionaryStrings.offsiteServerCellID.rawValue: self.config?.offsiteServer ?? "",
-            "backupIDCellID": self.config?.backupID ?? "",
-            "runDateCellID": self.config?.dateRun ?? "",
+            DictionaryStrings.backupIDCellID.rawValue: self.config?.backupID ?? "",
+            DictionaryStrings.runDateCellID.rawValue: self.config?.dateRun ?? "",
             DictionaryStrings.daysID.rawValue: self.config?.dayssincelastbackup ?? "",
             DictionaryStrings.markdays.rawValue: self.config?.markdays ?? "",
             DictionaryStrings.selectCellID.rawValue: 0,
