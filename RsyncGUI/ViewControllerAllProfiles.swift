@@ -5,7 +5,7 @@
 //  Created by Thomas Evensen on 07.03.2018.
 //  Copyright © 2018 Thomas Evensen. All rights reserved.
 //
-// swiftlint:disable line_length
+// swiftlint:disable line_length cyclomatic_complexity
 
 import Cocoa
 import Foundation
@@ -22,7 +22,7 @@ class ViewControllerAllProfiles: NSViewController, Delay, Abort, Connected {
     @IBOutlet var numberOfprofiles: NSTextField!
     @IBOutlet var profilepopupbutton: NSPopUpButton!
 
-    var allprofiles: AllConfigurations?
+    var allconfigurations: AllConfigurations?
     var allschedules: Allschedules?
     var column: Int?
     var filterby: Sortandfilter?
@@ -31,10 +31,6 @@ class ViewControllerAllProfiles: NSViewController, Delay, Abort, Connected {
     var outputprocess: OutputProcess?
 
     var command: OtherProcessCmdClosure?
-
-    @IBAction func abort(_: NSButton) {
-        _ = InterruptProcess()
-    }
 
     @IBAction func closeview(_: NSButton) {
         self.view.window?.close()
@@ -48,19 +44,7 @@ class ViewControllerAllProfiles: NSViewController, Delay, Abort, Connected {
             self.sortascending = true
             self.sortdirection.image = #imageLiteral(resourceName: "up")
         }
-        switch self.filterby ?? .localcatalog {
-        case .executedate:
-            self.allprofiles?.allconfigurationsasdictionary =
-                self.allprofiles?.sortbydate(notsortedlist: self.allprofiles?.allconfigurationsasdictionary,
-                                             sortdirection: self.sortascending)
-        default:
-            self.allprofiles?.allconfigurationsasdictionary =
-                self.allprofiles?.sortbystring(notsortedlist: self.allprofiles?.allconfigurationsasdictionary,
-                                               sortby: self.filterby ?? .localcatalog, sortdirection: self.sortascending)
-        }
-        globalMainQueue.async { () -> Void in
-            self.mainTableView.reloadData()
-        }
+        self.sortbycolumn()
     }
 
     override func viewDidLoad() {
@@ -73,25 +57,22 @@ class ViewControllerAllProfiles: NSViewController, Delay, Abort, Connected {
 
     override func viewDidAppear() {
         super.viewDidAppear()
-        self.reloadallprofiles()
+        self.sortdirection.image = #imageLiteral(resourceName: "up")
+        self.sortascending = true
         self.initpopupbutton()
         ViewControllerReference.shared.setvcref(viewcontroller: .vcallprofiles, nsviewcontroller: self)
+        self.allconfigurations = AllConfigurations()
+        self.allschedules = Allschedules(includelog: false)
+        globalMainQueue.async { () -> Void in
+            self.mainTableView.reloadData()
+        }
     }
 
     override func viewDidDisappear() {
         super.viewDidDisappear()
         ViewControllerReference.shared.setvcref(viewcontroller: .vcallprofiles, nsviewcontroller: nil)
-    }
-
-    func reloadallprofiles() {
-        self.allprofiles = AllConfigurations()
-        self.allschedules = Allschedules(includelog: false)
-        self.sortdirection.image = #imageLiteral(resourceName: "up")
-        self.sortascending = true
-        self.allprofiles?.allconfigurationsasdictionary = self.allprofiles?.sortbydate(notsortedlist: self.allprofiles?.allconfigurationsasdictionary, sortdirection: self.sortascending)
-        globalMainQueue.async { () -> Void in
-            self.mainTableView.reloadData()
-        }
+        self.allschedules = nil
+        self.allconfigurations = nil
     }
 
     func initpopupbutton() {
@@ -111,14 +92,41 @@ class ViewControllerAllProfiles: NSViewController, Delay, Abort, Connected {
         }
         self.profilepopupbutton.selectItem(at: selectedindex)
         _ = Selectprofile(profile: profile, selectedindex: selectedindex)
+        self.view.window?.close()
+    }
+
+    func sortbycolumn() {
+        var comp: (String, String) -> Bool
+        if self.sortascending == true {
+            comp = (<)
+        } else {
+            comp = (>)
+        }
+        switch self.column {
+        case 0:
+            self.allconfigurations?.allconfigurations = allconfigurations?.allconfigurations?.sorted(by: \.profile!, using: comp)
+        case 3:
+            self.allconfigurations?.allconfigurations = allconfigurations?.allconfigurations?.sorted(by: \.task, using: comp)
+        case 4:
+            self.allconfigurations?.allconfigurations = allconfigurations?.allconfigurations?.sorted(by: \.localCatalog, using: comp)
+        case 5:
+            self.allconfigurations?.allconfigurations = allconfigurations?.allconfigurations?.sorted(by: \.offsiteCatalog, using: comp)
+        case 6:
+            self.allconfigurations?.allconfigurations = allconfigurations?.allconfigurations?.sorted(by: \.offsiteServer, using: comp)
+        default:
+            return
+        }
+        globalMainQueue.async { () -> Void in
+            self.mainTableView.reloadData()
+        }
     }
 }
 
 extension ViewControllerAllProfiles: NSTableViewDataSource {
     func numberOfRows(in _: NSTableView) -> Int {
         self.numberOfprofiles.stringValue = NSLocalizedString("Number of configurations:", comment: "AllProfiles") + " " +
-            String(self.allprofiles?.allconfigurationsasdictionary?.count ?? 0)
-        return self.allprofiles?.allconfigurationsasdictionary?.count ?? 0
+            String(self.allconfigurations?.allconfigurations?.count ?? 0)
+        return self.allconfigurations?.allconfigurations?.count ?? 0
     }
 }
 
@@ -126,9 +134,26 @@ extension ViewControllerAllProfiles: NSTableViewDelegate, Attributedestring {
     // TableView delegates
     func tableView(_: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
         if let tableColumn = tableColumn {
-            if row > (self.allprofiles?.allconfigurationsasdictionary?.count ?? -1) - 1 { return nil }
-            if let object: NSDictionary = self.allprofiles?.allconfigurationsasdictionary?[row] {
-                return object[tableColumn.identifier] as? String
+            if row > (self.allconfigurations?.allconfigurations?.count ?? 0) - 1 { return nil }
+            if let object = self.allconfigurations?.allconfigurations?[row] {
+                switch tableColumn.identifier.rawValue {
+                case "profile":
+                    return object.profile ?? ""
+                case "localCatalog":
+                    return object.localCatalog
+                case "offsiteCatalog":
+                    return object.offsiteCatalog
+                case "offsiteServer":
+                    return object.offsiteServer
+                case "daysID":
+                    return object.dayssincelastbackup
+                case "task":
+                    return object.task
+                case "dateExecuted":
+                    return object.dateRun ?? ""
+                default:
+                    return nil
+                }
             }
         }
         return nil
@@ -144,53 +169,22 @@ extension ViewControllerAllProfiles: NSTableViewDelegate, Attributedestring {
         } else {
             self.index = nil
         }
-        var sortbystring = true
         self.column = column
-        switch column {
-        case 0:
-            self.filterby = .profile
-        case 3:
-            self.filterby = .task
-        case 4:
-            self.filterby = .localcatalog
-        case 5:
-            self.filterby = .offsitecatalog
-        case 6:
-            self.filterby = .offsiteserver
-        case 7, 8:
-            sortbystring = false
-            self.filterby = .executedate
-        default:
-            return
-        }
-        if sortbystring {
-            self.allprofiles?.allconfigurationsasdictionary =
-                self.allprofiles?.sortbystring(notsortedlist: self.allprofiles?.allconfigurationsasdictionary,
-                                               sortby: self.filterby!, sortdirection: self.sortascending)
-        } else {
-            self.allprofiles?.allconfigurationsasdictionary =
-                self.allprofiles?.sortbydate(notsortedlist: self.allprofiles?.allconfigurationsasdictionary,
-                                             sortdirection: self.sortascending)
-        }
-        globalMainQueue.async { () -> Void in
-            self.mainTableView.reloadData()
-        }
+        self.sortbycolumn()
     }
 }
 
 extension ViewControllerAllProfiles: NSSearchFieldDelegate {
     func controlTextDidChange(_: Notification) {
         self.delayWithSeconds(0.25) {
-            guard self.column != nil else { return }
-            let filterstring = self.search.stringValue
-            if filterstring.isEmpty {
+            if self.search.stringValue.isEmpty {
                 globalMainQueue.async { () -> Void in
-                    self.allprofiles = AllConfigurations()
+                    self.allconfigurations?.allconfigurations = AllConfigurations().allconfigurations
                     self.mainTableView.reloadData()
                 }
             } else {
                 globalMainQueue.async { () -> Void in
-                    self.allprofiles?.filter(search: filterstring, filterby: self.filterby)
+                    self.allconfigurations?.filter(search: self.search.stringValue)
                     self.mainTableView.reloadData()
                 }
             }
@@ -199,14 +193,8 @@ extension ViewControllerAllProfiles: NSSearchFieldDelegate {
 
     func searchFieldDidEndSearching(_: NSSearchField) {
         globalMainQueue.async { () -> Void in
-            self.allprofiles = AllConfigurations()
+            self.allconfigurations?.allconfigurations = AllConfigurations().allconfigurations
             self.mainTableView.reloadData()
         }
-    }
-}
-
-extension ViewControllerAllProfiles: ReloadTableAllProfiles {
-    func reloadtable() {
-        self.reloadallprofiles()
     }
 }
