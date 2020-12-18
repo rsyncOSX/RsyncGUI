@@ -129,6 +129,7 @@ extension QuickBackup {
             weak var quickbackupcompletedDelegate: QuickBackupCompleted?
             quickbackupcompletedDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcquickbackup) as? ViewControllerQuickBackup
             quickbackupcompletedDelegate?.quickbackupcompleted()
+            self.command = nil
             return
         }
         if let hiddenID = self.stackoftasktobeexecuted?[0].0,
