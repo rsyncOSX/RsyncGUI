@@ -105,13 +105,13 @@ class ViewControllerAllProfiles: NSViewController, Delay, Abort, Connected {
         switch self.column {
         case 0:
             self.allconfigurations?.allconfigurations = allconfigurations?.allconfigurations?.sorted(by: \.profile!, using: comp)
-        case 3:
+        case 1:
             self.allconfigurations?.allconfigurations = allconfigurations?.allconfigurations?.sorted(by: \.task, using: comp)
-        case 4:
+        case 2:
             self.allconfigurations?.allconfigurations = allconfigurations?.allconfigurations?.sorted(by: \.localCatalog, using: comp)
-        case 5:
+        case 3:
             self.allconfigurations?.allconfigurations = allconfigurations?.allconfigurations?.sorted(by: \.offsiteCatalog, using: comp)
-        case 6:
+        case 4:
             self.allconfigurations?.allconfigurations = allconfigurations?.allconfigurations?.sorted(by: \.offsiteServer, using: comp)
         default:
             return
