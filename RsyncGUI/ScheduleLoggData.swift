@@ -45,10 +45,10 @@ struct Logrecordsschedules {
     var seconds: Int = 0
 }
 
-final class ScheduleLoggData: SetConfigurations, SetSchedules, Sorting {
+final class ScheduleLoggData: SetConfigurations, SetSchedules {
     var loggrecords: [Logrecordsschedules]?
 
-    func filter(search: String?, filterby _: Sortandfilter?) {
+    func filter(search: String?) {
         globalDefaultQueue.async { () -> Void in
             self.loggrecords = self.loggrecords?.filter { ($0.dateExecuted.contains(search ?? "")) }
         }
