@@ -205,11 +205,14 @@ extension ViewControllerNewConfigurations: NSTableViewDataSource {
 
 extension ViewControllerNewConfigurations: NSTableViewDelegate {
     func tableView(_: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
-        if let object: NSMutableDictionary = self.newconfigurations?.getnewConfigurations()?[row] {
-            return object[tableColumn!.identifier] as? String
-        } else {
-            return nil
+        if let tableColumn = tableColumn {
+            if let object: NSMutableDictionary = self.newconfigurations?.getnewConfigurations()?[row] {
+                return object[tableColumn.identifier] as? String
+            } else {
+                return nil
+            }
         }
+        return nil
     }
 }
 
@@ -230,7 +233,7 @@ extension ViewControllerNewConfigurations: SetProfileinfo {
 
 extension ViewControllerNewConfigurations: NSTextFieldDelegate {
     func controlTextDidEndEditing(_ notification: Notification) {
-        if (notification.object as? NSTextField)! == self.localCatalog {
+        if notification.object as? NSTextField == self.localCatalog {
             self.editlocalcatalog = true
         } else {
             self.editlocalcatalog = false
