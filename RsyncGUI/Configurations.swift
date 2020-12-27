@@ -12,7 +12,6 @@
 //
 //  swiftlint:disable line_length trailing_comma
 
-import Cocoa
 import Foundation
 
 class Configurations: ReloadTable, SetSchedules {
