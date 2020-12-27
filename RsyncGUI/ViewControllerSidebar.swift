@@ -62,6 +62,7 @@ class ViewControllerSideBar: NSViewController, SetConfigurations, Delay, VcMain,
         if let view = self.whichviewispresented {
             switch view {
             case .mainviewbuttons:
+                guard ViewControllerReference.shared.process == nil else { return }
                 self.presentAsModalWindow(self.editViewController!)
             case .addviewbuttons:
                 weak var deleteDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcnewconfigurations) as? ViewControllerNewConfigurations
@@ -83,6 +84,7 @@ class ViewControllerSideBar: NSViewController, SetConfigurations, Delay, VcMain,
         if let view = self.whichviewispresented {
             switch view {
             case .mainviewbuttons:
+                guard ViewControllerReference.shared.process == nil else { return }
                 self.presentAsModalWindow(self.viewControllerRsyncParams!)
             case .addviewbuttons:
                 self.presentAsModalWindow(self.viewControllerAssist!)
@@ -105,6 +107,7 @@ class ViewControllerSideBar: NSViewController, SetConfigurations, Delay, VcMain,
             switch view {
             case .mainviewbuttons:
                 // Delete
+                guard ViewControllerReference.shared.process == nil else { return }
                 weak var deleteDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllerMain
                 deleteDelegate?.sidebarbuttonactions(action: .Delete)
             case .addviewbuttons:
@@ -130,6 +133,7 @@ class ViewControllerSideBar: NSViewController, SetConfigurations, Delay, VcMain,
         if let view = self.whichviewispresented {
             switch view {
             case .mainviewbuttons:
+                guard ViewControllerReference.shared.process == nil else { return }
                 self.presentAsModalWindow(self.rsynccommand!)
                 return
             case .addviewbuttons:
