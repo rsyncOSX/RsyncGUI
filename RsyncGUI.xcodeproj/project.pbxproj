@@ -110,9 +110,7 @@
 		E976CBBD256C430E008DBE98 /* PersistentStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E976CBBC256C430E008DBE98 /* PersistentStorage.swift */; };
 		E976CBC1256C4444008DBE98 /* SchedulesData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E976CBC0256C4444008DBE98 /* SchedulesData.swift */; };
 		E977A794252C8AF4009D9E87 /* ConvertAssist.swift in Sources */ = {isa = PBXBuildFile; fileRef = E977A793252C8AF4009D9E87 /* ConvertAssist.swift */; };
-		E977A798252C8B25009D9E87 /* PersistentStorageAssist.swift in Sources */ = {isa = PBXBuildFile; fileRef = E977A797252C8B25009D9E87 /* PersistentStorageAssist.swift */; };
 		E977A79D252C8C16009D9E87 /* Assist.swift in Sources */ = {isa = PBXBuildFile; fileRef = E977A79C252C8C16009D9E87 /* Assist.swift */; };
-		E977A7A3252C8C3F009D9E87 /* AssistDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = E977A7A2252C8C3F009D9E87 /* AssistDefault.swift */; };
 		E977A7A7252C8C73009D9E87 /* ViewControllerAssist.swift in Sources */ = {isa = PBXBuildFile; fileRef = E977A7A6252C8C73009D9E87 /* ViewControllerAssist.swift */; };
 		E97C05F8229FBBA30044EAF6 /* ConvertOneConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97C05F7229FBBA30044EAF6 /* ConvertOneConfig.swift */; };
 		E97E3BA71F6256DB00411D0E /* Configurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97E3BA61F6256DB00411D0E /* Configurations.swift */; };
@@ -269,9 +267,7 @@
 		E976CBBC256C430E008DBE98 /* PersistentStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentStorage.swift; sourceTree = "<group>"; };
 		E976CBC0256C4444008DBE98 /* SchedulesData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulesData.swift; sourceTree = "<group>"; };
 		E977A793252C8AF4009D9E87 /* ConvertAssist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertAssist.swift; sourceTree = "<group>"; };
-		E977A797252C8B25009D9E87 /* PersistentStorageAssist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentStorageAssist.swift; sourceTree = "<group>"; };
 		E977A79C252C8C16009D9E87 /* Assist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assist.swift; sourceTree = "<group>"; };
-		E977A7A2252C8C3F009D9E87 /* AssistDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistDefault.swift; sourceTree = "<group>"; };
 		E977A7A6252C8C73009D9E87 /* ViewControllerAssist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerAssist.swift; sourceTree = "<group>"; };
 		E97C05F7229FBBA30044EAF6 /* ConvertOneConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertOneConfig.swift; sourceTree = "<group>"; };
 		E97E3BA61F6256DB00411D0E /* Configurations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configurations.swift; sourceTree = "<group>"; };
@@ -573,7 +569,6 @@
 				E9609EF41F229F5900F5BFAA /* PersistentStorageConfiguration.swift */,
 				A0EFB44F1DC080A9008C21A6 /* PersistentStorageUserconfiguration.swift */,
 				E937C6A024FCE08D00410127 /* Configpath.swift */,
-				E977A797252C8B25009D9E87 /* PersistentStorageAssist.swift */,
 				E976CBBC256C430E008DBE98 /* PersistentStorage.swift */,
 			);
 			name = PersistentStorage;
@@ -621,7 +616,6 @@
 			isa = PBXGroup;
 			children = (
 				E977A79C252C8C16009D9E87 /* Assist.swift */,
-				E977A7A2252C8C3F009D9E87 /* AssistDefault.swift */,
 			);
 			name = Assist;
 			sourceTree = "<group>";
@@ -987,7 +981,6 @@
 				A0EFB4501DC080A9008C21A6 /* PersistentStorageUserconfiguration.swift in Sources */,
 				E909C2F523F3D8A200FF8A52 /* ViewControllerRestore.swift in Sources */,
 				E9F068F01F27B93E00DDF1A1 /* ConfigurationSchedule.swift in Sources */,
-				E977A798252C8B25009D9E87 /* PersistentStorageAssist.swift in Sources */,
 				E977A7A7252C8C73009D9E87 /* ViewControllerAssist.swift in Sources */,
 				A00FE1AA1D6A1AAB00012089 /* Alerts.swift in Sources */,
 				E9C6D24120AAB96800B9D212 /* AllProfilenames.swift in Sources */,
@@ -1002,7 +995,6 @@
 				E9282DB522C0AF99004AA0E5 /* Displayrsyncpath.swift in Sources */,
 				E94DC3132313E79700E7CE7E /* extensionVCMainSingletask.swift in Sources */,
 				E9847D6F246DC524007CDEC2 /* OutputProcessRsync.swift in Sources */,
-				E977A7A3252C8C3F009D9E87 /* AssistDefault.swift in Sources */,
 				E80596EF253035AA00E9D38E /* Backupconfigfiles.swift in Sources */,
 				E945D61420B736E9000E787B /* ViewControllerInformationLocalRemote.swift in Sources */,
 				E9234FFB1EB068AE00A4C550 /* Catalogsandfiles.swift in Sources */,
@@ -1233,7 +1225,7 @@
 				CODE_SIGN_ENTITLEMENTS = RsyncGUI/RsyncGUI.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 43;
+				CURRENT_PROJECT_VERSION = 44;
 				DEVELOPMENT_TEAM = 93M47F4H9T;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = RsyncGUI/Info.plist;
@@ -1242,7 +1234,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MARKETING_VERSION = 2.3.5;
+				MARKETING_VERSION = 2.3.6;
 				PRODUCT_BUNDLE_IDENTIFIER = no.blogspot.rsyncgui;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1261,7 +1253,7 @@
 				CODE_SIGN_ENTITLEMENTS = RsyncGUI/RsyncGUI.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 43;
+				CURRENT_PROJECT_VERSION = 44;
 				DEVELOPMENT_TEAM = 93M47F4H9T;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = RsyncGUI/Info.plist;
@@ -1270,7 +1262,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MARKETING_VERSION = 2.3.5;
+				MARKETING_VERSION = 2.3.6;
 				PRODUCT_BUNDLE_IDENTIFIER = no.blogspot.rsyncgui;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
