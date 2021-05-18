@@ -4,6 +4,8 @@
 
 [The changelog](https://rsyncosx.netlify.app/post/rsyncguichangelog/).
 
+This project is archived and there is no further development. There will be released a Sandboxed version of [RsyncUI](https://github.com/rsyncOSX/RsyncUI) later in 2021 to replace RsyncGUI. The app will be avaliable for download omn Apple Mac Store until a replacement is released.
+
 This repository is the source code for the macOS app RsyncGUI. RsyncGUI is a sandboxed macOS app compiled with support for macOS Catalina 10.15 - macOS Big Sur 11.01. The application is implemented in pure Swift 5 (Cocoa and Foundation). RsyncGUI is not depended upon any third party binary distributions. Rsync is a file-based synchronization and backup tool. There is no custom solution for the backup archive. You can quit utilizing RsyncGUI (and rsync) at any time and still have access to all synchronized files.
 
 <a href="https://apps.apple.com/us/app/rsyncgui/id1449707783?mt=12">
